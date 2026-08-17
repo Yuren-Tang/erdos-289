@@ -91,6 +91,6 @@
    "inputRev": "v4.33.0",
    "inherited": false,
    "configFile": "lakefile.lean"}],
- "name": "affine-correction",
+ "name": "affineCorrection",
  "lakeDir": ".lake",
  "fixedToolchain": true}

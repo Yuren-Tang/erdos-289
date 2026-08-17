@@ -1,4 +1,4 @@
-name = "affine-correction"
+name = "affineCorrection"
 version = "0.2.0"
 defaultTargets = ["AffineCorrection"]
 
