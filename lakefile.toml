@@ -1,0 +1,11 @@
+name = "affine-correction"
+version = "0.2.0"
+defaultTargets = ["AffineCorrection"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.0"
+
+[[lean_lib]]
+name = "AffineCorrection"

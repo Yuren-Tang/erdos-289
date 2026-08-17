@@ -1,0 +1,30 @@
+name: Lean
+
+on:
+  push:
+    branches: [main, "agent/**"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build: true
+          build-args: "--wfail"
+          use-mathlib-cache: true
+      - name: Reject project placeholders and declared axioms
+        shell: bash
+        run: |
+          if grep -R -nE '(^|[[:space:]])(sorry|admit)([[:space:]]|$)|^[[:space:]]*axiom[[:space:]]' \
+              --include='*.lean' AffineCorrection.lean AffineCorrection; then
+            echo 'Found a proof placeholder or a project-declared axiom.' >&2
+            exit 1
+          fi
