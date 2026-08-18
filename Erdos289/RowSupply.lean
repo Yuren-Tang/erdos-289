@@ -80,5 +80,40 @@ theorem bandBase_isBigO :
   rw [Real.norm_of_nonneg (Nat.cast_nonneg _), Real.norm_of_nonneg (Nat.cast_nonneg _)]
   exact_mod_cast hQb
 
+theorem tendsto_bandBase : Filter.Tendsto bandBase atTop atTop := by
+  refine Filter.tendsto_atTop_atTop.2 fun b => ⟨4 * b + 1, fun a ha => ?_⟩
+  unfold bandBase
+  omega
+
+/--
+The band carries `≫ Q / log Q` primes.  The growth is asymptotic and stays
+asymptotic: it is `Erdos289.comparablePrimes_card_isBigO` reindexed along the
+band base.
+-/
+theorem bandCard_isBigO :
+    (fun Q : ℕ => (Q : ℝ) / Real.log Q) =O[atTop]
+      fun Q : ℕ => ((comparablePrimes (bandBase Q)).card : ℝ) := by
+  have hcomp :
+      (fun Q : ℕ => ((bandBase Q : ℕ) : ℝ) / Real.log (bandBase Q)) =O[atTop]
+        fun Q : ℕ => ((comparablePrimes (bandBase Q)).card : ℝ) :=
+    comparablePrimes_card_isBigO.comp_tendsto tendsto_bandBase
+  refine IsBigO.trans ?_ hcomp
+  refine IsBigO.of_bound 8 ?_
+  filter_upwards [eventually_ge_atTop 16] with Q hQ
+  have hb : 3 ≤ bandBase Q := by unfold bandBase; omega
+  have hQb : Q ≤ 8 * bandBase Q := by unfold bandBase; omega
+  have hble : bandBase Q ≤ Q := by unfold bandBase; omega
+  have hbR : (3 : ℝ) ≤ ((bandBase Q : ℕ) : ℝ) := by exact_mod_cast hb
+  have hQR : (16 : ℝ) ≤ (Q : ℝ) := by exact_mod_cast hQ
+  have hlogb : 0 < Real.log (bandBase Q) := Real.log_pos (by linarith)
+  have hlogQ : 0 < Real.log (Q : ℝ) := Real.log_pos (by linarith)
+  have hlogle : Real.log (bandBase Q) ≤ Real.log (Q : ℝ) :=
+    Real.log_le_log (by linarith) (by exact_mod_cast hble)
+  have hQbR : (Q : ℝ) ≤ 8 * ((bandBase Q : ℕ) : ℝ) := by exact_mod_cast hQb
+  rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg (by positivity)]
+  rw [div_le_iff₀ hlogQ, mul_comm (8 : ℝ), mul_assoc, div_mul_eq_mul_div,
+    le_div_iff₀ hlogb]
+  nlinarith [hlogb, hlogQ, hbR, hQR]
+
 end SignedInverse
 end Erdos289

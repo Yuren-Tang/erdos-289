@@ -227,5 +227,34 @@ theorem card_badCarriers_le
     _ ≤ 6 * 4 := Nat.mul_le_mul_right _ himg
     _ = 24 := by norm_num
 
+/-- The carriers of a band that admit a usable orientation. -/
+noncomputable def goodCarriers {Q p : ℕ} (hQ1 : 1 < Q) (A : Finset (Carrier Q p)) :
+    Finset (Carrier Q p) := by
+  classical
+  exact A.filter fun x => ((x.pair hQ1).goodOrientations p).Nonempty
+
+/--
+Assembly of the deletion step: a family of band carriers loses at most
+twenty-four members to downwardness exceptions.
+-/
+theorem card_goodCarriers_ge
+    {p e : ℕ} (hp : p.Prime) (hQ1 : 1 < p ^ e)
+    (A : Finset (Carrier (p ^ e) p))
+    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes (p ^ e) p (bandBase (p ^ e))) :
+    A.card - 24 ≤ (goodCarriers hQ1 A).card := by
+  classical
+  set P : Carrier (p ^ e) p → Prop :=
+    fun x => ((x.pair hQ1).goodOrientations p).Nonempty with hPdef
+  have hsplit : (A.filter P).card + (A.filter fun x => ¬ P x).card = A.card :=
+    Finset.card_filter_add_card_filter_not _
+  have hbadle : (A.filter fun x => ¬ P x).card ≤ 24 := by
+    refine card_badCarriers_le hp hQ1 _ (fun x hx => hband x (Finset.mem_filter.mp hx).1)
+      (fun x hx => ?_)
+    have := (Finset.mem_filter.mp hx).2
+    rw [hPdef] at this
+    exact Finset.not_nonempty_iff_eq_empty.mp this
+  have : (goodCarriers hQ1 A).card = (A.filter P).card := rfl
+  omega
+
 end SignedInverse
 end Erdos289

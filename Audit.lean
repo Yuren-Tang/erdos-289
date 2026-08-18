@@ -279,3 +279,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.SignedInverse.card_badCarriers_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.card_badCarriers_le
+
+/-- info: 'Erdos289.SignedInverse.bandCard_isBigO' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.bandCard_isBigO
+
+/-- info: 'Erdos289.SignedInverse.card_goodCarriers_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_goodCarriers_ge

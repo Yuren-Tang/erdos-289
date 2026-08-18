@@ -186,6 +186,10 @@ theorem in the strict reciprocal system.
     `λ b² = ±1` in `ZMod Q` with `1 ≤ λ ≤ 3` (because `Q ≤ 4 b` on the band)
     and `p ∤ λ`; and `card_badCarriers_le` concludes that at most twenty-four
     carriers of a band are lost, independently of `Q`.
+  * *Done.* The assembly at band level.
+    `Erdos289.SignedInverse.card_goodCarriers_ge` says a family of band
+    carriers keeps all but at most twenty-four of its members, and
+    `bandCard_isBigO` says the band itself carries `≫ Q / log Q` primes.
   * **Open.** Deduplication by coefficient (the four-point fibre bound is
     available as `carrierFamily_coefficientFiber_card_le_four`), the rank-half
     truncation, and the resulting centre and mass bounds.
