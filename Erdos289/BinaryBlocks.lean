@@ -47,6 +47,13 @@ theorem mem_binaryBlock {a n : Denominator} :
     n ∈ binaryBlock a ↔ n = a ∨ n = a + 1 := by
   simp [binaryBlock]
 
+/-- A binary block is a translated window of diameter one. -/
+theorem binaryBlock_window (a : Denominator) :
+    ∀ x ∈ binaryBlock a, a.1 ≤ x.1 ∧ x.1 ≤ a.1 + 1 := by
+  intro x hx
+  have h1 : (a + 1).1 = a.1 + 1 := PNat.add_coe a 1
+  rcases mem_binaryBlock.mp hx with rfl | rfl <;> omega
+
 theorem binaryBlock_card (a : Denominator) : (binaryBlock a).card = 2 := by
   have hne : a ≠ a + 1 := ne_of_lt (PNat.lt_add_right a 1)
   simp [binaryBlock, hne]

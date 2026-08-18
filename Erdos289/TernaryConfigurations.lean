@@ -43,42 +43,16 @@ def TernaryPlacement (c : PhysicalConstraint) (starts : Finset Denominator) : Pr
   ∀ a ∈ starts, ∀ b ∈ starts, a ≠ b →
     (ternaryBlock a).CrossSeparated (ternaryBlock b) (max 1 c.separation)
 
-/-- A start-distance margin survives expansion to two-step path intervals. -/
+/--
+A start-distance margin survives expansion to length-three intervals: the
+diameter of the pattern is two, so `m + 2` apart at the starts is `m` apart at
+the blocks.  The `2` is the diameter, not a margin.
+-/
 theorem ternaryBlock_crossSeparated_of_dist
     {a b : Denominator} {m : ℕ}
-    (h : m + 4 < Nat.dist a.1 b.1) :
-    (ternaryBlock a).CrossSeparated (ternaryBlock b) m := by
-  intro x hx y hy
-  have hxlo : a.1 ≤ x.1 := by
-    rcases mem_ternaryBlock.mp hx with rfl | rfl | rfl
-    · exact le_rfl
-    · exact (PNat.lt_add_right a 1).le
-    · exact (PNat.lt_add_right a 2).le
-  have hxhi : x.1 ≤ a.1 + 2 := by
-    rcases mem_ternaryBlock.mp hx with rfl | rfl | rfl
-    · omega
-    · have h1 : (a + 1).1 = a.1 + 1 := PNat.add_coe a 1
-      omega
-    · exact le_of_eq (PNat.add_coe a 2)
-  have hylo : b.1 ≤ y.1 := by
-    rcases mem_ternaryBlock.mp hy with rfl | rfl | rfl
-    · exact le_rfl
-    · exact (PNat.lt_add_right b 1).le
-    · exact (PNat.lt_add_right b 2).le
-  have hyhi : y.1 ≤ b.1 + 2 := by
-    rcases mem_ternaryBlock.mp hy with rfl | rfl | rfl
-    · omega
-    · have h1 : (b + 1).1 = b.1 + 1 := PNat.add_coe b 1
-      omega
-    · exact le_of_eq (PNat.add_coe b 2)
-  rcases le_total a.1 b.1 with hab | hba
-  · rw [Nat.dist_eq_sub_of_le hab] at h
-    rw [Nat.dist_eq_sub_of_le (by omega)]
-    omega
-  · rw [Nat.dist_eq_sub_of_le_right hba] at h
-    rw [Nat.dist_eq_sub_of_le_right (by omega)]
-    omega
-
+    (h : m + 2 < Nat.dist a.1 b.1) :
+    (ternaryBlock a).CrossSeparated (ternaryBlock b) m :=
+  Support.crossSeparated_of_window (ternaryBlock_window a) (ternaryBlock_window b) h
 theorem ternaryBlock_graphDisjoint_configuration
     (c : PhysicalConstraint) {a : Denominator} {starts : Finset Denominator}
     (ha : a ∉ starts) (hplace : TernaryPlacement c (insert a starts)) :

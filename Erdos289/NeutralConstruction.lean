@@ -55,8 +55,13 @@ theorem two_dvd_neutralProduct (a : Denominator) :
   · exact dvd_mul_of_dvd_right
       (even_iff_two_dvd.mp (ha.add_odd (⟨1, by norm_num⟩ : Odd (3 : ℕ)))) _
 
-/-- A single coarse lower bound places both sides of the neutral identity remotely. -/
-theorem neutralBinaryPlacements_of_large
+/--
+Proof technology: one coarse lower bound that simultaneously dominates the
+finitely many gap inequalities of the neutral identity.  The bound itself is a
+witness and is not part of any interface; the statement consumed elsewhere is
+`eventually_neutralBinaryPlacements`.
+-/
+private theorem neutralBinaryPlacements_of_large
     (c : PhysicalConstraint) (a : Denominator)
     (ha : 2 * (c.obstacleCutoff + max 1 c.separation + 10) < a.1) :
     BinaryPlacement c (neutralLowerStarts a) ∧
@@ -127,6 +132,21 @@ theorem neutralBinaryPlacements_of_large
       · exact binaryBlock_crossSeparated_of_gt hShiftProductGap
       · exact binaryBlock_crossSeparated_of_gt hMiddleProductGap
       · exact (hxy rfl).elim
+
+/--
+Eventual admissibility of the neutral family.  For every physical constraint,
+all sufficiently remote members of the polynomial neutral family are placed
+admissibly on both sides of the identity.
+
+This is the intrinsic statement: no particular threshold occurs in it, and any
+witness dominating the finitely many gap inequalities proves it.
+-/
+theorem eventually_neutralBinaryPlacements (c : PhysicalConstraint) :
+    ∃ N : ℕ, ∀ a : Denominator, N < a.1 →
+      BinaryPlacement c (neutralLowerStarts a) ∧
+        BinaryPlacement c (neutralUpperStarts a) :=
+  ⟨2 * (c.obstacleCutoff + max 1 c.separation + 10),
+    fun a ha => neutralBinaryPlacements_of_large c a ha⟩
 
 theorem neutralLowerStarts_card (a : Denominator) :
     (neutralLowerStarts a).card = 2 := by
@@ -272,19 +292,18 @@ theorem neutralLower_value_lt_four_div
 /-- Hard leaf N: the intrinsic neutral fibre has arbitrarily light remote points. -/
 theorem remoteLightNeutralGradeOne : RemoteLightNeutralGradeOne := by
   intro c ε hε
-  let B := 2 * (c.obstacleCutoff + max 1 c.separation + 10)
-  obtain ⟨n, hn⟩ := exists_nat_gt
-    (max (B : ℚ) (4 / ε))
-  have hBnQ : (B : ℚ) < n := lt_of_le_of_lt (le_max_left _ _) hn
-  have hBn : B < n := by exact_mod_cast hBnQ
-  have hnpos : 0 < n := lt_of_le_of_lt (Nat.zero_le B) hBn
+  obtain ⟨N, hN⟩ := eventually_neutralBinaryPlacements c
+  obtain ⟨n, hn⟩ := exists_nat_gt (max (max (N : ℚ) 1) (4 / ε))
+  have hBnQ : (N : ℚ) < n := lt_of_le_of_lt (le_trans (le_max_left _ _) (le_max_left _ _)) hn
+  have hBn : N < n := by exact_mod_cast hBnQ
+  have h1Q : (1 : ℚ) < n := lt_of_le_of_lt (le_trans (le_max_right _ _) (le_max_left _ _)) hn
+  have h1 : 1 < n := by exact_mod_cast h1Q
+  have hnpos : 0 < n := by omega
   let a : Denominator := ⟨n, hnpos⟩
-  have hlarge : 2 * (c.obstacleCutoff + max 1 c.separation + 10) < a.1 := by
-    exact hBn
-  obtain ⟨hlow, hupp⟩ := neutralBinaryPlacements_of_large c a hlarge
-  apply neutralGradeOnePoint_of_placements c ε a (by omega) hlow hupp
-  have hfour : 4 / ε < (n : ℚ) :=
-    lt_of_le_of_lt (le_max_right _ _) hn
+  obtain ⟨hlow, hupp⟩ := hN a hBn
+  have ha2 : 2 ≤ a.1 := by change 2 ≤ n; omega
+  apply neutralGradeOnePoint_of_placements c ε a ha2 hlow hupp
+  have hfour : 4 / ε < (n : ℚ) := lt_of_le_of_lt (le_max_right _ _) hn
   have hnQ : (0 : ℚ) < n := by exact_mod_cast hnpos
   have hsmall : 4 / (n : ℚ) < ε := by
     apply (div_lt_iff₀ hnQ).2

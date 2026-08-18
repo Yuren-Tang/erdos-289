@@ -69,17 +69,29 @@ def upperBlockStarts (S : Support) : Finset Denominator :=
 def upperResidual (S : Support) : ℚ :=
   ∑ n ∈ S, reciprocal (upperResidualDenominator n)
 
-/-- Constraint requested before replacing atoms by binary blocks. -/
+/--
+The constraint requested before replacing atoms by binary blocks.
+
+The obstacle is the obstacle cutoff of `c` joined with the placement threshold,
+and the separation is the effective margin of `c` inflated by the diameter of a
+binary block, which is one.  The blockification map `n ↦ 2n - 1` is expanding,
+so no further margin is needed.
+-/
 def upperBlockificationConstraint
     (c : PhysicalConstraint) (threshold : ℕ) : PhysicalConstraint where
-  obstacle := denominatorPrefix (max (c.obstacleCutoff + 1) threshold)
-  separation := max 1 c.separation + 2
+  obstacle := denominatorPrefix (max c.obstacleCutoff threshold)
+  separation := max 1 c.separation + 1
+
+@[simp] theorem upperBlockificationConstraint_separation
+    (c : PhysicalConstraint) (threshold : ℕ) :
+    (upperBlockificationConstraint c threshold).separation
+      = max 1 c.separation + 1 := rfl
 
 theorem upperPresentation_remote
     {q : ℚ} {c : PhysicalConstraint} {threshold : ℕ}
     (w : RationalPresentation q (upperBlockificationConstraint c threshold))
     {n : Denominator} (hn : n ∈ w.support) :
-    c.obstacleCutoff + 1 < n.1 ∧ threshold < n.1 := by
+    c.obstacleCutoff < n.1 ∧ threshold < n.1 := by
   have hnot : n ∉ (upperBlockificationConstraint c threshold).obstacle := by
     intro hobs
     exact (Finset.disjoint_left.mp w.avoids hn) hobs
@@ -94,6 +106,7 @@ theorem upperPresentation_binaryPlacement
   · intro x hx
     rcases Finset.mem_image.mp hx with ⟨a, ha, rfl⟩
     have hremote := (upperPresentation_remote w ha).1
+    have hapos := a.2
     change c.obstacleCutoff < 2 * a.1 - 1
     omega
   · intro x hx y hy hxy
@@ -101,18 +114,17 @@ theorem upperPresentation_binaryPlacement
     rcases Finset.mem_image.mp hy with ⟨b, hb, rfl⟩
     have hab : a ≠ b := fun h => hxy (congrArg upperBlockStart h)
     have hdist := w.pointSeparated a ha b hb hab
-    simp only [upperBlockificationConstraint] at hdist
-    by_cases hablt : a.1 < b.1
-    · apply binaryBlock_crossSeparated_of_lt
-      simp only [upperBlockStart]
-      rw [Nat.dist_eq_sub_of_le hablt.le] at hdist
+    rw [upperBlockificationConstraint_separation] at hdist
+    have hapos := a.2
+    have hbpos := b.2
+    refine binaryBlock_crossSeparated_of_dist ?_
+    change max 1 c.separation + 1 < Nat.dist (2 * a.1 - 1) (2 * b.1 - 1)
+    rcases le_total a.1 b.1 with hle | hle
+    · rw [Nat.dist_eq_sub_of_le hle] at hdist
+      rw [Nat.dist_eq_sub_of_le (by omega)]
       omega
-    · have hbalt : b.1 < a.1 := by
-        have : a.1 ≠ b.1 := fun h => hab (Subtype.ext h)
-        omega
-      apply binaryBlock_crossSeparated_of_gt
-      simp only [upperBlockStart]
-      rw [Nat.dist_comm, Nat.dist_eq_sub_of_le hbalt.le] at hdist
+    · rw [Nat.dist_comm, Nat.dist_eq_sub_of_le hle] at hdist
+      rw [Nat.dist_comm, Nat.dist_eq_sub_of_le (by omega)]
       omega
 
 theorem upperBlockStarts_card (S : Support) :

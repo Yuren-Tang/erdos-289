@@ -41,10 +41,20 @@ theorem shiftOne_injective : Function.Injective shiftOne := by
 def endpointBinaryStarts (S : Support) : Finset Denominator :=
   S.image shiftOne
 
-/-- Constraint requested from leaf E before expanding starts to ternary intervals. -/
+/--
+The constraint requested before expanding starts to length-three intervals.
+
+Both data are forced.  The obstacle is exactly the obstacle cutoff of `c`,
+because a block starting beyond that cutoff already avoids `c`.  The separation
+is the effective margin of `c` inflated by the *diameter* of the pattern being
+placed, which for a length-three interval is two.
+-/
 def endpointConstraint (c : PhysicalConstraint) : PhysicalConstraint where
-  obstacle := denominatorPrefix (c.obstacleCutoff + 2)
-  separation := max 1 c.separation + 4
+  obstacle := denominatorPrefix c.obstacleCutoff
+  separation := max 1 c.separation + 2
+
+@[simp] theorem endpointConstraint_separation (c : PhysicalConstraint) :
+    (endpointConstraint c).separation = max 1 c.separation + 2 := rfl
 
 theorem presentation_start_remote
     {q : ℚ} {c : PhysicalConstraint}
@@ -65,8 +75,9 @@ theorem presentation_ternaryPlacement
   · intro a ha
     exact presentation_start_remote w ha
   · intro a ha b hb hab
-    apply ternaryBlock_crossSeparated_of_dist
-    exact w.pointSeparated a ha b hb hab
+    refine ternaryBlock_crossSeparated_of_dist ?_
+    have hsep := w.pointSeparated a ha b hb hab
+    rwa [endpointConstraint_separation] at hsep
 
 theorem binaryBlock_shift_subset_ternaryBlock (a : Denominator) :
     binaryBlock (shiftOne a) ⊆ ternaryBlock a := by
@@ -96,10 +107,10 @@ theorem presentation_binaryPlacement
     rcases Finset.mem_image.mp hx with ⟨a, ha, rfl⟩
     rcases Finset.mem_image.mp hy with ⟨b, hb, rfl⟩
     have hab : a ≠ b := fun h => hxy (congrArg shiftOne h)
+    have hsep := w.pointSeparated a ha b hb hab
+    rw [endpointConstraint_separation] at hsep
     have hternary : (ternaryBlock a).CrossSeparated (ternaryBlock b)
-        (max 1 c.separation) :=
-      ternaryBlock_crossSeparated_of_dist
-        (w.pointSeparated a ha b hb hab)
+        (max 1 c.separation) := ternaryBlock_crossSeparated_of_dist hsep
     intro u hu v hv
     exact hternary u (binaryBlock_shift_subset_ternaryBlock a hu)
       v (binaryBlock_shift_subset_ternaryBlock b hv)

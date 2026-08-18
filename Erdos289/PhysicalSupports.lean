@@ -409,6 +409,29 @@ theorem Support.separated_iff_close_reachable (S : Support) (margin : ℕ) :
 def Support.CrossSeparated (S T : Support) (margin : ℕ) : Prop :=
   ∀ x ∈ S, ∀ y ∈ T, margin < Nat.dist x.1 y.1
 
+/--
+Translated-window separation.  Two supports confined to windows of the same
+length `d` are cross-separated by `m` as soon as the windows' left endpoints
+are more than `m + d` apart.  The separation constants of concrete block
+patterns are instances of this with `d` their diameter.
+-/
+theorem Support.crossSeparated_of_window
+    {S T : Support} {a b d m : ℕ}
+    (hS : ∀ x ∈ S, a ≤ x.1 ∧ x.1 ≤ a + d)
+    (hT : ∀ y ∈ T, b ≤ y.1 ∧ y.1 ≤ b + d)
+    (h : m + d < Nat.dist a b) :
+    S.CrossSeparated T m := by
+  intro x hx y hy
+  obtain ⟨hxa, hxb⟩ := hS x hx
+  obtain ⟨hya, hyb⟩ := hT y hy
+  rcases le_total a b with hab | hab
+  · rw [Nat.dist_eq_sub_of_le hab] at h
+    rw [Nat.dist_eq_sub_of_le (show x.1 ≤ y.1 by omega)]
+    omega
+  · rw [Nat.dist_comm, Nat.dist_eq_sub_of_le hab] at h
+    rw [Nat.dist_comm, Nat.dist_eq_sub_of_le (show y.1 ≤ x.1 by omega)]
+    omega
+
 /-- Component separation is preserved by a sufficiently separated union. -/
 theorem Support.separated_union
     {S T : Support} {margin : ℕ}

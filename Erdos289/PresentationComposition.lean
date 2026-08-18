@@ -26,11 +26,13 @@ namespace Erdos289
 
 def positiveSucc (k : ℕ) : Denominator := ⟨k + 1, by omega⟩
 
+/-- The denominators at most `N`.  The object means exactly the cutoff it
+names: `n ∈ denominatorPrefix N ↔ n ≤ N`. -/
 def denominatorPrefix (N : ℕ) : Support :=
-  (Finset.range (N + 1)).image positiveSucc
+  (Finset.range N).image positiveSucc
 
 @[simp] theorem mem_denominatorPrefix {N : ℕ} {n : Denominator} :
-    n ∈ denominatorPrefix N ↔ n.1 ≤ N + 1 := by
+    n ∈ denominatorPrefix N ↔ n.1 ≤ N := by
   constructor
   · intro hn
     rcases Finset.mem_image.mp hn with ⟨k, hk, rfl⟩
@@ -38,19 +40,28 @@ def denominatorPrefix (N : ℕ) : Support :=
     simp only [positiveSucc]
     omega
   · intro hn
-    change n ∈ (Finset.range (N + 1)).image positiveSucc
+    change n ∈ (Finset.range N).image positiveSucc
     rw [Finset.mem_image]
+    have hpos := n.2
     refine ⟨n.1 - 1, by simp only [Finset.mem_range]; omega, ?_⟩
     apply Subtype.ext
-    simp [positiveSucc]
-    exact Nat.sub_add_cancel n.2
+    simp only [positiveSucc]
+    omega
 
+/--
+The constraint a support must satisfy to be composable with `S`: it inherits
+`c` and additionally forbids everything up to the last point of `S` shifted by
+the effective separation margin.  That is exactly the finite lower closure the
+physical union needs, and nothing more.
+-/
 def constraintBeyond (c : PhysicalConstraint) (S : Support) : PhysicalConstraint where
-  obstacle := c.obstacle ∪ denominatorPrefix (S.sup fun n => n.1 + c.separation)
+  obstacle := c.obstacle ∪
+    denominatorPrefix (S.sup fun n => n.1 + max 1 c.separation)
   separation := c.separation
 
 theorem mem_constraintBeyond_of_mem_prefix (c : PhysicalConstraint) (S : Support)
-    {n : Denominator} (hn : n ∈ denominatorPrefix (S.sup fun x => x.1 + c.separation)) :
+    {n : Denominator}
+    (hn : n ∈ denominatorPrefix (S.sup fun x => x.1 + max 1 c.separation)) :
     n ∈ (constraintBeyond c S).obstacle := by
   simp [constraintBeyond, hn]
 
@@ -64,9 +75,9 @@ theorem separated_union_of_avoids_beyond
   rcases Finset.mem_union.mp ha with haS | haT <;>
     rcases Finset.mem_union.mp hb with hbS | hbT
   · exact hS a haS b hbS hab
-  · have hale : a.1 + c.separation ≤ S.sup fun x => x.1 + c.separation :=
-      Finset.le_sup (f := fun x : Denominator => x.1 + c.separation) haS
-    have hbnot : b ∉ denominatorPrefix (S.sup fun x => x.1 + c.separation) := by
+  · have hale : a.1 + max 1 c.separation ≤ S.sup fun x => x.1 + max 1 c.separation :=
+      Finset.le_sup (f := fun x : Denominator => x.1 + max 1 c.separation) haS
+    have hbnot : b ∉ denominatorPrefix (S.sup fun x => x.1 + max 1 c.separation) := by
       intro hbp
       exact (Finset.disjoint_left.mp havoid hbT)
         (mem_constraintBeyond_of_mem_prefix c S hbp)
@@ -74,9 +85,9 @@ theorem separated_union_of_avoids_beyond
     rw [Nat.dist_eq_sub_of_le (by omega)]
     omega
   · rw [Nat.dist_comm]
-    have hble : b.1 + c.separation ≤ S.sup fun x => x.1 + c.separation :=
-      Finset.le_sup (f := fun x : Denominator => x.1 + c.separation) hbS
-    have hanot : a ∉ denominatorPrefix (S.sup fun x => x.1 + c.separation) := by
+    have hble : b.1 + max 1 c.separation ≤ S.sup fun x => x.1 + max 1 c.separation :=
+      Finset.le_sup (f := fun x : Denominator => x.1 + max 1 c.separation) hbS
+    have hanot : a ∉ denominatorPrefix (S.sup fun x => x.1 + max 1 c.separation) := by
       intro hap
       exact (Finset.disjoint_left.mp havoid haT)
         (mem_constraintBeyond_of_mem_prefix c S hap)
@@ -101,11 +112,11 @@ theorem support_disjoint_of_avoids_beyond
     Disjoint S T := by
   rw [Finset.disjoint_left]
   intro x hxS hxT
-  have hxle : x.1 + c.separation ≤
-      S.sup fun y => y.1 + c.separation :=
-    Finset.le_sup (f := fun y : Denominator => y.1 + c.separation) hxS
+  have hxle : x.1 + max 1 c.separation ≤
+      S.sup fun y => y.1 + max 1 c.separation :=
+    Finset.le_sup (f := fun y : Denominator => y.1 + max 1 c.separation) hxS
   have hxprefix : x ∈ denominatorPrefix
-      (S.sup fun y => y.1 + c.separation) := by
+      (S.sup fun y => y.1 + max 1 c.separation) := by
     rw [mem_denominatorPrefix]
     omega
   exact (Finset.disjoint_left.mp havoid hxT)
@@ -125,11 +136,11 @@ theorem crossSeparated_of_avoids_beyond
     (havoid : T.Avoids (constraintBeyond c S)) :
     S.CrossSeparated T (max 1 c.separation) := by
   intro x hxS y hyT
-  have hxle : x.1 + c.separation ≤
-      S.sup fun z => z.1 + c.separation :=
-    Finset.le_sup (f := fun z : Denominator => z.1 + c.separation) hxS
+  have hxle : x.1 + max 1 c.separation ≤
+      S.sup fun z => z.1 + max 1 c.separation :=
+    Finset.le_sup (f := fun z : Denominator => z.1 + max 1 c.separation) hxS
   have hynot : y ∉ denominatorPrefix
-      (S.sup fun z => z.1 + c.separation) := by
+      (S.sup fun z => z.1 + max 1 c.separation) := by
     intro hyp
     exact (Finset.disjoint_left.mp havoid hyT)
       (mem_constraintBeyond_of_mem_prefix c S hyp)

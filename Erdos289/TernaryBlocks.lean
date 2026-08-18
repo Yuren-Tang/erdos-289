@@ -31,6 +31,14 @@ theorem mem_ternaryBlock {a n : Denominator} :
     n ∈ ternaryBlock a ↔ n = a ∨ n = a + 1 ∨ n = a + 2 := by
   simp [ternaryBlock]
 
+/-- A ternary block is a translated window of diameter two. -/
+theorem ternaryBlock_window (a : Denominator) :
+    ∀ x ∈ ternaryBlock a, a.1 ≤ x.1 ∧ x.1 ≤ a.1 + 2 := by
+  intro x hx
+  have h1 : (a + 1).1 = a.1 + 1 := PNat.add_coe a 1
+  have h2 : (a + 2).1 = a.1 + 2 := PNat.add_coe a 2
+  rcases mem_ternaryBlock.mp hx with rfl | rfl | rfl <;> omega
+
 theorem ternaryBlock_card (a : Denominator) : (ternaryBlock a).card = 3 := by
   have h01 : a ≠ a + 1 := ne_of_lt (PNat.lt_add_right a 1)
   have h02 : a ≠ a + 2 := ne_of_lt (PNat.lt_add_right a 2)

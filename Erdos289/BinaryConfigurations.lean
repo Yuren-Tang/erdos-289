@@ -67,6 +67,14 @@ theorem binaryBlock_crossSeparated_of_gt {a b : Denominator} {m : ℕ}
   rw [Nat.dist_comm]
   exact binaryBlock_crossSeparated_of_lt h y hy x hx
 
+/--
+The same statement for binary blocks: their diameter is one.
+-/
+theorem binaryBlock_crossSeparated_of_dist {a b : Denominator} {m : ℕ}
+    (h : m + 1 < Nat.dist a.1 b.1) :
+    (binaryBlock a).CrossSeparated (binaryBlock b) m :=
+  Support.crossSeparated_of_window (binaryBlock_window a) (binaryBlock_window b) h
+
 theorem crossSeparated_union_right {R S T : Support} {m : ℕ}
     (hRS : R.CrossSeparated S m) (hRT : R.CrossSeparated T m) :
     R.CrossSeparated (S ∪ T) m := by
