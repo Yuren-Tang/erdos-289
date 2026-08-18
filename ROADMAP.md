@@ -191,11 +191,22 @@ three light.
 
 * **T1 (heavy).** For every large prime power `Q` and every finite footprint,
   a compatible transverse pool at `Q` beyond that footprint whose image in the
-  simple fibre is large and whose atoms are light.  The ingredients are the
-  row certificate (B2), the conflict bound (B3), the packing (B4) and the
-  remoteness that the row truncation already supplies; what is missing is the
-  passage from the row to the reservoir and the lower bound on the fibre
-  image.
+  simple fibre is large and whose atoms are light.
+
+  Done: the row certificate (B2), the conflict bound (B3), the packing from a
+  merely large row (B4, `exists_compatiblePool_of_binary_of_card`), the
+  remoteness and mass bounds that the row truncation supplies, and — for a
+  *prime* current — the fibre image, which equals the row size because
+  distinct coefficients give distinct classes
+  (`SignedInverse.atom_stageClass_ne_of_coefficient_ne`,
+  `TransverseReservoir.card_simpleValues_of_injective`).
+
+  Missing: the plumbing from the row certificate's carriers through
+  `SignedInverse.candidateFamily` and `SignedInverse.reservoir` to a reservoir
+  whose atoms are exactly the row's, and the proper-prime-power currents, which
+  the manuscript serves by the cyclic provider
+  (`TransverseReservoir.atom_cyclic_coversAtGrade`) rather than by
+  Dias da Silva–Hamidoune.
 * **T2.** Grades: a decomposition of every large `h` into per-stage grades
   lying in each stage's interval.  The Minkowski step is
   `GradeAggregation.exists_grades_of_mem_sum_Icc` and the eventual-ray step is
