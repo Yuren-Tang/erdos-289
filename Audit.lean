@@ -218,9 +218,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.erdos289Literal_of_statement
 
-/-- info: 'Erdos289.card_comparablePrimes_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.comparablePrimes_card_isBigO' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.card_comparablePrimes_ge
+#print axioms Erdos289.comparablePrimes_card_isBigO
 
 /-- info: 'Erdos289.aggregateSupport_residue' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

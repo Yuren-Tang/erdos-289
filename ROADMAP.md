@@ -151,9 +151,17 @@ it is the finite arithmetic that verifies the hypotheses of the aggregation
 theorem in the strict reciprocal system.
 
 * B1. **Usable form of `Π`.** *Done.*
-  `Erdos289.card_comparablePrimes_ge` gives
-  `(n : ℝ) / (2 * Real.log n) ≤ (comparablePrimes n).card` for `n ≥ 50 ^ 4`,
-  absorbing the `√(4n) log(4n)` error term of the theta lower bound.
+  `Erdos289.comparablePrimes_card_isBigO` states
+  `(fun n => n / log n) =O[atTop] (fun n => #(comparablePrimes n))`, i.e.
+  `#{p : n < p ≤ 4n} ≫ n / log n`.  The `√(4n) log(4n)` error term of the
+  Chebyshev lower bound is absorbed by `Asymptotics.IsLittleO`.
+
+  A note on style, binding for the rest of layer B: **an asymptotic statement
+  is formalized as an asymptotic statement.**  It is not replaced by an
+  inequality valid beyond a hand-picked numerical threshold.  mathlib's
+  `Asymptotics` and `Filter.atTop` API is what makes this both faithful and
+  short; the first draft of this module took the numerical route and was more
+  than twice as long for a strictly less faithful statement.
 * B2. **Row supply (manuscript Thm 17.1).** For every large prime power `Q`, a
   raw row of `≫ Q / log Q` signed-inverse atoms with distinct current
   coefficients. Needs: a bound on the number of roots of `λ b² ≡ ±1 (mod Q)`

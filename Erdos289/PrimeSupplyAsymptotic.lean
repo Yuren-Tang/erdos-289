@@ -7,162 +7,146 @@ Authors: Yuren Tang
 -/
 
 public import Erdos289.PrimeSupply
-public import Mathlib.Analysis.Complex.ExponentialBounds
+public import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 
 @[expose] public section
 
 /-!
-# The comparable-prime count in the form consumed downstream
+# Leaf `Π` in the form the descent consumes
 
 `Erdos289.comparablePrimeSupply_explicit` is the raw Chebyshev consequence: an
-inequality still carrying the `√x log x` error term of the theta lower bound.
-Everything downstream instead consumes
+inequality still carrying the `√x log x` error term of the lower bound for the
+theta function.  What the descent actually uses is the asymptotic statement
 
-`n / (2 log n) ≤ #{p prime : n < p ≤ 4n}`
+`#{p prime : n < p ≤ 4n}  ≫  n / log n`,
 
-from an explicit threshold.  Absorbing the error term is the only content of
-this module; no new arithmetic input is used, and in particular no
-prime-number-theorem input.
-
-The threshold `50 ^ 4` is not optimal.  It is chosen so that the estimates stay
-elementary: `log x ≤ 4 x^{1/4}` is enough to make the error term lower order.
+and that is what this module exports.  The statement is asymptotic because the
+mathematics is asymptotic; it is *not* replaced by an inequality valid beyond a
+hand-chosen numerical threshold.  The error term is absorbed by
+`Asymptotics.IsLittleO`, so no constant of the construction is ever named.
 -/
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
 
-open Real
+open Filter Asymptotics Real
 
 namespace Erdos289
 
-/-- `log x ≤ 4 x^{1/4}`, written through iterated square roots. -/
-theorem log_le_four_mul_quarticRoot {x : ℝ} (hx : 0 < x) :
-    Real.log x ≤ 4 * Real.sqrt (Real.sqrt x) := by
-  have hsx : 0 < Real.sqrt x := Real.sqrt_pos.2 hx
-  have hssx : 0 < Real.sqrt (Real.sqrt x) := Real.sqrt_pos.2 hsx
-  have h1 : Real.log (Real.sqrt (Real.sqrt x)) ≤ Real.sqrt (Real.sqrt x) - 1 :=
-    Real.log_le_sub_one_of_pos hssx
-  have h2 : Real.log (Real.sqrt (Real.sqrt x)) = Real.log x / 4 := by
-    rw [Real.log_sqrt hsx.le, Real.log_sqrt hx.le]
-    ring
-  rw [h2] at h1
-  linarith
+/-! ### One elementary rate -/
 
-/-- The fourth root of a real number at least `50 ^ 4` is at least `50`. -/
-theorem fifty_le_quarticRoot {x : ℝ} (hx : (50 : ℝ) ^ 4 ≤ x) :
-    (50 : ℝ) ≤ Real.sqrt (Real.sqrt x) := by
-  have h1 : ((50 : ℝ) ^ 2) ≤ Real.sqrt x := by
-    rw [show ((50 : ℝ) ^ 2) = Real.sqrt (((50 : ℝ) ^ 2) ^ 2) by
-      rw [Real.sqrt_sq (by norm_num)]]
-    exact Real.sqrt_le_sqrt (by nlinarith)
-  rw [show (50 : ℝ) = Real.sqrt ((50 : ℝ) ^ 2) by rw [Real.sqrt_sq (by norm_num)]]
-  exact Real.sqrt_le_sqrt h1
+private theorem log_isLittleO_sqrt : Real.log =o[atTop] Real.sqrt := by
+  refine (isLittleO_log_rpow_atTop (by norm_num : (0 : ℝ) < 1 / 2)).congr'
+    EventuallyEq.rfl ?_
+  filter_upwards with x
+  rw [Real.sqrt_eq_rpow]
 
-/-- The fourth power of the fourth root. -/
-theorem quarticRoot_pow_four {x : ℝ} (hx : 0 ≤ x) :
-    Real.sqrt (Real.sqrt x) ^ 4 = x := by
-  have hsx : 0 ≤ Real.sqrt x := Real.sqrt_nonneg x
-  calc
-    Real.sqrt (Real.sqrt x) ^ 4 = (Real.sqrt (Real.sqrt x) ^ 2) ^ 2 := by ring
-    _ = Real.sqrt x ^ 2 := by rw [Real.sq_sqrt hsx]
-    _ = x := Real.sq_sqrt hx
-
-/-- `√x` is the square of the fourth root. -/
-theorem sqrt_eq_quarticRoot_sq (x : ℝ) :
-    Real.sqrt x = Real.sqrt (Real.sqrt x) ^ 2 :=
-  (Real.sq_sqrt (Real.sqrt_nonneg x)).symm
+/-! ### The comparable band carries linearly many log-weights -/
 
 /--
-The Chebyshev numerator dominates `n` once `n ≥ 50 ^ 4`.  This is the step that
-absorbs the `√x log x` error term of the theta lower bound.
+The error term of the Chebyshev lower bound for the theta increment over the
+band `(x, 4x]` is `o(x)`.
 -/
-theorem chebyshev_numerator_ge (n : ℕ) (hn : 50 ^ 4 ≤ n) :
-    (n : ℝ) ≤
-      ((4 * n : ℕ) : ℝ) * Real.log 2 - Real.log ((4 * n + 1 : ℕ) : ℝ) -
-        2 * √((4 * n : ℕ) : ℝ) * Real.log ((4 * n : ℕ) : ℝ) -
-        Real.log 4 * (n : ℝ) := by
-  have hn0 : (0 : ℝ) < n := by
-    have : (0 : ℕ) < n := by omega
-    exact_mod_cast this
-  have hnbig : (50 : ℝ) ^ 4 ≤ (n : ℝ) := by exact_mod_cast hn
-  have hcast : ((4 * n : ℕ) : ℝ) = 4 * (n : ℝ) := by push_cast; ring
-  have hcast1 : ((4 * n + 1 : ℕ) : ℝ) = 4 * (n : ℝ) + 1 := by push_cast; ring
-  rw [hcast, hcast1]
-  set s : ℝ := Real.sqrt (Real.sqrt (n : ℝ)) with hs
-  have hs50 : (50 : ℝ) ≤ s := fifty_le_quarticRoot hnbig
-  have hs0 : (0 : ℝ) < s := by linarith
-  have hs4 : s ^ 4 = (n : ℝ) := quarticRoot_pow_four hn0.le
-  have hsqrtn : Real.sqrt (n : ℝ) = s ^ 2 := sqrt_eq_quarticRoot_sq (n : ℝ)
-  have hsqrt4n : √(4 * (n : ℝ)) = 2 * s ^ 2 := by
-    rw [show (4 : ℝ) * (n : ℝ) = 2 ^ 2 * (n : ℝ) by norm_num,
-      Real.sqrt_mul (by positivity), Real.sqrt_sq (by norm_num), hsqrtn]
-  -- elementary logarithm bounds
-  have hlog2gt : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
-  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
-  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
-    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
-    push_cast; ring
-  have hlogn : Real.log (n : ℝ) ≤ 4 * s := log_le_four_mul_quarticRoot hn0
-  have hlog4n : Real.log (4 * (n : ℝ)) ≤ 2 + 4 * s := by
-    rw [Real.log_mul (by norm_num) (by positivity)]
-    have : Real.log 4 ≤ 2 := by rw [hlog4eq]; linarith
+private theorem chebyshev_error_isLittleO :
+    (fun x : ℝ => Real.log (4 * x + 1) + 2 * √(4 * x) * Real.log (4 * x)) =o[atTop]
+      fun x : ℝ => x := by
+  have h4 : Tendsto (fun x : ℝ => 4 * x) atTop atTop :=
+    Filter.tendsto_id.const_mul_atTop (by norm_num : (0 : ℝ) < 4)
+  have h4' : Tendsto (fun x : ℝ => 4 * x + 1) atTop atTop := h4.atTop_add tendsto_const_nhds
+  -- `log (4x + 1) = o(x)`
+  have hlog : (fun x : ℝ => Real.log (4 * x + 1)) =o[atTop] fun x : ℝ => x := by
+    refine (Real.isLittleO_log_id_atTop.comp_tendsto h4').trans_isBigO ?_
+    refine IsBigO.of_bound 5 ?_
+    filter_upwards [eventually_ge_atTop (1 : ℝ)] with x hx
+    simp only [Function.comp_apply, id_eq]
+    rw [Real.norm_of_nonneg (by linarith), Real.norm_of_nonneg (by linarith)]
     linarith
-  have hlog4n_nonneg : 0 ≤ Real.log (4 * (n : ℝ)) := by
-    apply Real.log_nonneg
-    nlinarith
-  have hlog4n1 : Real.log (4 * (n : ℝ) + 1) ≤ 3 + 4 * s := by
-    have hle : (4 : ℝ) * (n : ℝ) + 1 ≤ 8 * (n : ℝ) := by nlinarith
-    have h8 : Real.log 8 ≤ 3 := by
-      rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]
-      push_cast; linarith
-    calc
-      Real.log (4 * (n : ℝ) + 1) ≤ Real.log (8 * (n : ℝ)) :=
-        Real.log_le_log (by positivity) hle
-      _ = Real.log 8 + Real.log (n : ℝ) := Real.log_mul (by norm_num) (by positivity)
-      _ ≤ 3 + 4 * s := by linarith
-  -- the polynomial inequality that makes the error term lower order
-  have h1 : (50 : ℝ) * s ^ 3 ≤ s ^ 4 := by nlinarith [pow_pos hs0 3]
-  have h2 : (50 : ℝ) * s ^ 2 ≤ s ^ 3 := by nlinarith [pow_pos hs0 2]
-  have h3 : (50 : ℝ) * s ≤ s ^ 2 := by nlinarith
-  have hmain : 8 * s ^ 2 + 16 * s ^ 3 + 3 + 4 * s ≤ 0.386 * (n : ℝ) := by
-    rw [← hs4]
-    linarith
-  have herror :
-      2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ)) ≤ 8 * s ^ 2 + 16 * s ^ 3 := by
-    rw [hsqrt4n]
-    have hmul := mul_le_mul_of_nonneg_left hlog4n (show (0 : ℝ) ≤ 4 * s ^ 2 by positivity)
-    nlinarith [hmul]
-  have hcoef : (0 : ℝ) ≤ (2 * Real.log 2 - 1 - 0.386) * (n : ℝ) :=
-    mul_nonneg (by linarith) hn0.le
-  rw [hlog4eq]
-  nlinarith [hcoef, hmain, herror, hlog4n1]
+  -- `√(4x) log (4x) = o(x)`
+  have hsqrtlog :
+      (fun x : ℝ => 2 * √(4 * x) * Real.log (4 * x)) =o[atTop] fun x : ℝ => x := by
+    have hsq : ∀ x : ℝ, 0 ≤ x → √(4 * x) = 2 * √x := by
+      intro x hx
+      rw [show (4 : ℝ) * x = 2 ^ 2 * x by norm_num, Real.sqrt_mul (by positivity),
+        Real.sqrt_sq (by norm_num)]
+    have hA : (fun x : ℝ => 2 * √(4 * x)) =O[atTop] Real.sqrt := by
+      refine IsBigO.of_bound 4 ?_
+      filter_upwards [eventually_ge_atTop (0 : ℝ)] with x hx
+      rw [hsq x hx, Real.norm_of_nonneg (by positivity),
+        Real.norm_of_nonneg (Real.sqrt_nonneg x)]
+      linarith [Real.sqrt_nonneg x]
+    have hB : (fun x : ℝ => Real.log (4 * x)) =o[atTop] Real.sqrt := by
+      refine (log_isLittleO_sqrt.comp_tendsto h4).trans_isBigO ?_
+      refine IsBigO.of_bound 2 ?_
+      filter_upwards [eventually_ge_atTop (0 : ℝ)] with x hx
+      simp only [Function.comp_apply]
+      rw [hsq x hx, Real.norm_of_nonneg (by positivity),
+        Real.norm_of_nonneg (Real.sqrt_nonneg x)]
+    refine (hA.mul_isLittleO hB).congr' EventuallyEq.rfl ?_
+    filter_upwards [eventually_ge_atTop (0 : ℝ)] with x hx
+    exact Real.mul_self_sqrt hx
+  exact hlog.add hsqrtlog
 
-/-- The comparable-prime count in the form consumed downstream. -/
-theorem card_comparablePrimes_ge (n : ℕ) (hn : 50 ^ 4 ≤ n) :
-    (n : ℝ) / (2 * Real.log n) ≤ (comparablePrimes n).card := by
-  have hn0 : (0 : ℝ) < n := by
+/--
+Leaf `Π`, asymptotic form: the comparable band `(n, 4n]` contains at least of
+the order of `n / log n` primes.
+-/
+theorem comparablePrimes_card_isBigO :
+    (fun n : ℕ => (n : ℝ) / Real.log n) =O[atTop]
+      fun n : ℕ => ((comparablePrimes n).card : ℝ) := by
+  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  -- the error term, transported to `ℕ`
+  have herr := chebyshev_error_isLittleO.comp_tendsto
+    (tendsto_natCast_atTop_atTop (R := ℝ))
+  have hsmall : ∀ᶠ n : ℕ in atTop,
+      Real.log (4 * (n : ℝ) + 1) + 2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ)) ≤
+        Real.log 2 * (n : ℝ) := by
+    filter_upwards [herr.def hlog2, eventually_ge_atTop 1] with n hn hn1
+    have hn0 : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg n
+    calc
+      Real.log (4 * (n : ℝ) + 1) + 2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ))
+          ≤ ‖Real.log (4 * (n : ℝ) + 1) + 2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ))‖ :=
+        le_abs_self _
+      _ ≤ Real.log 2 * ‖(n : ℝ)‖ := hn
+      _ = Real.log 2 * (n : ℝ) := by rw [Real.norm_of_nonneg hn0]
+  refine IsBigO.of_bound (2 / Real.log 2) ?_
+  filter_upwards [hsmall, eventually_ge_atTop 4] with n hn hn4
+  have hn0 : (0 : ℝ) < (n : ℝ) := by
     have : (0 : ℕ) < n := by omega
     exact_mod_cast this
-  have hn4 : (4 : ℝ) ≤ (n : ℝ) := by
-    have : (4 : ℕ) ≤ n := by omega
-    exact_mod_cast this
+  have hn4' : (4 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn4
+  have hlogn : 0 < Real.log (n : ℝ) := Real.log_pos (by linarith)
   have hcast : ((4 * n : ℕ) : ℝ) = 4 * (n : ℝ) := by push_cast; ring
-  have hL : Real.log ((4 * n : ℕ) : ℝ) ≤ 2 * Real.log (n : ℝ) := by
-    rw [hcast, Real.log_mul (by norm_num) (by positivity)]
-    have : Real.log 4 ≤ Real.log (n : ℝ) := Real.log_le_log (by norm_num) hn4
-    linarith
-  have hLpos : 0 < Real.log ((4 * n : ℕ) : ℝ) := by
-    rw [hcast]
-    apply Real.log_pos
-    linarith
-  calc
-    (n : ℝ) / (2 * Real.log (n : ℝ)) ≤ (n : ℝ) / Real.log ((4 * n : ℕ) : ℝ) :=
-      div_le_div_of_nonneg_left hn0.le hLpos hL
-    _ ≤ (((4 * n : ℕ) : ℝ) * Real.log 2 - Real.log ((4 * n + 1 : ℕ) : ℝ) -
-          2 * √((4 * n : ℕ) : ℝ) * Real.log ((4 * n : ℕ) : ℝ) -
-          Real.log 4 * (n : ℝ)) / Real.log ((4 * n : ℕ) : ℝ) :=
-      div_le_div_of_nonneg_right (chebyshev_numerator_ge n hn) hLpos.le
-    _ ≤ (comparablePrimes n).card :=
-      comparablePrimeSupply_explicit n (by omega)
+  -- lower bound for the log mass of the band
+  have hband : Real.log 2 * (n : ℝ) ≤ ∑ p ∈ comparablePrimes n, Real.log p := by
+    have hge := Chebyshev.theta_ge (4 * n)
+    have hle := Chebyshev.theta_le_log4_mul_x (x := (n : ℝ)) hn0.le
+    have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+    rw [sum_log_comparablePrimes]
+    rw [hcast] at hge ⊢
+    rw [hlog4] at hle
+    linarith [hn]
+  -- upper bound for the same mass
+  have hupper : ∑ p ∈ comparablePrimes n, Real.log p ≤
+      (comparablePrimes n).card * (2 * Real.log (n : ℝ)) := by
+    refine le_trans (sum_log_comparablePrimes_le n) ?_
+    have hle : Real.log (4 * (n : ℝ)) ≤ 2 * Real.log (n : ℝ) := by
+      rw [Real.log_mul (by norm_num) (ne_of_gt hn0)]
+      have : Real.log 4 ≤ Real.log (n : ℝ) := Real.log_le_log (by norm_num) hn4'
+      linarith
+    have hcard : (0 : ℝ) ≤ ((comparablePrimes n).card : ℝ) := Nat.cast_nonneg _
+    calc
+      ((comparablePrimes n).card : ℝ) * Real.log (4 * (n : ℝ))
+          ≤ ((comparablePrimes n).card : ℝ) * (2 * Real.log (n : ℝ)) := by
+        exact mul_le_mul_of_nonneg_left hle hcard
+      _ = _ := rfl
+  have hcard0 : (0 : ℝ) ≤ ((comparablePrimes n).card : ℝ) := Nat.cast_nonneg _
+  rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg hcard0, div_le_iff₀ hlogn]
+  have key := le_trans hband hupper
+  have hshape : (2 : ℝ) / Real.log 2 * ((comparablePrimes n).card : ℝ) * Real.log (n : ℝ)
+      = (((comparablePrimes n).card : ℝ) * (2 * Real.log (n : ℝ))) / Real.log 2 := by
+    field_simp
+  rw [hshape, le_div_iff₀ hlog2]
+  linarith [key]
 
 end Erdos289
