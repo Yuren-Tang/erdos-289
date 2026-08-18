@@ -11,14 +11,23 @@ public import Erdos289.SignedInverseAtom
 @[expose] public section
 
 /-!
-# Rank truncation of a row
+# Selecting a row: deduplication and rank truncation
 
-The row certificate keeps only the upper half of the row by coefficient rank.
-That step is pure pigeonhole — fewer than half of a finite set of naturals can
-lie below half its cardinality — and the resulting centre and mass bounds are
-then exact consequences of the inverse equation.
+Two selections turn the raw carrier band into a row certificate, and both are
+pure pigeonhole.
 
-Nothing here is chosen: the threshold is the cardinality of the row itself.
+*Deduplication.*  Carriers sharing a current coefficient come in fibres of at
+most four points, so a subfamily on which the coefficient is injective retains
+at least a quarter of the band.
+
+*Rank truncation.*  Distinct coefficients are distinct naturals, so fewer than
+half of them can lie below half their number; the retained half therefore has
+coefficient at least `⌊|row|/2⌋`, and the centre and mass bounds are exact
+consequences of the inverse equation.
+
+Nothing here is chosen: the fibre bound is four because a quadratic congruence
+has at most four roots, and the truncation threshold is the length of the row
+itself.
 -/
 
 set_option autoImplicit false
@@ -26,6 +35,49 @@ set_option relaxedAutoImplicit false
 
 namespace Erdos289
 namespace SignedInverse
+
+/-! ### Deduplication -/
+
+/--
+A map with fibres of at most `d` points admits a section over its whole image:
+some subfamily on which the map is injective already carries the full image, and
+therefore at least a `d`-th of the domain.
+-/
+theorem exists_injOn_subset {α : Type*} [DecidableEq α] {β : Type*} [DecidableEq β]
+    (A : Finset α) (f : α → β) {d : ℕ}
+    (hfib : ∀ y ∈ A.image f, (A.filter fun x => f x = y).card ≤ d) :
+    ∃ B ⊆ A, Set.InjOn f B ∧ B.image f = A.image f ∧ A.card ≤ d * B.card := by
+  classical
+  have hex : ∀ y : {y // y ∈ A.image f}, ∃ x, x ∈ A ∧ f x = y.1 := by
+    intro y
+    rcases Finset.mem_image.mp y.2 with ⟨x, hx, hfx⟩
+    exact ⟨x, hx, hfx⟩
+  set g : {y // y ∈ A.image f} → α := fun y => (hex y).choose with hg
+  have hgA : ∀ y, g y ∈ A := fun y => (hex y).choose_spec.1
+  have hgf : ∀ y, f (g y) = y.1 := fun y => (hex y).choose_spec.2
+  have hginj : Function.Injective g := by
+    intro y z hyz
+    have : (y : β) = (z : β) := by rw [← hgf y, ← hgf z, hyz]
+    exact Subtype.ext this
+  refine ⟨(A.image f).attach.image g, Finset.image_subset_iff.mpr (fun y _ => hgA y), ?_, ?_, ?_⟩
+  · intro a ha b hb hab
+    simp only [Finset.coe_image, Set.mem_image, Finset.mem_coe] at ha hb
+    rcases ha with ⟨y, -, rfl⟩
+    rcases hb with ⟨z, -, rfl⟩
+    rw [hgf y, hgf z] at hab
+    exact congrArg g (Subtype.ext hab)
+  · refine Finset.Subset.antisymm (fun y hy => ?_) (fun y hy => ?_)
+    · rcases Finset.mem_image.mp hy with ⟨a, ha, rfl⟩
+      rcases Finset.mem_image.mp ha with ⟨z, -, rfl⟩
+      rw [hgf z]
+      exact z.2
+    · exact Finset.mem_image.mpr
+        ⟨g ⟨y, hy⟩, Finset.mem_image_of_mem _ (Finset.mem_attach _ _), hgf ⟨y, hy⟩⟩
+  · refine le_trans (Finset.card_le_mul_card_image A d hfib) ?_
+    refine Nat.mul_le_mul_left d ?_
+    rw [Finset.card_image_of_injective _ hginj, Finset.card_attach]
+
+/-! ### Rank truncation -/
 
 /--
 At least half of a finite set of naturals is at least half its cardinality.
@@ -45,6 +97,30 @@ theorem card_upperRank_ge (S : Finset ℕ) :
   have hsplit :=
     Finset.card_filter_add_card_filter_not (s := S) (p := fun k => S.card / 2 ≤ k)
   omega
+
+/--
+The rank truncation in the form the row certificate uses: on a family whose
+coefficients are pairwise distinct, at least half the members have coefficient
+at least half the family's size.
+-/
+theorem card_upperCoefficient_ge {α : Type*}
+    (B : Finset α) (f : α → ℕ) (hinj : Set.InjOn f B) :
+    B.card - B.card / 2 ≤ (B.filter fun x => B.card / 2 ≤ f x).card := by
+  classical
+  have hcard : (B.image f).card = B.card := Finset.card_image_of_injOn hinj
+  have hfilter :
+      ((B.image f).filter fun k => B.card / 2 ≤ k)
+        = (B.filter fun x => B.card / 2 ≤ f x).image f := Finset.filter_image
+  have hinj' : Set.InjOn f (B.filter fun x => B.card / 2 ≤ f x) :=
+    hinj.mono (by exact_mod_cast Finset.filter_subset _ _)
+  have heq :
+      ((B.image f).filter fun k => B.card / 2 ≤ k).card
+        = (B.filter fun x => B.card / 2 ≤ f x).card := by
+    rw [hfilter, Finset.card_image_of_injOn hinj']
+  have hmain := card_upperRank_ge (B.image f)
+  rw [hcard] at hmain
+  rw [← heq]
+  exact hmain
 
 /-- A large coefficient forces a remote distinguished centre. -/
 theorem le_start_of_le_coefficient

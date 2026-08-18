@@ -14,6 +14,7 @@ import Erdos289.SignedInverseConflict
 import Erdos289.RowSupply
 import Erdos289.BadCarriers
 import Erdos289.RowTruncation
+import Erdos289.RowCertificate
 
 /-!
 # Transitive trust audit
@@ -296,3 +297,27 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.SignedInverse.GoodOrientation.atom_value_lt_of_le_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.GoodOrientation.atom_value_lt_of_le_coefficient
+
+/-- info: 'Erdos289.SignedInverse.exists_injOn_subset' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_injOn_subset
+
+/-- info: 'Erdos289.SignedInverse.card_upperCoefficient_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_upperCoefficient_ge
+
+/-- info: 'Erdos289.SignedInverse.chosenCoefficientFiber_card_le_eight' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.chosenCoefficientFiber_card_le_eight
+
+/-- info: 'Erdos289.SignedInverse.exists_dedup_row' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_dedup_row
+
+/-- info: 'Erdos289.SignedInverse.card_truncate_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_truncate_ge
+
+/-- info: 'Erdos289.SignedInverse.exists_rowCertificate' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_rowCertificate

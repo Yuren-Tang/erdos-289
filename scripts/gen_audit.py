@@ -48,6 +48,7 @@ import Erdos289.SignedInverseConflict
 import Erdos289.RowSupply
 import Erdos289.BadCarriers
 import Erdos289.RowTruncation
+import Erdos289.RowCertificate
 
 /-!
 # Transitive trust audit
