@@ -28,7 +28,7 @@ The current core has the following audited correspondence.
 | regular epi onto the composite fibre | surjectivity of the canonical composite map | `CompositionCovers` |
 | pullback along the distinguished target section | realizers over the target point | `TargetRealizer` |
 | factorization through the exact fibre | exact-value equality for every target realizer | `LiteralizesTarget` |
-| image of the exact fibre under grade | membership by an exact physical witness | `exactSpectrum` |
+| image under grade of the exact fibre of a physical family | membership by an exact physical witness lying in the family | `exactSpectrum` |
 | path-support multiplication domain | graph-disjoint induced union | `Support.GraphDisjoint`, `supportPCM` |
 | coproduct of physically disjoint support graphs | graph isomorphism and induced component equivalence | `Support.GraphDisjoint.unionGraphIso`, `support_grade_additive` |
 | local reciprocal coordinate calculations | exact rational identities confined to the arithmetic boundary | `upper_blockification_identity`, `endpoint_switch_identity`, `neutral_grade_one_identity` |

@@ -46,3 +46,8 @@ Erdos289.Support.blockNat_eq_Icc
 Erdos289.erdos289LiteralSeparated_of_statement
 Erdos289.erdos289Literal_of_statement
 Erdos289.card_comparablePrimes_ge
+Erdos289.aggregateSupport_residue
+Erdos289.cofiniteSaturation_one_of_pools
+Erdos289.cofiniteSaturation_of_exactSpectrum
+Erdos289.isAdditiveOn_residue
+AffineCorrection.grade_mem_exactSpectrum_of_covers_target

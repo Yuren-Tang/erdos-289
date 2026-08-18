@@ -33,6 +33,8 @@ public import Erdos289.PrimeSupply
 public import Erdos289.PrimeSupplyAsymptotic
 public import Erdos289.Statement
 public import Erdos289.Selector
+public import Erdos289.Composition
+public import Erdos289.EngineBridge
 public import Erdos289.GradeAggregation
 public import Erdos289.Literal
 

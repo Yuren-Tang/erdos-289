@@ -64,11 +64,10 @@ theorem grade_mem_exactSpectrum_of_covers_target
     (F : Set C) (u : X.level ⟶ Y.level) (τ : Γ) (m : M)
     (hcov : Covers O W g F (GradedCorrection.target O M τ u m))
     (hlit : LiteralizesTarget O W g F u τ m) :
-    m ∈ exactSpectrum W g τ := by
+    m ∈ exactSpectrum F W g τ := by
   let t := GradedCorrection.targetPoint O M τ u m
   rcases hcov t with ⟨r, hr⟩
   let tr : TargetRealizer O W g F u τ m := ⟨r, hr⟩
-  refine ⟨r.state.1, hlit tr, ?_⟩
-  exact r.grade_eq
+  exact ⟨r.state.1, r.state.2, hlit tr, r.grade_eq⟩
 
 end AffineCorrection

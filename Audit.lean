@@ -220,3 +220,23 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.card_comparablePrimes_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.card_comparablePrimes_ge
+
+/-- info: 'Erdos289.aggregateSupport_residue' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.aggregateSupport_residue
+
+/-- info: 'Erdos289.cofiniteSaturation_one_of_pools' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.cofiniteSaturation_one_of_pools
+
+/-- info: 'Erdos289.cofiniteSaturation_of_exactSpectrum' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.cofiniteSaturation_of_exactSpectrum
+
+/-- info: 'Erdos289.isAdditiveOn_residue' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.isAdditiveOn_residue
+
+/-- info: 'AffineCorrection.grade_mem_exactSpectrum_of_covers_target' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms AffineCorrection.grade_mem_exactSpectrum_of_covers_target

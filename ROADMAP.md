@@ -93,22 +93,35 @@ three, and consecutive blocks are required to be non-adjacent.
 
 ## 3. What is missing
 
-### Layer A — instantiating the universal core (thin, absent)
+### Layer A — instantiating the universal core (thin, partly done)
 
-Nothing in `Erdos289/` currently uses `GradedCorrection`, `Realizer`, `Covers`,
-`Transfer`, `CompactResolution` or `LeastAbsorber`. The universal core is proved
-but not yet applied. This layer is conceptually thin — it is the "unwrapping"
-the design intends — but it is not free:
+`Erdos289/EngineBridge.lean` fixes the universal data at the reciprocal system
+and identifies the universal conclusion with the statement the descent needs.
 
-* A1. an `ObservationSystem` over the compact-stage poset of `ℚ/ℤ` whose
-  observation of a support is `Support.residue`;
-* A2. the `GradedCorrection` object whose grade monoid is component count and
-  whose physical family is the admissible supports for a constraint;
-* A3. `Covers` for one local stage from `CoversAtGrade` (`Erdos289/LocalProfiles.lean`);
-* A4. composition of stages via `CompositionCovers`, using
-  `Erdos289.aggregateSupport_value` / `aggregateSupport_grade`;
-* A5. `LiteralizesTarget` at the unit target — the residue half is already
-  available as `Erdos289.Support.value_eq_one_of_residue_zero`.
+* A1. *Done.* `Erdos289.reciprocalObservation` is the compact-stage observation
+  system on `ℚ/ℤ`; `Erdos289.isAdditiveOn_value`, `isAdditiveOn_grade` and
+  `isAdditiveOn_residue` supply the additivity the composition theorem wants.
+* A2. *Done.* `Erdos289.selectorFamily` is the physical family, and
+  `Erdos289.cofiniteSaturation_of_exactSpectrum` shows that cofiniteness of
+  `AffineCorrection.exactSpectrum (selectorFamily c) Support.residue
+  Support.grade 0` *is* `CofiniteSaturation 1 c`.
+* A3. **Open.** `Covers` for one local stage, from `CoversAtGrade`
+  (`Erdos289/LocalProfiles.lean`).  This is where the arithmetic layers enter.
+* A4. **Open.** composition of stages via `CompositionCovers`.  The physical
+  side is available: `Erdos289.aggregateSupport_value`, `aggregateSupport_grade`
+  and `aggregateSupport_residue`.
+* A5. **Open, and not merely mechanical.** `LiteralizesTarget` at a compact
+  stage `H` asserts that a target realizer's residue is exactly zero, while the
+  realizer pullback only gives residue in `H`.  Closing that gap is the
+  defect-absorption step, whose universal object is
+  `AffineCorrection.LeastAbsorber`; it needs the endpoint stages to eventually
+  contain the fixed finite defect subgroup.
+
+A note on the core itself: `AffineCorrection.exactSpectrum` originally ranged
+over the whole ambient state type and so forgot the physical family, which
+made the transfer theorem's conclusion strictly weaker than its own proof
+supported — and useless for E289, whose admissibility constraints live exactly
+in the family.  It is now family-relative.
 
 ### Layer B — the quantitative verification (arithmetic, absent)
 

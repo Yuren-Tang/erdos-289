@@ -76,10 +76,18 @@ def IsAdditiveOn
     (P : PartialAddCommMonoid C) (f : C → A) : Prop :=
   ∀ {a b c : C}, P.add a b c → f c = f a + f b
 
-/-- Grade spectrum of the exact fibre at `τ`. -/
+/--
+Grade spectrum of the exact fibre of a physical family at `τ`: the image under
+grade of the states of `F` whose exact value is `τ`.
+
+The family is part of the object.  Dropping it would leave a set of grades
+realized by *some* state of the ambient type, which is not what a physical
+transfer theorem may conclude: in an application the admissibility constraints
+live precisely in `F`.
+-/
 def exactSpectrum
     {C : Type u} {Γ : Type v} {M : Type w}
-    (W : C → Γ) (g : C → M) (τ : Γ) : Set M :=
-  {m | ∃ x, W x = τ ∧ g x = m}
+    (F : Set C) (W : C → Γ) (g : C → M) (τ : Γ) : Set M :=
+  {m | ∃ x ∈ F, W x = τ ∧ g x = m}
 
 end AffineCorrection
