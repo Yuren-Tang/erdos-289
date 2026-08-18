@@ -389,3 +389,15 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.exists_compatiblePool_of_binary_of_card' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_compatiblePool_of_binary_of_card
+
+/-- info: 'Erdos289.TransverseReservoir.mem_simpleValues_iff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.mem_simpleValues_iff
+
+/-- info: 'Erdos289.aggregateSupport_stageClass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.aggregateSupport_stageClass
+
+/-- info: 'Erdos289.exists_pool_state_of_class' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_pool_state_of_class

@@ -96,6 +96,18 @@ theorem mem_simpleValueFiber_iff {Q : ℕ} {c : PhysicalConstraint}
   classical
   simp [simpleValueFiber]
 
+theorem mem_simpleValues_iff {Q : ℕ} {c : PhysicalConstraint}
+    (R : TransverseReservoir Q c) (v : PrimePowerSimpleFiber Q) :
+    v ∈ R.simpleValues ↔
+      ∃ S : {S // S ∈ R.atoms}, S.1.transverseClass (R.transverse S.1 S.2) = v := by
+  classical
+  constructor
+  · intro hv
+    obtain ⟨S, -, hS⟩ := Finset.mem_image.mp hv
+    exact ⟨S, hS⟩
+  · rintro ⟨S, rfl⟩
+    exact Finset.mem_image_of_mem _ (Finset.mem_attach _ _)
+
 theorem simpleValues_nonzero {Q : ℕ} {c : PhysicalConstraint}
     (R : TransverseReservoir Q c) {x : PrimePowerSimpleFiber Q}
     (hx : x ∈ R.simpleValues) : x ≠ 0 := by

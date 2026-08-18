@@ -87,3 +87,6 @@ Erdos289.exists_tail_sum_lt
 Erdos289.exists_tail_sum_lt_rat
 Erdos289.IndependentTransversal.exists_chunkPoolPartition
 Erdos289.exists_compatiblePool_of_binary_of_card
+Erdos289.TransverseReservoir.mem_simpleValues_iff
+Erdos289.aggregateSupport_stageClass
+Erdos289.exists_pool_state_of_class
