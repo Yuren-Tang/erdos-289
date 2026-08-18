@@ -1,0 +1,16 @@
+name = "erdos289"
+version = "0.1.0"
+defaultTargets = ["Erdos289", "Erdos289Test"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.33.0"
+
+[[lean_lib]]
+name = "Erdos289"
+roots = ["AffineCorrection", "Erdos289", "IndependentTransversals", "LeanPool", "Audit"]
+
+[[lean_lib]]
+name = "Erdos289Test"
+roots = ["Erdos289Test"]

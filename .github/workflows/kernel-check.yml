@@ -1,0 +1,41 @@
+name: External kernel check
+
+# `lake build` trusts the elaborator that produced the `.olean` files.  These
+# checks replay the whole environment through independent kernels instead.
+# They are slow because they re-check all of mathlib, so they do not run on
+# every push.
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+  schedule:
+    - cron: '0 4 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  leanchecker:
+    name: leanchecker
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          test: false
+          lint: false
+          leanchecker: "true"
+
+  nanoda:
+    name: nanoda (independent Rust type checker, sorry forbidden)
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          test: false
+          lint: false
+          nanoda: "true"
+          nanoda-allow-sorry: "false"

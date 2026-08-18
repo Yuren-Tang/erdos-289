@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# The toolchain and every dependency revision are pinned by `lean-toolchain`
+# and `lake-manifest.json`.  No workflow in this repository runs `lake update`;
+# dependency bumps go through their own pull request.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  hygiene:
+    name: Source hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Forbid unfinished or trusted-by-fiat declarations
+        run: ./scripts/source_scan.sh
+      - name: Forbid bare `import Mathlib` in production code
+        run: ./scripts/import_scan.sh
+      - name: Check the pinned toolchain matches the pinned mathlib
+        run: ./scripts/pin_scan.sh
+
+  build:
+    name: Build and axiom audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # `Audit.lean` is a default build target, so this step is also the
+      # transitive axiom audit: every `#print axioms` there is wrapped in
+      # `#guard_msgs`, and an upstream `sorryAx` or a new project axiom fails
+      # the build instead of appearing unnoticed in a log.
+      - name: Build every target
+        uses: leanprover/lean-action@v1
+        with:
+          test: false
+          lint: false

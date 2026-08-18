@@ -1,0 +1,43 @@
+# Metadata for the statement this repository formalizes.
+# The fields are informal project metadata, not a published schema.
+
+problem:
+  collection: erdosproblems.com
+  id: 289
+  url: https://www.erdosproblems.com/289
+  status_upstream: open
+  statement: >-
+    Is it true that, for all sufficiently large k, there exist finite intervals
+    I_1, ..., I_k in the natural numbers, distinct, not overlapping or adjacent,
+    with |I_i| >= 2 for 1 <= i <= k, such that 1 = sum_i sum_{n in I_i} 1/n?
+
+formalization:
+  toolchain: leanprover/lean4:v4.33.0
+  mathlib: v4.33.0
+  intrinsic_statement: Erdos289.Erdos289Statement
+  literal_statements:
+    - name: Erdos289.Erdos289LiteralSeparated
+      matches: the sentence displayed on erdosproblems.com/289
+      derived_by: Erdos289.erdos289LiteralSeparated_of_statement
+    - name: Erdos289.Erdos289Literal
+      matches: >-
+        the right-hand side of `erdos_289` in
+        google-deepmind/formal-conjectures, FormalConjectures/ErdosProblems/289.lean
+      derived_by: Erdos289.erdos289Literal_of_statement
+  strengthening: >-
+    The intrinsic statement restricts every block to length two or three and
+    requires distinct blocks to be non-adjacent, so it implies both literal
+    forms.
+  proved: false
+  remaining_work: ROADMAP.md
+
+trust:
+  source_scan: scripts/source_scan.sh
+  axiom_audit: Audit.lean
+  external_kernel_checks:
+    - leanchecker
+    - nanoda
+  accepted_axioms:
+    - propext
+    - Classical.choice
+    - Quot.sound

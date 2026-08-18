@@ -1,0 +1,18 @@
+Erdos289
+Copyright 2026 Yuren Tang
+
+This product includes software developed as part of the following
+Apache-2.0-licensed projects.  Their per-file copyright and author notices
+have been retained in the corresponding source files; see THIRD_PARTY.md for
+the exact upstream commits and the list of local modifications.
+
+  Vilin97/lean-pool
+  Copyright (c) 2026 Nick Adfor
+  Files: LeanPool/PolynomialMethodRestrictedSums/*
+
+  Pjotr5/IndependentTransversals
+  Copyright (c) 2025 Pjotr Buys
+  Files: IndependentTransversals/*
+
+This product depends on, but does not redistribute, mathlib4
+(https://github.com/leanprover-community/mathlib4), also Apache-2.0.

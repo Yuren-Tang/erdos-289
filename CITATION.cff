@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite it as below."
+title: "Erdos289: a Lean 4 development towards Erdős problem 289"
+abstract: >-
+  A Lean 4 / mathlib development of a universal graded affine-correction
+  theorem and its descent towards the strengthened length-{2,3} form of
+  Erdős problem 289.  The universal core and five isolated hard leaves are
+  proved unconditionally; the unconditional final theorem is not yet claimed.
+authors:
+  - family-names: Tang
+    given-names: Yuren
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/Yuren-Tang/erdos-289"
+keywords:
+  - Lean 4
+  - mathlib
+  - formalization
+  - Egyptian fractions
+  - unit fractions
+  - Erdős problems
+references:
+  - type: generic
+    title: "Erdős problem 289"
+    url: "https://www.erdosproblems.com/289"
