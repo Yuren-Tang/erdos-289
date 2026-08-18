@@ -429,3 +429,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.tailStage_of_pool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.tailStage_of_pool
+
+/-- info: 'Erdos289.TailStage.mono_cost' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TailStage.mono_cost
+
+/-- info: 'Erdos289.tailCovers_of_stages' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailCovers_of_stages

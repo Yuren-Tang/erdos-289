@@ -136,6 +136,14 @@ theorem TailStage.mono {c : PhysicalConstraint} {F : Support}
   obtain ⟨V, hsub, hadm, hgrade, hres, hpos, hle⟩ := s v (hG hv)
   exact ⟨V, hsub, hadm, hgrade, hH hres, hpos, hle⟩
 
+/-- A cheaper stage is also a dearer one. -/
+theorem TailStage.mono_cost {c : PhysicalConstraint} {F : Support}
+    {H G : AddSubgroup TargetResidue} {h : ℕ} {ε ε' : ℚ} (hε : ε ≤ ε')
+    (s : TailStage c F H G h ε) : TailStage c F H G h ε' := by
+  intro v hv
+  obtain ⟨V, hsub, hadm, hgrade, hres, hpos, hle⟩ := s v hv
+  exact ⟨V, hsub, hadm, hgrade, hres, hpos, hle.trans hε⟩
+
 /-- Forgetting the footprint turns a stage into the tail interface. -/
 theorem tailCovers_of_tailStage
     {c : PhysicalConstraint} {F F' : Support}
@@ -145,5 +153,27 @@ theorem tailCovers_of_tailStage
   intro v hv
   obtain ⟨V, -, hadm, hgrade, hres, hpos, hle⟩ := s v hv
   exact ⟨V, hadm, hgrade, hres, hpos, hle⟩
+
+/--
+The tail interface from a finite chain of stages: each stage lives beyond the
+accumulated footprint of its predecessors, the grades add up to the requested
+one, and the loads add up to at most the requested margin.
+
+This is the exact shape the arithmetic provider has to deliver.
+-/
+theorem tailCovers_of_stages
+    {c : PhysicalConstraint} {F : Support} {H : AddSubgroup TargetResidue}
+    (G : ℕ → AddSubgroup TargetResidue) (Fp : ℕ → Support)
+    (gr : ℕ → ℕ) (cost : ℕ → ℚ) (n : ℕ) (hG0 : G 0 = H)
+    (hstage : ∀ i, TailStage
+      (constraintBeyond (constraintBeyond c F) ((Finset.range i).biUnion Fp))
+      (Fp i) (G i) (G (i + 1)) (gr i) (cost i))
+    {h : ℕ} (hgrade : ∑ i ∈ Finset.range n, gr i = h)
+    {ε : ℚ} (hcost : ∑ i ∈ Finset.range n, cost i ≤ ε) :
+    TailCovers c F H (G n) h ε := by
+  have hchain :=
+    tailStage_chain (constraintBeyond c F) H G Fp gr cost hG0 hstage n
+  rw [hgrade] at hchain
+  exact tailCovers_of_tailStage (hchain.mono_cost hcost)
 
 end Erdos289

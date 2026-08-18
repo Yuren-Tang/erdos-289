@@ -97,3 +97,5 @@ Erdos289.tailCovers_of_tailStage
 Erdos289.TailStage.mono
 Erdos289.stageClass_eq_iff_sub_mem
 Erdos289.tailStage_of_pool
+Erdos289.TailStage.mono_cost
+Erdos289.tailCovers_of_stages

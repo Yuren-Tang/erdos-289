@@ -164,14 +164,52 @@ enlarges the core subgroup from `G_{B₀}` to `G_B`; that only moves work from
 the tail provider to the core provider, and the spine does not care which side
 does it.
 
-### Provider 2, the cofinal tail — open
+### Provider 2, the cofinal tail — open, and now delimited
 
 `Erdos289.erdos289Statement_of_tailInterface` is Erdős 289 with this as its
 only hypothesis: beyond any finite footprint `F`, and for any core class `τ`,
 there is `N` such that every grade `h ≥ N` admits an ambient group `G ∋ τ` and
 a load `ε < 1/2` with `TailCovers originalConstraint F ⟨[1/D]⟩ G h ε`.
 
-This is where all the arithmetic lives.  The pieces already proved:
+The scaffolding that turns arithmetic into that hypothesis is complete.
+
+* `TailStage` is `TailCovers` plus the footprint the next stage must clear.
+* `TailStage.comp` is torsor induction one level down; `tailStage_empty` is the
+  base; `tailStage_chain` iterates it along a chain of subgroups.
+* `tailCovers_of_stages` is the resulting interface: a finite chain of stages
+  whose grades sum to `h` and whose loads sum to at most `ε`.
+* `tailStage_of_pool` makes one prime-power current one link of that chain: a
+  compatible transverse pool at `Q = p ^ e` inside a finite footprint is a
+  stage from `lowerPrimePowerStage Q` to `primePowerStage Q`, at every grade of
+  its Dias da Silva–Hamidoune interval, with load `h · maxMass`.
+* `exists_pool_state_of_class` is what `tailStage_of_pool` runs on, and
+  `exists_compatiblePool_of_binary_of_card` produces the pool from a row that
+  is merely large enough.
+
+What is left is therefore exactly four arithmetic statements, one heavy and
+three light.
+
+* **T1 (heavy).** For every large prime power `Q` and every finite footprint,
+  a compatible transverse pool at `Q` beyond that footprint whose image in the
+  simple fibre is large and whose atoms are light.  The ingredients are the
+  row certificate (B2), the conflict bound (B3), the packing (B4) and the
+  remoteness that the row truncation already supplies; what is missing is the
+  passage from the row to the reservoir and the lower bound on the fibre
+  image.
+* **T2.** Grades: a decomposition of every large `h` into per-stage grades
+  lying in each stage's interval.  The Minkowski step is
+  `GradeAggregation.exists_grades_of_mem_sum_Icc` and the eventual-ray step is
+  `AffineCorrection.intervalSpectrum_cofinite_of_eventually`; the overlap
+  estimate `A_{j+1} ≤ B_j + 1` is what has to be supplied.
+* **T3.** Loads: `∑ᵢ costᵢ < 1/2`.  The tail-vanishing statement is
+  `Erdos289.exists_tail_sum_lt_rat`; the summability of the actual per-stage
+  costs is what has to be supplied.
+* **T4.** Endpoints: `⟨[1/D]⟩ ≤ lowerPrimePowerStage Q₀` for the first stage,
+  and `τ ∈ G n` for the last.  The second is
+  `Erdos289.exists_mem_lowerPrimePowerStage`, already proved; the first is a
+  choice of `D` against the first current.
+
+#### The arithmetic already proved for T1–T3
 
 * **B1. Usable form of `Π`.** *Done.*
   `Erdos289.comparablePrimes_card_isBigO` states
@@ -202,14 +240,17 @@ This is where all the arithmetic lives.  The pieces already proved:
     `chosenCoefficientFiber_card_le_eight`, `card_upperCoefficient_ge`, and the
     assembly `exists_rowCertificate`, which gives a row with pairwise distinct
     coefficients, `#A - 24 ≤ 8 #R` and `#R - ⌊#R/2⌋ ≤ #T`, and distinguished
-    centres at least `Q ⌊#R/2⌋ - 1`.
+    centres at least `Q ⌊#R/2⌋ - 1` — hence remoteness beyond any fixed
+    footprint, and mass below `2 / (Q ⌊#R/2⌋ - 1)`.
 * **B3. Bounded conflict degree.** *Done.*
   `Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le` bounds the
   conflict degree by `2 (max 1 separation + 1)`, independent of the current
   prime power and of the row size.
-* **B4. Packing.** *Done, modulo the chunk partition.*
-  `Erdos289.exists_compatiblePool_of_binary`.  What remains is to cut a row
-  into enough chunks of size `4 (max 1 separation + 1)`.
+* **B4. Packing.** *Done.*
+  `Erdos289.exists_compatiblePool_of_binary_of_card`: a binary reservoir whose
+  row has at least `4 (max 1 separation + 1)` atoms carries a compatible
+  transverse pool.  The chunk partition is supplied by
+  `IndependentTransversal.exists_chunkPoolPartition`.
 * **B5. Local profiles.** *Done for the prime rows.*
   `Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc` gives the
   whole epi-grade interval `[a, m - a]` from the endpoint condition, by
@@ -219,13 +260,9 @@ This is where all the arithmetic lives.  The pieces already proved:
 * **B6. Donor flow.** The running-balance inequality is
   `Erdos289.GradeAggregation.donor_flow_nonneg`; the injective matching it
   supports is not yet written.
-* **B7. Interval aggregation.** `Erdos289.GradeAggregation.exists_grades_of_mem_sum_Icc`
-  is the Minkowski step and `AffineCorrection.intervalSpectrum_cofinite` the
-  eventual-ray step.  What is missing is the overlap estimate that feeds them.
-* **B8. Cost summability.** Not started.  The invariant content is
-  `∑ᵢ cᵢ < ∞ ⇒ ∑_{i>N} cᵢ → 0`, i.e. the tail load can be pushed below the
-  fixed slack `1/2` by moving the base stage outward.
-* **B9. Tempered prefix.** *No longer needed as a separate obligation.*
+* **B7.** See T2.
+* **B8.** See T3.
+* **B9. Tempered prefix.** *No longer a separate obligation.*
   In this factorization the tail is required to be admissible for
   `constraintBeyond c F`, which is exactly "compatible with every core state";
   temperedness is then the tail provider's own obligation to still exist, not a
