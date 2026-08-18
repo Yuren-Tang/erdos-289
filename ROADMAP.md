@@ -139,9 +139,12 @@ theorem in the strict reciprocal system.
   for bounded `λ`; deduplication by coefficient (the four-point fibre bound is
   already available as `carrierFamily_coefficientFiber_card_le_four`); the
   rank-half truncation and the resulting centre and mass bounds.
-* B3. **Bounded conflict degree.** Global injectivity and bounded span of the
-  distinguished centres, giving a uniform bound on
-  `TransverseReservoir.conflictNeighbors`.
+* B3. **Bounded conflict degree.** *Done.*
+  `Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le` bounds the
+  conflict degree of a signed-inverse row by `2 (max 1 separation + 1)`, a
+  constant independent of the current prime power and of the row size.  The
+  general statement for any family of binary atoms is
+  `Erdos289.TransverseReservoir.conflictNeighbors_card_le_of_binary`.
 * B4. **Packing.** Apply `P` to B3 to obtain a `CompatibleTransversePool` whose
   size is a fixed positive fraction of the row.
 * B5. **Local profiles.** Prime rows: the epi-grade interval `[a_p, b_p]` from

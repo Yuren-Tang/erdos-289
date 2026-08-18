@@ -23,6 +23,7 @@ public import Erdos289.NeutralConstruction
 public import Erdos289.PrimePowerFiltration
 public import Erdos289.SimpleFiber
 public import Erdos289.TransverseReservoir
+public import Erdos289.ConflictDegree
 public import Erdos289.PoolComposition
 public import Erdos289.RestrictedFold
 public import Erdos289.LocalProfiles

@@ -44,6 +44,7 @@ public import Erdos289
 import Erdos289.SignedInverse
 import Erdos289.SignedInverseAtom
 import Erdos289.SignedInverseReservoir
+import Erdos289.SignedInverseConflict
 
 /-!
 # Transitive trust audit

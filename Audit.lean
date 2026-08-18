@@ -10,6 +10,7 @@ public import Erdos289
 import Erdos289.SignedInverse
 import Erdos289.SignedInverseAtom
 import Erdos289.SignedInverseReservoir
+import Erdos289.SignedInverseConflict
 
 /-!
 # Transitive trust audit
@@ -240,3 +241,15 @@ and regenerate rather than editing it by hand.
 /-- info: 'AffineCorrection.grade_mem_exactSpectrum_of_covers_target' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms AffineCorrection.grade_mem_exactSpectrum_of_covers_target
+
+/-- info: 'Erdos289.binaryBlock_compatibleFor_of_dist' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.binaryBlock_compatibleFor_of_dist
+
+/-- info: 'Erdos289.TransverseReservoir.conflictNeighbors_card_le_of_binary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.conflictNeighbors_card_le_of_binary
+
+/-- info: 'Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le
