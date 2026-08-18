@@ -70,3 +70,5 @@ Erdos289.SignedInverse.chosenCoefficientFiber_card_le_eight
 Erdos289.SignedInverse.exists_dedup_row
 Erdos289.SignedInverse.card_truncate_ge
 Erdos289.SignedInverse.exists_rowCertificate
+Erdos289.mul_sub_le_mul_sub_of_between
+Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc

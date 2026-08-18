@@ -39,6 +39,7 @@ public import Erdos289.Composition
 public import Erdos289.EngineBridge
 public import Erdos289.GradeAggregation
 public import Erdos289.Literal
+public import Erdos289.GradeInterval
 
 /-!
 # Erdős problem 289

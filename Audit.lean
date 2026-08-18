@@ -321,3 +321,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.SignedInverse.exists_rowCertificate' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.exists_rowCertificate
+
+/-- info: 'Erdos289.mul_sub_le_mul_sub_of_between' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.mul_sub_le_mul_sub_of_between
+
+/-- info: 'Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc
