@@ -99,3 +99,8 @@ Erdos289.stageClass_eq_iff_sub_mem
 Erdos289.tailStage_of_pool
 Erdos289.TailStage.mono_cost
 Erdos289.tailCovers_of_stages
+Erdos289.exists_lowerAnnihilator
+Erdos289.reciprocalResidue_sub_notMem_lower
+Erdos289.Support.stageClass_eq_iff
+Erdos289.TransverseReservoir.card_simpleValues_of_injective
+Erdos289.SignedInverse.atom_stageClass_ne_of_coefficient_ne

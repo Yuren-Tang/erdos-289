@@ -47,6 +47,7 @@ public import Erdos289.CostTail
 public import Erdos289.StageProfile
 public import Erdos289.TailComposition
 public import Erdos289.StageToTail
+public import Erdos289.PrimeRowFibre
 
 /-!
 # Erdős problem 289

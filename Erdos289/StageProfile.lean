@@ -8,6 +8,7 @@ Authors: Yuren Tang
 
 public import Erdos289.GradeInterval
 public import Erdos289.Composition
+public import Mathlib.Tactic.Abel
 
 @[expose] public section
 
@@ -95,6 +96,59 @@ theorem aggregateSupport_stageClass
     exact Finset.sum_congr rfl fun S hS => (Support.stageLift_val (hfac S hS)).symm
   rw [Support.stageClass, hlift, map_sum]
   rfl
+
+/-- Two elements of the current stage have the same simple-fibre class exactly
+when they differ by an element of the lower stage. -/
+theorem stageClass_eq_iff_sub_mem {Q : ℕ} {y z : TargetResidue}
+    (hy : y ∈ primePowerStage Q) (hz : z ∈ primePowerStage Q) :
+    QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨y, hy⟩ : primePowerStage Q)
+        = QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨z, hz⟩ : primePowerStage Q)
+      ↔ y - z ∈ lowerPrimePowerStage Q := by
+  rw [QuotientAddGroup.mk'_eq_mk']
+  constructor
+  · rintro ⟨u, hu, huz⟩
+    have hval : (u : TargetResidue) = z - y := by
+      have hcoe := congrArg Subtype.val huz
+      simp only [AddSubgroup.coe_add] at hcoe
+      rw [← hcoe]
+      abel
+    have hzy : z - y ∈ lowerPrimePowerStage Q := by
+      have hmem : (u : TargetResidue) ∈ lowerPrimePowerStage Q := hu
+      rwa [hval] at hmem
+    have hneg := (lowerPrimePowerStage Q).neg_mem hzy
+    rwa [neg_sub] at hneg
+  · intro hsub
+    have hzy : z - y ∈ lowerPrimePowerStage Q := by
+      have hneg := (lowerPrimePowerStage Q).neg_mem hsub
+      rwa [neg_sub] at hneg
+    refine ⟨⟨z - y, AddSubgroup.sub_mem _ hz hy⟩, hzy, ?_⟩
+    refine Subtype.ext ?_
+    simp only [AddSubgroup.coe_add]
+    abel
+
+/-- Two supports factoring through the current stage have the same class
+exactly when their residues differ by an element of the lower stage. -/
+theorem Support.stageClass_eq_iff {Q : ℕ} {S T : Support}
+    (hS : S.FactorsThroughPrimePowerStage Q) (hT : T.FactorsThroughPrimePowerStage Q) :
+    S.stageClass Q = T.stageClass Q ↔ S.residue - T.residue ∈ lowerPrimePowerStage Q := by
+  rw [Support.stageClass_eq hS, Support.stageClass_eq hT]
+  exact stageClass_eq_iff_sub_mem hS hT
+
+/-- A reservoir whose atoms have pairwise distinct simple-fibre classes has an
+image in the fibre as large as itself. -/
+theorem TransverseReservoir.card_simpleValues_of_injective
+    {Q : ℕ} {c : PhysicalConstraint} (R : TransverseReservoir Q c)
+    (hinj : ∀ S ∈ R.atoms, ∀ T ∈ R.atoms, S.stageClass Q = T.stageClass Q → S = T) :
+    R.simpleValues.card = R.atoms.card := by
+  classical
+  have hkey : R.simpleValues
+      = R.atoms.attach.image fun S => S.1.transverseClass (R.transverse S.1 S.2) := rfl
+  rw [hkey, Finset.card_image_of_injOn, Finset.card_attach]
+  intro S _ T _ hST
+  refine Subtype.ext (hinj S.1 S.2 T.1 T.2 ?_)
+  rw [Support.stageClass_eq_transverseClass (R.transverse S.1 S.2),
+    Support.stageClass_eq_transverseClass (R.transverse T.1 T.2)]
+  exact hST
 
 /-! ### One stage realizes every class at every grade of its interval -/
 

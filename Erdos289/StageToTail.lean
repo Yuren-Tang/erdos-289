@@ -31,35 +31,6 @@ open scoped BigOperators
 
 namespace Erdos289
 
-/-- Two elements of the current stage have the same simple-fibre class exactly
-when they differ by an element of the lower stage. -/
-theorem stageClass_eq_iff_sub_mem {Q : ℕ} {y z : TargetResidue}
-    (hy : y ∈ primePowerStage Q) (hz : z ∈ primePowerStage Q) :
-    QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨y, hy⟩ : primePowerStage Q)
-        = QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨z, hz⟩ : primePowerStage Q)
-      ↔ y - z ∈ lowerPrimePowerStage Q := by
-  rw [QuotientAddGroup.mk'_eq_mk']
-  constructor
-  · rintro ⟨u, hu, huz⟩
-    have hval : (u : TargetResidue) = z - y := by
-      have hcoe := congrArg Subtype.val huz
-      simp only [AddSubgroup.coe_add] at hcoe
-      rw [← hcoe]
-      abel
-    have hzy : z - y ∈ lowerPrimePowerStage Q := by
-      have hmem : (u : TargetResidue) ∈ lowerPrimePowerStage Q := hu
-      rwa [hval] at hmem
-    have hneg := (lowerPrimePowerStage Q).neg_mem hzy
-    rwa [neg_sub] at hneg
-  · intro hsub
-    have hzy : z - y ∈ lowerPrimePowerStage Q := by
-      have hneg := (lowerPrimePowerStage Q).neg_mem hsub
-      rwa [neg_sub] at hneg
-    refine ⟨⟨z - y, AddSubgroup.sub_mem _ hz hy⟩, hzy, ?_⟩
-    refine Subtype.ext ?_
-    simp only [AddSubgroup.coe_add]
-    abel
-
 /--
 A compatible transverse pool at the current `Q = p ^ e`, all of whose atoms lie
 inside a finite footprint, is a tail stage from the lower stage to the current

@@ -296,6 +296,18 @@ private theorem prime_pow_not_dvd_lowerStageExponent
       simpa using hmpos.ne'
   exact (Nat.not_le_of_lt hfacLt) hfacLe
 
+/--
+The lower stage has a common annihilator that misses the current prime power.
+This is the only consequence of the `lcm` coordinate that leaves this module.
+-/
+theorem exists_lowerAnnihilator {Q p e : ℕ} (hp : p.Prime) (he : 0 < e)
+    (hQ : Q = p ^ e) :
+    ∃ L : ℕ, 0 < L ∧ (∀ x ∈ lowerPrimePowerStage Q, L • x = 0) ∧ ¬p ^ e ∣ L := by
+  refine ⟨lowerStageExponent Q, Nat.pos_of_ne_zero (lowerStageExponent_ne_zero Q),
+    fun x hx => lowerPrimePowerStage_le_annihilatorStage_lowerStageExponent Q hx, ?_⟩
+  subst hQ
+  exact prime_pow_not_dvd_lowerStageExponent hp he
+
 /-- A reciprocal whose denominator contains the current prime power has
 nonzero image above the lower stage. -/
 theorem reciprocalResidue_primePow_mul_not_mem_lower

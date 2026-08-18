@@ -437,3 +437,23 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.tailCovers_of_stages' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.tailCovers_of_stages
+
+/-- info: 'Erdos289.exists_lowerAnnihilator' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_lowerAnnihilator
+
+/-- info: 'Erdos289.reciprocalResidue_sub_notMem_lower' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.reciprocalResidue_sub_notMem_lower
+
+/-- info: 'Erdos289.Support.stageClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.Support.stageClass_eq_iff
+
+/-- info: 'Erdos289.TransverseReservoir.card_simpleValues_of_injective' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.card_simpleValues_of_injective
+
+/-- info: 'Erdos289.SignedInverse.atom_stageClass_ne_of_coefficient_ne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.atom_stageClass_ne_of_coefficient_ne
