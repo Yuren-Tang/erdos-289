@@ -17,28 +17,39 @@ infrastructure are proved unconditionally and are transitively axiom-audited.
 the instantiation of the universal core at the reciprocal system, and the
 quantitative verification of that instantiation's hypotheses.
 
-## 1. Two leaf lists, and which one this package implements
+## 1. Two leaf lists, and why they do not actually conflict
 
-The design notes behind this development contain **two different lists of five
-hard leaves**, and the difference is the single most common source of confusion
-about how far along the project is.
+The design notes behind this development name the five hard leaves in two
+different ways, and the difference is the single most common source of
+confusion about how far along the project is.
 
-| list | leaves | where the signed-inverse row certificate sits |
+| note | leaves | where the signed-inverse row certificate sits |
 | --- | --- | --- |
-| *leaf-DAG freeze* | `E, N, T, P, D` | `T` **is** a leaf: it is the quantitative reservoir theorem |
-| *hard-leaf interface audit* | `E, N, Π, P, D` | not a leaf; "derived finite arithmetic downstream of `Π`" |
+| *hard-leaf interface audit* | `E, N, Π, P, D` | not a leaf: "derived finite arithmetic downstream of `Π`" |
+| *Lean 4.33 zero-axiom route* | `E, N, Π, P, D` | same; this is the implementation-facing note |
+| *post-bite leaf-DAG freeze* | `E, N, T, P, D` | `T` is a leaf, and "the hard part is the quantitative carrier supply/resource theorem" |
 
-This package implements the **second** list. All five of `E, N, Π, P, D` are
-proved. In the first list's vocabulary that means `T` is *not* proved: only its
-atom-level ingredients are (complementary signed-inverse pairs, the bounded
-quadratic shape of downwardness exceptions, the four-point coefficient-fibre
-bound, and the reservoir/pool constructors).
+**The two lists disagree about labelling, not about content.** Both say the
+same thing has to be proved: the quantitative row certificate. One calls it a
+fifth leaf named `T`; the other splits it into the external input `Π` plus
+arithmetic derived below it. `T` is, up to naming, `Π` together with that
+derived arithmetic.
 
-So "all five leaves are complete" and "a large amount of work remains" are both
-true, and they are not in tension. What remains is not a further conceptual
-leaf; it is the arithmetic verification that the manuscript itself calls "the
-last genuinely arithmetic realization theorem", plus the mechanical wiring of
-the universal core.
+This package uses the `Π` list, for three reasons: it is the one both
+implementation-facing notes use, it is the finer decomposition (so the
+genuinely external input is isolated to a single prime-counting statement),
+and it is what the existing code already implements.
+
+The consequence for reading the status: all five of `E, N, Π, P, D` are proved,
+*and* the content that the other list calls `T` is not. Only `T`'s atom-level
+ingredients are — complementary signed-inverse pairs, the bounded quadratic
+shape of downwardness exceptions, the four-point coefficient-fibre bound, and
+the reservoir and pool constructors. So "all five leaves are complete" and "a
+large amount of work remains" are both true and not in tension.
+
+What remains is also not a *further* conceptual leaf. It is the arithmetic
+verification that the manuscript itself calls "the last genuinely arithmetic
+realization theorem", plus the wiring of the universal core.
 
 ## 2. What is proved unconditionally
 
@@ -117,11 +128,21 @@ and identifies the universal conclusion with the statement the descent needs.
   `AffineCorrection.LeastAbsorber`; it needs the endpoint stages to eventually
   contain the fixed finite defect subgroup.
 
-A note on the core itself: `AffineCorrection.exactSpectrum` originally ranged
-over the whole ambient state type and so forgot the physical family, which
-made the transfer theorem's conclusion strictly weaker than its own proof
-supported — and useless for E289, whose admissibility constraints live exactly
-in the family.  It is now family-relative.
+A note on the core itself, and on where the fault lay.
+`AffineCorrection.exactSpectrum` originally ranged over the whole ambient state
+type, so it forgot the physical family; the transfer theorem's conclusion was
+therefore strictly weaker than its own proof supported, and useless for E289,
+whose admissibility constraints live exactly in the family.
+
+This was **not** a defect in the manuscript. Part I defines
+`Spec_g(τ) := {g(x) : x ∈ C, W(x) = τ}` over the ambient configuration object
+`C`, and in the manuscript `C` *is* the admissible `{2,3}`-block system — the
+final claim is written `Spec_{2,3}(1)`. The Lean encoding chose a wider ambient
+type, `Support = Finset ℕ+`, and carried admissibility in the family `F`
+instead; transcribing the manuscript's definition literally against that wider
+`C` is what lost the constraints. The fix restores the manuscript's intent and
+strictly generalizes it: taking `F = Set.univ` recovers the original
+definition verbatim.
 
 ### Layer B — the quantitative verification (arithmetic, absent)
 
