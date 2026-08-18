@@ -22,7 +22,7 @@ different in kind, and all three are run.
 ### 1. Source hygiene — local, syntactic
 
 ```bash
-./scripts/source_scan.sh
+python3 scripts/source_scan.py
 ./scripts/import_scan.sh
 ./scripts/pin_scan.sh
 ```

@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Forbid unfinished or trusted-by-fiat declarations
-        run: ./scripts/source_scan.sh
+        run: python3 scripts/source_scan.py
       - name: Forbid bare `import Mathlib` in production code
         run: ./scripts/import_scan.sh
       - name: Check the pinned toolchain matches the pinned mathlib

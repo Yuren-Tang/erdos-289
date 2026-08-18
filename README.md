@@ -81,7 +81,7 @@ separate and its expected output is pinned with `#guard_msgs`.
 ```bash
 lake exe cache get
 lake build            # includes Audit.lean, hence the transitive axiom audit
-./scripts/source_scan.sh
+python3 scripts/source_scan.py
 ```
 
 Do not run `lake update`: the toolchain and every dependency revision are

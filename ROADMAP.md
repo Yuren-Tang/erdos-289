@@ -116,10 +116,10 @@ This is Part II §16–§18 of the manuscript. It is deliberately *not* categori
 it is the finite arithmetic that verifies the hypotheses of the aggregation
 theorem in the strict reciprocal system.
 
-* B1. **Usable form of `Π`.** `comparablePrimeSupply_explicit` is an explicit
-  inequality involving `Chebyshev.theta`. Downstream needs
-  `∃ N, ∀ n ≥ N, (n : ℝ) / Real.log n ≤ (comparablePrimes n).card`, which
-  requires absorbing the `√(4n) log(4n)` error term.
+* B1. **Usable form of `Π`.** *Done.*
+  `Erdos289.card_comparablePrimes_ge` gives
+  `(n : ℝ) / (2 * Real.log n) ≤ (comparablePrimes n).card` for `n ≥ 50 ^ 4`,
+  absorbing the `√(4n) log(4n)` error term of the theta lower bound.
 * B2. **Row supply (manuscript Thm 17.1).** For every large prime power `Q`, a
   raw row of `≫ Q / log Q` signed-inverse atoms with distinct current
   coefficients. Needs: a bound on the number of roots of `λ b² ≡ ±1 (mod Q)`
@@ -156,7 +156,7 @@ every sufficiently large `k`, one admissible support of grade `k` with value in
 ## 4. Discipline for the remaining work
 
 Unfinished leaves are **explicit theorem parameters or certificate structure
-fields, never global axioms**. `scripts/source_scan.sh` rejects `axiom`, and
+fields, never global axioms**. `scripts/source_scan.py` rejects `axiom`, and
 `Audit.lean` pins the transitive axiom set of every exported theorem with
 `#guard_msgs`, so an accidental assumption cannot enter silently.
 

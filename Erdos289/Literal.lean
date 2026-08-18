@@ -72,14 +72,12 @@ private theorem reachable_of_walk_between :
         ∃ hz : z ∈ S, S.graph.Reachable x ⟨z, hz⟩ := by
   intro x y w
   induction w with
-  | nil =>
+  | @nil u =>
       intro z h1 h2
-      have hz : z = x.1 := by
-        apply PNat.coe_injective
-        simp only [min_self, max_self] at h1 h2
-        omega
+      simp only [min_self, max_self] at h1 h2
+      have hz : z = u.1 := PNat.coe_injective (by omega)
       subst hz
-      exact ⟨x.2, SimpleGraph.Reachable.refl _⟩
+      exact ⟨u.2, SimpleGraph.Reachable.refl _⟩
   | @cons u v t hadj p ih =>
       intro z h1 h2
       by_cases hzu : (z : ℕ) = (u.1 : ℕ)
@@ -103,7 +101,7 @@ theorem Support.mem_of_between {x y : Denominator} (hx : x ∈ S) (hy : y ∈ S)
     ∃ hz : z ∈ S,
       S.graph.connectedComponentMk ⟨z, hz⟩ = S.graph.connectedComponentMk ⟨x, hx⟩ := by
   obtain ⟨w⟩ := SimpleGraph.ConnectedComponent.exact hxy
-  obtain ⟨hz, hreach⟩ := reachable_of_walk_between w.toWalk z h1 h2
+  obtain ⟨hz, hreach⟩ := reachable_of_walk_between w z h1 h2
   exact ⟨hz, (SimpleGraph.ConnectedComponent.sound hreach).symm⟩
 
 end Convexity
@@ -154,10 +152,20 @@ theorem Support.blockNat_card (c : S.Blocks) : (S.blockNat c).card = S.blockSize
   intro x _
   simp [SimpleGraph.ConnectedComponent.mem_supp_iff]
 
+theorem Support.exists_denominator_of_mem_blockNat {c : S.Blocks} {m : ℕ}
+    (hm : m ∈ S.blockNat c) :
+    ∃ (x : Denominator) (h : x ∈ S),
+      S.graph.connectedComponentMk ⟨x, h⟩ = c ∧ (x : ℕ) = m := by
+  classical
+  simp only [Support.blockNat, Finset.mem_image, Finset.mem_filter, Finset.mem_univ,
+    true_and] at hm
+  obtain ⟨x, hx, hval⟩ := hm
+  exact ⟨x.1, x.2, hx, hval⟩
+
 theorem Support.blockNat_nonempty (c : S.Blocks) : (S.blockNat c).Nonempty := by
   classical
   obtain ⟨x, hx⟩ := c.exists_rep
-  exact ⟨(x.1 : ℕ), (S.mem_blockNat_iff c x.1).2 ⟨x.2, by simpa using hx⟩⟩
+  exact ⟨(x.1 : ℕ), (S.mem_blockNat_iff c x.1).2 ⟨x.2, hx⟩⟩
 
 /-- The least denominator of a component. -/
 noncomputable def Support.blockMin (c : S.Blocks) : ℕ :=
@@ -187,18 +195,10 @@ theorem Support.blockNat_eq_Icc (c : S.Blocks) :
     obtain ⟨hlow, hupp⟩ := Finset.mem_Icc.1 hm
     have hmpos : 0 < m :=
       lt_of_lt_of_le (S.pos_of_mem_blockNat (S.blockMin_mem c)) hlow
-    obtain ⟨x, hxS, hxc, hxval⟩ :
-        ∃ x : Denominator, ∃ h : x ∈ S,
-          S.graph.connectedComponentMk ⟨x, h⟩ = c ∧ (x : ℕ) = S.blockMin c := by
-      obtain ⟨x, hx, hval⟩ := Finset.mem_image.1 (by
-        simpa [Support.blockNat] using S.blockMin_mem c)
-      exact ⟨x.1, x.2, (Finset.mem_filter.1 hx).2, hval⟩
-    obtain ⟨y, hyS, hyc, hyval⟩ :
-        ∃ y : Denominator, ∃ h : y ∈ S,
-          S.graph.connectedComponentMk ⟨y, h⟩ = c ∧ (y : ℕ) = S.blockMax c := by
-      obtain ⟨y, hy, hval⟩ := Finset.mem_image.1 (by
-        simpa [Support.blockNat] using S.blockMax_mem c)
-      exact ⟨y.1, y.2, (Finset.mem_filter.1 hy).2, hval⟩
+    obtain ⟨x, hxS, hxc, hxval⟩ :=
+      S.exists_denominator_of_mem_blockNat (S.blockMin_mem c)
+    obtain ⟨y, hyS, hyc, hyval⟩ :=
+      S.exists_denominator_of_mem_blockNat (S.blockMax_mem c)
     have hsame : S.graph.connectedComponentMk ⟨x, hxS⟩ =
         S.graph.connectedComponentMk ⟨y, hyS⟩ := hxc.trans hyc.symm
     have h1 : min (x : ℕ) (y : ℕ) ≤ m := by
@@ -229,7 +229,7 @@ theorem Support.blockNat_disjoint {c d : S.Blocks} (h : c ≠ d) :
   have hmpos : 0 < m := S.pos_of_mem_blockNat hmc
   obtain ⟨hn, hc⟩ := (S.mem_blockNat_iff c ⟨m, hmpos⟩).1 (by simpa using hmc)
   obtain ⟨hn', hd⟩ := (S.mem_blockNat_iff d ⟨m, hmpos⟩).1 (by simpa using hmd)
-  exact h (by rw [← hc, ← hd]; congr 1)
+  exact h (hc.symm.trans hd)
 
 /--
 Distinct components are not adjacent: no denominator of one is the successor of
@@ -246,9 +246,7 @@ theorem Support.blockNat_not_adjacent {c d : S.Blocks} (h : c ≠ d)
   have hadj : S.graph.Adj ⟨⟨m, hmpos⟩, hn⟩ ⟨⟨m + 1, hm'pos⟩, hn'⟩ := by
     change denominatorPath.Adj (⟨m, hmpos⟩ : Denominator) ⟨m + 1, hm'pos⟩
     exact Or.inl rfl
-  exact h (by
-    rw [← hc, ← hd]
-    exact (SimpleGraph.ConnectedComponent.sound hadj.reachable))
+  exact h (((SimpleGraph.ConnectedComponent.sound hadj.reachable).symm.trans hc).symm.trans hd)
 
 /--
 Reciprocal value is the sum of the component interval sums.  The component
@@ -279,7 +277,10 @@ theorem Support.value_eq_sum_blockNat (S : Support) {k : ℕ} (e : Fin k ≃ S.B
     _ = ∑ n ∈ S, ((n : ℕ) : ℚ)⁻¹ := by
         rw [← Finset.attach_eq_univ, Finset.sum_attach S fun n => ((n : ℕ) : ℚ)⁻¹]
     _ = S.value := by
-        simp [Support.value, reciprocal, one_div]
+        rw [Support.value]
+        refine Finset.sum_congr rfl fun n _ => ?_
+        rw [reciprocal, one_div]
+        rfl
 
 end Blocks
 
@@ -339,7 +340,7 @@ theorem exists_intervalFamily_of_saturationWitness
     have hlei := S.blockMin_le_blockMax (e i)
     have hlej := S.blockMin_le_blockMax (e j)
     by_contra hcon
-    push_neg at hcon
+    push Not at hcon
     obtain ⟨h1, h2⟩ := hcon
     -- `h1 : min (e j) ≤ max (e i) + 1` and `h2 : min (e i) ≤ max (e j) + 1`.
     -- Equality on either side would make the two components adjacent, and any
@@ -375,8 +376,7 @@ The intrinsic theorem implies the sentence displayed on erdosproblems.com/289.
 theorem erdos289LiteralSeparated_of_statement (h : Erdos289Statement) :
     Erdos289LiteralSeparated := by
   obtain ⟨N, hN⟩ := h
-  rw [Filter.eventually_atTop]
-  refine ⟨max N 1, fun k hk => ?_⟩
+  refine Filter.eventually_atTop.2 ⟨max N 1, fun k hk => ?_⟩
   obtain ⟨w⟩ := hN k (le_trans (le_max_left N 1) hk)
   exact exists_intervalFamily_of_saturationWitness
     (lt_of_lt_of_le Nat.one_pos (le_trans (le_max_right N 1) hk)) w

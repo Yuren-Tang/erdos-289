@@ -32,7 +32,7 @@ formalization:
   remaining_work: ROADMAP.md
 
 trust:
-  source_scan: scripts/source_scan.sh
+  source_scan: scripts/source_scan.py
   axiom_audit: Audit.lean
   external_kernel_checks:
     - leanchecker

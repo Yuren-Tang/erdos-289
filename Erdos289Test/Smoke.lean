@@ -58,4 +58,32 @@ example {V I : Type*} [DecidableEq V] [Fintype V]
   Erdos289.IndependentTransversal.hasChunkPacking_of_two_mul_maxDegree_le
     G pools hpartition hthick
 
+/-!
+### Faithfulness of the literal statements
+
+These two examples restate the target sentences verbatim and check that the
+definitions in `Erdos289/Literal.lean` are the same propositions, so that the
+derivations in that file cannot silently drift away from what they claim to
+formalize.  The first is the right-hand side of `erdos_289` in
+`google-deepmind/formal-conjectures`, copied as written there.
+-/
+
+example : Erdos289.Erdos289Literal ↔
+    (∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
+    (∀ i, (I i).1 < (I i).2) ∧
+    (∀ i j, i ≠ j → (I i).2 < (I j).1 ∨ (I j).2 < (I i).1) ∧
+    ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n⁻¹ : ℚ) = 1) :=
+  Iff.rfl
+
+/-- The erdosproblems.com wording, which also forbids adjacent intervals. -/
+example : Erdos289.Erdos289LiteralSeparated ↔
+    (∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
+    (∀ i, (I i).1 < (I i).2) ∧
+    (∀ i j, i ≠ j → (I i).2 + 1 < (I j).1 ∨ (I j).2 + 1 < (I i).1) ∧
+    ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n⁻¹ : ℚ) = 1) :=
+  Iff.rfl
+
+example (h : Erdos289.Erdos289Statement) : Erdos289.Erdos289Literal :=
+  Erdos289.erdos289Literal_of_statement h
+
 end Erdos289Test

@@ -30,6 +30,7 @@ public import Erdos289.IndependentTransversal
 public import Erdos289.ProviderInterfaces
 public import Erdos289.PresentationComposition
 public import Erdos289.PrimeSupply
+public import Erdos289.PrimeSupplyAsymptotic
 public import Erdos289.Statement
 public import Erdos289.Selector
 public import Erdos289.GradeAggregation
