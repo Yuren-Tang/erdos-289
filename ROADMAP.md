@@ -145,8 +145,13 @@ theorem in the strict reciprocal system.
   constant independent of the current prime power and of the row size.  The
   general statement for any family of binary atoms is
   `Erdos289.TransverseReservoir.conflictNeighbors_card_le_of_binary`.
-* B4. **Packing.** Apply `P` to B3 to obtain a `CompatibleTransversePool` whose
-  size is a fixed positive fraction of the row.
+* B4. **Packing.** *Done, modulo the chunk partition.*
+  `Erdos289.exists_compatiblePool_of_binary` turns any partition of the atoms
+  of a binary reservoir into chunks of size at least
+  `4 (max 1 separation + 1)` into a `CompatibleTransversePool`, via the
+  conflict graph `Erdos289.TransverseReservoir.conflictGraph` and the packing
+  leaf.  What B2 still has to supply is a row large enough to be cut into
+  enough such chunks.
 * B5. **Local profiles.** Prime rows: the epi-grade interval `[a_p, b_p]` from
   `D` via `restrictedFold_coversAtGrade`. Proper prime powers: the fixed grade
   `p - 1` from `atom_cyclic_coversAtGrade` plus exported neutral atoms.

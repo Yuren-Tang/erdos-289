@@ -28,6 +28,7 @@ public import Erdos289.PoolComposition
 public import Erdos289.RestrictedFold
 public import Erdos289.LocalProfiles
 public import Erdos289.IndependentTransversal
+public import Erdos289.ReservoirPacking
 public import Erdos289.ProviderInterfaces
 public import Erdos289.PresentationComposition
 public import Erdos289.PrimeSupply

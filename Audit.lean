@@ -253,3 +253,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le
+
+/-- info: 'Erdos289.TransverseReservoir.conflictGraph_maxDegree_le_of_binary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.conflictGraph_maxDegree_le_of_binary
+
+/-- info: 'Erdos289.exists_compatiblePool_of_binary' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_compatiblePool_of_binary
