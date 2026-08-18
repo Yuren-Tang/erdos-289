@@ -166,12 +166,27 @@ theorem in the strict reciprocal system.
   `Asymptotics` and `Filter.atTop` API is what makes this both faithful and
   short; the first draft of this module took the numerical route and was more
   than twice as long for a strictly less faithful statement.
-* B2. **Row supply (manuscript Thm 17.1).** For every large prime power `Q`, a
-  raw row of `≫ Q / log Q` signed-inverse atoms with distinct current
-  coefficients. Needs: a bound on the number of roots of `λ b² ≡ ±1 (mod Q)`
-  for bounded `λ`; deduplication by coefficient (the four-point fibre bound is
-  already available as `carrierFamily_coefficientFiber_card_le_four`); the
-  rank-half truncation and the resulting centre and mass bounds.
+* B2. **Row supply (manuscript Thm 17.1).** *In progress.* For every large
+  prime power `Q`, a raw row of `≫ Q / log Q` signed-inverse atoms with
+  distinct current coefficients.
+  * *Done.* The carrier band. `Erdos289.SignedInverse.bandBase` chooses the
+    comparable band so that `b < Q` is automatic, and
+    `card_carrierPrimes_ge` shows the only carrier lost to the current-stage
+    exclusions is `p` itself.  Its growth is inherited asymptotically from B1
+    through `bandBase_isBigO`.
+  * *Done.* The quadratic-congruence root bound.
+    `Erdos289.primePower_squareFiber_card_le_four` bounds a square fibre of
+    `(ZMod (p ^ e))ˣ` by four points, uniformly in `p` and `e`.  The odd branch
+    is the cyclic two-torsion; the `p = 2` branch — which the earlier code had
+    flagged as intended but not supplied — is the elementary fact that an odd
+    square root of one modulo `2 ^ e` is `±1` modulo `2 ^ (e - 1)`.
+  * **Open.** The reduction: a carrier with no good orientation solves
+    `λ b² ≡ ±1 (mod Q)` with `λ ≤ 3`, because `Q ≤ 4 b` on the chosen band; and
+    `p ∤ λ`, so `λ` is a unit and the previous item applies.  Hence only
+    boundedly many carriers are lost.
+  * **Open.** Deduplication by coefficient (the four-point fibre bound is
+    available as `carrierFamily_coefficientFiber_card_le_four`), the rank-half
+    truncation, and the resulting centre and mass bounds.
 * B3. **Bounded conflict degree.** *Done.*
   `Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le` bounds the
   conflict degree of a signed-inverse row by `2 (max 1 separation + 1)`, a

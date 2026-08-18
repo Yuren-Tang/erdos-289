@@ -8,6 +8,7 @@ Authors: Yuren Tang
 
 public import Erdos289.SignedInverseAtom
 public import Erdos289.PrimeSupply
+public import Erdos289.SquareFibre
 import Mathlib.GroupTheory.Index
 import Mathlib.GroupTheory.SpecificGroups.Cyclic
 import Mathlib.RingTheory.ZMod.UnitsCyclic
@@ -70,50 +71,6 @@ private theorem card_primeDivisors_le_of_lt_pow
     primeFinset_prod_dvd A N hprime hdvd
   have hprodUpper : (∏ q ∈ A, q) ≤ N := Nat.le_of_dvd hN hprodDvd
   omega
-
-/-- Every nonempty fibre of a homomorphism from a finite group is a coset of
-its kernel.  This private counting lemma is the coordinate mechanism behind
-the bounded quadratic fibres; only the resulting reservoir bound will cross
-the provider boundary. -/
-private theorem card_fiber_eq_card_ker
-    {G M : Type*} [Group G] [Fintype G] [Monoid M] [DecidableEq M]
-    (f : G →* M) (y : M) (hy : y ∈ Set.range f) :
-    (Finset.univ.filter fun x ↦ f x = y).card = Nat.card f.ker := by
-  calc
-    (Finset.univ.filter fun x ↦ f x = y).card =
-        (Finset.univ.filter fun x ↦ f x = 1).card :=
-      MonoidHom.card_fiber_eq_of_mem_range f hy ⟨1, map_one f⟩
-    _ = (f.ker : Set G).ncard := by
-      rw [← Set.ncard_coe_finset]
-      congr 1
-      ext x
-      simp [MonoidHom.mem_ker]
-    _ = Nat.card f.ker := (Nat.card_coe_set_eq (f.ker : Set G)).symm
-
-/-- A square fibre in a finite commutative group has cardinality equal to the
-two-torsion kernel whenever it is nonempty. -/
-private theorem card_squareFiber_eq_card_twoTorsion
-    {G : Type*} [CommGroup G] [Fintype G] [DecidableEq G] (y : G)
-    (hy : ∃ x : G, x ^ 2 = y) :
-    (Finset.univ.filter fun x ↦ x ^ 2 = y).card =
-      Nat.card (powMonoidHom 2 : G →* G).ker := by
-  apply card_fiber_eq_card_ker (powMonoidHom 2 : G →* G) y
-  simpa only [powMonoidHom_apply, Set.mem_range] using hy
-
-/-- Odd prime-power unit square fibres have at most two points.  This is one
-branch inside the eventual uniform four-point bound, not a public case split. -/
-private theorem oddPrimePower_squareFiber_card_le_two
-    {p e : ℕ} [NeZero (p ^ e)] (hp : p.Prime) (hp2 : p ≠ 2)
-    (y : (ZMod (p ^ e))ˣ) :
-    (Finset.univ.filter fun x ↦ x ^ 2 = y).card ≤ 2 := by
-  let _ : IsCyclic (ZMod (p ^ e))ˣ :=
-    ZMod.isCyclic_units_of_prime_pow p hp hp2 e
-  by_cases hy : ∃ x : (ZMod (p ^ e))ˣ, x ^ 2 = y
-  · rw [card_squareFiber_eq_card_twoTorsion y hy,
-      IsCyclic.card_powMonoidHom_ker]
-    exact Nat.gcd_le_right _ (by omega)
-  · simp only [not_exists] at hy
-    simp [hy]
 
 namespace SignedInverse
 
