@@ -16,11 +16,26 @@ Pinned to **Lean 4.33.0** and **mathlib v4.33.0**.
 
 This repository is explicit about its own state, and the state is:
 
-* the universal core and five isolated hard leaves are **proved
-  unconditionally** and transitively axiom-audited;
+* the universal core, the five isolated hard leaves, the descent spine and the
+  finite core provider are **proved unconditionally** and transitively
+  axiom-audited;
 * the **unconditional Erdős 289 theorem is not claimed**.
 
-`ROADMAP.md` says exactly which layers are missing and why. Read it before
+Exactly one obligation is open — the manuscript's *cofinal tail provider* —
+and it appears as the single explicit hypothesis of
+
+```lean
+theorem erdos289Statement_of_tailInterface
+    {D : ℕ} (hD : 0 < D)
+    (hsupply : ∀ (F : Support) (τ : TargetResidue), ∃ N : ℕ, ∀ h, N ≤ h →
+      ∃ (G : AddSubgroup TargetResidue) (ε : ℚ),
+        τ ∈ G ∧ ε < 1 / 2 ∧
+        TailCovers originalConstraint F
+          (AddSubgroup.zmultiples (reciprocalResidue ⟨D, hD⟩)) G h ε) :
+    Erdos289Statement
+```
+
+`ROADMAP.md` says exactly what is and is not proved, and why. Read it before
 taking any summary sentence here as a result about the conjecture.
 
 ## The statement, and why you can trust that it is the right one
@@ -68,7 +83,16 @@ non-adjacent.
 * signed-inverse binary atoms, their factorization through the canonical
   prime-power stage, and their nonzero class in the associated simple fibre;
 * the intrinsic quantitative transverse-reservoir interface, exposing only row
-  size, simple-fibre multiplicity, atom mass and conflict degree;
+  size, simple-fibre multiplicity, atom mass and conflict degree, together with
+  its bounded conflict degree and its packing into compatible pools;
+* the row certificate of a prime-power current: the comparable carrier band,
+  the uniform four-point square-fibre bound, the twenty-four-carrier deletion
+  bound, deduplication by coefficient and rank truncation;
+* the descent spine — torsor induction, eventual trivialization of the residue
+  filtration, and adjacent-lift uniqueness — which reduces the problem to two
+  provider interfaces;
+* the **finite core provider**: a ladder of arbitrarily-light equal-grade
+  switches realizing a complete cyclic torsor with barrier slack `1/2`;
 * the five isolated hard leaves — see the table in `ROADMAP.md`.
 
 ## Verification

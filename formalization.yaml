@@ -29,6 +29,11 @@ formalization:
     requires distinct blocks to be non-adjacent, so it implies both literal
     forms.
   proved: false
+  reduced_to: Erdos289.erdos289Statement_of_tailInterface
+  open_obligation: >-
+    The cofinal tail provider: beyond any finite footprint, states of every
+    sufficiently large grade whose residues cover the ambient group modulo the
+    core's cyclic subgroup, with total load below the barrier slack 1/2.
   remaining_work: ROADMAP.md
 
 trust:

@@ -55,6 +55,13 @@ The current core has the following audited correspondence.
 | neutral grade-one leaf N | nonempty `(ΔW,Δg)=(0,1)` fibre at arbitrarily small load | `NeutralGradeOnePoint`, `RemoteLightNeutralGradeOne`, realized by `remoteLightNeutralGradeOne` |
 | comparable-prime leaf Π | Chebyshev theta increment over `(n,4n]` | `comparablePrimeSupply_explicit` |
 | cofinal union of touching grade intervals | principal final ideal | `intervalSpectrum_cofinite`, `cofiniteSaturation_of_interval_witnesses` |
+| epi-grade interval of a prime row | concavity of `h ↦ h (m - h)` on the symmetric range | `mul_sub_le_mul_sub_of_between`, `TransverseReservoir.restrictedFold_coversAtGrade_Icc` |
+| coefficient fibre of a carrier band | roots of a quadratic congruence in `(ZMod (p^e))ˣ` | `primePower_squareFiber_card_le_four`, `SignedInverse.chosenCoefficientFiber_card_le_eight` |
+| row certificate of a prime-power current | deletion, deduplication and rank truncation of the band | `SignedInverse.exists_rowCertificate` |
+| finite homogeneous affine prefix | complete torsor of a finite cyclic residue group at one grade | `CoreStage`, `exists_coreStage` |
+| cofinal defect-controlled correction system | residue cover of `G/H` at one grade beyond a footprint | `TailCovers` |
+| torsor induction | cancellation of the tail discrepancy inside the core torsor | `exists_saturationWitness_of_tailCovers` |
+| eventual torsor trivialization | finite additive order of a centered residue | `exists_mem_lowerPrimePowerStage` |
 | cofinite exact grade spectrum | principal final ideal in component count | `CofiniteSaturation`, `Erdos289Statement` |
 
 The following substitutions are forbidden unless an equivalence theorem is
