@@ -94,3 +94,6 @@ Erdos289.tailStage_empty
 Erdos289.TailStage.comp
 Erdos289.tailStage_chain
 Erdos289.tailCovers_of_tailStage
+Erdos289.TailStage.mono
+Erdos289.stageClass_eq_iff_sub_mem
+Erdos289.tailStage_of_pool

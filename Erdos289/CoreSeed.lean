@@ -43,13 +43,7 @@ set_option relaxedAutoImplicit false
 
 namespace Erdos289
 
-/-! ### Two elementary facts -/
-
-theorem Support.value_nonneg (S : Support) : 0 ≤ S.value := by
-  refine Finset.sum_nonneg fun n _ => ?_
-  have hn : (0 : ℚ) < (n.1 : ℚ) := by exact_mod_cast n.2
-  show (0 : ℚ) ≤ 1 / (n.1 : ℚ)
-  exact div_nonneg zero_le_one hn.le
+/-! ### An elementary fact -/
 
 /-- An arbitrarily light *positive* admissible state, from light mobility. -/
 theorem exists_lightPositive (c : PhysicalConstraint) {ε : ℚ} (hε : 0 < ε) :

@@ -46,6 +46,7 @@ public import Erdos289.ChunkPartition
 public import Erdos289.CostTail
 public import Erdos289.StageProfile
 public import Erdos289.TailComposition
+public import Erdos289.StageToTail
 
 /-!
 # Erdős problem 289

@@ -34,6 +34,14 @@ open scoped BigOperators
 
 namespace Erdos289
 
+/-- Exact reciprocal value is nonnegative: it is a sum of reciprocals. -/
+theorem Support.value_nonneg (S : Support) : 0 ≤ S.value := by
+  show (0 : ℚ) ≤ ∑ n ∈ S, reciprocal n
+  refine Finset.sum_nonneg fun n _ => ?_
+  have hn : (0 : ℚ) < (n.1 : ℚ) := by exact_mod_cast n.2
+  show (0 : ℚ) ≤ 1 / (n.1 : ℚ)
+  exact div_nonneg zero_le_one hn.le
+
 /-- Centering is additive, so the residue of a compatible pool is the sum. -/
 theorem aggregateSupport_residue
     {c : PhysicalConstraint} {A : Finset Support}

@@ -417,3 +417,15 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.tailCovers_of_tailStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.tailCovers_of_tailStage
+
+/-- info: 'Erdos289.TailStage.mono' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TailStage.mono
+
+/-- info: 'Erdos289.stageClass_eq_iff_sub_mem' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.stageClass_eq_iff_sub_mem
+
+/-- info: 'Erdos289.tailStage_of_pool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailStage_of_pool

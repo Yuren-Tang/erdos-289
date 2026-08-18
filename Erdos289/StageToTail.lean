@@ -1,0 +1,98 @@
+module
+
+/-
+Copyright (c) 2026 Yuren Tang. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Yuren Tang
+-/
+
+public import Erdos289.StageProfile
+public import Erdos289.TailComposition
+
+@[expose] public section
+
+/-!
+# A pool at one prime-power current is a tail stage
+
+`Erdos289.exists_pool_state_of_class` produces a state of prescribed grade and
+simple-fibre class; `Erdos289.TailStage` asks for a state of prescribed grade
+whose residue matches a prescribed class modulo the lower stage.  These are the
+same request, because the simple fibre *is* the quotient of the current stage
+by the lower one.
+
+This module makes that identification, so that one prime-power current becomes
+one link of `Erdos289.tailStage_chain`.
+-/
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+
+open scoped BigOperators
+
+namespace Erdos289
+
+/-- Two elements of the current stage have the same simple-fibre class exactly
+when they differ by an element of the lower stage. -/
+theorem stageClass_eq_iff_sub_mem {Q : ℕ} {y z : TargetResidue}
+    (hy : y ∈ primePowerStage Q) (hz : z ∈ primePowerStage Q) :
+    QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨y, hy⟩ : primePowerStage Q)
+        = QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨z, hz⟩ : primePowerStage Q)
+      ↔ y - z ∈ lowerPrimePowerStage Q := by
+  rw [QuotientAddGroup.mk'_eq_mk']
+  constructor
+  · rintro ⟨u, hu, huz⟩
+    have hval : (u : TargetResidue) = z - y := by
+      have hcoe := congrArg Subtype.val huz
+      simp only [AddSubgroup.coe_add] at hcoe
+      rw [← hcoe]
+      abel
+    have hzy : z - y ∈ lowerPrimePowerStage Q := by
+      have hmem : (u : TargetResidue) ∈ lowerPrimePowerStage Q := hu
+      rwa [hval] at hmem
+    have hneg := (lowerPrimePowerStage Q).neg_mem hzy
+    rwa [neg_sub] at hneg
+  · intro hsub
+    have hzy : z - y ∈ lowerPrimePowerStage Q := by
+      have hneg := (lowerPrimePowerStage Q).neg_mem hsub
+      rwa [neg_sub] at hneg
+    refine ⟨⟨z - y, AddSubgroup.sub_mem _ hz hy⟩, hzy, ?_⟩
+    refine Subtype.ext ?_
+    simp only [AddSubgroup.coe_add]
+    abel
+
+/--
+A compatible transverse pool at the current `Q = p ^ e`, all of whose atoms lie
+inside a finite footprint, is a tail stage from the lower stage to the current
+one, at every grade of its Dias da Silva–Hamidoune interval.
+-/
+theorem tailStage_of_pool
+    {Q p e : ℕ} {c : PhysicalConstraint} (P : CompatibleTransversePool Q c)
+    (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
+    {a h : ℕ} (hh : 0 < h) (hah : a ≤ h)
+    (hhm : h + a ≤ P.toTransverseReservoir.simpleValues.card)
+    (hend : p ≤ a * (P.toTransverseReservoir.simpleValues.card - a) + 1)
+    {maxMass : ℚ} (hmass : ∀ S ∈ P.atoms, S.value ≤ maxMass)
+    (hgrade : ∀ S ∈ P.atoms, S.grade = 1)
+    {F : Support} (hfoot : ∀ S ∈ P.atoms, S ⊆ F) :
+    TailStage c F (lowerPrimePowerStage Q) (primePowerStage Q) h (h * maxMass) := by
+  classical
+  intro v hv
+  obtain ⟨A, hAsub, -, hApair, hAgrade, hAvalue, hAclass⟩ :=
+    exists_pool_state_of_class P hp he hQ hh hah hhm hend hmass hgrade
+      (QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨v, hv⟩ : primePowerStage Q))
+  have hfac : ∀ S ∈ A, S.FactorsThroughPrimePowerStage Q :=
+    fun S hS => Classical.choose (P.transverse S (hAsub hS))
+  have hagg := aggregateSupport_factorsThrough hApair hfac
+  refine ⟨aggregateSupport A, ?_,
+    aggregateSupport_admissible (fun S hS => P.admissible S (hAsub hS)) hApair,
+    hAgrade, ?_, Support.value_nonneg _, hAvalue⟩
+  · intro x hx
+    obtain ⟨S, hS, hxS⟩ := Finset.mem_biUnion.mp hx
+    exact hfoot S (hAsub hS) hxS
+  · refine (stageClass_eq_iff_sub_mem hagg hv).1 ?_
+    show (aggregateSupport A).simpleFiberClass hagg
+      = QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨v, hv⟩ : primePowerStage Q)
+    rw [← Support.stageClass_eq hagg]
+    exact hAclass
+
+end Erdos289

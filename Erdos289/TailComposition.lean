@@ -127,6 +127,15 @@ theorem tailStage_chain
       rw [Finset.sum_range_succ, Finset.sum_range_succ]
       exact hcomp
 
+/-- Weakening the bottom group, or strengthening the top one, weakens a stage. -/
+theorem TailStage.mono {c : PhysicalConstraint} {F : Support}
+    {H H' G G' : AddSubgroup TargetResidue} {h : ℕ} {ε : ℚ}
+    (hH : H ≤ H') (hG : G' ≤ G) (s : TailStage c F H G h ε) :
+    TailStage c F H' G' h ε := by
+  intro v hv
+  obtain ⟨V, hsub, hadm, hgrade, hres, hpos, hle⟩ := s v (hG hv)
+  exact ⟨V, hsub, hadm, hgrade, hH hres, hpos, hle⟩
+
 /-- Forgetting the footprint turns a stage into the tail interface. -/
 theorem tailCovers_of_tailStage
     {c : PhysicalConstraint} {F F' : Support}
