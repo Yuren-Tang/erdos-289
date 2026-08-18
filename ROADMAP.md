@@ -180,10 +180,12 @@ theorem in the strict reciprocal system.
     is the cyclic two-torsion; the `p = 2` branch — which the earlier code had
     flagged as intended but not supplied — is the elementary fact that an odd
     square root of one modulo `2 ^ e` is `±1` modulo `2 ^ (e - 1)`.
-  * **Open.** The reduction: a carrier with no good orientation solves
-    `λ b² ≡ ±1 (mod Q)` with `λ ≤ 3`, because `Q ≤ 4 b` on the chosen band; and
-    `p ∤ λ`, so `λ` is a unit and the previous item applies.  Hence only
-    boundedly many carriers are lost.
+  * *Done.* The deletion step.
+    `Erdos289.SignedInverse.exists_multiplier_of_goodOrientations_eq_empty`
+    shows that a band carrier with no usable orientation solves
+    `λ b² = ±1` in `ZMod Q` with `1 ≤ λ ≤ 3` (because `Q ≤ 4 b` on the band)
+    and `p ∤ λ`; and `card_badCarriers_le` concludes that at most twenty-four
+    carriers of a band are lost, independently of `Q`.
   * **Open.** Deduplication by coefficient (the four-point fibre bound is
     available as `carrierFamily_coefficientFiber_card_le_four`), the rank-half
     truncation, and the resulting centre and mass bounds.

@@ -12,6 +12,7 @@ import Erdos289.SignedInverseAtom
 import Erdos289.SignedInverseReservoir
 import Erdos289.SignedInverseConflict
 import Erdos289.RowSupply
+import Erdos289.BadCarriers
 
 /-!
 # Transitive trust audit
@@ -270,3 +271,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.SignedInverse.card_carrierPrimes_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.card_carrierPrimes_ge
+
+/-- info: 'Erdos289.SignedInverse.exists_multiplier_of_goodOrientations_eq_empty' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_multiplier_of_goodOrientations_eq_empty
+
+/-- info: 'Erdos289.SignedInverse.card_badCarriers_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_badCarriers_le
