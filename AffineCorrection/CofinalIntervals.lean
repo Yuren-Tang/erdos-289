@@ -70,4 +70,26 @@ theorem intervalSpectrum_cofinite
   exact ⟨lower 0, fun _ hk =>
     mem_intervalSpectrum_of_ge lower upper hoverlap hcofinal hk⟩
 
+/--
+The manuscript's form of the eventual-ray criterion: overlap is only required
+from some stage on, and cofinality of the right endpoints is asked for from
+that stage on as well — which is what `B_j → ∞` supplies.  No hypothesis on the
+left endpoints is needed.
+-/
+theorem intervalSpectrum_cofinite_of_eventually
+    (lower upper : ℕ → ℕ) (n₀ : ℕ)
+    (hoverlap : ∀ n, n₀ ≤ n → lower (n + 1) ≤ upper n + 1)
+    (hcofinal : ∀ k, ∃ n, n₀ ≤ n ∧ k ≤ upper n) :
+    ∃ N, ∀ k, N ≤ k → k ∈ intervalSpectrum lower upper := by
+  refine ⟨lower n₀, fun k hk => ?_⟩
+  have hshift :=
+    mem_intervalSpectrum_of_ge (fun n => lower (n₀ + n)) (fun n => upper (n₀ + n))
+      (fun n => hoverlap (n₀ + n) (Nat.le_add_right _ _))
+      (fun k => by
+        obtain ⟨n, hn, hkn⟩ := hcofinal k
+        exact ⟨n - n₀, by rwa [Nat.add_sub_cancel' hn]⟩)
+      (k := k) (by simpa using hk)
+  obtain ⟨m, hlow, hupp⟩ := hshift
+  exact ⟨n₀ + m, hlow, hupp⟩
+
 end AffineCorrection

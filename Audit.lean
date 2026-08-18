@@ -369,3 +369,23 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.erdos289Statement_of_tailInterface' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.erdos289Statement_of_tailInterface
+
+/-- info: 'AffineCorrection.intervalSpectrum_cofinite_of_eventually' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms AffineCorrection.intervalSpectrum_cofinite_of_eventually
+
+/-- info: 'Erdos289.exists_tail_sum_lt' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_tail_sum_lt
+
+/-- info: 'Erdos289.exists_tail_sum_lt_rat' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_tail_sum_lt_rat
+
+/-- info: 'Erdos289.IndependentTransversal.exists_chunkPoolPartition' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.IndependentTransversal.exists_chunkPoolPartition
+
+/-- info: 'Erdos289.exists_compatiblePool_of_binary_of_card' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_compatiblePool_of_binary_of_card

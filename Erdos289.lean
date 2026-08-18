@@ -42,6 +42,8 @@ public import Erdos289.Literal
 public import Erdos289.GradeInterval
 public import Erdos289.Descent
 public import Erdos289.CoreSeed
+public import Erdos289.ChunkPartition
+public import Erdos289.CostTail
 
 /-!
 # Erdős problem 289
