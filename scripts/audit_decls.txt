@@ -76,3 +76,9 @@ Erdos289.exists_mem_lowerPrimePowerStage
 Erdos289.exists_saturationWitness_of_tailCovers
 Erdos289.cofiniteSaturation_one_of_core_tail
 Erdos289.erdos289Statement_of_core_tail
+Erdos289.Support.value_nonneg
+Erdos289.exists_lightPositive
+Erdos289.exists_ladder
+Erdos289.exists_lt_nsmul_of_mem_zmultiples
+Erdos289.exists_coreStage
+Erdos289.erdos289Statement_of_tailInterface

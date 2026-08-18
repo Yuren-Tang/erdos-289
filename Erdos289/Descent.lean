@@ -91,14 +91,11 @@ structure CoreStage (c : PhysicalConstraint) where
   /-- The barrier slack `2 - sup W`. -/
   slack : ℚ
   slack_pos : 0 < slack
-  /-- One state for each class of the torsor. -/
-  state : subgroup → Support
-  state_subset : ∀ u, state u ⊆ footprint
-  state_admissible : ∀ u, (state u).Admissible smallBlockSizes c
-  state_grade : ∀ u, (state u).grade = grade
-  state_residue : ∀ u, (state u).residue = centre + u.1
-  state_value_pos : ∀ u, 0 < (state u).value
-  state_value_le : ∀ u, (state u).value ≤ 2 - slack
+  /-- Completeness of the torsor: every class is realized, inside the footprint,
+  at the common grade, with mass in `(0, 2 - slack]`. -/
+  covers : ∀ u ∈ subgroup, ∃ S : Support,
+    S ⊆ footprint ∧ S.Admissible smallBlockSizes c ∧ S.grade = grade ∧
+      S.residue = centre + u ∧ 0 < S.value ∧ S.value ≤ 2 - slack
 
 /-! ### The cofinal tail interface -/
 
@@ -135,21 +132,14 @@ theorem exists_saturationWitness_of_tailCovers
     refine B.subgroup.neg_mem ?_
     have hV' := hVres
     rwa [sub_neg_eq_add] at hV'
-  set S : Support := B.state ⟨-(V.residue + B.centre), huH⟩ with hSdef
-  have hSres : S.residue = B.centre + -(V.residue + B.centre) :=
-    B.state_residue ⟨-(V.residue + B.centre), huH⟩
+  obtain ⟨S, hSsub, hSadm, hSgrade, hSres, hSpos, hSle⟩ := B.covers _ huH
   have hres : S.residue + V.residue = 0 := by
     rw [hSres]
     abel
-  have hSpos : 0 < S.value := B.state_value_pos ⟨-(V.residue + B.centre), huH⟩
-  have hSle : S.value ≤ 2 - B.slack := B.state_value_le ⟨-(V.residue + B.centre), huH⟩
   have hwitness :=
     saturationWitness_of_pairBeyond c (S := S) (F := B.footprint) (V := V)
-      (B.state_subset ⟨-(V.residue + B.centre), huH⟩)
-      (B.state_admissible ⟨-(V.residue + B.centre), huH⟩) hVadm
-      (by linarith) (by linarith) hres
-  have hgrade : S.grade + V.grade = B.grade + h := by
-    rw [B.state_grade ⟨-(V.residue + B.centre), huH⟩, hVgrade]
+      hSsub hSadm hVadm (by linarith) (by linarith) hres
+  have hgrade : S.grade + V.grade = B.grade + h := by rw [hSgrade, hVgrade]
   exact ⟨hgrade ▸ hwitness⟩
 
 /-! ### The final descent -/

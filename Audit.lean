@@ -345,3 +345,27 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.erdos289Statement_of_core_tail' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.erdos289Statement_of_core_tail
+
+/-- info: 'Erdos289.Support.value_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.Support.value_nonneg
+
+/-- info: 'Erdos289.exists_lightPositive' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_lightPositive
+
+/-- info: 'Erdos289.exists_ladder' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_ladder
+
+/-- info: 'Erdos289.exists_lt_nsmul_of_mem_zmultiples' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_lt_nsmul_of_mem_zmultiples
+
+/-- info: 'Erdos289.exists_coreStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_coreStage
+
+/-- info: 'Erdos289.erdos289Statement_of_tailInterface' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.erdos289Statement_of_tailInterface

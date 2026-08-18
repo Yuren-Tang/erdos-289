@@ -11,11 +11,12 @@ The mathematics being formalized is the two-part descent:
 
 ## 0. Status in one line
 
-The universal core, the five isolated hard leaves, and the reciprocal
-infrastructure are proved unconditionally and are transitively axiom-audited.
-**The unconditional Erdős 289 theorem is not proved.** Two layers are missing:
-the instantiation of the universal core at the reciprocal system, and the
-quantitative verification of that instantiation's hypotheses.
+The universal core, the five isolated hard leaves, the reciprocal
+infrastructure, the descent spine and the **finite core provider** are proved
+unconditionally and are transitively axiom-audited.  **The unconditional
+Erdős 289 theorem is not proved.**  Exactly one obligation remains: the
+manuscript's *cofinal tail provider*, isolated as the explicit hypothesis of
+`Erdos289.erdos289Statement_of_tailInterface`.
 
 ## 1. Two leaf lists, and why they do not actually conflict
 
@@ -81,7 +82,7 @@ realization theorem", plus the wiring of the universal core.
 | --- | --- | --- |
 | `E` | every constrained unit-fraction presentation fibre is inhabited | `Erdos289.unitFractionRefinementCofinality` |
 | `N` | the neutral grade-one fibre has arbitrarily light remote points | `Erdos289.remoteLightNeutralGradeOne` |
-| `Π` | explicit prime count in `(n, 4n]` from mathlib's Chebyshev bounds | `Erdos289.comparablePrimeSupply_explicit` |
+| `Π` | prime count in `(n, 4n]` from mathlib's Chebyshev bounds | `Erdos289.comparablePrimeSupply_explicit`, asymptotically `Erdos289.comparablePrimes_card_isBigO` |
 | `P` | Haxell `2Δ`-thick chunk packing | `Erdos289.IndependentTransversal.hasChunkPacking_of_two_mul_maxDegree_le` |
 | `D` | Dias da Silva–Hamidoune restricted-fold image growth | `Erdos289.RestrictedFold.image_card_lower_bound` |
 
@@ -93,8 +94,10 @@ Path-support partial monoid with additive value and grade; binary and ternary
 blocks and their exact identities; upper blockification; the constructive
 remote separated Egyptian leaf and its rational-target composition; arbitrarily
 light mobility; the prime-power filtration of `ℚ/ℤ` and its simple fibres;
-signed-inverse atoms and their transversality; local profiles; the quantitative
-reservoir interface; the unit selector; the literal-statement bridge.
+signed-inverse atoms and their transversality; local profiles and their grade
+intervals; the quantitative reservoir interface and its packing; the row
+certificate of a prime-power current; the unit selector; the descent spine; the
+finite core provider; the literal-statement bridge.
 
 ### Faithfulness of the statement
 
@@ -106,127 +109,131 @@ statement is therefore not merely *believed* to be Erdős 289; the implication i
 machine-checked. It is also strictly stronger: all blocks have length two or
 three, and consecutive blocks are required to be non-adjacent.
 
-## 3. What is missing
+## 3. The two provider interfaces, and which one is left
 
-### Layer A — instantiating the universal core (thin, partly done)
+The active authorial surface (clean qualitative proof v4.1) factors the whole
+descent through exactly two provider interfaces and three elementary universal
+lemmas.  That factorization is what `Erdos289/Descent.lean` implements, and it
+is why the earlier "layer A" wiring through `Covers` / `CompositionCovers` /
+`LiteralizesTarget` is no longer on the critical path: those are the general
+Part I machinery, while the descent only needs its specialization, which the
+manuscript states as three elementary lemmas.
 
-`Erdos289/EngineBridge.lean` fixes the universal data at the reciprocal system
-and identifies the universal conclusion with the statement the descent needs.
+### The spine — done
 
-* A1. *Done.* `Erdos289.reciprocalObservation` is the compact-stage observation
-  system on `ℚ/ℤ`; `Erdos289.isAdditiveOn_value`, `isAdditiveOn_grade` and
-  `isAdditiveOn_residue` supply the additivity the composition theorem wants.
-* A2. *Done.* `Erdos289.selectorFamily` is the physical family, and
-  `Erdos289.cofiniteSaturation_of_exactSpectrum` shows that cofiniteness of
-  `AffineCorrection.exactSpectrum (selectorFamily c) Support.residue
-  Support.grade 0` *is* `CofiniteSaturation 1 c`.
-* A3. **Open.** `Covers` for one local stage, from `CoversAtGrade`
-  (`Erdos289/LocalProfiles.lean`).  This is where the arithmetic layers enter.
-* A4. **Open.** composition of stages via `CompositionCovers`.  The physical
-  side is available: `Erdos289.aggregateSupport_value`, `aggregateSupport_grade`
-  and `aggregateSupport_residue`.
-* A5. **Open, and not merely mechanical.** `LiteralizesTarget` at a compact
-  stage `H` asserts that a target realizer's residue is exactly zero, while the
-  realizer pullback only gives residue in `H`.  Closing that gap is the
-  defect-absorption step, whose universal object is
-  `AffineCorrection.LeastAbsorber`; it needs the endpoint stages to eventually
-  contain the fixed finite defect subgroup.
+`Erdos289/Descent.lean`:
 
-A note on the core itself, and on where the fault lay.
-`AffineCorrection.exactSpectrum` originally ranged over the whole ambient state
-type, so it forgot the physical family; the transfer theorem's conclusion was
-therefore strictly weaker than its own proof supported, and useless for E289,
-whose admissibility constraints live exactly in the family.
+* `CoreStage` is the finite core interface: one common grade, a complete
+  torsor of residues under a subgroup `H ≤ ℚ/ℤ`, a strictly positive barrier
+  slack `2 - sup W`, and a footprint.
+* `TailCovers` is the cofinal tail interface at one grade `h`: states beyond
+  that footprint, of grade exactly `h` and mass at most `ε`, whose residues
+  cover `G/H`.
+* `exists_saturationWitness_of_tailCovers` is *torsor induction* at the class
+  `0` (manuscript §5): the tail is asked for `-τ`, its discrepancy lands in
+  `H`, and the core state at that element of the torsor cancels it exactly.
+* `exists_mem_lowerPrimePowerStage` is *eventual torsor trivialization*
+  (manuscript §6): a centered residue is annihilated by its denominator, so it
+  lies in every late bounded prime-power stage — the hypothesis `τ ∈ G` is
+  eventually free.
+* `Support.value_eq_one_of_residue_zero` is *adjacent-lift uniqueness*
+  (manuscript §7).
+* `cofiniteSaturation_one_of_core_tail` and `erdos289Statement_of_core_tail`
+  are §8.
 
-This was **not** a defect in the manuscript. Part I defines
-`Spec_g(τ) := {g(x) : x ∈ C, W(x) = τ}` over the ambient configuration object
-`C`, and in the manuscript `C` *is* the admissible `{2,3}`-block system — the
-final claim is written `Spec_{2,3}(1)`. The Lean encoding chose a wider ambient
-type, `Support = Finset ℕ+`, and carried admissibility in the family `F`
-instead; transcribing the manuscript's definition literally against that wider
-`C` is what lost the constraints. The fix restores the manuscript's intent and
-strictly generalizes it: taking `F = Set.univ` recovers the original
-definition verbatim.
+### Provider 1, the finite core — done, unconditionally
 
-### Layer B — the quantitative verification (arithmetic, absent)
+`Erdos289/CoreSeed.lean` constructs it.  The manuscript's generic finite torsor
+seed is a complete sequence for a finite cyclic group realized by
+arbitrarily-light equal-grade switches placed one beyond another.  The complete
+sequence used is the simplest one, `c₁ = ⋯ = c_{D-1} = 1`; the manuscript's
+binary sequence is shorter but length is not part of the theorem, and the mass
+bound `(D-1)/D` is the same either way.
 
-This is Part II §16–§18 of the manuscript. It is deliberately *not* categorical:
-it is the finite arithmetic that verifies the hypotheses of the aggregation
-theorem in the strict reciprocal system.
+* `exists_ladder` builds `D - 1` switches of increment `1/D`, each beyond the
+  previous footprint, from `Erdos289.arbitrarilyLightMobility` (leaves `E` and
+  `N`).  State `j` has mass `β + j/D` with `0 < β < 1/2`, and all states share
+  one grade and one footprint.
+* `exists_lt_nsmul_of_mem_zmultiples` reads the ladder as a torsor: every
+  element of a cyclic group of exponent `D` is `j·a` with `j < D`.
+* `exists_coreStage` assembles a `CoreStage` with subgroup
+  `⟨[1/D]⟩`, barrier slack `1/2`, for every `D ≥ 1` and every constraint.
 
-* B1. **Usable form of `Π`.** *Done.*
+No lcm bridge is needed for this interface.  The bridge in the manuscript
+enlarges the core subgroup from `G_{B₀}` to `G_B`; that only moves work from
+the tail provider to the core provider, and the spine does not care which side
+does it.
+
+### Provider 2, the cofinal tail — open
+
+`Erdos289.erdos289Statement_of_tailInterface` is Erdős 289 with this as its
+only hypothesis: beyond any finite footprint `F`, and for any core class `τ`,
+there is `N` such that every grade `h ≥ N` admits an ambient group `G ∋ τ` and
+a load `ε < 1/2` with `TailCovers originalConstraint F ⟨[1/D]⟩ G h ε`.
+
+This is where all the arithmetic lives.  The pieces already proved:
+
+* **B1. Usable form of `Π`.** *Done.*
   `Erdos289.comparablePrimes_card_isBigO` states
-  `(fun n => n / log n) =O[atTop] (fun n => #(comparablePrimes n))`, i.e.
-  `#{p : n < p ≤ 4n} ≫ n / log n`.  The `√(4n) log(4n)` error term of the
-  Chebyshev lower bound is absorbed by `Asymptotics.IsLittleO`.
+  `(fun n => n / log n) =O[atTop] (fun n => #(comparablePrimes n))`.
 
-  A note on style, binding for the rest of layer B: **an asymptotic statement
-  is formalized as an asymptotic statement.**  It is not replaced by an
+  A note on style, binding for the rest: **an asymptotic statement is
+  formalized as an asymptotic statement.**  It is not replaced by an
   inequality valid beyond a hand-picked numerical threshold.  mathlib's
   `Asymptotics` and `Filter.atTop` API is what makes this both faithful and
   short; the first draft of this module took the numerical route and was more
   than twice as long for a strictly less faithful statement.
-* B2. **Row supply (manuscript Thm 17.1).** *In progress.* For every large
-  prime power `Q`, a raw row of `≫ Q / log Q` signed-inverse atoms with
-  distinct current coefficients.
-  * *Done.* The carrier band. `Erdos289.SignedInverse.bandBase` chooses the
-    comparable band so that `b < Q` is automatic, and
-    `card_carrierPrimes_ge` shows the only carrier lost to the current-stage
-    exclusions is `p` itself.  Its growth is inherited asymptotically from B1
-    through `bandBase_isBigO`.
-  * *Done.* The quadratic-congruence root bound.
-    `Erdos289.primePower_squareFiber_card_le_four` bounds a square fibre of
-    `(ZMod (p ^ e))ˣ` by four points, uniformly in `p` and `e`.  The odd branch
-    is the cyclic two-torsion; the `p = 2` branch — which the earlier code had
-    flagged as intended but not supplied — is the elementary fact that an odd
-    square root of one modulo `2 ^ e` is `±1` modulo `2 ^ (e - 1)`.
-  * *Done.* The deletion step.
+* **B2. Row supply (manuscript Thm 17.1).** *Done, as an exact statement.*
+  * The carrier band: `Erdos289.SignedInverse.bandBase` chooses the comparable
+    band so that `b < Q` is automatic; `card_carrierPrimes_ge` shows the only
+    carrier lost to the current-stage exclusions is `p` itself; its growth is
+    inherited asymptotically from B1 through `bandBase_isBigO` and
+    `bandCard_isBigO`.
+  * The quadratic-congruence root bound:
+    `Erdos289.primePower_squareFiber_card_le_four`, uniform in `p` and `e`.
+    The odd branch is the cyclic two-torsion; the `p = 2` branch — which the
+    earlier code had flagged as intended but not supplied — is the elementary
+    fact that an odd square root of one modulo `2 ^ e` is `±1` modulo
+    `2 ^ (e - 1)`.
+  * The deletion step:
     `Erdos289.SignedInverse.exists_multiplier_of_goodOrientations_eq_empty`
-    shows that a band carrier with no usable orientation solves
-    `λ b² = ±1` in `ZMod Q` with `1 ≤ λ ≤ 3` (because `Q ≤ 4 b` on the band)
-    and `p ∤ λ`; and `card_badCarriers_le` concludes that at most twenty-four
-    carriers of a band are lost, independently of `Q`.
-  * *Done.* The assembly at band level.
-    `Erdos289.SignedInverse.card_goodCarriers_ge` says a family of band
-    carriers keeps all but at most twenty-four of its members, and
-    `bandCard_isBigO` says the band itself carries `≫ Q / log Q` primes.
-  * **Open.** Deduplication by coefficient (the four-point fibre bound is
-    available as `carrierFamily_coefficientFiber_card_le_four`), the rank-half
-    truncation, and the resulting centre and mass bounds.
-* B3. **Bounded conflict degree.** *Done.*
+    and `card_badCarriers_le` (at most twenty-four carriers lost, uniformly).
+  * Deduplication and truncation: `Erdos289.SignedInverse.exists_injOn_subset`,
+    `chosenCoefficientFiber_card_le_eight`, `card_upperCoefficient_ge`, and the
+    assembly `exists_rowCertificate`, which gives a row with pairwise distinct
+    coefficients, `#A - 24 ≤ 8 #R` and `#R - ⌊#R/2⌋ ≤ #T`, and distinguished
+    centres at least `Q ⌊#R/2⌋ - 1`.
+* **B3. Bounded conflict degree.** *Done.*
   `Erdos289.SignedInverse.reservoir_conflictNeighbors_card_le` bounds the
-  conflict degree of a signed-inverse row by `2 (max 1 separation + 1)`, a
-  constant independent of the current prime power and of the row size.  The
-  general statement for any family of binary atoms is
-  `Erdos289.TransverseReservoir.conflictNeighbors_card_le_of_binary`.
-* B4. **Packing.** *Done, modulo the chunk partition.*
-  `Erdos289.exists_compatiblePool_of_binary` turns any partition of the atoms
-  of a binary reservoir into chunks of size at least
-  `4 (max 1 separation + 1)` into a `CompatibleTransversePool`, via the
-  conflict graph `Erdos289.TransverseReservoir.conflictGraph` and the packing
-  leaf.  What B2 still has to supply is a row large enough to be cut into
-  enough such chunks.
-* B5. **Local profiles.** Prime rows: the epi-grade interval `[a_p, b_p]` from
-  `D` via `restrictedFold_coversAtGrade`. Proper prime powers: the fixed grade
-  `p - 1` from `atom_cyclic_coversAtGrade` plus exported neutral atoms.
-* B6. **Donor flow.** The one-use supply/demand inequality; the running-balance
-  form is `Erdos289.GradeAggregation.donor_flow_nonneg`.
-* B7. **Interval aggregation.** `∑_{p ≤ X} log p = O(X)` and
-  `∑_{p ≤ X} p / log p ≫ X² / log² X`, hence eventual overlap. The
-  interval-decomposition step is
-  `Erdos289.GradeAggregation.exists_grades_of_mem_sum_Icc`; the eventual-ray
-  step is `AffineCorrection.intervalSpectrum_cofinite`.
-* B8. **Cost summability.** Convergence of `∑ 1/(p log p)` over primes and of
-  `∑ log Q / Q^{3/2}` over prime powers.
-* B9. **Tempered finite prefix (manuscript Thm 16.1).** A complete-sequence
-  seed, the lcm endpoint bridge, and the uniform bound `W < 2 - η`. No module
-  for this exists yet.
+  conflict degree by `2 (max 1 separation + 1)`, independent of the current
+  prime power and of the row size.
+* **B4. Packing.** *Done, modulo the chunk partition.*
+  `Erdos289.exists_compatiblePool_of_binary`.  What remains is to cut a row
+  into enough chunks of size `4 (max 1 separation + 1)`.
+* **B5. Local profiles.** *Done for the prime rows.*
+  `Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc` gives the
+  whole epi-grade interval `[a, m - a]` from the endpoint condition, by
+  concavity of `h ↦ h (m - h)` (`Erdos289.mul_sub_le_mul_sub_of_between`).
+  Proper prime powers use `atom_cyclic_coversAtGrade`; exporting neutral atoms
+  to fix their grade is still open.
+* **B6. Donor flow.** The running-balance inequality is
+  `Erdos289.GradeAggregation.donor_flow_nonneg`; the injective matching it
+  supports is not yet written.
+* **B7. Interval aggregation.** `Erdos289.GradeAggregation.exists_grades_of_mem_sum_Icc`
+  is the Minkowski step and `AffineCorrection.intervalSpectrum_cofinite` the
+  eventual-ray step.  What is missing is the overlap estimate that feeds them.
+* **B8. Cost summability.** Not started.  The invariant content is
+  `∑ᵢ cᵢ < ∞ ⇒ ∑_{i>N} cᵢ → 0`, i.e. the tail load can be pushed below the
+  fixed slack `1/2` by moving the base stage outward.
+* **B9. Tempered prefix.** *No longer needed as a separate obligation.*
+  In this factorization the tail is required to be admissible for
+  `constraintBeyond c F`, which is exactly "compatible with every core state";
+  temperedness is then the tail provider's own obligation to still exist, not a
+  separate interface.
 
 ### Layer C — final assembly
 
-`Erdos289.cofiniteSaturation_one_of_centered` is the entry point: it needs, for
-every sufficiently large `k`, one admissible support of grade `k` with value in
-`(0, 2)` and vanishing centered residue. Layers A and B produce exactly that.
+Discharged: `Erdos289.erdos289Statement_of_tailInterface`.
 
 ## 4. Discipline for the remaining work
 

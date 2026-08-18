@@ -41,6 +41,7 @@ public import Erdos289.GradeAggregation
 public import Erdos289.Literal
 public import Erdos289.GradeInterval
 public import Erdos289.Descent
+public import Erdos289.CoreSeed
 
 /-!
 # Erdős problem 289
