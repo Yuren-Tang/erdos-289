@@ -154,7 +154,7 @@ theorem card_badCarriers_le
     (hbad : ∀ x ∈ A, (x.pair hQ1).goodOrientations p = ∅) :
     A.card ≤ 24 := by
   classical
-  haveI : NeZero (p ^ e) := ⟨by omega⟩
+  have : NeZero (p ^ e) := ⟨by omega⟩
   have hpQ : p ∣ p ^ e := dvd_pow_self p (by rintro rfl; simp at hQ1)
   set f : Carrier (p ^ e) p → (ZMod (p ^ e))ˣ := fun x => x.unit ^ 2 with hf
   have hfib : ∀ y ∈ A.image f, (A.filter fun x => f x = y).card ≤ 4 := by
@@ -162,7 +162,7 @@ theorem card_badCarriers_le
     refine le_trans (Finset.card_le_card_of_injOn Carrier.unit ?_ ?_)
       (primePower_squareFiber_card_le_four hp y)
     · intro x hx
-      simp only [Finset.coe_filter, Set.mem_setOf_eq] at hx
+      simp only [Finset.coe_filter, Set.mem_ofPred_eq] at hx
       exact Finset.mem_filter.mpr ⟨Finset.mem_univ _, hx.2⟩
     · intro a _ b _ hab
       exact Carrier.unit_injOn hab

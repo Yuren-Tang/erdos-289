@@ -62,3 +62,5 @@ Erdos289.SignedInverse.exists_multiplier_of_goodOrientations_eq_empty
 Erdos289.SignedInverse.card_badCarriers_le
 Erdos289.SignedInverse.bandCard_isBigO
 Erdos289.SignedInverse.card_goodCarriers_ge
+Erdos289.SignedInverse.card_upperRank_ge
+Erdos289.SignedInverse.GoodOrientation.atom_value_lt_of_le_coefficient
