@@ -329,3 +329,19 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_Icc
+
+/-- info: 'Erdos289.exists_mem_lowerPrimePowerStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_mem_lowerPrimePowerStage
+
+/-- info: 'Erdos289.exists_saturationWitness_of_tailCovers' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_saturationWitness_of_tailCovers
+
+/-- info: 'Erdos289.cofiniteSaturation_one_of_core_tail' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.cofiniteSaturation_one_of_core_tail
+
+/-- info: 'Erdos289.erdos289Statement_of_core_tail' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.erdos289Statement_of_core_tail
