@@ -23,11 +23,14 @@ The design notes behind this development name the five hard leaves in two
 different ways, and the difference is the single most common source of
 confusion about how far along the project is.
 
-| note | leaves | where the signed-inverse row certificate sits |
-| --- | --- | --- |
-| *hard-leaf interface audit* | `E, N, Π, P, D` | not a leaf: "derived finite arithmetic downstream of `Π`" |
-| *Lean 4.33 zero-axiom route* | `E, N, Π, P, D` | same; this is the implementation-facing note |
-| *post-bite leaf-DAG freeze* | `E, N, T, P, D` | `T` is a leaf, and "the hard part is the quantitative carrier supply/resource theorem" |
+| landed | note | leaves | where the signed-inverse row certificate sits |
+| --- | --- | --- | --- |
+| 19:00 `411a3e8d` | *post-bite leaf-DAG freeze* | `E, N, T, P, D` | `T` is a leaf, and "the hard part is the quantitative carrier supply/resource theorem" |
+| 19:55 `91409485` | *hard-leaf interface audit* | `E, N, Π, P, D` | not a leaf: "derived finite arithmetic downstream of `Π`" |
+| 20:14 `2b38a87b` | *Lean 4.33 zero-axiom route* | `E, N, Π, P, D` | same; "the five final hard leaves are **still** `E, N, Π, P, D`" |
+
+(Times are the commit dates in `Yuren-Tang/research-workbench` on 2026-08-17.
+A shallow clone shows all three in one grafted commit and cannot order them.)
 
 **The two lists disagree about labelling, not about content.** Both say the
 same thing has to be proved: the quantitative row certificate. One calls it a
@@ -35,10 +38,11 @@ fifth leaf named `T`; the other splits it into the external input `Π` plus
 arithmetic derived below it. `T` is, up to naming, `Π` together with that
 derived arithmetic.
 
-This package uses the `Π` list, for three reasons: it is the one both
-implementation-facing notes use, it is the finer decomposition (so the
-genuinely external input is isolated to a single prime-counting statement),
-and it is what the existing code already implements.
+This package uses the `Π` list, and the chronology settles it: the `Π` list is
+the later one, and the last word on the question is the Lean note itself. It is
+also the finer decomposition, so the genuinely external input is isolated to a
+single prime-counting statement, and it is what the existing code already
+implements.
 
 The consequence for reading the status: all five of `E, N, Π, P, D` are proved,
 *and* the content that the other list calls `T` is not. Only `T`'s atom-level
