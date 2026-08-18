@@ -401,3 +401,19 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.exists_pool_state_of_class' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_pool_state_of_class
+
+/-- info: 'Erdos289.tailStage_empty' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailStage_empty
+
+/-- info: 'Erdos289.TailStage.comp' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TailStage.comp
+
+/-- info: 'Erdos289.tailStage_chain' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailStage_chain
+
+/-- info: 'Erdos289.tailCovers_of_tailStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailCovers_of_tailStage
