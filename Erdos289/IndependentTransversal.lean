@@ -98,7 +98,7 @@ theorem hasPacking_one_of_two_mul_maxDegree_le
     HasPacking G pools (fun _ => 1) := by
   rcases hasChunkPacking_of_two_mul_maxDegree_le G pools hpartition hthick with
     ⟨⟨S, hSindep, hSblocks⟩⟩
-  letI : Fintype S := Fintype.ofFinite S
+  let _ : Fintype S := Fintype.ofFinite S
   refine ⟨⟨S.toFinset, ?_, ?_⟩⟩
   · simpa using hSindep
   · intro i

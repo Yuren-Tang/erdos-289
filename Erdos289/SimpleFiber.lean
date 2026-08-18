@@ -102,7 +102,7 @@ theorem p_nsmul_primePowerGenerator_eq_zero
   rcases e with _ | e
   · have hkill : p • reciprocalResidue ⟨Q, hQpos⟩ = 0 := by
       apply (nsmul_reciprocalResidue_eq_zero_iff p ⟨Q, hQpos⟩).2
-      simpa [hQ]
+      simp [hQ]
     exact hkill ▸ (lowerPrimePowerStage Q).zero_mem
   · let R := p ^ (e + 1)
     have hRpp : IsPrimePow R := ⟨p, e + 1, hp.prime, by omega, rfl⟩

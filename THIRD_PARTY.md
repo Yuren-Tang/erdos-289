@@ -33,3 +33,10 @@ and author notices have been retained.
 Local changes are confined to Lean's module/public-import declarations,
 disabling both forms of automatic implicit-variable insertion, and any
 explicitly noted Lean 4.33 compatibility edits.
+
+## Warnings from the vendored sources
+
+The vendored modules still emit mathlib deprecation warnings (`Set.mem_diff`,
+`Set.mem_setOf_eq`, `push_neg`, …).  They are left alone deliberately: the
+local changes are kept to the minimum recorded above so that the diff against
+upstream stays reviewable.  The modules this project authors are warning-free.

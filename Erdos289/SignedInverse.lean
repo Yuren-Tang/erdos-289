@@ -63,7 +63,7 @@ noncomputable def complementaryPair
     exact ZMod.natCast_zmod_val z
   have hmulZ : ((b * c : ℕ) : ZMod Q) = 1 := by
     have hbzinv : (b : ZMod Q) * z = 1 := by
-      simpa [z, u, hbunit.unit_spec] using (Units.mul_inv hbunit.unit)
+      simp [z, u]
     simpa only [Nat.cast_mul, hcz] using hbzinv
   have hmulZ' : ((b * c : ℕ) : ZMod Q) = ((1 : ℕ) : ZMod Q) := by
     simpa using hmulZ

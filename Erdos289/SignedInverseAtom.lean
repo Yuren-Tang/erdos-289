@@ -203,7 +203,7 @@ theorem ComplementaryPair.coefficientTarget_lt_sq_add_one
       simp only [ComplementaryPair.coefficient] at hkQ ⊢
       exact lt_of_le_of_lt (Nat.sub_le _ _)
         (lt_trans (Nat.mul_lt_mul_of_pos_left hkQ hQpos)
-          (by simpa [pow_two] using Nat.lt_succ_self (Q * Q)))
+          (by simp [pow_two]))
 
 theorem inverseRepresentative_pos_lt
     {Q b : ℕ} (w : ComplementaryPair Q b) (s : Orientation) :

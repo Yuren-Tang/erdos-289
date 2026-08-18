@@ -106,7 +106,7 @@ private theorem oddPrimePower_squareFiber_card_le_two
     {p e : ℕ} [NeZero (p ^ e)] (hp : p.Prime) (hp2 : p ≠ 2)
     (y : (ZMod (p ^ e))ˣ) :
     (Finset.univ.filter fun x ↦ x ^ 2 = y).card ≤ 2 := by
-  letI : IsCyclic (ZMod (p ^ e))ˣ :=
+  let _ : IsCyclic (ZMod (p ^ e))ˣ :=
     ZMod.isCyclic_units_of_prime_pow p hp hp2 e
   by_cases hy : ∃ x : (ZMod (p ^ e))ˣ, x ^ 2 = y
   · rw [card_squareFiber_eq_card_twoTorsion y hy,

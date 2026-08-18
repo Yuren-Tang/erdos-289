@@ -167,7 +167,7 @@ theorem coversAtGrade_primePowerSimpleFiber
     (hfull : p ≤ h * (A.card - h) + 1) :
     CoversAtGrade (fold A h) (fun _ ↦ h) h := by
   classical
-  letI : Fact p.Prime := ⟨hp⟩
+  let _ : Fact p.Prime := ⟨hp⟩
   exact coversAtGrade_of_card_bound
     (primePowerSimpleFiberAddEquiv hp he hQ) A h hA hh hfull
 
