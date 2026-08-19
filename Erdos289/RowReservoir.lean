@@ -228,6 +228,7 @@ theorem exists_rowReservoir
     (hpos : 1 < Q * t) :
     ∃ (R : TransverseReservoir Q c) (starts : Finset Denominator),
       R.atoms = starts.image binaryBlock ∧
+      (∀ a ∈ starts, Q * t - 1 ≤ a.1) ∧
       A.card - 4 * (Λ - 1)
         ≤ 2 * d * (R.atoms.card + t + 2 * c.obstacle.card) ∧
       ∀ S ∈ R.atoms, S.value < 2 / ((Q * t - 1 : ℕ) : ℚ) := by
@@ -264,7 +265,11 @@ theorem exists_rowReservoir
     fun x hx => (Finset.mem_filter.mp hx).2
   refine ⟨rowReservoir (c := c) hp he hQ hQ1 σ T hgood havoid,
     T.image (rowStart hQ1 σ), rowReservoir_atoms hp he hQ hQ1 σ T hgood havoid,
-    ?_, ?_⟩
+    ?_, ?_, ?_⟩
+  · intro a ha
+    rcases Finset.mem_image.mp ha with ⟨x, hx, rfl⟩
+    rw [rowStart_val]
+    exact hstart x (hTsub₀ hx)
   · have hcard := card_rowReservoir_atoms (c := c) hp he hQ hQ1 σ T hgood havoid
       (hinj₀.mono hTsub₀)
     rw [hcard]

@@ -9,6 +9,7 @@ Authors: Yuren Tang
 public import Erdos289
 import Erdos289.AtomClass
 import Erdos289.BadCarriers
+import Erdos289.BandStage
 import Erdos289.BinaryBlocks
 import Erdos289.BinaryConfigurations
 import Erdos289.ChunkPartition
@@ -148,6 +149,10 @@ editing it by hand.
 /-- info: 'Erdos289.SignedInverse.card_goodCarriers_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.card_goodCarriers_ge
+
+/-- info: 'Erdos289.SignedInverse.exists_tailStage_of_band_padded' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_tailStage_of_band_padded
 
 /-- info: 'Erdos289.binaryBlockMass_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

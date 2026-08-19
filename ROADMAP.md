@@ -296,12 +296,20 @@ What is left is therefore three items, one heavy and two coupled.
   below the current, and the two families compatible.  Nothing in it
   distinguishes a prime current from a proper prime power.
 
-  What is left at T1 is to *supply* those conditions at a proper prime power
-  from the row certificate, which is already parametric in the current: the
-  pool comes from `Erdos289.SignedInverse.exists_rowReservoir` and
-  `Erdos289.exists_compatiblePool_of_binary_of_card` exactly as at a prime, and
-  the compatibility of the padding with the pool is a spacing computation,
-  since the pool's atoms sit near `Q t` while the padding stays below `Q`.
+  T1 is now closed as a mechanism.
+  `Erdos289.SignedInverse.exists_tailStage_of_band_padded` takes a band of
+  carriers at *any* prime-power current to one link of the tail chain: the row
+  certificate supplies the reservoir, the packing supplies the pool, the
+  padding is placed just below the current — where it is the lighter part of
+  the stage and stays clear of the row's atoms near `Q t` — and the local
+  target follows.  Its conditions are the supply inequality, the pigeonhole
+  threshold `(p-1)(p-2) < m`, room below the current for `h` padding blocks,
+  and `max 1 separation < Q (t-1)`.
+
+  Nothing in it distinguishes a prime current from a proper prime power, so the
+  prime-only route through the fixed-cardinality fold
+  (`exists_tailStage_of_band`) is now one option rather than the only one, and
+  the exponent no longer enters the case analysis at all.
 
   The chain cannot skip a current: `lowerPrimePowerStage Q'` contains
   `annihilatorStage R` for every prime power `R < Q'`, so the stages must run

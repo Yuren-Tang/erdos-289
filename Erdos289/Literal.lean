@@ -429,7 +429,7 @@ noncomputable def saturationWitness_of_intervalFamily
     obtain ⟨i, rfl⟩ := hmemA S hS
     refine ⟨denominatorIcc_hasBlockSizes (hpos i) (hlt i), ?_,
       denominatorIcc_separated (hpos i) _⟩
-    simpa [Support.Avoids, originalConstraint] using Finset.disjoint_empty_right (B i)
+    simp [Support.Avoids, originalConstraint]
   have hpair : (A : Set Support).Pairwise
       fun S T ↦ S.CompatibleFor T originalConstraint := by
     intro S hS T hT hST
