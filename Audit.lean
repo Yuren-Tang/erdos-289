@@ -613,3 +613,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.lowerPrimePowerStage_le_zmultiples_coreExponent' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.lowerPrimePowerStage_le_zmultiples_coreExponent
+
+/-- info: 'Erdos289.exists_multiplicities_of_two_classes' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_multiplicities_of_two_classes
+
+/-- info: 'Erdos289.exists_multiplicities_of_two_simpleFibreClasses' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_multiplicities_of_two_simpleFibreClasses

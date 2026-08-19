@@ -50,6 +50,7 @@ public import Erdos289.StageToTail
 public import Erdos289.PrimeRowFibre
 public import Erdos289.RowReservoir
 public import Erdos289.PrimeRowStage
+public import Erdos289.CyclicRow
 
 /-!
 # Erdős problem 289

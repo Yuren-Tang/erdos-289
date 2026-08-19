@@ -250,7 +250,17 @@ What is left is therefore three items, one heavy and two light.
   `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
   through *all* prime powers between the core exponent and the top.
 
-  The manuscript records this as a provider-internal split (§10: the
+  The combinatorial core of the cyclic mechanism is proved:
+  `Erdos289.exists_multiplicities_of_two_simpleFibreClasses` says that a row
+  carrying two *distinct* classes realizes every class at every grade at least
+  `p`, with the multiplicities exhibited.  Writing `d = c' - c ≠ 0`, the total
+  class of `k₁` atoms of class `c` and `k₂` of class `c'` is `h·c + k₂·d`, and
+  `d` is invertible; the least representative of the required `k₂` is below
+  `p ≤ h`, so `k₁ = h - k₂` is a count.  What is missing is the arithmetic
+  input that a row at a proper prime power does carry two distinct classes,
+  with enough atoms of each.
+
+  The manuscript records the mechanism split as provider-internal (§10: the
   prime/proper-prime-power split "is not an invariant of the qualitative
   theorem"), and §9 states the uniform interface both mechanisms serve: the
   grade-fibre epimorphism spectrum `I(J)` of one simple jump.  That interface
