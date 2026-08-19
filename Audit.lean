@@ -16,6 +16,7 @@ import Erdos289.ConflictDegree
 import Erdos289.CoreSeed
 import Erdos289.CostTail
 import Erdos289.CyclicRow
+import Erdos289.CyclicStage
 import Erdos289.DeformationComposition
 import Erdos289.DeformationFibres
 import Erdos289.Descent
@@ -389,6 +390,10 @@ editing it by hand.
 /-- info: 'Erdos289.exists_multiplicities_of_two_simpleFibreClasses' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_multiplicities_of_two_simpleFibreClasses
+
+/-- info: 'Erdos289.CompatibleTransversePool.coversAtGrade_of_two_classes' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.CompatibleTransversePool.coversAtGrade_of_two_classes
 
 /-- info: 'Erdos289.pairFootprint' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -2253,6 +2258,14 @@ editing it by hand.
 /-- info: 'Erdos289.Support.transverseClass_eq_simpleFibreClass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.Support.transverseClass_eq_simpleFibreClass
+
+/-- info: 'Erdos289.TransverseReservoir.classOf' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.classOf
+
+/-- info: 'Erdos289.TransverseReservoir.classOf_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.classOf_eq
 
 /-- info: 'Erdos289.TransverseReservoir.simpleValueFibre' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

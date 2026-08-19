@@ -88,6 +88,22 @@ structure TransverseReservoir (Q : ℕ) (c : PhysicalConstraint) where
 
 namespace TransverseReservoir
 
+/-- The simple-fibre class of an atom, as a total function on supports.  Off
+the reservoir the value is irrelevant and is set to zero; on it the value is
+the atom's transverse class. -/
+noncomputable def classOf {Q : ℕ} {c : PhysicalConstraint}
+    (R : TransverseReservoir Q c) (S : Support) : PrimePowerSimpleFibre Q := by
+  classical
+  exact if h : S ∈ R.atoms then S.transverseClass (R.transverse S h) else 0
+
+theorem classOf_eq {Q : ℕ} {c : PhysicalConstraint}
+    (R : TransverseReservoir Q c) {S : Support} (hS : S ∈ R.atoms)
+    (hfac : S.FactorsThroughPrimePowerStage Q) :
+    R.classOf S = S.simpleFibreClass hfac := by
+  classical
+  rw [classOf, dif_pos hS]
+  rfl
+
 /-- The canonical fibre over one simple-quotient value. -/
 noncomputable def simpleValueFibre {Q : ℕ} {c : PhysicalConstraint}
     (R : TransverseReservoir Q c) (x : PrimePowerSimpleFibre Q) :

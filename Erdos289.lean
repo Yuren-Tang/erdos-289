@@ -17,6 +17,7 @@ public import Erdos289.IndependentTransversal
 public import Erdos289.DeformationFibres
 public import Erdos289.PrimeSupplyAsymptotic
 public import Erdos289.CyclicRow
+public import Erdos289.CyclicStage
 public import Erdos289.IntervalBlocks
 public import Erdos289.Statement
 public import Erdos289.Literal

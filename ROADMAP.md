@@ -269,16 +269,22 @@ What is left is therefore three items, one heavy and two coupled.
   with `e ≥ 2` the simple fibre is cyclic of order `p`, the row's atoms need
   not have distinct classes, and Dias da Silva–Hamidoune is not the mechanism.
 
-  One weakest-looking mechanism is already proved:
-  `Erdos289.exists_multiplicities_of_two_simpleFibreClasses` says that a stock
-  of atoms carrying two *distinct* classes `c ≠ c'` realizes every class at
-  every grade `h ≥ p`, and exhibits the multiplicities `k₁ + k₂ = h`, `k₂ < p`.
-  Writing `d = c' - c ≠ 0`, the total class is `h·c + k₂·d` and `d` is
-  invertible.  Using it needs exactly this arithmetic input, stated with its
-  multiplicities rather than loosely: the pool at a proper prime power contains
-  two atoms of distinct classes `c ≠ c'` and, for the requested grade `h`, at
-  least `h` atoms of class `c` and at least `p - 1` of class `c'`.  The
-  alternative mechanism — the cyclic orbit
+  The cyclic mechanism reaching the target is proved:
+  `Erdos289.CompatibleTransversePool.coversAtGrade_of_two_classes` takes a pool
+  carrying two *distinct* classes `u ≠ v` in disjoint stocks and produces
+  `CoversAtGrade h maxMass` for every `h ≥ p`.  Its combinatorial core is
+  `Erdos289.exists_multiplicities_of_two_simpleFibreClasses`: writing
+  `d = v - u ≠ 0`, the class of `k₁` atoms of class `u` and `k₂` of class `v` is
+  `h·u + k₂·d`, and `d` is invertible, so `k₂` is determined modulo `p` and its
+  least representative is below `p ≤ h`.
+
+  What remains is therefore one arithmetic statement, with its multiplicities
+  named rather than loosely described: **at a proper prime power the pool
+  contains two disjoint stocks of atoms, of distinct classes `u ≠ v`, the first
+  of at least `h` atoms and the second of at least `p - 1`.**  Nothing else
+  about the current enters.
+
+  The alternative mechanism — the cyclic orbit
   (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) with padding by
   neutral atoms of grade one and class zero — would sit below the same
   `CoversAtGrade` interface, and the choice between the two is not visible to
