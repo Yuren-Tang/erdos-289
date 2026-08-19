@@ -39,6 +39,8 @@ contain the requested grade.
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
 
+open Filter Asymptotics
+
 namespace Erdos289
 namespace SignedInverse
 
@@ -218,6 +220,56 @@ theorem exists_tailStage_of_band
           exact Nat.add_le_add_right (Nat.mul_le_mul_left _ this) 1
   · intro S hS
     exact Finset.subset_biUnion_of_mem id hS
+
+/-! ### Every large prime current is a tail stage -/
+
+/--
+The asymptotic form of the previous theorem.
+
+Given the comparable band, and given per-current choices of the surviving size
+`m`, the truncation rank `t`, the interval endpoint `a` and the grade `h`, all
+of which the caller is free to make, every sufficiently large prime current is
+a tail stage — provided only that the total demand of the three selections and
+the packing grows more slowly than the prime supply `Q / log Q`.
+
+The coefficient-fibre scale is the absolute constant two
+(`Erdos289.SignedInverse.scale_two_of_lt`): the band base is a fixed fraction
+of the current, so its cube already beats the current's square.
+-/
+theorem eventually_exists_tailStage
+    (band : ComparableBand) {c : PhysicalConstraint} {m t a h : ℕ → ℕ}
+    (hdemand : (fun Q : ℕ => ((8 * (band.ratio - 1)
+          + 2 * 2 * (m Q * (4 * (max 1 c.separation + 1)) + t Q) : ℕ) : ℝ))
+        =o[atTop] fun Q : ℕ => (Q : ℝ) / Real.log Q)
+    (hcut : ∀ᶠ Q : ℕ in atTop, c.obstacleCutoff < Q * t Q - 1)
+    (hrank : ∀ᶠ Q : ℕ in atTop, 1 < Q * t Q)
+    (hm : ∀ᶠ Q : ℕ in atTop, 0 < m Q)
+    (hinterval : ∀ᶠ Q : ℕ in atTop,
+      0 < h Q ∧ a Q ≤ h Q ∧ h Q + a Q ≤ m Q ∧ Q ≤ a Q * (m Q - a Q) + 1) :
+    ∀ᶠ Q : ℕ in atTop, Q.Prime →
+      ∃ F : Support, TailStage c F (lowerPrimePowerStage Q) (primePowerStage Q)
+        (h Q) (h Q * (2 / ((Q * t Q - 1 : ℕ) : ℚ))) := by
+  have hΛ : 0 < band.ratio := by have := band.two_le_ratio; omega
+  have hsupply := eventually_demand_le_card_carrierPrimes band hdemand
+  filter_upwards [hsupply, hcut, hrank, hm, hinterval,
+    eventually_gt_atTop (2 * band.ratio ^ 3), eventually_gt_atTop 1]
+    with Q hQsupply hQcut hQrank hQm hQint hQbig hQ1 hQprime
+  -- the demand is met by the band at this current
+  set A := carrierFamily (Λ := band.ratio) (n := bandBase band.ratio Q) hQprime
+    (pow_one Q).symm with hAdef
+  have hAcard : A.card = (carrierPrimes band.ratio Q Q (bandBase band.ratio Q)).card :=
+    card_carrierFamily hQprime (pow_one Q).symm
+  have hAsupply :
+      8 * (band.ratio - 1)
+        + 2 * 2 * (m Q * (4 * (max 1 c.separation + 1)) + t Q) ≤ A.card := by
+    rw [hAcard]
+    exact hQsupply Q
+  refine exists_tailStage_of_band (Λ := band.ratio) (n := bandBase band.ratio Q)
+    (d := 2) (t := t Q) (m := m Q) (a := a Q) (h := h Q)
+    hΛ (by norm_num) hQprime hQ1 A (Finset.Subset.refl _)
+    (fun x hx => Carrier.mem_carrierFamily_b hQprime (pow_one Q).symm hx)
+    (scale_two_of_lt hΛ hQbig) hQcut hQrank hQm hAsupply
+    hQint.1 hQint.2.1 hQint.2.2.1 hQint.2.2.2
 
 end SignedInverse
 end Erdos289

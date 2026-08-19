@@ -244,6 +244,15 @@ theorem reciprocalResidue_mul_mem_lower_of_coprime_lt
   annihilatorStage_mul_le_lower_of_coprime_lt ha hb haQ hbQ hab
     (reciprocalResidue_mem_annihilatorStage ⟨a * b, Nat.mul_pos ha hb⟩)
 
+/-- The core's cyclic subgroup sits inside the lower stage of any later
+current: the first endpoint condition of the tail chain. -/
+theorem zmultiples_reciprocalResidue_le_lowerPrimePowerStage
+    {D Q : ℕ} (hD : 0 < D) (hDQ : D < Q) :
+    AddSubgroup.zmultiples (reciprocalResidue ⟨D, hD⟩) ≤ lowerPrimePowerStage Q :=
+  AddSubgroup.zmultiples_le.2
+    (annihilatorStage_le_lower_of_lt hD hDQ
+      (reciprocalResidue_mem_annihilatorStage ⟨D, hD⟩))
+
 /-- A current factor times a coprime bounded factor has its whole annihilator
 stage supported at the current prime-power stage. -/
 theorem annihilatorStage_mul_le_primePowerStage

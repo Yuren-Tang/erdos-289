@@ -533,3 +533,31 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.binaryBlock_injective' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.binaryBlock_injective
+
+/-- info: 'Erdos289.SignedInverse.scale_two_of_lt' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.scale_two_of_lt
+
+/-- info: 'Erdos289.SignedInverse.card_carrierFamily' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_carrierFamily
+
+/-- info: 'Erdos289.SignedInverse.eventually_demand_le_card_carrierPrimes' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.eventually_demand_le_card_carrierPrimes
+
+/-- info: 'Erdos289.SignedInverse.eventually_exists_tailStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.eventually_exists_tailStage
+
+/-- info: 'Erdos289.zmultiples_reciprocalResidue_le_lowerPrimePowerStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.zmultiples_reciprocalResidue_le_lowerPrimePowerStage
+
+/-- info: 'Erdos289.sum_lt_of_le_geometric' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.sum_lt_of_le_geometric
+
+/-- info: 'Erdos289.exists_rank_of_cost_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_rank_of_cost_le
