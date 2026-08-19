@@ -30,7 +30,10 @@ import Erdos289.IntervalBlocks
 import Erdos289.LightMobility
 import Erdos289.Literal
 import Erdos289.LocalProfiles
+import Erdos289.LocalSystem
+import Erdos289.NeutralAtoms
 import Erdos289.NeutralConstruction
+import Erdos289.PaddedStage
 import Erdos289.PathSupport
 import Erdos289.PhysicalSupports
 import Erdos289.PoolComposition
@@ -403,6 +406,10 @@ editing it by hand.
 /-- info: 'Erdos289.exists_multiplicities_of_two_simpleFibreClasses' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_multiplicities_of_two_simpleFibreClasses
+
+/-- info: 'Erdos289.exists_lt_nsmul_of_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_lt_nsmul_of_ne_zero
 
 /-- info: 'Erdos289.CompatibleTransversePool.coversAtGrade_of_two_classes' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -916,6 +923,54 @@ editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.QuantitativeTransverseReservoir.rowMin_le_simpleValues_card_mul
 
+/-- info: 'Erdos289.LocalStateSystem.classOf' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.classOf
+
+/-- info: 'Erdos289.LocalStateSystem.classOf_eq' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.classOf_eq
+
+/-- info: 'Erdos289.LocalStateSystem.CoversAtGrade' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.CoversAtGrade
+
+/-- info: 'Erdos289.LocalStateSystem.ofPool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.ofPool
+
+/-- info: 'Erdos289.LocalStateSystem.ofPool_atoms' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.ofPool_atoms
+
+/-- info: 'Erdos289.LocalStateSystem.coversAtGrade_ofPool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.coversAtGrade_ofPool
+
+/-- info: 'Erdos289.LocalStateSystem.adjoin' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.adjoin
+
+/-- info: 'Erdos289.LocalStateSystem.adjoin_atoms' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.adjoin_atoms
+
+/-- info: 'Erdos289.tailStage_of_localSystem' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailStage_of_localSystem
+
+/-- info: 'Erdos289.binaryBlock_residue_mem_lowerPrimePowerStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.binaryBlock_residue_mem_lowerPrimePowerStage
+
+/-- info: 'Erdos289.binaryBlock_factorsThroughPrimePowerStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.binaryBlock_factorsThroughPrimePowerStage
+
+/-- info: 'Erdos289.binaryBlock_simpleFibreClass_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.binaryBlock_simpleFibreClass_eq_zero
+
 /-- info: 'Erdos289.neutralQuadratic' depends on axioms: [propext, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.neutralQuadratic
@@ -963,6 +1018,14 @@ editing it by hand.
 /-- info: 'Erdos289.remoteLightNeutralGradeOne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.remoteLightNeutralGradeOne
+
+/-- info: 'Erdos289.LocalStateSystem.coversAtGrade_of_stock_and_padding' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.coversAtGrade_of_stock_and_padding
+
+/-- info: 'Erdos289.LocalStateSystem.exists_stock_of_card' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.LocalStateSystem.exists_stock_of_card
 
 /-- info: 'Erdos289.Denominator' does not depend on any axioms -/
 #guard_msgs (whitespace := lax) in

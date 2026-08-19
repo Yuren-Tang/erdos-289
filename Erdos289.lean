@@ -19,6 +19,9 @@ public import Erdos289.PrimeSupplyAsymptotic
 public import Erdos289.CyclicRow
 public import Erdos289.CyclicStage
 public import Erdos289.AtomClass
+public import Erdos289.NeutralAtoms
+public import Erdos289.LocalSystem
+public import Erdos289.PaddedStage
 public import Erdos289.IntervalBlocks
 public import Erdos289.Statement
 public import Erdos289.Literal

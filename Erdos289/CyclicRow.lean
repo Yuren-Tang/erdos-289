@@ -90,4 +90,21 @@ theorem exists_multiplicities_of_two_simpleFibreClasses
   rw [map_add, map_nsmul, map_nsmul, nsmul_eq_mul, nsmul_eq_mul]
   exact hclass
 
+/--
+A nonzero class generates the simple fibre: every class is a multiple of it by
+a natural number below `p`.
+-/
+theorem exists_lt_nsmul_of_ne_zero
+    {Q p e : ℕ} (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
+    {u : PrimePowerSimpleFibre Q} (hu : u ≠ 0) (x : PrimePowerSimpleFibre Q) :
+    ∃ j : ℕ, j < p ∧ j • u = x := by
+  have : Fact p.Prime := ⟨hp⟩
+  set φ := primePowerSimpleFibreAddEquiv hp he hQ with hφ
+  have hφu : φ u ≠ 0 := fun hzero => hu (φ.injective (by simpa using hzero))
+  set w : ZMod p := φ x / φ u with hw
+  refine ⟨w.val, ZMod.val_lt w, φ.injective ?_⟩
+  have hwval : ((w.val : ℕ) : ZMod p) = w := by
+    simp [ZMod.natCast_val, ZMod.cast_id]
+  rw [map_nsmul, nsmul_eq_mul, hwval, hw, div_mul_cancel₀ _ hφu]
+
 end Erdos289
