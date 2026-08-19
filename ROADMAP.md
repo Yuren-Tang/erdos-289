@@ -278,11 +278,29 @@ What is left is therefore three items, one heavy and two coupled.
   `h·u + k₂·d`, and `d` is invertible, so `k₂` is determined modulo `p` and its
   least representative is below `p ≤ h`.
 
-  What remains is therefore one arithmetic statement, with its multiplicities
-  named rather than loosely described: **at a proper prime power the pool
-  contains two disjoint stocks of atoms, of distinct classes `u ≠ v`, the first
-  of at least `h` atoms and the second of at least `p - 1`.**  Nothing else
-  about the current enters.
+  The classes themselves are now identified arithmetically, uniformly in the
+  exponent.  `Erdos289.SignedInverse.coefficient_nsmul_atom_simpleFibreClass`
+  pins an atom's class by the exact equation `k • class = generator`, where `k`
+  is its current coefficient and the generator is the class of `1/Q`: the
+  atom's residue is `1/(Q k)` plus a companion in the lower stage, and
+  `k · (1/(Q k)) = 1/Q` on the nose.  Since the fibre has prime order `p` and
+  `k` is a unit modulo `p`, that equation determines the class, and
+  `atom_simpleFibreClass_eq_iff` says two atoms share a class exactly when
+  their coefficients agree modulo `p`.  (The prime-current injectivity is now a
+  corollary rather than a separate argument.)
+
+  What remains is therefore one arithmetic statement, in coefficients:
+  **at a proper prime power the row contains, in two distinct residue classes
+  modulo `p`, at least `h` coefficients in the first and at least `p - 1` in
+  the second.**  Nothing else about the current enters.
+
+  One case is settled negatively and needs the other mechanism.  At `p = 2`
+  every coefficient is a unit modulo `2`, hence odd, so all atoms of a row
+  share the single nonzero class of a two-element fibre and no two distinct
+  classes exist.  There the padding route — neutral atoms of grade one and
+  class zero — is not an alternative but a necessity, and it needs an interface
+  slightly wider than `CoversAtGrade` as currently stated, since a neutral atom
+  is not transverse and so cannot belong to the pool.
 
   The alternative mechanism — the cyclic orbit
   (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) with padding by
