@@ -8,7 +8,7 @@ descent towards **Erdős problem 289**.
 > $\lvert I_i\rvert\ge 2$ for $1\le i\le k$, such that
 > $1=\sum_{i=1}^{k}\sum_{n\in I_i}\frac1n$?
 >
-> — [erdosproblems.com/289](https://www.erdosproblems.com/289)
+> — Problem 289, [erdosproblems.com/289](https://www.erdosproblems.com/289)
 
 Pinned to **Lean 4.33.0** and **mathlib v4.33.0**.
 
@@ -16,57 +16,80 @@ Pinned to **Lean 4.33.0** and **mathlib v4.33.0**.
 
 This repository is explicit about its own state, and the state is:
 
-* the universal core, the five isolated hard leaves, the descent spine and the
-  finite core provider are **proved unconditionally** and transitively
+* the universal core, the five isolated external inputs, the descent spine and
+  the finite core stage are **proved unconditionally** and transitively
   axiom-audited;
 * the **unconditional Erdős 289 theorem is not claimed**.
 
-Exactly one obligation is open — the manuscript's *cofinal tail provider* —
+Exactly one obligation is open — the manuscript's *cofinal tail interface* —
 and it appears as the single explicit hypothesis of
 
 ```lean
-theorem erdos289Statement_of_tailInterface
-    {D : ℕ} (hD : 0 < D)
+theorem smallBlockSaturation_of_tailInterface
+    {D : ℕ} (hD : 0 < D) {s : ℚ} (hs0 : 0 < s) (hs1 : s < 1)
     (hsupply : ∀ (F : Support) (τ : TargetResidue), ∃ N : ℕ, ∀ h, N ≤ h →
       ∃ (G : AddSubgroup TargetResidue) (ε : ℚ),
-        τ ∈ G ∧ ε < 1 / 2 ∧
+        τ ∈ G ∧ ε < s ∧
         TailCovers originalConstraint F
           (AddSubgroup.zmultiples (reciprocalResidue ⟨D, hD⟩)) G h ε) :
-    Erdos289Statement
+    SmallBlockSaturation
 ```
 
 `ROADMAP.md` says exactly what is and is not proved, and why. Read it before
 taking any summary sentence here as a result about the conjecture.
 
-## The statement, and why you can trust that it is the right one
+## Three statements, and how they are related
 
-The development states the problem intrinsically — a finite support in the
-positive-integer path, its connected components, and the exact reciprocal
-value:
+The development keeps the source-level sentence, the intrinsic problem class,
+and the strengthening actually being proved separate, and proves the
+implications between them.
 
-```lean
-def Erdos289Statement : Prop :=
-  CofiniteSaturation 1 originalConstraint
+| proposition | what it is | file |
+| --- | --- | --- |
+| `ErdosProblem289` | the sentence of problem 289, verbatim: eventually in `k`, `k` pairwise non-overlapping, non-adjacent intervals `[a_i, b_i]` with `0 < a_i < b_i` and `∑ᵢ ∑_{n ∈ [a_i,b_i]} 1/n = 1` | `Erdos289/Literal.lean` |
+| `IntervalSaturation` | the same problem stated intrinsically: the exact reciprocal grade spectrum at `1` is cofinite, over the problem's own block-size class `{n \| 2 ≤ n}` | `Erdos289/Statement.lean` |
+| `SmallBlockSaturation` | the strengthening this development proves: the same, with every block of length exactly two or three | `Erdos289/Statement.lean` |
+
+```text
+SmallBlockSaturation  →  IntervalSaturation  →  ErdosProblem289
+  intervalSaturation_of_smallBlock   erdosProblem289_of_intervalSaturation
 ```
 
-An interval decomposition is a *presentation* of such a support, not an
-invariant of it, so intervals do not appear in the intrinsic phrasing. That the
-two phrasings agree is proved rather than asserted: `Erdos289/Literal.lean`
-shows that a connected component of the induced path graph is convex, hence an
-integer interval, and derives
+An interval decomposition is a *presentation* of a finite support in the
+positive-integer path, not an invariant of it, so intervals do not appear in
+the intrinsic phrasing. That the two phrasings agree is proved rather than
+asserted: `Erdos289/Literal.lean` shows that a connected component of the
+induced path graph is convex, hence an integer interval, and
+`exists_intervalFamily_of_saturationWitness` reads off the interval family,
+including positivity of every lower endpoint.
 
-| literal form | matches | theorem |
-| --- | --- | --- |
-| `Erdos289LiteralSeparated` | the sentence on erdosproblems.com/289 | `erdos289LiteralSeparated_of_statement` |
-| `Erdos289Literal` | `erdos_289` in [`google-deepmind/formal-conjectures`](https://github.com/google-deepmind/formal-conjectures) | `erdos289Literal_of_statement` |
+`Erdos289Test/Smoke.lean` checks by `Iff.rfl` that `ErdosProblem289` is the
+source sentence and not a paraphrase, and derives from it the weaker sentence
+used by the `erdos_289` entry of
+[`google-deepmind/formal-conjectures`](https://github.com/google-deepmind/formal-conjectures),
+which omits non-adjacency.
 
-What is being developed is strictly stronger than the problem as posed: every
-block has length two or three, and distinct blocks are required to be
-non-adjacent.
+## Numerical constants
+
+No numerical constant appears in a public statement unless it is part of the
+source problem, part of an exact identity, or the sharp constant of a uniform
+structural theorem. Everything else — the comparable band ratio, the
+coefficient-fibre bound, the truncation rank, the core slack, the selector
+target — is a parameter of the statement, and the particular value that the
+present proof happens to use is a *witness* constructed inside a proof or
+exhibited by a clearly labelled corollary.
+
+For instance `Erdos289.ComparableBand` is existential in the band ratio `Λ`;
+`Erdos289.comparableBandFour` is the witness `Λ = 4` supplied by mathlib's
+Chebyshev bounds. Replacing it by another valid ratio changes that one
+definition and nothing downstream.
+
+An asymptotic statement is formalized as an asymptotic statement. It is never
+replaced by an inequality valid beyond a hand-picked numerical threshold.
 
 ## What is proved
 
-* the universal graded affine-correction engine: realizer pullbacks, the
+* the universal graded affine-correction theorem: realizer pullbacks, the
   compatible-composition epimorphism, literalization, and exact-spectrum
   transfer;
 * canonical target centering, compact quotient resolution, and the least
@@ -75,9 +98,9 @@ non-adjacent.
   cofinal overlapping-interval theorem;
 * the path-support partial commutative monoid, with reciprocal value and
   connected-component grade proved additive on every defined physical union;
-* the constructive remote separated Egyptian leaf, every positive-rational
-  presentation fibre derived from it, and arbitrarily light equal-grade
-  mobility;
+* the constructive remote separated Egyptian presentation, every
+  positive-rational presentation fibre derived from it, and arbitrarily light
+  equal-grade mobility;
 * the prime-power filtration of `ℚ/ℤ`, its simple fibres, and their additive
   equivalence with `ZMod p`;
 * signed-inverse binary atoms, their factorization through the canonical
@@ -86,14 +109,14 @@ non-adjacent.
   size, simple-fibre multiplicity, atom mass and conflict degree, together with
   its bounded conflict degree and its packing into compatible pools;
 * the row certificate of a prime-power current: the comparable carrier band,
-  the uniform four-point square-fibre bound, the twenty-four-carrier deletion
-  bound, deduplication by coefficient and rank truncation;
+  the uniform four-point square-fibre bound, the carrier-deletion bound,
+  deduplication by coefficient and rank truncation, all parametric;
 * the descent spine — torsor induction, eventual trivialization of the residue
   filtration, and adjacent-lift uniqueness — which reduces the problem to two
-  provider interfaces;
-* the **finite core provider**: a ladder of arbitrarily-light equal-grade
-  switches realizing a complete cyclic torsor with barrier slack `1/2`;
-* the five isolated hard leaves — see the table in `ROADMAP.md`.
+  interfaces;
+* the **finite core stage**: a ladder of arbitrarily-light equal-grade switches
+  realizing a complete cyclic torsor with any prescribed barrier slack;
+* the five external inputs — see the table in `ROADMAP.md`.
 
 ## Verification
 
@@ -114,11 +137,11 @@ pinned, and dependency bumps go through their own pull request.
 ## Layout
 
 ```text
-AffineCorrection/     universal core (Part I); imports no E289 provider
+AffineCorrection/     universal core (Part I); imports nothing from Erdos289/
 Erdos289/             reciprocal descent (Part II)
 IndependentTransversals/, LeanPool/
-                      vendored Apache-2.0 providers; see THIRD_PARTY.md
-Erdos289Test/         tests consuming only the deliberate public API
+                      vendored Apache-2.0 sources; see THIRD_PARTY.md
+Erdos289Test/         tests using only the deliberate public API
 Audit.lean            transitive axiom audit
 scripts/              hygiene checks run by CI
 ```
@@ -128,8 +151,38 @@ mathematical object first, pass to an equivalent working language second, and
 only then choose the Lean realization. A convenient witness may not replace a
 universal object or a canonical fibre.
 
+## References
+
+The source of the problem statement, and the external theorems used.
+
+* Bloom, T. F., *Erdős problems*, problem 289.
+  <https://www.erdosproblems.com/289>. Accessed 2026-08. This page is the
+  source of the sentence formalized as `Erdos289.ErdosProblem289`; it is also
+  where the problem's provenance and its current status are recorded.
+* Erdős, P. and Graham, R. L., *Old and new problems and results in
+  combinatorial number theory*. Monographies de l'Enseignement Mathématique 28,
+  Université de Genève, 1980. Background on the Egyptian-fraction problems of
+  which this is one.
+* Dias da Silva, J. A. and Hamidoune, Y. O., *Cyclic spaces for Grassmann
+  derivatives and additive theory*. Bulletin of the London Mathematical Society
+  **26** (1994), no. 2, 140–146. doi:10.1112/blms/26.2.140.
+* Haxell, P. E., *A note on vertex list colouring*. Combinatorics, Probability
+  and Computing **10** (2001), no. 4, 345–347. doi:10.1017/S0963548301004758.
+* The mathlib Community, *The Lean mathematical library*. Proceedings of the
+  9th ACM SIGPLAN International Conference on Certified Programs and Proofs
+  (CPP 2020), 367–381. doi:10.1145/3372885.3373824. Chebyshev's bounds are used
+  through `Mathlib.NumberTheory.Chebyshev`.
+
+The Lean proofs of the Dias da Silva–Hamidoune and Haxell theorems are vendored
+rather than reproved; `THIRD_PARTY.md` records their upstream commits, authors
+and local modifications.
+
 ## Licence
 
 Apache-2.0; see `LICENSE` and `NOTICE`. Two Apache-2.0 developments are
 vendored rather than depended on, with their copyright notices retained;
 `THIRD_PARTY.md` records the upstream commits and every local modification.
+
+## Citing
+
+See `CITATION.cff`.

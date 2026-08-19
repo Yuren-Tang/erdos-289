@@ -1,5 +1,11 @@
 # Third-party source
 
+Two Apache-2.0 Lean developments are vendored rather than depended on, so that
+the exact proved statements are visible here and pinned by content rather than
+by a floating branch.  The mathematical theorems they formalize are due to
+their original authors, cited below; the Lean proofs are due to the vendored
+projects' authors, named in the retained per-file notices and in `NOTICE`.
+
 ## Polynomial method for restricted sums
 
 The files under
@@ -22,6 +28,12 @@ The project-facing theorem is
 solely through the canonical fixed-cardinality subset object and its additive
 fold; the polynomial coordinates remain internal.
 
+The mathematical result is:
+
+> Dias da Silva, J. A. and Hamidoune, Y. O., *Cyclic spaces for Grassmann
+> derivatives and additive theory*.  Bulletin of the London Mathematical
+> Society **26** (1994), no. 2, 140–146.  doi:10.1112/blms/26.2.140.
+
 ## Haxell's independent-transversal theorem
 
 The files under `IndependentTransversals/` are derived from the
@@ -33,6 +45,11 @@ and author notices have been retained.
 Local changes are confined to Lean's module/public-import declarations,
 disabling both forms of automatic implicit-variable insertion, and any
 explicitly noted Lean 4.33 compatibility edits.
+
+The mathematical result is:
+
+> Haxell, P. E., *A note on vertex list colouring*.  Combinatorics, Probability
+> and Computing **10** (2001), no. 4, 345–347.  doi:10.1017/S0963548301004758.
 
 ## Warnings from the vendored sources
 

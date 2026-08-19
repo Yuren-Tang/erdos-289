@@ -3,9 +3,11 @@ message: "If you use this formalization, please cite it as below."
 title: "Erdos289: a Lean 4 development towards Erdős problem 289"
 abstract: >-
   A Lean 4 / mathlib development of a universal graded affine-correction
-  theorem and its descent towards the strengthened length-{2,3} form of
-  Erdős problem 289.  The universal core and five isolated hard leaves are
-  proved unconditionally; the unconditional final theorem is not yet claimed.
+  theorem and its descent towards Erdős problem 289.  The universal core, the
+  five external inputs, the descent spine and the finite core stage are proved
+  unconditionally and transitively axiom-audited; the unconditional final
+  theorem is not claimed, and the remaining obligation appears as the single
+  explicit hypothesis of a conditional theorem.
 authors:
   - family-names: Tang
     given-names: Yuren
@@ -20,6 +22,60 @@ keywords:
   - unit fractions
   - Erdős problems
 references:
-  - type: generic
-    title: "Erdős problem 289"
+  - type: website
+    title: "Erdős problems, problem 289"
     url: "https://www.erdosproblems.com/289"
+    authors:
+      - family-names: Bloom
+        given-names: "Thomas F."
+  - type: book
+    title: >-
+      Old and new problems and results in combinatorial number theory
+    authors:
+      - family-names: Erdős
+        given-names: Paul
+      - family-names: Graham
+        given-names: "Ronald L."
+    year: 1980
+    publisher:
+      name: "Université de Genève, L'Enseignement Mathématique"
+    collection-title: "Monographies de L'Enseignement Mathématique"
+    volume: 28
+  - type: article
+    title: >-
+      Cyclic spaces for Grassmann derivatives and additive theory
+    authors:
+      - family-names: "Dias da Silva"
+        given-names: "J. A."
+      - family-names: Hamidoune
+        given-names: "Y. O."
+    journal: "Bulletin of the London Mathematical Society"
+    volume: 26
+    issue: 2
+    start: 140
+    end: 146
+    year: 1994
+    doi: "10.1112/blms/26.2.140"
+  - type: article
+    title: "A note on vertex list colouring"
+    authors:
+      - family-names: Haxell
+        given-names: "P. E."
+    journal: "Combinatorics, Probability and Computing"
+    volume: 10
+    issue: 4
+    start: 345
+    end: 347
+    year: 2001
+    doi: "10.1017/S0963548301004758"
+  - type: conference-paper
+    title: "The Lean mathematical library"
+    authors:
+      - name: "The mathlib Community"
+    collection-title: >-
+      Proceedings of the 9th ACM SIGPLAN International Conference on Certified
+      Programs and Proofs (CPP 2020)
+    start: 367
+    end: 381
+    year: 2020
+    doi: "10.1145/3372885.3373824"

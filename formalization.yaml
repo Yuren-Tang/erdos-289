@@ -14,27 +14,53 @@ problem:
 formalization:
   toolchain: leanprover/lean4:v4.33.0
   mathlib: v4.33.0
-  intrinsic_statement: Erdos289.Erdos289Statement
-  literal_statements:
-    - name: Erdos289.Erdos289LiteralSeparated
-      matches: the sentence displayed on erdosproblems.com/289
-      derived_by: Erdos289.erdos289LiteralSeparated_of_statement
-    - name: Erdos289.Erdos289Literal
-      matches: >-
+  source_statement:
+    name: Erdos289.ErdosProblem289
+    file: Erdos289/Literal.lean
+    matches: the sentence displayed on erdosproblems.com/289
+    checked_by: >-
+      Erdos289Test/Smoke.lean, by `Iff.rfl` against the sentence written out
+      independently
+  intrinsic_statement:
+    name: Erdos289.IntervalSaturation
+    file: Erdos289/Statement.lean
+    description: >-
+      The same problem stated without interval coordinates: the exact
+      reciprocal grade spectrum at 1 is cofinite, over the problem's own class
+      of block sizes, every block of length at least two.
+    implies_source_statement: Erdos289.erdosProblem289_of_intervalSaturation
+  strengthening:
+    name: Erdos289.SmallBlockSaturation
+    file: Erdos289/Statement.lean
+    description: >-
+      The statement this development actually proves conditionally: the same,
+      with every block of length exactly two or three.
+    implies_intrinsic_statement: Erdos289.intervalSaturation_of_smallBlock
+  weaker_variants:
+    - matches: >-
         the right-hand side of `erdos_289` in
         google-deepmind/formal-conjectures, FormalConjectures/ErdosProblems/289.lean
-      derived_by: Erdos289.erdos289Literal_of_statement
-  strengthening: >-
-    The intrinsic statement restricts every block to length two or three and
-    requires distinct blocks to be non-adjacent, so it implies both literal
-    forms.
+      note: >-
+        Omits the non-adjacency requirement, so it is implied by
+        Erdos289.ErdosProblem289; derived in Erdos289Test/Smoke.lean.
   proved: false
-  reduced_to: Erdos289.erdos289Statement_of_tailInterface
+  reduced_to: Erdos289.smallBlockSaturation_of_tailInterface
   open_obligation: >-
-    The cofinal tail provider: beyond any finite footprint, states of every
+    The cofinal tail interface: beyond any finite footprint, states of every
     sufficiently large grade whose residues cover the ambient group modulo the
-    core's cyclic subgroup, with total load below the barrier slack 1/2.
+    core's cyclic subgroup, with total load below the core's barrier slack.
   remaining_work: ROADMAP.md
+
+conventions:
+  numerical_constants: >-
+    A numerical constant occurs in a public statement only when it belongs to
+    the source problem, to an exact identity, to a sharp or uniform structural
+    theorem, or to a canonical extremum.  Constants obtained by specializing a
+    parametric theorem are witnesses and stay inside proofs or labelled
+    corollaries.
+  asymptotics: >-
+    An asymptotic statement is formalized with Asymptotics/Filter.atTop, never
+    as an inequality beyond a hand-picked threshold.
 
 trust:
   source_scan: scripts/source_scan.py
