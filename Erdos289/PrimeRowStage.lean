@@ -51,21 +51,21 @@ theorem rowReservoir_transverseClass_injective
     (hp : p.Prime) (hQ1 : 1 < p) (σ : Carrier p p → Orientation)
     (T : Finset (Carrier p p))
     (hgood : ∀ x ∈ T, σ x ∈ (x.pair hQ1).goodOrientations p)
-    (hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hQ1 σ x).1)
+    (havoid : ∀ x ∈ T, (binaryBlock (rowStart hQ1 σ x)).Avoids c)
     (hinj : Set.InjOn (fun x : Carrier p p ↦ (x.pair hQ1).coefficient (σ x)) T) :
     ∀ S, ∀ hS : S ∈ (rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1 σ T
-        hgood hremote).atoms,
+        hgood havoid).atoms,
       ∀ T', ∀ hT' : T' ∈ (rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1 σ T
-        hgood hremote).atoms,
+        hgood havoid).atoms,
       S.transverseClass ((rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1 σ T
-          hgood hremote).transverse S hS)
+          hgood havoid).transverse S hS)
         = T'.transverseClass ((rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1
-          σ T hgood hremote).transverse T' hT') → S = T' := by
+          σ T hgood havoid).transverse T' hT') → S = T' := by
   classical
-  set R := rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood hremote
+  set R := rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood havoid
     with hRdef
   have hatoms : R.atoms = (T.image (rowStart hQ1 σ)).image binaryBlock :=
-    rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood hremote
+    rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood havoid
   have hkey : ∀ S ∈ R.atoms, ∃ x ∈ T, S = binaryBlock (rowStart hQ1 σ x) := by
     intro S hS
     rw [hatoms] at hS
@@ -101,14 +101,14 @@ theorem card_simpleValues_rowReservoir
     (hp : p.Prime) (hQ1 : 1 < p) (σ : Carrier p p → Orientation)
     (T : Finset (Carrier p p))
     (hgood : ∀ x ∈ T, σ x ∈ (x.pair hQ1).goodOrientations p)
-    (hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hQ1 σ x).1)
+    (havoid : ∀ x ∈ T, (binaryBlock (rowStart hQ1 σ x)).Avoids c)
     (hinj : Set.InjOn (fun x : Carrier p p ↦ (x.pair hQ1).coefficient (σ x)) T) :
     (rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood
-      hremote).simpleValues.card = T.card := by
+      havoid).simpleValues.card = T.card := by
   classical
   rw [TransverseReservoir.card_simpleValues_of_injective _
-      (rowReservoir_transverseClass_injective hp hQ1 σ T hgood hremote hinj),
-    card_rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood hremote hinj]
+      (rowReservoir_transverseClass_injective hp hQ1 σ T hgood havoid hinj),
+    card_rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hQ1 σ T hgood havoid hinj]
 
 /-! ### The composite: a band of carriers is a tail stage -/
 
@@ -134,11 +134,12 @@ theorem exists_tailStage_of_band
     (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp (pow_one p).symm)
     (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ p p (bandBase Λ p))
     (hscale : p ^ 2 + 1 < (n + 1) ^ (d + 1))
-    (hcut : c.obstacleCutoff < p * t - 1)
     (hpos : 1 < p * t)
     (hm : 0 < m)
     (hsupply :
-      8 * (Λ - 1) + 2 * d * (m * (4 * (max 1 c.separation + 1)) + t) ≤ A.card)
+      8 * (Λ - 1)
+        + 2 * d * (m * (4 * (max 1 c.separation + 1)) + t + 2 * c.obstacle.card)
+        ≤ A.card)
     (hh : 0 < h) (hah : a ≤ h) (hhm : h + a ≤ m)
     (hend : p ≤ a * (m - a) + 1) :
     ∃ F : Support,
@@ -147,34 +148,54 @@ theorem exists_tailStage_of_band
   classical
   set K := 4 * (max 1 c.separation + 1) with hK
   have hKpos : 0 < K := by positivity
-  obtain ⟨σ, Row, T, hTdef, hRowA, hgoodRow, hinjRow, hdedup, htrunc, hstart⟩ :=
+  obtain ⟨σ, Row, T₀, hTdef, hRowA, hgoodRow, hinjRow, hdedup, htrunc, hstart⟩ :=
     exists_rowCertificate (Λ := Λ) (n := n) (d := d) (t := t) hΛ hp
       (pow_one p).symm hp1 A hA hband hscale
-  have hTsub : T ⊆ Row := hTdef ▸ Finset.filter_subset _ _
+  have hT₀sub : T₀ ⊆ Row := hTdef ▸ Finset.filter_subset _ _
+  have hinj₀ : Set.InjOn (fun x : Carrier p p ↦ (x.pair hp1).coefficient (σ x)) T₀ :=
+    hinjRow.mono hT₀sub
+  have hstartinj : Set.InjOn (rowStart hp1 σ) T₀ :=
+    rowStart_injOn_of_coefficient_injOn hp1 σ hinj₀
+  -- core-obstacle deletion
+  set T := T₀.filter fun x => Disjoint (binaryBlock (rowStart hp1 σ x)) c.obstacle
+    with hTfil
+  have hTsub₀ : T ⊆ T₀ := Finset.filter_subset _ _
+  have hTsub : T ⊆ Row := hTsub₀.trans hT₀sub
+  have hdelete : T₀.card ≤ T.card + 2 * c.obstacle.card := by
+    have hsplit : T.card
+        + (T₀.filter fun x =>
+            ¬ Disjoint (binaryBlock (rowStart hp1 σ x)) c.obstacle).card
+        = T₀.card := by
+      rw [hTfil]
+      exact Finset.card_filter_add_card_filter_not _
+    have hbad := card_obstructed_le hp1 σ c T₀ hstartinj
+    omega
   have hTcoeff : ∀ x ∈ T, t ≤ (x.pair hp1).coefficient (σ x) := by
-    intro x hx; rw [hTdef] at hx; exact (Finset.mem_filter.mp hx).2
+    intro x hx
+    have hx₀ := hTsub₀ hx
+    rw [hTdef] at hx₀
+    exact (Finset.mem_filter.mp hx₀).2
   have hgood : ∀ x ∈ T, σ x ∈ (x.pair hp1).goodOrientations p :=
     fun x hx => hgoodRow x (hTsub hx)
-  have hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hp1 σ x).1 := by
-    intro x hx
-    have := hstart x hx
-    rw [rowStart_val]
-    omega
+  have havoid : ∀ x ∈ T, (binaryBlock (rowStart hp1 σ x)).Avoids c :=
+    fun x hx => (Finset.mem_filter.mp hx).2
   have hinjT : Set.InjOn (fun x : Carrier p p ↦ (x.pair hp1).coefficient (σ x)) T :=
-    hinjRow.mono hTsub
-  set R := rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hp1 σ T hgood hremote
+    hinj₀.mono hTsub₀
+  set R := rowReservoir (c := c) hp Nat.one_pos (pow_one p).symm hp1 σ T hgood havoid
     with hRdef
   have hatoms : R.atoms = (T.image (rowStart hp1 σ)).image binaryBlock :=
-    rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hp1 σ T hgood hremote
+    rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hp1 σ T hgood havoid
   have hcardR : R.atoms.card = T.card :=
-    card_rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hp1 σ T hgood hremote hinjT
+    card_rowReservoir_atoms hp Nat.one_pos (pow_one p).symm hp1 σ T hgood havoid hinjT
   -- the surviving row is large enough to pack into `m` chunks
   have hrow : m * K ≤ R.atoms.card := by
     rw [hcardR]
-    have hchain : 2 * d * (m * K + t) ≤ 2 * d * (T.card + t) := by
+    have hchain : 2 * d * (m * K + t + 2 * c.obstacle.card)
+        ≤ 2 * d * (T.card + t + 2 * c.obstacle.card) := by
       have h1 : A.card ≤ 2 * d * Row.card + 8 * (Λ - 1) := by omega
-      have h2 : Row.card ≤ T.card + t := by omega
-      have h3 : 2 * d * Row.card ≤ 2 * d * (T.card + t) := Nat.mul_le_mul_left _ h2
+      have h2 : Row.card ≤ T.card + t + 2 * c.obstacle.card := by omega
+      have h3 : 2 * d * Row.card ≤ 2 * d * (T.card + t + 2 * c.obstacle.card) :=
+        Nat.mul_le_mul_left _ h2
       omega
     have hdpos : 0 < 2 * d := by omega
     have := Nat.le_of_mul_le_mul_left hchain hdpos
@@ -191,7 +212,7 @@ theorem exists_tailStage_of_band
   -- the pool's image in the simple fibre is as large as the pool
   have hfibre : P.toTransverseReservoir.simpleValues.card = P.atoms.card :=
     TransverseReservoir.card_simpleValues_of_subset R P.toTransverseReservoir hPsub
-      (rowReservoir_transverseClass_injective hp hp1 σ T hgood hremote hinjT)
+      (rowReservoir_transverseClass_injective hp hp1 σ T hgood havoid hinjT)
   have hmfib : m ≤ P.toTransverseReservoir.simpleValues.card := by omega
   -- every atom is a binary block: grade one, and light by the truncation
   have hbinary : ∀ S ∈ P.atoms, ∃ x ∈ T, S = binaryBlock (rowStart hp1 σ x) := by
@@ -239,9 +260,9 @@ of the current, so its cube already beats the current's square.
 theorem eventually_exists_tailStage
     (band : ComparableBand) {c : PhysicalConstraint} {m t a h : ℕ → ℕ}
     (hdemand : (fun Q : ℕ => ((8 * (band.ratio - 1)
-          + 2 * 2 * (m Q * (4 * (max 1 c.separation + 1)) + t Q) : ℕ) : ℝ))
+          + 2 * 2 * (m Q * (4 * (max 1 c.separation + 1)) + t Q
+            + 2 * c.obstacle.card) : ℕ) : ℝ))
         =o[atTop] fun Q : ℕ => (Q : ℝ) / Real.log Q)
-    (hcut : ∀ᶠ Q : ℕ in atTop, c.obstacleCutoff < Q * t Q - 1)
     (hrank : ∀ᶠ Q : ℕ in atTop, 1 < Q * t Q)
     (hm : ∀ᶠ Q : ℕ in atTop, 0 < m Q)
     (hinterval : ∀ᶠ Q : ℕ in atTop,
@@ -251,9 +272,9 @@ theorem eventually_exists_tailStage
         (h Q) (h Q * (2 / ((Q * t Q - 1 : ℕ) : ℚ))) := by
   have hΛ : 0 < band.ratio := by have := band.two_le_ratio; omega
   have hsupply := eventually_demand_le_card_carrierPrimes band hdemand
-  filter_upwards [hsupply, hcut, hrank, hm, hinterval,
+  filter_upwards [hsupply, hrank, hm, hinterval,
     eventually_gt_atTop (2 * band.ratio ^ 3), eventually_gt_atTop 1]
-    with Q hQsupply hQcut hQrank hQm hQint hQbig hQ1 hQprime
+    with Q hQsupply hQrank hQm hQint hQbig hQ1 hQprime
   -- the demand is met by the band at this current
   set A := carrierFamily (Λ := band.ratio) (n := bandBase band.ratio Q) hQprime
     (pow_one Q).symm with hAdef
@@ -261,14 +282,15 @@ theorem eventually_exists_tailStage
     card_carrierFamily hQprime (pow_one Q).symm
   have hAsupply :
       8 * (band.ratio - 1)
-        + 2 * 2 * (m Q * (4 * (max 1 c.separation + 1)) + t Q) ≤ A.card := by
+        + 2 * 2 * (m Q * (4 * (max 1 c.separation + 1)) + t Q
+          + 2 * c.obstacle.card) ≤ A.card := by
     rw [hAcard]
     exact hQsupply Q
   refine exists_tailStage_of_band (Λ := band.ratio) (n := bandBase band.ratio Q)
     (d := 2) (t := t Q) (m := m Q) (a := a Q) (h := h Q)
     hΛ (by norm_num) hQprime hQ1 A (Finset.Subset.refl _)
     (fun x hx => Carrier.mem_carrierFamily_b hQprime (pow_one Q).symm hx)
-    (scale_two_of_lt hΛ hQbig) hQcut hQrank hQm hAsupply
+    (scale_two_of_lt hΛ hQbig) hQrank hQm hAsupply
     hQint.1 hQint.2.1 hQint.2.2.1 hQint.2.2.2
 
 end SignedInverse

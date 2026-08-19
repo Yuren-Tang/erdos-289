@@ -71,21 +71,43 @@ noncomputable def saturationWitness_of_pool
     (by rw [aggregateSupport_value hpair]; exact hlt)
     (by rw [aggregateSupport_residue hpair]; exact hres)
 
-/-- Centering is additive over a `beyond` composition of two supports. -/
-theorem residue_union_of_pairBeyond
+/-- Centering is additive over a compatible composition of two supports. -/
+theorem residue_union_of_pair
     (c : PhysicalConstraint) {S F V : Support}
-    (hSF : S ⊆ F) (hV : V.Avoids (constraintBeyond c F)) :
+    (hSF : S ⊆ F) (hV : V.Avoids (constraintAvoiding c F)) :
     (S ∪ V).residue = S.residue + V.residue := by
-  have hval := value_union_of_pairBeyond c hSF hV
+  have hval := value_union_of_pair c hSF hV
   change AffineCorrection.CenteredValue.mk (1 : ℚ) (S ∪ V).value = _
   rw [hval, map_add]
   rfl
 
 /--
-Two-stage form of the same statement: a prefix and a tail placed beyond its
-footprint compose to a saturation witness when their values and residues meet
-the selector conditions.
+Two-stage form of the same statement: a prefix and a second support compatible
+with its footprint compose to a saturation witness when their values and
+residues meet the selector conditions.
 -/
+noncomputable def saturationWitness_of_pair
+    {L : Set ℕ} (c : PhysicalConstraint) {S F V : Support}
+    (hSF : S ⊆ F)
+    (hS : S.Admissible L c)
+    (hV : V.Admissible L (constraintAvoiding c F))
+    (hpos : 0 < S.value + V.value) (hlt : S.value + V.value < 2)
+    (hres : S.residue + V.residue = 0) :
+    SaturationWitness L 1 c (S.grade + V.grade) :=
+  saturationWitness_of_residue_zero
+    (admissible_union_of_pair c hSF hS hV)
+    (grade_union_of_pair c hSF hV.2.1)
+    (by rw [value_union_of_pair c hSF hV.2.1]; exact hpos)
+    (by rw [value_union_of_pair c hSF hV.2.1]; exact hlt)
+    (by rw [residue_union_of_pair c hSF hV.2.1]; exact hres)
+
+/-- Centering is additive over a `beyond` composition of two supports. -/
+theorem residue_union_of_pairBeyond
+    (c : PhysicalConstraint) {S F V : Support}
+    (hSF : S ⊆ F) (hV : V.Avoids (constraintBeyond c F)) :
+    (S ∪ V).residue = S.residue + V.residue :=
+  residue_union_of_pair c hSF (avoids_avoiding_of_avoids_beyond c hV)
+
 noncomputable def saturationWitness_of_pairBeyond
     {L : Set ℕ} (c : PhysicalConstraint) {S F V : Support}
     (hSF : S ⊆ F)
@@ -94,12 +116,8 @@ noncomputable def saturationWitness_of_pairBeyond
     (hpos : 0 < S.value + V.value) (hlt : S.value + V.value < 2)
     (hres : S.residue + V.residue = 0) :
     SaturationWitness L 1 c (S.grade + V.grade) :=
-  saturationWitness_of_residue_zero
-    (admissible_union_of_pairBeyond c hSF hS hV)
-    (grade_union_of_pairBeyond c hSF hV.2.1)
-    (by rw [value_union_of_pairBeyond c hSF hV.2.1]; exact hpos)
-    (by rw [value_union_of_pairBeyond c hSF hV.2.1]; exact hlt)
-    (by rw [residue_union_of_pairBeyond c hSF hV.2.1]; exact hres)
+  saturationWitness_of_pair c hSF hS
+    (admissible_avoiding_of_admissible_beyond c hV) hpos hlt hres
 
 /--
 Cofinite saturation at the unit target from a stagewise supply of compatible

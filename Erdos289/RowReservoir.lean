@@ -85,6 +85,69 @@ theorem rowStart_injOn_of_coefficient_injOn
       omega
     omega
 
+/-! ### Core-obstacle deletion -/
+
+/--
+Only boundedly many members of a row have an atom meeting the obstacle, and the
+bound is twice the obstacle's size — independent of the current and of the row.
+
+This is the whole cost of compatibility with a fixed finite core: the tail does
+not have to lie beyond the core, only to delete the finitely many carriers
+whose atoms meet it.
+-/
+theorem card_obstructed_le
+    (hQ1 : 1 < Q) (σ : Carrier Q p → Orientation) (c : PhysicalConstraint)
+    (T : Finset (Carrier Q p))
+    (hinj : Set.InjOn (rowStart hQ1 σ) T) :
+    (T.filter fun x => ¬ Disjoint (binaryBlock (rowStart hQ1 σ x)) c.obstacle).card
+      ≤ 2 * c.obstacle.card := by
+  classical
+  set bad := T.filter fun x => ¬ Disjoint (binaryBlock (rowStart hQ1 σ x)) c.obstacle
+    with hbad
+  have hne : ∀ x ∈ bad, (binaryBlock (rowStart hQ1 σ x) ∩ c.obstacle).Nonempty := by
+    intro x hx
+    rw [Finset.nonempty_iff_ne_empty]
+    intro hemp
+    exact (Finset.mem_filter.mp hx).2 (Finset.disjoint_iff_inter_eq_empty.mpr hemp)
+  set f : Carrier Q p → Denominator × ℕ := fun x =>
+    if hx : (binaryBlock (rowStart hQ1 σ x) ∩ c.obstacle).Nonempty then
+      (hx.choose, if hx.choose = rowStart hQ1 σ x then 0 else 1)
+    else (rowStart hQ1 σ x, 0) with hf
+  have hmaps : ∀ x ∈ bad, f x ∈ c.obstacle ×ˢ Finset.range 2 := by
+    intro x hx
+    have hx' := hne x hx
+    simp only [hf, dif_pos hx', Finset.mem_product, Finset.mem_range]
+    refine ⟨(Finset.mem_inter.mp hx'.choose_spec).2, ?_⟩
+    split <;> omega
+  refine le_trans (Finset.card_le_card_of_injOn f hmaps ?_) ?_
+  · intro x hx y hy hxy
+    have hx' := hne x hx
+    have hy' := hne y hy
+    simp only [hf, dif_pos hx', dif_pos hy', Prod.mk.injEq] at hxy
+    have hstart : rowStart hQ1 σ x = rowStart hQ1 σ y := by
+      by_cases hcx : hx'.choose = rowStart hQ1 σ x
+      · have hcy : hy'.choose = rowStart hQ1 σ y := by
+          by_contra hcon
+          simp [hcx, hcon] at hxy
+        rw [← hcx, ← hcy, hxy.1]
+      · have hcy : hy'.choose ≠ rowStart hQ1 σ y := by
+          intro hcon
+          simp [hcx, hcon] at hxy
+        -- both chosen points are the upper endpoint of their block
+        have hxup : hx'.choose = rowStart hQ1 σ x + 1 := by
+          rcases mem_binaryBlock.mp (Finset.mem_inter.mp hx'.choose_spec).1 with h | h
+          · exact absurd h hcx
+          · exact h
+        have hyup : hy'.choose = rowStart hQ1 σ y + 1 := by
+          rcases mem_binaryBlock.mp (Finset.mem_inter.mp hy'.choose_spec).1 with h | h
+          · exact absurd h hcy
+          · exact h
+        have : rowStart hQ1 σ x + 1 = rowStart hQ1 σ y + 1 := by
+          rw [← hxup, ← hyup, hxy.1]
+        exact add_right_cancel this
+    exact hinj (Finset.mem_filter.mp hx).1 (Finset.mem_filter.mp hy).1 hstart
+  · rw [Finset.card_product, Finset.card_range, Nat.mul_comm]
+
 /--
 The reservoir of a row: the binary blocks at the distinguished starts of its
 members.  Admissibility and transversality are the row's own two properties,
@@ -95,7 +158,7 @@ noncomputable def rowReservoir
     (hQ : Q = p ^ e) (hQ1 : 1 < Q) (σ : Carrier Q p → Orientation)
     (T : Finset (Carrier Q p))
     (hgood : ∀ x ∈ T, σ x ∈ (x.pair hQ1).goodOrientations p)
-    (hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hQ1 σ x).1) :
+    (havoid : ∀ x ∈ T, (binaryBlock (rowStart hQ1 σ x)).Avoids c) :
     TransverseReservoir Q c := by
   classical
   refine
@@ -104,7 +167,7 @@ noncomputable def rowReservoir
       transverse := ?_ }
   · intro S hS
     rcases Finset.mem_image.mp hS with ⟨x, -, rfl⟩
-    exact binaryBlock_admissible c _ (hremote x.1 x.2)
+    exact binaryBlock_admissible_of_avoids c _ (havoid x.1 x.2)
   · intro S hS
     rcases Finset.mem_image.mp hS with ⟨x, -, rfl⟩
     rw [binaryBlock_rowStart_eq_atom hQ1 σ (hgood x.1 x.2)]
@@ -115,8 +178,8 @@ theorem rowReservoir_atoms
     (hQ : Q = p ^ e) (hQ1 : 1 < Q) (σ : Carrier Q p → Orientation)
     (T : Finset (Carrier Q p))
     (hgood : ∀ x ∈ T, σ x ∈ (x.pair hQ1).goodOrientations p)
-    (hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hQ1 σ x).1) :
-    (rowReservoir (c := c) hp he hQ hQ1 σ T hgood hremote).atoms =
+    (havoid : ∀ x ∈ T, (binaryBlock (rowStart hQ1 σ x)).Avoids c) :
+    (rowReservoir (c := c) hp he hQ hQ1 σ T hgood havoid).atoms =
       (T.image (rowStart hQ1 σ)).image binaryBlock := by
   classical
   rw [Finset.image_image]
@@ -132,9 +195,9 @@ theorem card_rowReservoir_atoms
     (hQ : Q = p ^ e) (hQ1 : 1 < Q) (σ : Carrier Q p → Orientation)
     (T : Finset (Carrier Q p))
     (hgood : ∀ x ∈ T, σ x ∈ (x.pair hQ1).goodOrientations p)
-    (hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hQ1 σ x).1)
+    (havoid : ∀ x ∈ T, (binaryBlock (rowStart hQ1 σ x)).Avoids c)
     (hinj : Set.InjOn (fun x : Carrier Q p ↦ (x.pair hQ1).coefficient (σ x)) T) :
-    (rowReservoir (c := c) hp he hQ hQ1 σ T hgood hremote).atoms.card = T.card := by
+    (rowReservoir (c := c) hp he hQ hQ1 σ T hgood havoid).atoms.card = T.card := by
   classical
   rw [rowReservoir_atoms]
   rw [Finset.card_image_of_injective _ binaryBlock_injective,
@@ -147,9 +210,13 @@ The row certificate of a prime-power current, in reservoir form.
 
 The three parameters are unchanged: the band ratio `Λ`, the coefficient-fibre
 scale `d`, and the truncation rank `t`.  The reservoir's atoms are binary
-blocks, one per surviving carrier, all beyond the constraint's obstacle cutoff
-and all of reciprocal mass below `2 / (Q t - 1)`; and the row size that
-survives the three selections is recorded exactly.
+blocks, one per surviving carrier, each avoiding the obstacle and of reciprocal
+mass below `2 / (Q t - 1)`; and the row size that survives the four selections
+is recorded exactly.
+
+The fourth selection is core-obstacle deletion, and it costs at most twice the
+obstacle's size.  The tail is not required to lie beyond the obstacle — only to
+be compatible with it.
 -/
 theorem exists_rowReservoir
     {Λ e n d t : ℕ} {c : PhysicalConstraint}
@@ -158,38 +225,54 @@ theorem exists_rowReservoir
     (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp hQ)
     (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ Q p (bandBase Λ Q))
     (hscale : Q ^ 2 + 1 < (n + 1) ^ (d + 1))
-    (hcut : c.obstacleCutoff < Q * t - 1)
     (hpos : 1 < Q * t) :
     ∃ (R : TransverseReservoir Q c) (starts : Finset Denominator),
       R.atoms = starts.image binaryBlock ∧
-      A.card - 8 * (Λ - 1) ≤ 2 * d * (R.atoms.card + t) ∧
+      A.card - 8 * (Λ - 1)
+        ≤ 2 * d * (R.atoms.card + t + 2 * c.obstacle.card) ∧
       ∀ S ∈ R.atoms, S.value < 2 / ((Q * t - 1 : ℕ) : ℚ) := by
   classical
-  obtain ⟨σ, Row, T, hTdef, hRowA, hgoodRow, hinjRow, hdedup, htrunc, hstart⟩ :=
+  obtain ⟨σ, Row, T₀, hTdef, hRowA, hgoodRow, hinjRow, hdedup, htrunc, hstart⟩ :=
     exists_rowCertificate (Λ := Λ) (n := n) (d := d) (t := t) hΛ hp hQ hQ1 A hA hband hscale
-  have hTsub : T ⊆ Row := hTdef ▸ Finset.filter_subset _ _
+  have hT₀sub : T₀ ⊆ Row := hTdef ▸ Finset.filter_subset _ _
+  have hinj₀ : Set.InjOn (fun x : Carrier Q p ↦ (x.pair hQ1).coefficient (σ x)) T₀ :=
+    hinjRow.mono hT₀sub
+  have hstartinj : Set.InjOn (rowStart hQ1 σ) T₀ :=
+    rowStart_injOn_of_coefficient_injOn hQ1 σ hinj₀
+  -- core-obstacle deletion
+  set T := T₀.filter fun x => Disjoint (binaryBlock (rowStart hQ1 σ x)) c.obstacle
+    with hTfil
+  have hTsub₀ : T ⊆ T₀ := Finset.filter_subset _ _
+  have hTsub : T ⊆ Row := hTsub₀.trans hT₀sub
+  have hdelete : T₀.card ≤ T.card + 2 * c.obstacle.card := by
+    have hsplit : T.card
+        + (T₀.filter fun x =>
+            ¬ Disjoint (binaryBlock (rowStart hQ1 σ x)) c.obstacle).card
+        = T₀.card := by
+      rw [hTfil]
+      exact Finset.card_filter_add_card_filter_not _
+    have hbad := card_obstructed_le hQ1 σ c T₀ hstartinj
+    omega
   have hTcoeff : ∀ x ∈ T, t ≤ (x.pair hQ1).coefficient (σ x) := by
     intro x hx
-    rw [hTdef] at hx
-    exact (Finset.mem_filter.mp hx).2
+    have := hTsub₀ hx
+    rw [hTdef] at this
+    exact (Finset.mem_filter.mp this).2
   have hgood : ∀ x ∈ T, σ x ∈ (x.pair hQ1).goodOrientations p :=
     fun x hx => hgoodRow x (hTsub hx)
-  have hremote : ∀ x ∈ T, c.obstacleCutoff < (rowStart hQ1 σ x).1 := by
-    intro x hx
-    have := hstart x hx
-    rw [rowStart_val]
-    omega
-  refine ⟨rowReservoir (c := c) hp he hQ hQ1 σ T hgood hremote,
-    T.image (rowStart hQ1 σ), rowReservoir_atoms hp he hQ hQ1 σ T hgood hremote,
+  have havoid : ∀ x ∈ T, (binaryBlock (rowStart hQ1 σ x)).Avoids c :=
+    fun x hx => (Finset.mem_filter.mp hx).2
+  refine ⟨rowReservoir (c := c) hp he hQ hQ1 σ T hgood havoid,
+    T.image (rowStart hQ1 σ), rowReservoir_atoms hp he hQ hQ1 σ T hgood havoid,
     ?_, ?_⟩
-  · have hcard := card_rowReservoir_atoms (c := c) hp he hQ hQ1 σ T hgood hremote
-      (hinjRow.mono hTsub)
+  · have hcard := card_rowReservoir_atoms (c := c) hp he hQ hQ1 σ T hgood havoid
+      (hinj₀.mono hTsub₀)
     rw [hcard]
-    have : Row.card ≤ T.card + t := by omega
+    have hchain : Row.card ≤ T.card + t + 2 * c.obstacle.card := by omega
     calc A.card - 8 * (Λ - 1) ≤ 2 * d * Row.card := hdedup
-      _ ≤ 2 * d * (T.card + t) := Nat.mul_le_mul_left _ this
+      _ ≤ 2 * d * (T.card + t + 2 * c.obstacle.card) := Nat.mul_le_mul_left _ hchain
   · intro S hS
-    rw [rowReservoir_atoms hp he hQ hQ1 σ T hgood hremote] at hS
+    rw [rowReservoir_atoms hp he hQ hQ1 σ T hgood havoid] at hS
     rcases Finset.mem_image.mp hS with ⟨a, ha, rfl⟩
     rcases Finset.mem_image.mp ha with ⟨x, hx, rfl⟩
     rw [binaryBlock_rowStart_eq_atom hQ1 σ (hgood x hx)]

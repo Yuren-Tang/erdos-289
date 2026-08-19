@@ -100,17 +100,22 @@ structure CoreStage (c : PhysicalConstraint) where
 /-! ### The cofinal tail interface -/
 
 /--
-The tail interface at one grade: beyond the core footprint there are states of
-grade exactly `h` and mass at most `ε`, whose residues cover every class of
-`G/H`.
+The tail interface at one grade: states of grade exactly `h` and mass at most
+`ε`, each compatible with the core footprint `F`, whose residues cover every
+class of `G/H`.
 
 `G` is the ambient residue group of the tail (`G_X` in the manuscript) and `H`
 is the core subgroup.
+
+Compatibility, not remoteness: a tail state has to be disjoint from the core
+and separated from it, and may interleave with it freely.  This is what the
+manuscript asks, and it is why the tail construction pays for the core only by
+deleting the finitely many carriers whose atoms meet it.
 -/
-def TailCovers (c : PhysicalConstraint) (F : Support) (H G : AddSubgroup TargetResidue)
-    (h : ℕ) (ε : ℚ) : Prop :=
+noncomputable def TailCovers (c : PhysicalConstraint) (F : Support)
+    (H G : AddSubgroup TargetResidue) (h : ℕ) (ε : ℚ) : Prop :=
   ∀ v ∈ G, ∃ V : Support,
-    V.Admissible smallBlockSizes (constraintBeyond c F) ∧
+    V.Admissible smallBlockSizes (constraintAvoiding c F) ∧
     V.grade = h ∧ V.residue - v ∈ H ∧ 0 ≤ V.value ∧ V.value ≤ ε
 
 /-! ### Torsor induction -/
@@ -137,7 +142,7 @@ theorem exists_saturationWitness_of_tailCovers
     rw [hSres]
     abel
   have hwitness :=
-    saturationWitness_of_pairBeyond c (S := S) (F := B.footprint) (V := V)
+    saturationWitness_of_pair c (S := S) (F := B.footprint) (V := V)
       hSsub hSadm hVadm (by linarith) (by linarith) hres
   have hgrade : S.grade + V.grade = B.grade + h := by rw [hSgrade, hVgrade]
   exact ⟨hgrade ▸ hwitness⟩

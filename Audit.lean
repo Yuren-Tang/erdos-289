@@ -561,3 +561,43 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.exists_rank_of_cost_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_rank_of_cost_le
+
+/-- info: 'Erdos289.Support.mem_thicken' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.Support.mem_thicken
+
+/-- info: 'Erdos289.crossSeparated_of_avoids_avoiding' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.crossSeparated_of_avoids_avoiding
+
+/-- info: 'Erdos289.avoids_avoiding_of_avoids_beyond' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.avoids_avoiding_of_avoids_beyond
+
+/-- info: 'Erdos289.support_disjoint_of_avoids_avoiding' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.support_disjoint_of_avoids_avoiding
+
+/-- info: 'Erdos289.admissible_union_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.admissible_union_of_pair
+
+/-- info: 'Erdos289.saturationWitness_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.saturationWitness_of_pair
+
+/-- info: 'Erdos289.binaryBlock_admissible_of_avoids' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.binaryBlock_admissible_of_avoids
+
+/-- info: 'Erdos289.SignedInverse.card_obstructed_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_obstructed_le
+
+/-- info: 'Erdos289.annihilatorStage_eq_zmultiples' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.annihilatorStage_eq_zmultiples
+
+/-- info: 'Erdos289.lowerPrimePowerStage_le_annihilatorStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.lowerPrimePowerStage_le_annihilatorStage

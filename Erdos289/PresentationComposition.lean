@@ -66,6 +66,108 @@ theorem mem_constraintBeyond_of_mem_prefix (c : PhysicalConstraint) (S : Support
     n ∈ (constraintBeyond c S).obstacle := by
   simp [constraintBeyond, hn]
 
+/--
+The `m`-neighbourhood of a finite support: the denominators within distance
+`m` of one of its points.
+-/
+noncomputable def Support.thicken (F : Support) (m : ℕ) : Support := by
+  classical
+  exact (denominatorPrefix (F.sup fun x => x.1 + m)).filter
+    fun n => ∃ x ∈ F, Nat.dist n.1 x.1 ≤ m
+
+theorem Support.mem_thicken {F : Support} {m : ℕ} {n : Denominator} :
+    n ∈ F.thicken m ↔ ∃ x ∈ F, Nat.dist n.1 x.1 ≤ m := by
+  classical
+  rw [Support.thicken, Finset.mem_filter]
+  constructor
+  · exact fun h => h.2
+  · rintro ⟨x, hx, hdist⟩
+    refine ⟨?_, x, hx, hdist⟩
+    rw [mem_denominatorPrefix]
+    have hxle : x.1 + m ≤ F.sup fun z => z.1 + m :=
+      Finset.le_sup (f := fun z : Denominator => z.1 + m) hx
+    simp only [Nat.dist] at hdist
+    omega
+
+/--
+The constraint a support must satisfy to be *compatible* with `F`: it inherits
+`c` and additionally forbids `F` together with its separation neighbourhood.
+
+This is compatibility, not remoteness.  A support avoiding it is disjoint from
+`F` and separated from it, but may interleave with `F` freely; the manuscript's
+tail is compatible with the core in exactly this sense, and only finitely many
+carriers are lost to the core obstacle.
+-/
+noncomputable def constraintAvoiding (c : PhysicalConstraint) (F : Support) :
+    PhysicalConstraint where
+  obstacle := c.obstacle ∪ F.thicken (max 1 c.separation)
+  separation := c.separation
+
+@[simp]
+theorem constraintAvoiding_separation (c : PhysicalConstraint) (F : Support) :
+    (constraintAvoiding c F).separation = c.separation := rfl
+
+/-- Remoteness beyond `F` is one way of being compatible with `F`. -/
+theorem avoids_avoiding_of_avoids_beyond
+    (c : PhysicalConstraint) {F V : Support}
+    (hV : V.Avoids (constraintBeyond c F)) :
+    V.Avoids (constraintAvoiding c F) := by
+  classical
+  rw [Support.Avoids, Finset.disjoint_left]
+  intro n hn hobs
+  rcases Finset.mem_union.mp hobs with hc | hthick
+  · exact (Finset.disjoint_left.mp hV hn) (by simp [constraintBeyond, hc])
+  · rcases Support.mem_thicken.1 hthick with ⟨x, hx, hdist⟩
+    have hxle : x.1 + max 1 c.separation ≤ F.sup fun z => z.1 + max 1 c.separation :=
+      Finset.le_sup (f := fun z : Denominator => z.1 + max 1 c.separation) hx
+    have hnle : n.1 ≤ F.sup fun z => z.1 + max 1 c.separation := by
+      simp only [Nat.dist] at hdist
+      omega
+    exact (Finset.disjoint_left.mp hV hn)
+      (mem_constraintBeyond_of_mem_prefix c F (mem_denominatorPrefix.2 hnle))
+
+/-- Compatibility with `F` is exactly cross-separation from `F`. -/
+theorem crossSeparated_of_avoids_avoiding
+    (c : PhysicalConstraint) {F V : Support}
+    (hV : V.Avoids (constraintAvoiding c F)) :
+    F.CrossSeparated V (max 1 c.separation) := by
+  classical
+  intro x hx y hy
+  by_contra hcon
+  refine (Finset.disjoint_left.mp hV hy) (Finset.mem_union_right _ ?_)
+  refine Support.mem_thicken.2 ⟨x, hx, ?_⟩
+  simp only [Nat.dist] at hcon ⊢
+  omega
+
+theorem avoids_of_avoids_avoiding
+    (c : PhysicalConstraint) {F V : Support}
+    (hV : V.Avoids (constraintAvoiding c F)) : V.Avoids c := by
+  classical
+  rw [Support.Avoids, Finset.disjoint_left]
+  intro n hn hc
+  exact (Finset.disjoint_left.mp hV hn) (Finset.mem_union_left _ hc)
+
+theorem support_disjoint_of_avoids_avoiding
+    (c : PhysicalConstraint) {F V : Support}
+    (hV : V.Avoids (constraintAvoiding c F)) : Disjoint F V := by
+  classical
+  rw [Finset.disjoint_left]
+  intro x hxF hxV
+  refine (Finset.disjoint_left.mp hV hxV) (Finset.mem_union_right _ ?_)
+  exact Support.mem_thicken.2 ⟨x, hxF, by simp [Nat.dist]⟩
+
+theorem admissible_of_admissible_avoiding
+    {L : Set ℕ} (c : PhysicalConstraint) {F V : Support}
+    (hV : V.Admissible L (constraintAvoiding c F)) : V.Admissible L c :=
+  ⟨hV.1, avoids_of_avoids_avoiding c hV.2.1, hV.2.2⟩
+
+theorem admissible_avoiding_of_admissible_beyond
+    {L : Set ℕ} (c : PhysicalConstraint) {F V : Support}
+    (hV : V.Admissible L (constraintBeyond c F)) :
+    V.Admissible L (constraintAvoiding c F) :=
+  ⟨hV.1, avoids_avoiding_of_avoids_beyond c hV.2.1, hV.2.2⟩
+
+
 theorem separated_union_of_avoids_beyond
     (c : PhysicalConstraint) {S T : Support}
     (hS : S.PointSeparated c.separation)

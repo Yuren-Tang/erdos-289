@@ -70,7 +70,7 @@ theorem TailStage.comp
     {c : PhysicalConstraint} {F₁ F₂ : Support}
     {H G₁ G₂ : AddSubgroup TargetResidue} {h₁ h₂ : ℕ} {ε₁ ε₂ : ℚ}
     (s₁ : TailStage c F₁ H G₁ h₁ ε₁)
-    (s₂ : TailStage (constraintBeyond c F₁) F₂ G₁ G₂ h₂ ε₂) :
+    (s₂ : TailStage (constraintAvoiding c F₁) F₂ G₁ G₂ h₂ ε₂) :
     TailStage c (F₁ ∪ F₂) H G₂ (h₁ + h₂) (ε₁ + ε₂) := by
   intro v hv
   obtain ⟨V₂, hV₂sub, hV₂adm, hV₂grade, hV₂res, hV₂pos, hV₂le⟩ := s₂ v hv
@@ -79,17 +79,17 @@ theorem TailStage.comp
     s₁ (-(V₂.residue - v)) (G₁.neg_mem hV₂res)
   refine ⟨V₁ ∪ V₂, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact Finset.union_subset_union hV₁sub hV₂sub
-  · exact admissible_union_of_pairBeyond c hV₁sub hV₁adm hV₂adm
-  · rw [grade_union_of_pairBeyond c hV₁sub hV₂adm.2.1, hV₁grade, hV₂grade]
-  · rw [residue_union_of_pairBeyond c hV₁sub hV₂adm.2.1]
+  · exact admissible_union_of_pair c hV₁sub hV₁adm hV₂adm
+  · rw [grade_union_of_pair c hV₁sub hV₂adm.2.1, hV₁grade, hV₂grade]
+  · rw [residue_union_of_pair c hV₁sub hV₂adm.2.1]
     have : V₁.residue + V₂.residue - v = V₁.residue - -(V₂.residue - v) := by abel
     rw [this]
     exact hV₁res
   · rw [Support.value_union
-      (support_disjoint_of_avoids_beyond c hV₂adm.2.1 |>.mono_left hV₁sub)]
+      (support_disjoint_of_avoids_avoiding c hV₂adm.2.1 |>.mono_left hV₁sub)]
     linarith
   · rw [Support.value_union
-      (support_disjoint_of_avoids_beyond c hV₂adm.2.1 |>.mono_left hV₁sub)]
+      (support_disjoint_of_avoids_avoiding c hV₂adm.2.1 |>.mono_left hV₁sub)]
     linarith
 
 /--
@@ -100,7 +100,7 @@ theorem tailStage_chain
     (b : PhysicalConstraint) (H : AddSubgroup TargetResidue)
     (G : ℕ → AddSubgroup TargetResidue) (F : ℕ → Support)
     (gr : ℕ → ℕ) (cost : ℕ → ℚ) (hG0 : G 0 = H)
-    (hstage : ∀ i, TailStage (constraintBeyond b ((Finset.range i).biUnion F))
+    (hstage : ∀ i, TailStage (constraintAvoiding b ((Finset.range i).biUnion F))
       (F i) (G i) (G (i + 1)) (gr i) (cost i)) :
     ∀ n, TailStage b ((Finset.range n).biUnion F) H (G n)
       (∑ i ∈ Finset.range n, gr i) (∑ i ∈ Finset.range n, cost i) := by
@@ -148,7 +148,7 @@ theorem TailStage.mono_cost {c : PhysicalConstraint} {F : Support}
 theorem tailCovers_of_tailStage
     {c : PhysicalConstraint} {F F' : Support}
     {H G : AddSubgroup TargetResidue} {h : ℕ} {ε : ℚ}
-    (s : TailStage (constraintBeyond c F) F' H G h ε) :
+    (s : TailStage (constraintAvoiding c F) F' H G h ε) :
     TailCovers c F H G h ε := by
   intro v hv
   obtain ⟨V, -, hadm, hgrade, hres, hpos, hle⟩ := s v hv
@@ -166,13 +166,13 @@ theorem tailCovers_of_stages
     (G : ℕ → AddSubgroup TargetResidue) (Fp : ℕ → Support)
     (gr : ℕ → ℕ) (cost : ℕ → ℚ) (n : ℕ) (hG0 : G 0 = H)
     (hstage : ∀ i, TailStage
-      (constraintBeyond (constraintBeyond c F) ((Finset.range i).biUnion Fp))
+      (constraintAvoiding (constraintAvoiding c F) ((Finset.range i).biUnion Fp))
       (Fp i) (G i) (G (i + 1)) (gr i) (cost i))
     {h : ℕ} (hgrade : ∑ i ∈ Finset.range n, gr i = h)
     {ε : ℚ} (hcost : ∑ i ∈ Finset.range n, cost i ≤ ε) :
     TailCovers c F H (G n) h ε := by
   have hchain :=
-    tailStage_chain (constraintBeyond c F) H G Fp gr cost hG0 hstage n
+    tailStage_chain (constraintAvoiding c F) H G Fp gr cost hG0 hstage n
   rw [hgrade] at hchain
   exact tailCovers_of_tailStage (hchain.mono_cost hcost)
 

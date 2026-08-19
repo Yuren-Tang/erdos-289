@@ -33,39 +33,69 @@ theorem crossSeparated_of_subset_left
   intro x hx y hy
   exact h x (hRS hx) y hy
 
-theorem admissible_union_of_pairBeyond
+/-! ### Composing a support with a compatible one
+
+The second support has only to be *compatible* with a footprint containing the
+first: disjoint from it and separated from it.  Remoteness beyond the footprint
+is one way of achieving that, and the `Beyond` corollaries below record it, but
+the composition itself never needs more than compatibility.
+-/
+
+theorem admissible_union_of_pair
     {L : Set ℕ} (c : PhysicalConstraint) {S F V : Support}
     (hSF : S ⊆ F)
     (hS : S.Admissible L c)
-    (hV : V.Admissible L (constraintBeyond c F)) :
+    (hV : V.Admissible L (constraintAvoiding c F)) :
     (S ∪ V).Admissible L c := by
-  have hfull := crossSeparated_of_avoids_beyond c hV.2.1
+  have hfull := crossSeparated_of_avoids_avoiding c hV.2.1
   have hcross := crossSeparated_of_subset_left hSF hfull
   exact Support.admissible_union
     (crossSeparated_graphDisjoint
       (crossSeparated_mono hcross (Nat.le_max_left 1 c.separation)))
     (crossSeparated_mono hcross (Nat.le_max_right 1 c.separation))
-    hS (admissible_of_admissible_beyond c hV)
+    hS (admissible_of_admissible_avoiding c hV)
+
+theorem value_union_of_pair
+    (c : PhysicalConstraint) {S F V : Support}
+    (hSF : S ⊆ F)
+    (hV : V.Avoids (constraintAvoiding c F)) :
+    (S ∪ V).value = S.value + V.value := by
+  have hfull := crossSeparated_of_avoids_avoiding c hV
+  have hcross := crossSeparated_of_subset_left hSF hfull
+  exact Support.value_union (crossSeparated_graphDisjoint
+    (crossSeparated_mono hcross (Nat.le_max_left 1 c.separation))).1
+
+theorem grade_union_of_pair
+    (c : PhysicalConstraint) {S F V : Support}
+    (hSF : S ⊆ F)
+    (hV : V.Avoids (constraintAvoiding c F)) :
+    (S ∪ V).grade = S.grade + V.grade := by
+  have hfull := crossSeparated_of_avoids_avoiding c hV
+  have hcross := crossSeparated_of_subset_left hSF hfull
+  exact Support.grade_union_of_graphDisjoint (crossSeparated_graphDisjoint
+    (crossSeparated_mono hcross (Nat.le_max_left 1 c.separation)))
+
+theorem admissible_union_of_pairBeyond
+    {L : Set ℕ} (c : PhysicalConstraint) {S F V : Support}
+    (hSF : S ⊆ F)
+    (hS : S.Admissible L c)
+    (hV : V.Admissible L (constraintBeyond c F)) :
+    (S ∪ V).Admissible L c :=
+  admissible_union_of_pair c hSF hS (admissible_avoiding_of_admissible_beyond c hV)
 
 theorem value_union_of_pairBeyond
     (c : PhysicalConstraint) {S F V : Support}
     (hSF : S ⊆ F)
     (hV : V.Avoids (constraintBeyond c F)) :
-    (S ∪ V).value = S.value + V.value := by
-  have hfull := crossSeparated_of_avoids_beyond c hV
-  have hcross := crossSeparated_of_subset_left hSF hfull
-  exact Support.value_union (crossSeparated_graphDisjoint
-    (crossSeparated_mono hcross (Nat.le_max_left 1 c.separation))).1
+    (S ∪ V).value = S.value + V.value :=
+  value_union_of_pair c hSF (avoids_avoiding_of_avoids_beyond c hV)
 
 theorem grade_union_of_pairBeyond
     (c : PhysicalConstraint) {S F V : Support}
     (hSF : S ⊆ F)
     (hV : V.Avoids (constraintBeyond c F)) :
-    (S ∪ V).grade = S.grade + V.grade := by
-  have hfull := crossSeparated_of_avoids_beyond c hV
-  have hcross := crossSeparated_of_subset_left hSF hfull
-  exact Support.grade_union_of_graphDisjoint (crossSeparated_graphDisjoint
-    (crossSeparated_mono hcross (Nat.le_max_left 1 c.separation)))
+    (S ∪ V).grade = S.grade + V.grade :=
+  grade_union_of_pair c hSF (avoids_avoiding_of_avoids_beyond c hV)
 
 /-- Iterating the neutral grade-one fibre gives every finite neutral grade shift. -/
 theorem neutralGradePoint

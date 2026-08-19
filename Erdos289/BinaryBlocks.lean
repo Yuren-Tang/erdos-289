@@ -139,6 +139,14 @@ theorem binaryBlock_separated (a : Denominator) (margin : ℕ) :
     (binaryBlock_preconnected a).subsingleton_connectedComponent
   exact (hcd (Subsingleton.elim c d)).elim
 
+/-- A binary block missing the obstacle is an admissible `{2,3}` support.
+Remoteness is one way of missing it; disjointness is all that is needed. -/
+theorem binaryBlock_admissible_of_avoids
+    (c : PhysicalConstraint) (a : Denominator)
+    (ha : (binaryBlock a).Avoids c) :
+    (binaryBlock a).Admissible smallBlockSizes c :=
+  ⟨binaryBlock_hasBlockSizes a, ha, binaryBlock_separated a c.separation⟩
+
 /-- Every sufficiently remote binary block is an admissible `{2,3}` support. -/
 theorem binaryBlock_admissible
     (c : PhysicalConstraint) (a : Denominator)
