@@ -254,63 +254,61 @@ stage is now proved, end to end.
 
 What is left is therefore three items, one heavy and two coupled.
 
-* **T1 (heavy), the proper prime powers.** The target is mechanism-independent
-  and is exactly what the descent consumes:
-  `Erdos289.CompatibleTransversePool.CoversAtGrade`, the statement that every
-  class of the simple fibre is the class of a compatible subfamily of exactly
-  `h` atoms.  This is §9's local object `I(J)` of one simple jump, realized
-  physically; both the prime and the proper-prime-power arithmetic serve it,
-  the split between them is internal, and §10 records that it "is not an
-  invariant of the qualitative theorem".
+* **T1, the proper prime powers.** The target is mechanism-independent and is
+  exactly what the descent consumes:
+  `Erdos289.LocalStateSystem.CoversAtGrade`, the statement that every class of
+  the simple fibre is the class of a compatible subfamily of exactly `h` states
+  of the current's state system.  This is §9's local object `I(J)` of one simple
+  jump, realized physically; the split between the prime and the
+  proper-prime-power arithmetic is internal to it, and §10 records that the
+  split "is not an invariant of the qualitative theorem".
 
-  At a prime current the target is proved
-  (`Erdos289.CompatibleTransversePool.coversAtGrade_of_restrictedFold`, reached
-  through `Erdos289.SignedInverse.exists_tailStage_of_band`).  At `Q = p ^ e`
-  with `e ≥ 2` the simple fibre is cyclic of order `p`, the row's atoms need
-  not have distinct classes, and Dias da Silva–Hamidoune is not the mechanism.
+  Two mechanisms reach it, and both are proved.
 
-  The cyclic mechanism reaching the target is proved:
-  `Erdos289.CompatibleTransversePool.coversAtGrade_of_two_classes` takes a pool
-  carrying two *distinct* classes `u ≠ v` in disjoint stocks and produces
-  `CoversAtGrade h maxMass` for every `h ≥ p`.  Its combinatorial core is
-  `Erdos289.exists_multiplicities_of_two_simpleFibreClasses`: writing
-  `d = v - u ≠ 0`, the class of `k₁` atoms of class `u` and `k₂` of class `v` is
-  `h·u + k₂·d`, and `d` is invertible, so `k₂` is determined modulo `p` and its
-  least representative is below `p ≤ h`.
+  * The fixed-cardinality fold, at a prime current:
+    `Erdos289.CompatibleTransversePool.coversAtGrade_of_restrictedFold`, reached
+    through `Erdos289.SignedInverse.exists_tailStage_of_band`.
+  * One nonzero class with padding, at any current:
+    `Erdos289.LocalStateSystem.coversAtGrade_of_stock_and_padding`.  To realize
+    `x = j · u` at grade `h`, take `j` states of class `u` and `h - j` of class
+    zero; `j` can be taken below `p` because a nonzero class generates a fibre
+    of prime order.  This needs only *one* nonzero class, which is what makes it
+    the general mechanism: at `p = 2` the fibre has a single nonzero class, so
+    the two-class route
+    (`Erdos289.CompatibleTransversePool.coversAtGrade_of_two_classes`) does not
+    apply, while this one does.
 
-  The classes themselves are now identified arithmetically, uniformly in the
+  Both of the padding mechanism's inputs are supplied.
+  `Erdos289.LocalStateSystem.exists_stock_of_card` is pigeonhole on the fibre:
+  more than `(p-1) m` states of nonzero class give more than `m` of one common
+  class, so a pool of more than `(p-1)(p-2)` atoms has a stock of `p - 1`.
+  `Erdos289.paddingBlocks` constructs the class-zero states: binary blocks at
+  the constraint's own spacing `max 1 separation + 2`, starting beyond the
+  obstacle cutoff and ending below the current, each of class zero because a
+  block below the current is annihilated by denominators smaller than it
+  (`Erdos289.binaryBlock_simpleFibreClass_eq_zero`).
+
+  What remains at T1 is therefore assembly rather than mechanism: adjoining the
+  padding family to the pool through `Erdos289.LocalStateSystem.adjoin`, which
+  needs the two families compatible — the pool's atoms sit at `≈ Q t` and the
+  padding below `Q`, so this is a spacing computation — and the size conditions
+  `p - 1 ≤ h`, `(p-1)(p-2) < #pool` and `h` padding blocks fitting below `Q`.
+
+  The chain cannot skip a current: `lowerPrimePowerStage Q'` contains
+  `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
+  through *all* prime powers between the core exponent and the top.
+
+  The classes themselves are identified arithmetically, uniformly in the
   exponent.  `Erdos289.SignedInverse.coefficient_nsmul_atom_simpleFibreClass`
   pins an atom's class by the exact equation `k • class = generator`, where `k`
   is its current coefficient and the generator is the class of `1/Q`: the
   atom's residue is `1/(Q k)` plus a companion in the lower stage, and
   `k · (1/(Q k)) = 1/Q` on the nose.  Since the fibre has prime order `p` and
-  `k` is a unit modulo `p`, that equation determines the class, and
-  `atom_simpleFibreClass_eq_iff` says two atoms share a class exactly when
-  their coefficients agree modulo `p`.  (The prime-current injectivity is now a
-  corollary rather than a separate argument.)
-
-  What remains is therefore one arithmetic statement, in coefficients:
-  **at a proper prime power the row contains, in two distinct residue classes
-  modulo `p`, at least `h` coefficients in the first and at least `p - 1` in
-  the second.**  Nothing else about the current enters.
-
-  One case is settled negatively and needs the other mechanism.  At `p = 2`
-  every coefficient is a unit modulo `2`, hence odd, so all atoms of a row
-  share the single nonzero class of a two-element fibre and no two distinct
-  classes exist.  There the padding route — neutral atoms of grade one and
-  class zero — is not an alternative but a necessity, and it needs an interface
-  slightly wider than `CoversAtGrade` as currently stated, since a neutral atom
-  is not transverse and so cannot belong to the pool.
-
-  The alternative mechanism — the cyclic orbit
-  (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) with padding by
-  neutral atoms of grade one and class zero — would sit below the same
-  `CoversAtGrade` interface, and the choice between the two is not visible to
-  the descent.
-
-  The chain cannot skip a current: `lowerPrimePowerStage Q'` contains
-  `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
-  through *all* prime powers between the core exponent and the top.
+  `k` is a unit modulo `p`, `atom_simpleFibreClass_eq_iff` says two atoms share
+  a class exactly when their coefficients agree modulo `p`.  (The prime-current
+  injectivity is a corollary rather than a separate argument.)  At `p = 2` this
+  shows every coefficient is odd, hence every atom of a row shares the single
+  nonzero class — which is why padding is not optional there.
 * **T2 and T3 are one coupled problem, and it is unresolved.** Each ingredient
   is in place:
 

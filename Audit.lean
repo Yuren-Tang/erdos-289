@@ -34,6 +34,7 @@ import Erdos289.LocalSystem
 import Erdos289.NeutralAtoms
 import Erdos289.NeutralConstruction
 import Erdos289.PaddedStage
+import Erdos289.PaddingBlocks
 import Erdos289.PathSupport
 import Erdos289.PhysicalSupports
 import Erdos289.PoolComposition
@@ -1026,6 +1027,30 @@ editing it by hand.
 /-- info: 'Erdos289.LocalStateSystem.exists_stock_of_card' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.LocalStateSystem.exists_stock_of_card
+
+/-- info: 'Erdos289.paddingSpacing' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.paddingSpacing
+
+/-- info: 'Erdos289.paddingSpacing_pos' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.paddingSpacing_pos
+
+/-- info: 'Erdos289.paddingBlocks' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.paddingBlocks
+
+/-- info: 'Erdos289.mem_paddingBlocks' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.mem_paddingBlocks
+
+/-- info: 'Erdos289.card_paddingBlocks' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.card_paddingBlocks
+
+/-- info: 'Erdos289.paddingBlocks_spec' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.paddingBlocks_spec
 
 /-- info: 'Erdos289.Denominator' does not depend on any axioms -/
 #guard_msgs (whitespace := lax) in
