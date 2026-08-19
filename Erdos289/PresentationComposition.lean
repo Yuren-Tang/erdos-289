@@ -22,6 +22,7 @@ initial-segment obstacle below is only its path-specific Lean realization.
 -/
 
 set_option autoImplicit false
+set_option relaxedAutoImplicit false
 namespace Erdos289
 
 def positiveSucc (k : ℕ) : Denominator := ⟨k + 1, by omega⟩

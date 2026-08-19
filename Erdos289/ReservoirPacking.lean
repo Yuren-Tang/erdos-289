@@ -123,18 +123,49 @@ noncomputable def compatiblePoolOfChunkFeasible
     by_contra hcompat
     exact hnadj ⟨hxy, hcompat⟩
 
+theorem atoms_subset_compatiblePoolOfChunkFeasible
+    {Q : ℕ} {c : PhysicalConstraint} (R : TransverseReservoir Q c)
+    {I : Type*} (pools : I → Finset {S : Support // S ∈ R.atoms})
+    (f : IndependentTransversal.ChunkFeasible R.conflictGraph pools) :
+    (compatiblePoolOfChunkFeasible R pools f).atoms ⊆ R.atoms := by
+  classical
+  intro S hS
+  rcases Finset.mem_image.mp hS with ⟨x, -, rfl⟩
+  exact x.2
+
+theorem card_le_card_atoms_compatiblePoolOfChunkFeasible
+    {Q : ℕ} {c : PhysicalConstraint} (R : TransverseReservoir Q c)
+    {I : Type*} [Fintype I] (pools : I → Finset {S : Support // S ∈ R.atoms})
+    (hdisj : ∀ i j : I, i ≠ j → Disjoint (pools i) (pools j))
+    (f : IndependentTransversal.ChunkFeasible R.conflictGraph pools) :
+    Fintype.card I ≤ (compatiblePoolOfChunkFeasible R pools f).atoms.card := by
+  classical
+  letI : Fintype f.1 := Fintype.ofFinite f.1
+  have hcount := IndependentTransversal.card_le_card_chosen hdisj f
+  have himg : (f.1.toFinset.image Subtype.val).card = f.1.toFinset.card :=
+    Finset.card_image_of_injective _ Subtype.val_injective
+  have hatoms : (compatiblePoolOfChunkFeasible R pools f).atoms
+      = f.1.toFinset.image Subtype.val := rfl
+  rw [hatoms, himg]
+  exact hcount
+
 /--
 The packing leaf applied to a reservoir of binary atoms: a partition into
 chunks that are thick relative to the constant conflict degree yields a
-globally compatible pool.
+globally compatible pool, of at least as many atoms as there are chunks.
+
+The chunk count is carried through the boundary, so downstream bounds on the
+simple-fibre image follow from this theorem instead of reopening the packing.
 -/
 theorem exists_compatiblePool_of_binary
     {Q : ℕ} {c : PhysicalConstraint} (R : TransverseReservoir Q c)
     (starts : Finset Denominator) (hatoms : R.atoms = starts.image binaryBlock)
-    {I : Type*} (pools : I → Finset {S : Support // S ∈ R.atoms})
+    {I : Type*} [Fintype I] (pools : I → Finset {S : Support // S ∈ R.atoms})
     (hpartition : IndependentTransversal.IsPoolPartition pools)
+    (hdisj : ∀ i j : I, i ≠ j → Disjoint (pools i) (pools j))
     (hthick : ∀ i, 4 * (max 1 c.separation + 1) ≤ (pools i).card) :
-    Nonempty (CompatibleTransversePool Q c) := by
+    ∃ P : CompatibleTransversePool Q c,
+      P.atoms ⊆ R.atoms ∧ Fintype.card I ≤ P.atoms.card := by
   classical
   have hdeg := R.conflictGraph_maxDegree_le_of_binary starts hatoms
   have hthick' : ∀ i, 2 * R.conflictGraph.maxDegree ≤ (pools i).card := by
@@ -146,6 +177,8 @@ theorem exists_compatiblePool_of_binary
   obtain ⟨f⟩ :=
     IndependentTransversal.hasChunkPacking_of_two_mul_maxDegree_le
       R.conflictGraph pools hpartition hthick'
-  exact ⟨compatiblePoolOfChunkFeasible R pools f⟩
+  exact ⟨compatiblePoolOfChunkFeasible R pools f,
+    atoms_subset_compatiblePoolOfChunkFeasible R pools f,
+    card_le_card_atoms_compatiblePoolOfChunkFeasible R pools hdisj f⟩
 
 end Erdos289

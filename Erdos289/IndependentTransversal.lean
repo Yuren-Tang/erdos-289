@@ -46,6 +46,31 @@ def ChunkFeasible (G : SimpleGraph V) (pools : I → Finset V) :=
     G.IsIndepSet chosen ∧
       ∀ i, ∃! v, v ∈ chosen ∩ (pools i : Set V)}
 
+/--
+A chunk transversal is at least as large as the number of chunks: it meets each
+chunk exactly once, and distinct chunks are disjoint.  Preserving this count is
+what makes the packing theorem quantitative.
+-/
+theorem card_le_card_chosen {V I : Type*} [DecidableEq V] [Fintype I]
+    {G : SimpleGraph V} {pools : I → Finset V}
+    (hdisj : ∀ i j : I, i ≠ j → Disjoint (pools i) (pools j))
+    (f : ChunkFeasible G pools) [Fintype f.1] :
+    Fintype.card I ≤ f.1.toFinset.card := by
+  classical
+  have hex : ∀ i : I, ∃ v, v ∈ f.1 ∩ (pools i : Set V) := fun i => (f.2.2 i).exists
+  have hcard : Fintype.card I = (Finset.univ : Finset I).card := (Finset.card_univ).symm
+  rw [hcard]
+  refine Finset.card_le_card_of_injOn (fun i => (hex i).choose) ?_ ?_
+  · intro i _
+    exact Set.mem_toFinset.2 (hex i).choose_spec.1
+  · intro i _ j _ hij
+    by_contra hne
+    have hi : (hex i).choose ∈ pools i := (hex i).choose_spec.2
+    have hj : (hex j).choose ∈ pools j := (hex j).choose_spec.2
+    have hij' : (hex i).choose = (hex j).choose := hij
+    rw [hij'] at hi
+    exact (Finset.disjoint_left.1 (hdisj i j hne)) hi hj
+
 /-- Hard leaf P in its intrinsic chunk-partition form. -/
 def HasChunkPacking (G : SimpleGraph V) (pools : I → Finset V) : Prop :=
   Nonempty (ChunkFeasible G pools)

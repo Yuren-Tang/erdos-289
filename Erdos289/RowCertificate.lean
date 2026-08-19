@@ -71,7 +71,7 @@ theorem carrierFamily_coefficientFibre_card_le
       omega
     have hN : 0 < coefficientTarget Q k s := by
       cases s <;> simp only [coefficientTarget] <;> omega
-    exact carrierFamily_coefficientFiber_card_le hp hQ hstage s hN hscale
+    exact carrierFamily_coefficientFibre_card_le_of_target_pos hp hQ hstage s hN hscale
   · rw [Finset.not_nonempty_iff_eq_empty.mp hne]
     simp
 

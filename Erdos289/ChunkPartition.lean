@@ -91,6 +91,14 @@ theorem card_chunkPool_ge {t : ℕ} (ht : 0 < t) (i : Fin (Fintype.card V / t)) 
     _ ≤ (chunkPool t i).card :=
         Finset.card_le_card_of_injOn f (fun j _ => mem_chunkPool_iff.2 (hslot j)) hinj
 
+/-- Distinct chunks are disjoint. -/
+theorem chunkPool_disjoint {t : ℕ} {i j : Fin (Fintype.card V / t)} (hij : i ≠ j) :
+    Disjoint (chunkPool (V := V) t i) (chunkPool (V := V) t j) := by
+  classical
+  rw [Finset.disjoint_left]
+  intro v hi hj
+  exact hij (Fin.ext ((mem_chunkPool_iff.1 hi).symm.trans (mem_chunkPool_iff.1 hj)))
+
 /-- The chunks are a partition. -/
 theorem isPoolPartition_chunkPool {t : ℕ} (ht : 0 < t)
     (hk : 0 < Fintype.card V / t) :
@@ -123,11 +131,13 @@ A row of `m` atoms cuts into `⌊m / t⌋` chunks of thickness at least `t`.
 -/
 theorem exists_chunkPoolPartition {t : ℕ} (ht : 0 < t) (hV : t ≤ Fintype.card V) :
     ∃ (k : ℕ) (pools : Fin k → Finset V),
-      0 < k ∧ IsPoolPartition pools ∧ (∀ i, t ≤ (pools i).card) ∧
-        Fintype.card V < (k + 1) * t := by
+      0 < k ∧ IsPoolPartition pools ∧
+        (∀ i j, i ≠ j → Disjoint (pools i) (pools j)) ∧
+        (∀ i, t ≤ (pools i).card) ∧ Fintype.card V < (k + 1) * t := by
   have hk : 0 < Fintype.card V / t := Nat.div_pos hV ht
   refine ⟨Fintype.card V / t, chunkPool (V := V) t, hk,
-    isPoolPartition_chunkPool ht hk, fun i => card_chunkPool_ge ht i, ?_⟩
+    isPoolPartition_chunkPool ht hk, fun i j hij => chunkPool_disjoint hij,
+    fun i => card_chunkPool_ge ht i, ?_⟩
   have h := Nat.div_add_mod (Fintype.card V) t
   have h2 : Fintype.card V % t < t := Nat.mod_lt _ ht
   rw [add_mul, one_mul, Nat.mul_comm (Fintype.card V / t) t]
@@ -145,14 +155,22 @@ theorem exists_compatiblePool_of_binary_of_card
     {Q : ℕ} {c : PhysicalConstraint} (R : TransverseReservoir Q c)
     (starts : Finset Denominator) (hatoms : R.atoms = starts.image binaryBlock)
     (hcard : 4 * (max 1 c.separation + 1) ≤ R.atoms.card) :
-    Nonempty (CompatibleTransversePool Q c) := by
+    ∃ P : CompatibleTransversePool Q c, P.atoms ⊆ R.atoms ∧
+      R.atoms.card < (P.atoms.card + 1) * (4 * (max 1 c.separation + 1)) := by
   classical
   have hcard' : 4 * (max 1 c.separation + 1) ≤ Fintype.card {S : Support // S ∈ R.atoms} := by
     rwa [Fintype.card_coe]
-  obtain ⟨k, pools, -, hpart, hthick, -⟩ :=
+  obtain ⟨k, pools, -, hpart, hdisj, hthick, hbound⟩ :=
     IndependentTransversal.exists_chunkPoolPartition
       (V := {S : Support // S ∈ R.atoms}) (t := 4 * (max 1 c.separation + 1))
       (by omega) hcard'
-  exact exists_compatiblePool_of_binary R starts hatoms pools hpart hthick
+  obtain ⟨P, hsub, hk⟩ :=
+    exists_compatiblePool_of_binary R starts hatoms pools hpart hdisj hthick
+  refine ⟨P, hsub, ?_⟩
+  rw [Fintype.card_coe] at hbound
+  have hkP : k ≤ P.atoms.card := by simpa using hk
+  calc R.atoms.card < (k + 1) * (4 * (max 1 c.separation + 1)) := hbound
+    _ ≤ (P.atoms.card + 1) * (4 * (max 1 c.separation + 1)) :=
+        Nat.mul_le_mul_right _ (by omega)
 
 end Erdos289

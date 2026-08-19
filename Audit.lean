@@ -102,9 +102,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.primePowerStage_le_lower_of_lt
 
-/-- info: 'Erdos289.primePowerSimpleFiberAddEquiv' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.primePowerSimpleFibreAddEquiv' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.primePowerSimpleFiberAddEquiv
+#print axioms Erdos289.primePowerSimpleFibreAddEquiv
 
 /-- info: 'Erdos289.reciprocalResidue_mem_annihilatorStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -134,9 +134,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.SignedInverse.ComplementaryPair.exception_multiplier_lt
 
-/-- info: 'Erdos289.SignedInverse.carrierFamily_coefficientFiber_card_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le_of_target_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.SignedInverse.carrierFamily_coefficientFiber_card_le
+#print axioms Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le_of_target_pos
 
 /-- info: 'Erdos289.SignedInverse.compatiblePool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -158,9 +158,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.CyclicLadder.coversAtGrade_zmod
 
-/-- info: 'Erdos289.Finset.card_le_card_image_mul_of_fiber_bound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.Finset.card_le_card_image_mul_of_fibre_bound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.Finset.card_le_card_image_mul_of_fiber_bound
+#print axioms Erdos289.Finset.card_le_card_image_mul_of_fibre_bound
 
 /-- info: 'Erdos289.QuantitativeTransverseReservoir.rowMin_le_simpleValues_card_mul' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -266,9 +266,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_compatiblePool_of_binary
 
-/-- info: 'Erdos289.primePower_squareFiber_card_le_four' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.primePower_squareFibre_card_le_four' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.primePower_squareFiber_card_le_four
+#print axioms Erdos289.primePower_squareFibre_card_le_four
 
 /-- info: 'Erdos289.SignedInverse.card_carrierPrimes_ge' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -390,9 +390,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TransverseReservoir.mem_simpleValues_iff
 
-/-- info: 'Erdos289.aggregateSupport_simpleFiberClass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.aggregateSupport_simpleFibreClass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.aggregateSupport_simpleFiberClass
+#print axioms Erdos289.aggregateSupport_simpleFibreClass
 
 /-- info: 'Erdos289.exists_pool_state_of_class' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -442,21 +442,17 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.reciprocalResidue_sub_notMem_lower
 
-/-- info: 'Erdos289.Support.simpleFiberClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.Support.simpleFibreClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.Support.simpleFiberClass_eq_iff
+#print axioms Erdos289.Support.simpleFibreClass_eq_iff
 
 /-- info: 'Erdos289.TransverseReservoir.card_simpleValues_of_injective' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TransverseReservoir.card_simpleValues_of_injective
 
-/-- info: 'Erdos289.SignedInverse.atom_simpleFiberClass_ne_of_coefficient_ne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.SignedInverse.atom_simpleFibreClass_ne_of_coefficient_ne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.SignedInverse.atom_simpleFiberClass_ne_of_coefficient_ne
-
-/-- info: 'Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
-#guard_msgs (whitespace := lax) in
-#print axioms Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le
+#print axioms Erdos289.SignedInverse.atom_simpleFibreClass_ne_of_coefficient_ne
 
 /-- info: 'Erdos289.SignedInverse.le_start_of_mem_truncation' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -501,3 +497,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.Support.value_eq_of_centredResidue_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.Support.value_eq_of_centredResidue_zero
+
+/-- info: 'Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le
+
+/-- info: 'Erdos289.IndependentTransversal.card_le_card_chosen' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.IndependentTransversal.card_le_card_chosen

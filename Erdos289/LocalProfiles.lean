@@ -7,7 +7,7 @@ Authors: Yuren Tang
 -/
 
 public import AffineCorrection.CyclicLadder
-public import Erdos289.SimpleFiber
+public import Erdos289.SimpleFibre
 public import Erdos289.RestrictedFold
 public import Erdos289.TransverseReservoir
 public import Mathlib.Algebra.Order.BigOperators.Group.Finset
@@ -35,13 +35,13 @@ namespace Erdos289
 universe u
 
 /-- Bounded fibres give the canonical lower bound on a finite image. -/
-theorem Finset.card_le_card_image_mul_of_fiber_bound
+theorem Finset.card_le_card_image_mul_of_fibre_bound
     {X Y : Type*} [DecidableEq X] [DecidableEq Y]
     (A : Finset X) (f : X → Y) (m : ℕ)
-    (hfiber : ∀ y ∈ A.image f, (A.filter fun x ↦ f x = y).card ≤ m) :
+    (hfibre : ∀ y ∈ A.image f, (A.filter fun x ↦ f x = y).card ≤ m) :
     A.card ≤ (A.image f).card * m := by
-  let fibers : Y → Finset X := fun y ↦ A.filter fun x ↦ f x = y
-  have hunion : (A.image f).biUnion fibers = A := by
+  let fibres : Y → Finset X := fun y ↦ A.filter fun x ↦ f x = y
+  have hunion : (A.image f).biUnion fibres = A := by
     ext x
     constructor
     · intro hx
@@ -51,9 +51,9 @@ theorem Finset.card_le_card_image_mul_of_fiber_bound
       exact Finset.mem_biUnion.mpr ⟨f x, Finset.mem_image.mpr ⟨x, hx, rfl⟩,
         Finset.mem_filter.mpr ⟨hx, rfl⟩⟩
   calc
-    A.card = ((A.image f).biUnion fibers).card := congrArg Finset.card hunion.symm
+    A.card = ((A.image f).biUnion fibres).card := congrArg Finset.card hunion.symm
     _ ≤ (A.image f).card * m :=
-      Finset.card_biUnion_le_card_mul (A.image f) fibers m hfiber
+      Finset.card_biUnion_le_card_mul (A.image f) fibres m hfibre
 
 /-- Image of the joint local observation/grade map. -/
 def localProfile {X : Type u} {S : Type*}
@@ -134,7 +134,7 @@ theorem surjective_map_iff (e : G ≃+ H) [DecidableEq G] [DecidableEq H]
       _ = e (e.symm y) := by rw [hS']
       _ = y := e.apply_symm_apply y
 
-section PrimeFiber
+section PrimeFibre
 
 variable {p : ℕ} [Fact p.Prime]
 variable {S : Type*} [AddCommGroup S]
@@ -157,19 +157,19 @@ theorem coversAtGrade_of_card_bound
   · simpa using hh
   · simpa using hfull
 
-end PrimeFiber
+end PrimeFibre
 
 /-- DdS coverage specialized to the canonical prime-power simple fibre. -/
-theorem coversAtGrade_primePowerSimpleFiber
+theorem coversAtGrade_primePowerSimpleFibre
     {Q p e h : ℕ} (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
-    (A : Finset (PrimePowerSimpleFiber Q))
+    (A : Finset (PrimePowerSimpleFibre Q))
     (hA : A.Nonempty) (hh : h ≤ A.card)
     (hfull : p ≤ h * (A.card - h) + 1) :
     CoversAtGrade (fold A h) (fun _ ↦ h) h := by
   classical
   let _ : Fact p.Prime := ⟨hp⟩
   exact coversAtGrade_of_card_bound
-    (primePowerSimpleFiberAddEquiv hp he hQ) A h hA hh hfull
+    (primePowerSimpleFibreAddEquiv hp he hQ) A h hA hh hfull
 
 end RestrictedFold
 
@@ -195,7 +195,7 @@ theorem coversAtGrade_zmod
 
 /-- Coordinate-free form: every nonzero point in a one-dimensional prime
 fibre yields a homogeneous cyclic cover. -/
-theorem coversAtGrade_primeFiber
+theorem coversAtGrade_primeFibre
     {p h : ℕ} {S : Type*} [AddCommGroup S]
     (hp : p.Prime) (e : S ≃+ ZMod p) (c : S) (hc : c ≠ 0) :
     CoversAtGrade (AffineCorrection.CyclicLadder.orbit c (p - 1))
@@ -213,12 +213,12 @@ theorem coversAtGrade_primeFiber
   exact hj
 
 /-- Cyclic coverage specialized to the canonical prime-power simple fibre. -/
-theorem coversAtGrade_primePowerSimpleFiber
+theorem coversAtGrade_primePowerSimpleFibre
     {Q p e h : ℕ} (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
-    (c : PrimePowerSimpleFiber Q) (hc : c ≠ 0) :
+    (c : PrimePowerSimpleFibre Q) (hc : c ≠ 0) :
     CoversAtGrade (AffineCorrection.CyclicLadder.orbit c (p - 1))
       (fun _ ↦ h) h :=
-  coversAtGrade_primeFiber hp (primePowerSimpleFiberAddEquiv hp he hQ) c hc
+  coversAtGrade_primeFibre hp (primePowerSimpleFibreAddEquiv hp he hQ) c hc
 
 end CyclicLadder
 
@@ -233,7 +233,7 @@ theorem restrictedFold_coversAtGrade
     (hh : h ≤ R.simpleValues.card)
     (hfull : p ≤ h * (R.simpleValues.card - h) + 1) :
     CoversAtGrade (RestrictedFold.fold R.simpleValues h) (fun _ ↦ h) h :=
-  RestrictedFold.coversAtGrade_primePowerSimpleFiber
+  RestrictedFold.coversAtGrade_primePowerSimpleFibre
     hp he hQ R.simpleValues hne hh hfull
 
 /-- Any one reservoir atom supplies the nonzero step for a homogeneous cyclic
@@ -246,7 +246,7 @@ theorem atom_cyclic_coversAtGrade
       (AffineCorrection.CyclicLadder.orbit
         (S.transverseClass (R.transverse S hS)) (p - 1))
       (fun _ ↦ h) h :=
-  CyclicLadder.coversAtGrade_primePowerSimpleFiber hp he hQ _
+  CyclicLadder.coversAtGrade_primePowerSimpleFibre hp he hQ _
     (Support.transverseClass_ne_zero (R.transverse S hS))
 
 end TransverseReservoir
@@ -256,20 +256,20 @@ namespace QuantitativeTransverseReservoir
 /-- The intrinsic row-size and fibre-multiplicity bounds force a large image
 in the canonical simple quotient. -/
 theorem rowMin_le_simpleValues_card_mul
-    {Q rowMin fiberMultiplicity conflictDegree : ℕ}
+    {Q rowMin fibreMultiplicity conflictDegree : ℕ}
     {c : PhysicalConstraint} {maxMass : ℚ}
-    (R : QuantitativeTransverseReservoir Q c rowMin fiberMultiplicity
+    (R : QuantitativeTransverseReservoir Q c rowMin fibreMultiplicity
       conflictDegree maxMass) :
-    rowMin ≤ R.toTransverseReservoir.simpleValues.card * fiberMultiplicity := by
+    rowMin ≤ R.toTransverseReservoir.simpleValues.card * fibreMultiplicity := by
   classical
   calc
     rowMin ≤ R.atoms.card := R.row_card
     _ = R.atoms.attach.card := by simp
-    _ ≤ R.toTransverseReservoir.simpleValues.card * fiberMultiplicity := by
-      apply Finset.card_le_card_image_mul_of_fiber_bound
+    _ ≤ R.toTransverseReservoir.simpleValues.card * fibreMultiplicity := by
+      apply Finset.card_le_card_image_mul_of_fibre_bound
       intro x hx
       simpa [TransverseReservoir.simpleValues,
-        TransverseReservoir.simpleValueFiber] using R.fiber_card x
+        TransverseReservoir.simpleValueFibre] using R.fibre_card x
 
 end QuantitativeTransverseReservoir
 

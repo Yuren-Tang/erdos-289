@@ -23,6 +23,7 @@ identity is realized by admissible binary path configurations.
 -/
 
 set_option autoImplicit false
+set_option relaxedAutoImplicit false
 
 namespace Erdos289
 

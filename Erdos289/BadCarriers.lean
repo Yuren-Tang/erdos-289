@@ -22,7 +22,7 @@ congruence is at most three; and the multiplier is prime to the current, because
 a common factor would divide `1`.
 
 Together with the uniform four-point bound for square fibres
-(`Erdos289.primePower_squareFiber_card_le_four`) this is the deletion step of
+(`Erdos289.primePower_squareFibre_card_le_four`) this is the deletion step of
 the row certificate: the band supplies `≫ Q / log Q` carriers and only `O(1)`
 of them are lost.
 -/
@@ -167,7 +167,7 @@ theorem card_badCarriers_le
   have hfib : ∀ y ∈ A.image f, (A.filter fun x => f x = y).card ≤ 4 := by
     intro y _
     refine le_trans (Finset.card_le_card_of_injOn Carrier.unit ?_ ?_)
-      (primePower_squareFiber_card_le_four hp y)
+      (primePower_squareFibre_card_le_four hp y)
     · intro x hx
       simp only [Finset.coe_filter, Set.mem_ofPred_eq] at hx
       exact Finset.mem_filter.mpr ⟨Finset.mem_univ _, hx.2⟩
@@ -230,7 +230,7 @@ theorem card_badCarriers_le
       _ ≤ T.card := Finset.card_le_card hsub
       _ ≤ 2 * (Λ - 1) := hTcard
   calc A.card ≤ (A.image f).card * 4 :=
-        Erdos289.Finset.card_le_card_image_mul_of_fiber_bound A f 4 hfib
+        Erdos289.Finset.card_le_card_image_mul_of_fibre_bound A f 4 hfib
     _ ≤ (2 * (Λ - 1)) * 4 := Nat.mul_le_mul_right _ himg
     _ = 8 * (Λ - 1) := by ring
 

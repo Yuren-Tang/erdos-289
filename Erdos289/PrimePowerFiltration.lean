@@ -109,7 +109,7 @@ def lowerInsidePrimePowerStage (Q : ℕ) : AddSubgroup (primePowerStage Q) :=
   (lowerPrimePowerStage Q).comap (primePowerStage Q).subtype
 
 /-- The associated simple fibre `F_Q / F_{<Q}`. -/
-abbrev PrimePowerSimpleFiber (Q : ℕ) :=
+abbrev PrimePowerSimpleFibre (Q : ℕ) :=
   (primePowerStage Q) ⧸ lowerInsidePrimePowerStage Q
 
 theorem lowerPrimePowerStage_le (Q : ℕ) :

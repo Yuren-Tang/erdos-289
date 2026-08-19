@@ -36,7 +36,7 @@ namespace Erdos289
 
 /-- Every nonempty fibre of a homomorphism from a finite group is a coset of
 its kernel. -/
-theorem card_fiber_eq_card_ker
+theorem card_fibre_eq_card_ker
     {G M : Type*} [Group G] [Fintype G] [Monoid M] [DecidableEq M]
     (f : G →* M) (y : M) (hy : y ∈ Set.range f) :
     (Finset.univ.filter fun x ↦ f x = y).card = Nat.card f.ker := by
@@ -53,23 +53,23 @@ theorem card_fiber_eq_card_ker
 
 /-- A square fibre in a finite commutative group has cardinality equal to the
 two-torsion kernel whenever it is nonempty. -/
-theorem card_squareFiber_eq_card_twoTorsion
+theorem card_squareFibre_eq_card_twoTorsion
     {G : Type*} [CommGroup G] [Fintype G] [DecidableEq G] (y : G)
     (hy : ∃ x : G, x ^ 2 = y) :
     (Finset.univ.filter fun x ↦ x ^ 2 = y).card =
       Nat.card (powMonoidHom 2 : G →* G).ker := by
-  apply card_fiber_eq_card_ker (powMonoidHom 2 : G →* G) y
+  apply card_fibre_eq_card_ker (powMonoidHom 2 : G →* G) y
   simpa only [powMonoidHom_apply, Set.mem_range] using hy
 
 /-- Odd prime-power unit square fibres have at most two points. -/
-theorem oddPrimePower_squareFiber_card_le_two
+theorem oddPrimePower_squareFibre_card_le_two
     {p e : ℕ} [NeZero (p ^ e)] (hp : p.Prime) (hp2 : p ≠ 2)
     (y : (ZMod (p ^ e))ˣ) :
     (Finset.univ.filter fun x ↦ x ^ 2 = y).card ≤ 2 := by
   let _ : IsCyclic (ZMod (p ^ e))ˣ :=
     ZMod.isCyclic_units_of_prime_pow p hp hp2 e
   by_cases hy : ∃ x : (ZMod (p ^ e))ˣ, x ^ 2 = y
-  · rw [card_squareFiber_eq_card_twoTorsion y hy,
+  · rw [card_squareFibre_eq_card_twoTorsion y hy,
       IsCyclic.card_powMonoidHom_ker]
     exact Nat.gcd_le_right _ (by omega)
   · simp only [not_exists] at hy
@@ -216,24 +216,24 @@ private theorem twoPower_twoTorsion_card_le_four {e : ℕ} [NeZero (2 ^ e)] :
       exact eq_of_dvd_pred_or_succ hPpos hv1 hvlt hkey
 
 /-- Two-power unit square fibres have at most four points. -/
-theorem twoPower_squareFiber_card_le_four
+theorem twoPower_squareFibre_card_le_four
     {e : ℕ} [NeZero (2 ^ e)] (y : (ZMod (2 ^ e))ˣ) :
     (Finset.univ.filter fun x ↦ x ^ 2 = y).card ≤ 4 := by
   classical
   by_cases hy : ∃ x : (ZMod (2 ^ e))ˣ, x ^ 2 = y
-  · rw [card_squareFiber_eq_card_twoTorsion y hy,
-      ← card_squareFiber_eq_card_twoTorsion (1 : (ZMod (2 ^ e))ˣ) ⟨1, one_pow 2⟩]
+  · rw [card_squareFibre_eq_card_twoTorsion y hy,
+      ← card_squareFibre_eq_card_twoTorsion (1 : (ZMod (2 ^ e))ˣ) ⟨1, one_pow 2⟩]
     exact twoPower_twoTorsion_card_le_four
   · simp only [not_exists] at hy
     simp [hy]
 
 /-- Uniform four-point bound for prime-power unit square fibres. -/
-theorem primePower_squareFiber_card_le_four
+theorem primePower_squareFibre_card_le_four
     {p e : ℕ} [NeZero (p ^ e)] (hp : p.Prime) (y : (ZMod (p ^ e))ˣ) :
     (Finset.univ.filter fun x ↦ x ^ 2 = y).card ≤ 4 := by
   by_cases hp2 : p = 2
   · subst hp2
-    exact twoPower_squareFiber_card_le_four y
-  · exact le_trans (oddPrimePower_squareFiber_card_le_two hp hp2 y) (by norm_num)
+    exact twoPower_squareFibre_card_le_four y
+  · exact le_trans (oddPrimePower_squareFibre_card_le_two hp hp2 y) (by norm_num)
 
 end Erdos289

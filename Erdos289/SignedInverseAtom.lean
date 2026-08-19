@@ -348,7 +348,7 @@ theorem atom_filteredTransverse
     (g.atom (hQ.symm ▸ pow_pos hp.pos e)).FilteredTransverse Q := by
   let hQpos : 0 < Q := hQ.symm ▸ pow_pos hp.pos e
   have hfactor := atom_factorsThroughPrimePowerStage g hp he hQ hbQ
-  refine ⟨hfactor, (Support.simpleFiberClass_ne_zero_iff hfactor).2 ?_⟩
+  refine ⟨hfactor, (Support.simpleFibreClass_ne_zero_iff hfactor).2 ?_⟩
   intro hatom
   have hcomp := companion_mem_lowerPrimePowerStage g hbQ
   have hdist : reciprocalResidue (g.distinguishedDenominator hQpos) ∈

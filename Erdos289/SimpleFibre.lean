@@ -26,7 +26,7 @@ set_option relaxedAutoImplicit false
 namespace Erdos289
 
 /-- The canonical current-stage point represented by `1/Q`. -/
-def primePowerGenerator (Q : ℕ) (hQ : 0 < Q) : PrimePowerSimpleFiber Q :=
+def primePowerGenerator (Q : ℕ) (hQ : 0 < Q) : PrimePowerSimpleFibre Q :=
   QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q)
     ⟨reciprocalResidue ⟨Q, hQ⟩,
       annihilatorStage_le Q (reciprocalResidue_mem_annihilatorStage ⟨Q, hQ⟩)⟩
@@ -45,7 +45,7 @@ private theorem annihilatorStage_eq_nsmul_reciprocal
 
 /-- The canonical current point generates the entire intrinsic simple fibre. -/
 theorem mem_zmultiples_primePowerGenerator
-    {Q : ℕ} (hQ : 0 < Q) (x : PrimePowerSimpleFiber Q) :
+    {Q : ℕ} (hQ : 0 < Q) (x : PrimePowerSimpleFibre Q) :
     x ∈ AddSubgroup.zmultiples (primePowerGenerator Q hQ) := by
   induction x using QuotientAddGroup.induction_on with
   | H x =>
@@ -124,21 +124,21 @@ theorem p_nsmul_primePowerGenerator_eq_zero
 /-- The intrinsic simple fibre at `p^e` is additively equivalent to `ZMod p`.
 The equivalence is deliberately noncanonical: no basis enters the public
 filtration or reservoir interfaces. -/
-noncomputable def primePowerSimpleFiberAddEquiv
+noncomputable def primePowerSimpleFibreAddEquiv
     {Q p e : ℕ} (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e) :
-    PrimePowerSimpleFiber Q ≃+ ZMod p := by
+    PrimePowerSimpleFibre Q ≃+ ZMod p := by
   let hQpos : 0 < Q := hQ.symm ▸ pow_pos hp.pos e
-  let g : PrimePowerSimpleFiber Q := primePowerGenerator Q hQpos
-  have hgen : ∀ x : PrimePowerSimpleFiber Q, x ∈ AddSubgroup.zmultiples g :=
+  let g : PrimePowerSimpleFibre Q := primePowerGenerator Q hQpos
+  have hgen : ∀ x : PrimePowerSimpleFibre Q, x ∈ AddSubgroup.zmultiples g :=
     mem_zmultiples_primePowerGenerator hQpos
   letI : Fact p.Prime := ⟨hp⟩
   have hgorder : addOrderOf g = p :=
     addOrderOf_eq_prime
       (p_nsmul_primePowerGenerator_eq_zero hp he hQ)
       (primePowerGenerator_ne_zero hp he hQ)
-  have hcard : Nat.card (PrimePowerSimpleFiber Q) = p := by
+  have hcard : Nat.card (PrimePowerSimpleFibre Q) = p := by
     calc
-      Nat.card (PrimePowerSimpleFiber Q) =
+      Nat.card (PrimePowerSimpleFibre Q) =
           Nat.card (AddSubgroup.zmultiples g) :=
         Nat.card_congr (Equiv.subtypeUnivEquiv hgen).symm
       _ = addOrderOf g := Nat.card_zmultiples g

@@ -186,7 +186,7 @@ theorem Carrier.b_injective {Q p : ℕ} :
 
 /-- Prime carriers with one fixed oriented coefficient form a bounded fibre
 as soon as the elementary product inequality is supplied. -/
-theorem coefficientCarrierFiber_card_le
+theorem coefficientCarrierFibre_card_le
     {Q p L d k : ℕ} (A : Finset (Carrier Q p)) (hQ : 1 < Q)
     (s : Orientation)
     (hlarge : ∀ x ∈ A, L < x.b)
@@ -226,7 +226,7 @@ as the scale inequality `Q² + 1 < (n+1)^(d+1)` holds.  Both the fibre bound and
 the exponent are the same parameter: the exponent is `d + 1` because the
 oriented target is below `Q² + 1` and every carrier exceeds `n`.
 -/
-theorem carrierFamily_coefficientFiber_card_le
+theorem carrierFamily_coefficientFibre_card_le_of_target_pos
     {Λ Q p e n k d : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
     (hstage : 1 < Q) (s : Orientation)
     (hN : 0 < coefficientTarget Q k s)
@@ -251,7 +251,7 @@ theorem carrierFamily_coefficientFiber_card_le
           simpa [coefficientTarget, hxcoeff] using
             (x.pair hstage).coefficientTarget_lt_sq_add_one x.b_lt
               Orientation.minus
-    apply coefficientCarrierFiber_card_le A hstage s
+    apply coefficientCarrierFibre_card_le A hstage s
     · intro y hy
       exact (mem_carrierPrimes_iff.mp
         (Carrier.mem_carrierFamily_b hp hQ hy)).1

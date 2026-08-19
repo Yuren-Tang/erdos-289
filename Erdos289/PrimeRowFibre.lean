@@ -38,16 +38,16 @@ namespace SignedInverse
 Distinct current coefficients give distinct simple-fibre classes at a prime
 current.
 -/
-theorem atom_simpleFiberClass_ne_of_coefficient_ne
+theorem atom_simpleFibreClass_ne_of_coefficient_ne
     {p b b' : ℕ} {w : ComplementaryPair p b} {w' : ComplementaryPair p b'}
     (hp : p.Prime) (g : GoodOrientation p w) (g' : GoodOrientation p w')
     (hppos : 0 < p) (hb : b < p) (hb' : b' < p)
     (hne : w.coefficient g.sign ≠ w'.coefficient g'.sign)
     (hfac : (g.atom hppos).FactorsThroughPrimePowerStage p)
     (hfac' : (g'.atom hppos).FactorsThroughPrimePowerStage p) :
-    (g.atom hppos).simpleFiberClass hfac ≠ (g'.atom hppos).simpleFiberClass hfac' := by
+    (g.atom hppos).simpleFibreClass hfac ≠ (g'.atom hppos).simpleFibreClass hfac' := by
   intro heq
-  rw [Support.simpleFiberClass_eq_iff hfac hfac'] at heq
+  rw [Support.simpleFibreClass_eq_iff hfac hfac'] at heq
   rw [atom_residue_eq_distinguished_add_companion,
     atom_residue_eq_distinguished_add_companion] at heq
   have hcomp : reciprocalResidue g.companionDenominator
