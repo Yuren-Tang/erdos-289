@@ -7,7 +7,7 @@ Authors: Yuren Tang
 -/
 
 public import Erdos289.BinaryConfigurations
-public import Erdos289.ProviderInterfaces
+public import Erdos289.DeformationFibres
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Positivity
 import Mathlib.Algebra.Order.Archimedean.Basic
@@ -59,7 +59,7 @@ theorem two_dvd_neutralProduct (a : Denominator) :
 /--
 Proof technology: one coarse lower bound that simultaneously dominates the
 finitely many gap inequalities of the neutral identity.  The bound itself is a
-witness and is not part of any interface; the statement consumed elsewhere is
+witness and is not part of any interface; the statement used elsewhere is
 `eventually_neutralBinaryPlacements`.
 -/
 private theorem neutralBinaryPlacements_of_large
@@ -290,7 +290,7 @@ theorem neutralLower_value_lt_four_div
       rw [← add_div]
       norm_num
 
-/-- Hard leaf N: the intrinsic neutral fibre has arbitrarily light remote points. -/
+/-- The intrinsic neutral fibre has arbitrarily light remote points. -/
 theorem remoteLightNeutralGradeOne : RemoteLightNeutralGradeOne := by
   intro c ε hε
   obtain ⟨N, hN⟩ := eventually_neutralBinaryPlacements c

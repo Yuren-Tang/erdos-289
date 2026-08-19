@@ -9,7 +9,7 @@ Authors: Yuren Tang
 import IndependentTransversals.Haxell
 
 /-!
-Internal aggregation root for the source-vendored Haxell provider.
+Internal aggregation root for the source-vendored Haxell theorem.
 
 Nothing in this root is part of the public `Erdos289` API.
 -/

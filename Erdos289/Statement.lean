@@ -16,8 +16,8 @@ public import Mathlib.Tactic.NormNum
 # Final mathematical statements
 
 The statements are phrased only in terms of exact reciprocal value, the
-connected-component quotient, and finite physical constraints.  They do not
-mention any provider coordinates or implementation certificates.
+connected-component quotient, and finite physical constraints.  They mention no
+construction coordinates and no realization certificates.
 -/
 
 set_option autoImplicit false

@@ -131,7 +131,7 @@ noncomputable def TransverseReservoir.conflictNeighbors
 
 /-- Quantitative filtered-transverse output.  Arithmetic coefficients,
 orientations, inverse representatives, and carrier labels are intentionally
-absent.  The fields record exactly the four quantities consumed downstream:
+absent.  The fields record exactly the four quantities used downstream:
 row size, simple-fibre multiplicity, physical mass, and conflict degree. -/
 structure QuantitativeTransverseReservoir
     (Q : ℕ) (c : PhysicalConstraint)

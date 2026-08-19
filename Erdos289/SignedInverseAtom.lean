@@ -116,7 +116,7 @@ theorem ComplementaryPair.not_companionCoprime_iff_dvd
 
 /-- A downwardness exception has the intrinsic quadratic shape forced by the
 inverse equation.  The two displayed equations are kept in one theorem; the
-orientation split is proof technology, not a provider-level case distinction. -/
+orientation split is proof technology, not a case distinction of the statement. -/
 theorem ComplementaryPair.exception_quadratic_shape
     {Q b : ℕ} (w : ComplementaryPair Q b) (hb : b.Prime)
     (s : Orientation) (hs : ¬b.Coprime (w.inverseRepresentative s)) :

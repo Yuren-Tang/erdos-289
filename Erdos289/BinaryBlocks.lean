@@ -15,8 +15,8 @@ import Mathlib.Tactic.Linarith
 /-!
 # Canonical binary path blocks
 
-The public object is the two-vertex connected support.  Polynomial indices
-used to construct particular blocks remain in the arithmetic provider layer.
+The public object is the two-vertex connected support.  Polynomial indices used
+to construct particular blocks remain in the arithmetic layers.
 -/
 
 set_option autoImplicit false

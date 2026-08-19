@@ -6,7 +6,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Yuren Tang
 -/
 
-public import Erdos289.ProviderInterfaces
+public import Erdos289.DeformationFibres
 public import Erdos289.BinaryBlocks
 import Mathlib.Algebra.Order.Ring.Unbundled.Rat
 import Mathlib.Algebra.Ring.Rat
@@ -201,7 +201,8 @@ theorem rationalPresentation_natMultiple
       have hxy := x.unionBeyond y.toRational
       simpa [Nat.cast_succ, add_mul] using Nonempty.intro hxy
 
-/-- The unit-fraction leaf supplies the full positive-rational presentation fibre. -/
+/-- Unit-fraction refinement supplies the full positive-rational presentation
+fibre. -/
 theorem rationalPresentation_of_pos
     (hE : UnitFractionRefinementCofinality)
     (q : ℚ) (hq : 0 < q) (c : PhysicalConstraint) :

@@ -15,7 +15,7 @@ public import Mathlib.Tactic.Linarith
 /-!
 # The descent spine: core torsor, cofinal tail, exact target
 
-This module is the coordinate-free composition of the two provider interfaces.
+This module is the coordinate-free composition of the two interfaces.
 It contains no arithmetic; the arithmetic lives entirely inside the two
 hypotheses, which are the manuscript's *finite core interface* and *cofinal
 tail interface*.

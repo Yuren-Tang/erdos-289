@@ -33,20 +33,21 @@ conclusion with the statement the descent needs.
 
 With these choices, `AffineCorrection.exactSpectrum` at the target residue `0`
 is literally the set of grades carried by exact reciprocal representations of
-`1`, which is what `Erdos289Statement` quantifies over.
+`1`, which is what `Erdos289.CofiniteSaturation` quantifies over.
 
-## What is still missing
+## The two hypotheses of the universal theorem
 
-`AffineCorrection.grade_mem_exactSpectrum_of_covers_target` consumes two
-hypotheses, `Covers` and `LiteralizesTarget`.  Neither is supplied here.
+`AffineCorrection.grade_mem_exactSpectrum_of_covers_target` takes two
+hypotheses, and this module supplies neither; both are theorems about the
+arithmetic of the reciprocal system rather than about the identification made
+here.
 
 `LiteralizesTarget` at a compact stage `H` says that a target realizer's
-residue is *exactly* zero, whereas the pullback only gives residue in `H`.
-Closing that gap is the defect-absorption step: it needs the endpoint stages to
-eventually contain the fixed finite defect subgroup, for which
-`AffineCorrection.LeastAbsorber` is the universal object.  `Covers` is the
-local-profile output of the arithmetic layers.  See `ROADMAP.md`, layers A and
-B.
+residue is *exactly* zero, whereas the pullback only gives residue in `H`.  The
+gap between the two is a fixed finite defect subgroup, and it closes once the
+endpoint stages eventually contain that subgroup; `AffineCorrection.LeastAbsorber`
+is the universal object of that absorption.  `Covers` is the local-profile
+statement of the arithmetic layers.
 -/
 
 set_option autoImplicit false

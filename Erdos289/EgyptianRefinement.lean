@@ -464,7 +464,8 @@ theorem separatedEgyptianPresentation
         omega
       omega
 
-/-- Hard leaf E, proved by the remote arithmetic-prefix/greedy-tail construction. -/
+/-- Every constrained unit-fraction presentation fibre is inhabited, by the
+remote arithmetic-prefix/greedy-tail construction. -/
 theorem unitFractionRefinementCofinality : UnitFractionRefinementCofinality := by
   intro n c
   have hnq : (0 : ℚ) < reciprocal n := by

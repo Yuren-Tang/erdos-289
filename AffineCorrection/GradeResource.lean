@@ -17,8 +17,8 @@ public import Mathlib.Data.Set.Lattice
 
 For additive commutative monoids `M` and `B`, the powerset of `M × B` is the
 free join-completion of the resource monoid.  Multiplication is Minkowski sum;
-arbitrary joins are unions.  This is the intrinsic value object used by the
-enriched saturation engine.
+arbitrary joins are unions.  This is the intrinsic value object of the enriched
+saturation theorem.
 -/
 
 set_option autoImplicit false

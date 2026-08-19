@@ -21,8 +21,8 @@ import Mathlib.Data.Nat.GCD.BigOperators
 
 This internal arithmetic module forgets a finite family of signed-inverse
 witnesses into the canonical `TransverseReservoir` and
-`CompatibleTransversePool` interfaces.  The candidate coordinates do not
-cross the provider boundary.
+`CompatibleTransversePool` interfaces.  The candidate coordinates stay inside
+this module; only the two interfaces are exported.
 -/
 
 set_option autoImplicit false
@@ -53,8 +53,8 @@ private theorem primeFinset_prod_dvd
           (fun r hr ↦ hdvd r (Finset.mem_insert_of_mem hr))
 
 /-- Distinct prime divisors above `L` are bounded once the next power of
-`L+1` exceeds the target.  This elementary product lemma is the finite
-counting engine for coefficient deduplication. -/
+`L+1` exceeds the target.  This elementary product bound is what makes
+coefficient deduplication finite. -/
 private theorem card_primeDivisors_le_of_lt_pow
     (A : Finset ℕ) (N L d : ℕ) (hN : 0 < N)
     (hprime : ∀ q ∈ A, q.Prime) (hlarge : ∀ q ∈ A, L < q)

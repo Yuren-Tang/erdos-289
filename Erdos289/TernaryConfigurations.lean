@@ -15,8 +15,8 @@ public import Erdos289.TernaryBlocks
 # Finite configurations of remote ternary blocks
 
 As for binary configurations, the placement predicate records exactly the
-physical facts consumed downstream.  Polynomial or Egyptian coordinates used
-to choose starts do not occur in this interface.
+physical facts used downstream.  Polynomial or Egyptian coordinates used to
+choose starts do not occur in this interface.
 -/
 
 set_option autoImplicit false

@@ -17,7 +17,7 @@ import LeanPool.PolynomialMethodRestrictedSums.DiasDaSilvaHamidoune
 /-!
 # Fixed-cardinality additive folds
 
-The restricted sumset leaf is exposed as surjectivity of the canonical fold
+The restricted sumset theorem is exposed as surjectivity of the canonical fold
 from the object of `h`-element subobjects.  No coordinate choice or name of a
 proof theorem occurs in the interface.
 -/
@@ -47,7 +47,7 @@ def fold (A : Finset G) (h : ℕ) : Domain A h → G :=
 def image [DecidableEq G] (A : Finset G) (h : ℕ) : Finset G :=
   (A.powersetCard h).image fun S => ∑ x ∈ S, x
 
-/-- The intrinsic restricted-sumset assertion consumed downstream. -/
+/-- The intrinsic restricted-sumset assertion used downstream. -/
 def Surjective (A : Finset G) (h : ℕ) : Prop :=
   Function.Surjective (fold A h)
 
@@ -83,8 +83,8 @@ section ZMod
 variable {p : ℕ} [Fact p.Prime]
 
 /--
-Hard leaf D (Dias da Silva--Hamidoune), phrased as image growth of the
-canonical fold from the cardinality-`h` finite-subset object.
+The Dias da Silva--Hamidoune theorem, phrased as image growth of the canonical
+fold from the cardinality-`h` finite-subset object.
 -/
 theorem image_card_lower_bound
     (A : Finset (ZMod p)) (h : ℕ)
@@ -97,7 +97,8 @@ theorem image_card_lower_bound
   rw [himage]
   simpa [pow_two, Nat.mul_sub_left_distrib] using hdonor
 
-/-- The full-image range of leaf D is exactly surjectivity of the intrinsic fold. -/
+/-- The full-image range of Dias da Silva--Hamidoune is exactly surjectivity of
+the intrinsic fold. -/
 theorem surjective_of_card_bound
     (A : Finset (ZMod p)) (h : ℕ)
     (hA : A.Nonempty) (hh : h ≤ A.card)

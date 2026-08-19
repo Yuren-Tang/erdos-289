@@ -29,14 +29,14 @@ public import Erdos289.RestrictedFold
 public import Erdos289.LocalProfiles
 public import Erdos289.IndependentTransversal
 public import Erdos289.ReservoirPacking
-public import Erdos289.ProviderInterfaces
+public import Erdos289.DeformationFibres
 public import Erdos289.PresentationComposition
 public import Erdos289.PrimeSupply
 public import Erdos289.PrimeSupplyAsymptotic
 public import Erdos289.Statement
 public import Erdos289.Selector
 public import Erdos289.Composition
-public import Erdos289.EngineBridge
+public import Erdos289.ReciprocalObservation
 public import Erdos289.GradeAggregation
 public import Erdos289.Literal
 public import Erdos289.GradeInterval

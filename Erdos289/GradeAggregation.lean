@@ -20,7 +20,7 @@ total grades is the Minkowski sum of the local epi-grade spectra.  When each
 local spectrum contains an integer interval, so does the sum, and the endpoints
 are the sums of the endpoints.
 
-The statement proved here is the constructive form actually consumed: every
+The statement proved here is the constructive form actually needed: every
 integer in the aggregate interval is a *sum of admissible local grades*, so a
 global correction of that exact grade can be assembled stage by stage.
 -/
@@ -87,7 +87,7 @@ dominates the cumulative demand up to and including that stage, then the
 demands can be served in stage order without ever reusing a donor.
 
 The statement is the running-balance form, which is what an inductive
-construction consumes.
+construction needs.
 -/
 theorem donor_flow_nonneg (s d : ℕ → ℕ)
     (h : ∀ j, ∑ i ∈ Finset.range (j + 1), d i ≤ ∑ i ∈ Finset.range j, s i) :

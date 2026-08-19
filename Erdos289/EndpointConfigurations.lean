@@ -192,7 +192,8 @@ theorem RationalPresentation.endpointDeformation_lower_lt_two_mul
   · intro a _ b _ hab
     exact shiftOne_injective hab
 
-/-- Leaf E already implies existence of every endpoint-deformation fibre. -/
+/-- Unit-fraction refinement already implies existence of every
+endpoint-deformation fibre. -/
 theorem endpointDeformation_of_unitFractionRefinement
     (hE : UnitFractionRefinementCofinality)
     (q : ℚ) (hq : 0 < q) (c : PhysicalConstraint) :

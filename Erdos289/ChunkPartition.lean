@@ -13,14 +13,14 @@ public import Erdos289.ReservoirPacking
 /-!
 # Cutting a row into chunks
 
-`Erdos289.exists_compatiblePool_of_binary` consumes a partition of the atoms of
-a reservoir into chunks of prescribed thickness.  Producing one is pure finite
+`Erdos289.exists_compatiblePool_of_binary` takes a partition of the atoms of a
+reservoir into chunks of prescribed thickness.  Producing one is pure finite
 combinatorics: enumerate the atoms and cut the enumeration into consecutive
 blocks of length `t`, sending the overflow into the last block.
 
 The number of chunks is `⌊|row| / t⌋`, so a row of size `m` yields
 `≥ m / t - 1` chunks; that ratio, not the cut itself, is what the aggregation
-step consumes.
+step needs.
 -/
 
 set_option autoImplicit false
@@ -146,8 +146,8 @@ theorem exists_chunkPoolPartition {t : ℕ} (ht : 0 < t) (hV : t ≤ Fintype.car
 end IndependentTransversal
 
 /--
-Leaf `P` in the form the descent consumes: a binary reservoir whose row is
-merely *large enough* already carries a compatible transverse pool.  The chunk
+Independent transversals in the form the descent needs: a binary reservoir
+whose row is merely *large enough* already carries a compatible transverse pool.  The chunk
 partition is supplied by `IndependentTransversal.exists_chunkPoolPartition`, so
 no partition has to be exhibited by the caller.
 -/

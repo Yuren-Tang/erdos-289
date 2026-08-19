@@ -13,8 +13,8 @@ public import Erdos289.Descent
 /-!
 # Composing tail stages along the residue filtration
 
-`Erdos289.TailCovers` asks a single family to cover `G/H`.  The provider builds
-it one simple jump at a time: stage `i` covers `G_{i+1}/G_i` and lives beyond
+`Erdos289.TailCovers` asks a single family to cover `G/H`.  Such a family is
+built one simple jump at a time: stage `i` covers `G_{i+1}/G_i` and lives beyond
 everything already placed.  Composing two consecutive stages is torsor
 induction again — the same argument as `exists_saturationWitness_of_tailCovers`,
 one level down — and iterating it along a chain from `H` to `G` is a plain
@@ -159,7 +159,7 @@ The tail interface from a finite chain of stages: each stage lives beyond the
 accumulated footprint of its predecessors, the grades add up to the requested
 one, and the loads add up to at most the requested margin.
 
-This is the exact shape the arithmetic provider has to deliver.
+This is the shape in which the arithmetic layers supply the tail interface.
 -/
 theorem tailCovers_of_stages
     {c : PhysicalConstraint} {F : Support} {H : AddSubgroup TargetResidue}

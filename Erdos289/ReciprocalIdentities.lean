@@ -19,7 +19,7 @@ public import Mathlib.Tactic.Ring
 # Exact reciprocal identities
 
 These coordinate identities are kept at the arithmetic boundary.  Downstream
-modules consume the fibre points they construct, not the formulas themselves.
+modules use the fibre points they construct, not the formulas themselves.
 -/
 
 set_option autoImplicit false

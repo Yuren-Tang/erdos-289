@@ -22,8 +22,8 @@ itself.
 
 Two consequences are recorded, and they are of different kinds.  The comparison
 between the band and the carrier set is exact finite combinatorics.  The growth
-of the band is asymptotic and stays asymptotic: it is inherited from the
-comparable-band leaf `Erdos289.ComparableBand`.
+of the band is asymptotic and stays asymptotic: it is inherited from
+`Erdos289.ComparableBand`.
 -/
 
 set_option autoImplicit false
@@ -102,7 +102,7 @@ theorem tendsto_bandBase {Λ : ℕ} (hΛ : 0 < Λ) :
 
 /--
 The band carries `≫ Q / log Q` primes.  The growth is asymptotic and stays
-asymptotic: it is the comparable-band leaf reindexed along the band base.
+asymptotic: it is `Erdos289.ComparableBand` reindexed along the band base.
 -/
 theorem bandCard_isBigO (band : ComparableBand) :
     (fun Q : ℕ => (Q : ℝ) / Real.log Q) =O[atTop]

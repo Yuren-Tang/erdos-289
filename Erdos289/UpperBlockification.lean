@@ -231,7 +231,8 @@ theorem upperBlockification_data
       (upperBlockStarts_card w.support),
     upperResidual_pos_of_pos hq w⟩
 
-/-- Leaf E supplies arbitrarily accurate positive-excess blockifications. -/
+/-- Unit-fraction refinement supplies arbitrarily accurate positive-excess
+blockifications. -/
 theorem positiveExcessBlockification_of_unitFractionRefinement
     (hE : UnitFractionRefinementCofinality)
     (q : ℚ) (hq : 0 < q) (c : PhysicalConstraint) (ε : ℚ) (hε : 0 < ε) :

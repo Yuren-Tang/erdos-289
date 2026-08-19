@@ -16,8 +16,8 @@ public import Erdos289.BinaryBlocks
 A configuration is indexed only by its finite set of block starts.  The
 placement predicate records the intrinsic physical facts needed downstream:
 obstacle avoidance and pairwise separation.  It yields admissibility, exact
-component grade, and exact reciprocal value without exposing any provider
-formula used to choose the starts.
+component grade, and exact reciprocal value without exposing any formula used
+to choose the starts.
 -/
 
 set_option autoImplicit false

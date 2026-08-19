@@ -12,12 +12,12 @@ public import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 @[expose] public section
 
 /-!
-# The comparable-band leaf
+# Comparable prime bands
 
-The leaf is existential in the band ratio: there is a ratio `Λ > 1` for which
+The statement is existential in the band ratio: there is a ratio `Λ > 1` for which
 the band `(n, Λ n]` carries at least of the order of `n / log n` primes.  That
 existential statement is `Erdos289.ComparableBand`, and it is what the row
-mathematics consumes.
+mathematics uses.
 
 A particular ratio is a *witness*, not the definition.  `comparableBandFour`
 is the witness supplied by mathlib's Chebyshev bounds, which already have a
@@ -91,9 +91,8 @@ private theorem chebyshev_error_isLittleO :
 
 /--
 A comparable band: an integer ratio at least two whose band `(n, Λ n]` carries
-at least of the order of `n / log n` primes.  This is the leaf; the ratio is
-existentially quantified, so no particular ratio enters the mathematics
-downstream.
+at least of the order of `n / log n` primes.  The ratio is existentially
+quantified, so no particular ratio enters the mathematics downstream.
 -/
 structure ComparableBand where
   /-- The band ratio. -/
@@ -105,7 +104,7 @@ structure ComparableBand where
       fun n : ℕ => ((bandPrimes ratio n).card : ℝ)
 
 /-- The witness computation behind `comparableBandFour`.  The ratio four is a
-witness of the leaf, not part of its statement. -/
+witness for `Erdos289.ComparableBand`, not part of its statement. -/
 theorem bandPrimes_four_card_isBigO :
     (fun n : ℕ => (n : ℝ) / Real.log n) =O[atTop]
       fun n : ℕ => ((bandPrimes 4 n).card : ℝ) := by

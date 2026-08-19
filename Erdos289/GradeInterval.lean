@@ -50,9 +50,9 @@ theorem mul_sub_le_mul_sub_of_between {a h m : ℕ} (hah : a ≤ h) (hhm : h + a
 namespace TransverseReservoir
 
 /--
-Leaf `D` in the form the aggregation consumes: a prime row of size `m` is
-epimorphic at *every* grade of the symmetric interval `[a, m - a]`, as soon as
-the restricted-fold condition holds at its lower endpoint `a`.
+The restricted fold in the form the aggregation needs: a prime row of size `m`
+is epimorphic at *every* grade of the symmetric interval `[a, m - a]`, as soon
+as the restricted-fold condition holds at its lower endpoint `a`.
 -/
 theorem restrictedFold_coversAtGrade_of_mem_Icc
     {Q p e : ℕ} {c : PhysicalConstraint}

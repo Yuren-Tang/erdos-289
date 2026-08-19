@@ -25,8 +25,8 @@ The two branches are genuinely different.  For odd `p` the unit group is
 cyclic, so the two-torsion has order at most two.  For `p = 2` the unit group
 is not cyclic beyond `e = 2`, and the bound comes from the elementary fact that
 an odd square root of one modulo `2 ^ e` is congruent to `±1` modulo
-`2 ^ (e - 1)`.  Neither branch is a case distinction of the provider: only the
-uniform four-point bound crosses the boundary.
+`2 ^ (e - 1)`.  Neither branch is visible outside this module: only the uniform
+four-point bound is exported.
 -/
 
 set_option autoImplicit false

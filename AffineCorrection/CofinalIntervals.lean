@@ -14,7 +14,7 @@ public import Mathlib.Order.Interval.Set.Defs
 /-!
 # Cofinal saturation by overlapping integer intervals
 
-This is the order-theoretic endpoint of the enriched saturation engine.  A
+This is the order-theoretic endpoint of the enriched saturation theorem.  A
 sequence of attainable closed grade intervals whose consecutive members meet
 or touch, and whose upper endpoints are cofinal, contains a principal final
 ideal.  No quantitative coordinates used to prove the hypotheses occur in the
@@ -61,7 +61,7 @@ theorem Ici_subset_intervalSpectrum
   intro k hk
   exact mem_intervalSpectrum_of_ge lower upper hoverlap hcofinal hk
 
-/-- Cofiniteness in the existential form consumed by the E289 statement. -/
+/-- Cofiniteness in the existential form used by the E289 statement. -/
 theorem intervalSpectrum_cofinite
     (lower upper : ℕ → ℕ)
     (hoverlap : ∀ n, lower (n + 1) ≤ upper n + 1)

@@ -17,8 +17,8 @@ public import Mathlib.Algebra.Order.BigOperators.Group.Finset
 /-!
 # Intrinsic local simple-fibre profiles
 
-A finite physical state system is consumed locally only through the image of
-its joint observation/grade map.  The constructors below place the two local
+A finite physical state system enters locally only through the image of its
+joint observation/grade map.  The constructors below place the two local
 mechanisms already proved in the project—fixed-cardinality additive folds and
 monogenic cyclic orbits—behind that image interface.  Coordinates on a
 one-dimensional prime fibre occur only as an additive equivalence used in the

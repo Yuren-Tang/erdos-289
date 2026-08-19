@@ -14,7 +14,7 @@ public import Mathlib.Tactic.Linarith
 /-!
 # Comparable prime supply from Mathlib's Chebyshev bounds
 
-The provider is derived locally from `Chebyshev.theta_ge` and
+The supply bound is derived locally from `Chebyshev.theta_ge` and
 `Chebyshev.theta_le_log4_mul_x`.  It introduces no prime-number-theorem
 dependency or additional assumption.
 -/
@@ -69,7 +69,7 @@ theorem sum_log_bandPrimes_le (Λ n : ℕ) :
 /--
 The Chebyshev bound at the witness ratio four, in raw form.  The `4` here is a
 witness: it is the ratio at which the available mathlib bounds already give a
-positive main term.  The statement consumed downstream is the parametric
+positive main term.  The statement used downstream is the parametric
 `Erdos289.ComparableBand`.
 -/
 theorem bandPrimeSupply_explicit_four (n : ℕ) (hn : 0 < n) :

@@ -16,13 +16,13 @@ public import Erdos289.IndependentTransversal
 
 The conflict graph of a transverse reservoir has the atoms as vertices and
 physical incompatibility as adjacency.  `Erdos289/ConflictDegree.lean` bounds
-its degree by a constant for a reservoir of binary atoms, and the packing leaf
+its degree by a constant for a reservoir of binary atoms, and Haxell's theorem
 turns any partition of a bounded-degree graph into sufficiently thick chunks
 into an independent one-per-chunk section.
 
 The section is exactly a globally compatible pool, so this module is the step
-that converts the raw row into the `CompatibleTransversePool` the descent
-consumes.  Nothing here needs the arithmetic origin of the atoms.
+that converts the raw row into the `CompatibleTransversePool` used by the
+descent.  Nothing here needs the arithmetic origin of the atoms.
 -/
 
 set_option autoImplicit false
@@ -150,7 +150,7 @@ theorem card_le_card_atoms_compatiblePoolOfChunkFeasible
   exact hcount
 
 /--
-The packing leaf applied to a reservoir of binary atoms: a partition into
+Haxell's theorem applied to a reservoir of binary atoms: a partition into
 chunks that are thick relative to the constant conflict degree yields a
 globally compatible pool, of at least as many atoms as there are chunks.
 

@@ -14,7 +14,7 @@ public import Erdos289.LightMobility
 /-!
 # The finite core stage, constructed
 
-The core provider of the manuscript is a *generic finite torsor seed*: pick a
+The manuscript's finite core is a *generic finite torsor seed*: pick a
 finite cyclic residue group, realize a complete sequence for it by
 arbitrarily-light equal-grade switches placed one beyond another, and read off
 the Boolean family of their joint states.
@@ -34,7 +34,7 @@ beyond the previous one's footprint and each arbitrarily light, has states of
 
 With `β < 1/2` the barrier slack is `1/2 > 0`, and the seed *is* a `CoreStage`.
 No lcm bridge is needed for this interface: enlarging the core subgroup only
-moves work from the tail provider to the core provider, and the descent spine
+moves work from the tail interface to the core interface, and the descent spine
 does not care which side does it.
 -/
 

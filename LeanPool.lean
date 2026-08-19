@@ -9,7 +9,7 @@ Authors: Yuren Tang
 import LeanPool.PolynomialMethodRestrictedSums.DiasDaSilvaHamidoune
 
 /-!
-Internal aggregation root for source-vendored arithmetic providers.
+Internal aggregation root for the source-vendored arithmetic theorems.
 
 Nothing in this root is part of the public `Erdos289` API.
 -/

@@ -11,12 +11,13 @@ public import Erdos289.PathSupport
 @[expose] public section
 
 /-!
-# Intrinsic interfaces for the two reciprocal hard leaves
+# Constrained presentation and deformation fibres
 
-These declarations name the constrained fibres whose nonemptiness must be
-proved.  They deliberately contain no splitting algorithm or polynomial
-coordinates.  Concrete formulas belong only in proofs constructing points of
-these objects.
+These declarations name the constrained fibres of the reciprocal fold: the
+presentations of a prescribed value, and the deformations realizing a
+prescribed pair of increments in value and grade.  They contain no splitting
+algorithm and no polynomial coordinates; concrete formulas belong only in the
+proofs that construct points of these objects.
 -/
 
 set_option autoImplicit false
@@ -54,7 +55,7 @@ def UnitFractionPresentation.toRational
   avoids := w.avoids
   pointSeparated := w.pointSeparated
 
-/-- Hard leaf E: every constrained unit-fraction presentation fibre is inhabited. -/
+/-- Every constrained unit-fraction presentation fibre is inhabited. -/
 def UnitFractionRefinementCofinality : Prop :=
   ∀ (n : Denominator) (c : PhysicalConstraint),
     Nonempty (UnitFractionPresentation n c)
@@ -115,7 +116,7 @@ structure NeutralGradePoint
   grade_eq : upper.grade = lower.grade + k
   lower_value_lt : lower.value < ε
 
-/-- Hard leaf N: the neutral grade-one fibre has arbitrarily light remote points. -/
+/-- The neutral grade-one fibre has arbitrarily light remote points. -/
 def RemoteLightNeutralGradeOne : Prop :=
   ∀ (c : PhysicalConstraint) (ε : ℚ), 0 < ε →
     Nonempty (NeutralGradeOnePoint c ε)

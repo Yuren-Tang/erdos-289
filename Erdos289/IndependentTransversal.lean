@@ -71,7 +71,7 @@ theorem card_le_card_chosen {V I : Type*} [DecidableEq V] [Fintype I]
     rw [hij'] at hi
     exact (Finset.disjoint_left.1 (hdisj i j hne)) hi hj
 
-/-- Hard leaf P in its intrinsic chunk-partition form. -/
+/-- The pools admit a chunk-feasible independent global section. -/
 def HasChunkPacking (G : SimpleGraph V) (pools : I → Finset V) : Prop :=
   Nonempty (ChunkFeasible G pools)
 
@@ -86,7 +86,7 @@ def Feasible
   {chosen : Finset V //
     G.IsIndepSet (chosen : Set V) ∧ MeetsQuotas pools quota chosen}
 
-/-- The exact global-section assertion consumed by the E289 packing layer. -/
+/-- The exact global-section assertion: an independent set meeting every quota. -/
 def HasPacking
     (G : SimpleGraph V) (pools : I → Finset V) (quota : I → ℕ) : Prop :=
   Nonempty (Feasible G pools quota)
@@ -96,8 +96,8 @@ section Haxell
 variable [Fintype V]
 
 /--
-Hard leaf P (Haxell): a partition into chunks of size at least twice the
-maximum conflict degree has an independent global section.
+Haxell's independent-transversal theorem: a partition into chunks of size at
+least twice the maximum conflict degree has an independent global section.
 -/
 theorem hasChunkPacking_of_two_mul_maxDegree_le
     (G : SimpleGraph V) [DecidableRel G.Adj] (pools : I → Finset V)

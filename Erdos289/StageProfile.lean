@@ -15,7 +15,7 @@ public import Mathlib.Tactic.Abel
 /-!
 # What one prime-power stage contributes
 
-This is the bridge between the arithmetic of a stage and the tail interface:
+This links the arithmetic of a stage to the tail interface:
 a compatible transverse pool at a prime-power current, whose image in the
 associated simple fibre is large, realizes *every* class of that fibre at
 *every* grade of an interval, with mass proportional to the grade.

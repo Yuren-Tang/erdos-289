@@ -99,7 +99,7 @@ theorem desc_unique
 
 /--
 Existence and uniqueness of factorization through target centering, stated as
-the reflection property consumed by later observation systems.
+the reflection property used by later observation systems.
 -/
 theorem lift_unique
     {A : Type v} [AddCommGroup A]
