@@ -23,6 +23,7 @@ public import Erdos289.NeutralAtoms
 public import Erdos289.LocalSystem
 public import Erdos289.PaddedStage
 public import Erdos289.PaddingBlocks
+public import Erdos289.CurrentStage
 public import Erdos289.IntervalBlocks
 public import Erdos289.Statement
 public import Erdos289.Literal

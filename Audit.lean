@@ -16,6 +16,7 @@ import Erdos289.Composition
 import Erdos289.ConflictDegree
 import Erdos289.CoreSeed
 import Erdos289.CostTail
+import Erdos289.CurrentStage
 import Erdos289.CyclicRow
 import Erdos289.CyclicStage
 import Erdos289.DeformationComposition
@@ -399,6 +400,18 @@ editing it by hand.
 /-- info: 'Erdos289.exists_rank_of_cost_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_rank_of_cost_le
+
+/-- info: 'Erdos289.disjoint_pool_paddingBlocks' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.disjoint_pool_paddingBlocks
+
+/-- info: 'Erdos289.exists_localSystem_coversAtGrade' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_localSystem_coversAtGrade
+
+/-- info: 'Erdos289.exists_tailStage_of_pool_and_padding' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.exists_tailStage_of_pool_and_padding
 
 /-- info: 'Erdos289.exists_multiplicities_of_two_classes' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

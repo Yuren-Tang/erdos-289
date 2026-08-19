@@ -288,11 +288,20 @@ What is left is therefore three items, one heavy and two coupled.
   block below the current is annihilated by denominators smaller than it
   (`Erdos289.binaryBlock_simpleFibreClass_eq_zero`).
 
-  What remains at T1 is therefore assembly rather than mechanism: adjoining the
-  padding family to the pool through `Erdos289.LocalStateSystem.adjoin`, which
-  needs the two families compatible — the pool's atoms sit at `≈ Q t` and the
-  padding below `Q`, so this is a spacing computation — and the size conditions
-  `p - 1 ≤ h`, `(p-1)(p-2) < #pool` and `h` padding blocks fitting below `Q`.
+  The assembly is done: `Erdos289.exists_tailStage_of_pool_and_padding` takes a
+  compatible transverse pool at any prime-power current, together with padding
+  blocks below the current compatible with it, and produces the tail stage at
+  every grade from `p - 1` on.  Its conditions are the expected sizes and
+  nothing else: more than `(p-1)(p-2)` atoms in the pool, the padding fitting
+  below the current, and the two families compatible.  Nothing in it
+  distinguishes a prime current from a proper prime power.
+
+  What is left at T1 is to *supply* those conditions at a proper prime power
+  from the row certificate, which is already parametric in the current: the
+  pool comes from `Erdos289.SignedInverse.exists_rowReservoir` and
+  `Erdos289.exists_compatiblePool_of_binary_of_card` exactly as at a prime, and
+  the compatibility of the padding with the pool is a spacing computation,
+  since the pool's atoms sit near `Q t` while the padding stays below `Q`.
 
   The chain cannot skip a current: `lowerPrimePowerStage Q'` contains
   `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
