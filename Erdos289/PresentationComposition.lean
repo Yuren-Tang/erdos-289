@@ -50,10 +50,14 @@ def denominatorPrefix (N : ℕ) : Support :=
     omega
 
 /--
-The constraint a support must satisfy to be composable with `S`: it inherits
-`c` and additionally forbids everything up to the last point of `S` shifted by
-the effective separation margin.  That is exactly the finite lower closure the
-physical union needs, and nothing more.
+Remoteness beyond `S`: `c` together with everything up to the last point of `S`
+shifted by the effective separation margin.
+
+This is a *construction tool*, strictly stronger than what composition needs.
+Compatibility with `S` is `Erdos289.constraintAvoiding`, and remoteness implies
+it (`Erdos289.avoids_avoiding_of_avoids_beyond`); the composition lemmas are
+proved from compatibility alone.  Remoteness stays because it is the shape the
+greedy constructions naturally produce.
 -/
 def constraintBeyond (c : PhysicalConstraint) (S : Support) : PhysicalConstraint where
   obstacle := c.obstacle ∪

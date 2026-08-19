@@ -221,10 +221,15 @@ The scaffolding that turns arithmetic into the hypothesis is complete.
   base; `tailStage_chain` iterates it along a chain of subgroups.
 * `tailCovers_of_stages` is the resulting interface: a finite chain of stages
   whose grades sum to `h` and whose loads sum to at most `ε`.
-* `tailStage_of_pool` makes one prime-power current one link of that chain: a
-  compatible transverse pool at `Q = p ^ e` inside a finite footprint is a
-  stage from `lowerPrimePowerStage Q` to `primePowerStage Q`, at every grade of
-  its Dias da Silva–Hamidoune interval, with load `h · maxMass`.
+* `tailStage_of_pool` makes one current one link of that chain, and its
+  hypothesis is mechanism-independent: a compatible transverse pool inside a
+  finite footprint that reaches its local target at grade `h`
+  (`CompatibleTransversePool.CoversAtGrade`) is a stage from
+  `lowerPrimePowerStage Q` to `primePowerStage Q` with load `h · maxMass`.  No
+  arithmetic of the current appears in it.
+  `tailStage_of_pool_of_restrictedFold` is the prime-current route, which
+  supplies that target from the Dias da Silva–Hamidoune interval
+  (`CompatibleTransversePool.coversAtGrade_of_restrictedFold`).
 * `exists_pool_state_of_class` is what `tailStage_of_pool` runs on, and
   `exists_compatiblePool_of_binary_of_card` produces the pool from a row that
   is merely large enough, together with the chunk count it preserves.
@@ -249,21 +254,20 @@ stage is now proved, end to end.
 
 What is left is therefore three items, one heavy and two coupled.
 
-* **T1 (heavy), the proper prime powers.** The public target is
-  mechanism-independent, and it is the one the descent already consumes: the
-  physical row of a current satisfies `Erdos289.CoversAtGrade` throughout an
-  explicit grade range — equivalently, its intrinsic grade-fibre epimorphism
-  spectrum contains that range.  This is §9's local object `I(J)` of one simple
-  jump, and both the prime and the proper-prime-power arithmetic serve it; the
-  split between them is internal, and §10 records that it "is not an invariant
-  of the qualitative theorem".
+* **T1 (heavy), the proper prime powers.** The target is mechanism-independent
+  and is exactly what the descent consumes:
+  `Erdos289.CompatibleTransversePool.CoversAtGrade`, the statement that every
+  class of the simple fibre is the class of a compatible subfamily of exactly
+  `h` atoms.  This is §9's local object `I(J)` of one simple jump, realized
+  physically; both the prime and the proper-prime-power arithmetic serve it,
+  the split between them is internal, and §10 records that it "is not an
+  invariant of the qualitative theorem".
 
   At a prime current the target is proved
-  (`Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_of_mem_Icc`,
-  reached through `Erdos289.SignedInverse.exists_tailStage_of_band`).  At
-  `Q = p ^ e` with `e ≥ 2` the simple fibre is cyclic of order `p`, the row's
-  atoms need not have distinct classes, and Dias da Silva–Hamidoune is not the
-  mechanism.
+  (`Erdos289.CompatibleTransversePool.coversAtGrade_of_restrictedFold`, reached
+  through `Erdos289.SignedInverse.exists_tailStage_of_band`).  At `Q = p ^ e`
+  with `e ≥ 2` the simple fibre is cyclic of order `p`, the row's atoms need
+  not have distinct classes, and Dias da Silva–Hamidoune is not the mechanism.
 
   One weakest-looking mechanism is already proved:
   `Erdos289.exists_multiplicities_of_two_simpleFibreClasses` says that a stock

@@ -233,7 +233,7 @@ theorem exists_tailStage_of_band
     exact le_of_lt
       (atom_value_lt_of_mem_truncation hp1 σ (hgood x hx) (hTcoeff x hx) hpos)
   refine ⟨aggregateSupport P.atoms, ?_⟩
-  refine tailStage_of_pool P hp Nat.one_pos (pow_one p).symm hh hah
+  refine tailStage_of_pool_of_restrictedFold P hp Nat.one_pos (pow_one p).symm hh hah
     (by omega) ?_ hmassP hgradeP ?_
   · calc p ≤ a * (m - a) + 1 := hend
       _ ≤ a * (P.toTransverseReservoir.simpleValues.card - a) + 1 := by

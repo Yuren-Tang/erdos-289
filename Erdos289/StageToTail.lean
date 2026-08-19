@@ -32,25 +32,22 @@ open scoped BigOperators
 namespace Erdos289
 
 /--
-A compatible transverse pool at the current `Q = p ^ e`, all of whose atoms lie
-inside a finite footprint, is a tail stage from the lower stage to the current
-one, at every grade of its Dias da Silva–Hamidoune interval.
+A compatible transverse pool at the current `Q` that reaches its local target
+at grade `h`, and all of whose atoms lie inside a finite footprint, is a tail
+stage from the lower stage to the current one.
+
+The hypothesis is the mechanism-independent one: no arithmetic of the current
+appears, only `CompatibleTransversePool.CoversAtGrade`.
 -/
 theorem tailStage_of_pool
-    {Q p e : ℕ} {c : PhysicalConstraint} (P : CompatibleTransversePool Q c)
-    (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
-    {a h : ℕ} (hh : 0 < h) (hah : a ≤ h)
-    (hhm : h + a ≤ P.toTransverseReservoir.simpleValues.card)
-    (hend : p ≤ a * (P.toTransverseReservoir.simpleValues.card - a) + 1)
-    {maxMass : ℚ} (hmass : ∀ S ∈ P.atoms, S.value ≤ maxMass)
-    (hgrade : ∀ S ∈ P.atoms, S.grade = 1)
+    {Q : ℕ} {c : PhysicalConstraint} (P : CompatibleTransversePool Q c)
+    {h : ℕ} {maxMass : ℚ} (hcov : P.CoversAtGrade h maxMass)
     {F : Support} (hfoot : ∀ S ∈ P.atoms, S ⊆ F) :
     TailStage c F (lowerPrimePowerStage Q) (primePowerStage Q) h (h * maxMass) := by
   classical
   intro v hv
   obtain ⟨A, hAsub, -, hApair, hAgrade, hAvalue, hAclass⟩ :=
-    exists_pool_state_of_class P hp he hQ hh hah hhm hend hmass hgrade
-      (QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨v, hv⟩ : primePowerStage Q))
+    hcov (QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨v, hv⟩ : primePowerStage Q))
   have hfac : ∀ S ∈ A, S.FactorsThroughPrimePowerStage Q :=
     fun S hS => Classical.choose (P.transverse S (hAsub hS))
   have hagg := aggregateSupport_factorsThrough hApair hfac
@@ -62,5 +59,23 @@ theorem tailStage_of_pool
     exact hfoot S (hAsub hS) hxS
   · refine (simpleFibre_mk_eq_iff_sub_mem hagg hv).1 ?_
     exact hAclass hagg
+
+/--
+The same, with the local target supplied by the fixed-cardinality fold.  This
+is the prime-current route; a proper prime power reaches the same target by the
+cyclic structure instead, and `tailStage_of_pool` does not distinguish them.
+-/
+theorem tailStage_of_pool_of_restrictedFold
+    {Q p e : ℕ} {c : PhysicalConstraint} (P : CompatibleTransversePool Q c)
+    (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
+    {a h : ℕ} (hh : 0 < h) (hah : a ≤ h)
+    (hhm : h + a ≤ P.toTransverseReservoir.simpleValues.card)
+    (hend : p ≤ a * (P.toTransverseReservoir.simpleValues.card - a) + 1)
+    {maxMass : ℚ} (hmass : ∀ S ∈ P.atoms, S.value ≤ maxMass)
+    (hgrade : ∀ S ∈ P.atoms, S.grade = 1)
+    {F : Support} (hfoot : ∀ S ∈ P.atoms, S ⊆ F) :
+    TailStage c F (lowerPrimePowerStage Q) (primePowerStage Q) h (h * maxMass) :=
+  tailStage_of_pool P
+    (P.coversAtGrade_of_restrictedFold hp he hQ hh hah hhm hend hmass hgrade) hfoot
 
 end Erdos289

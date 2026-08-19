@@ -2022,13 +2022,25 @@ editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TransverseReservoir.card_simpleValues_of_subset
 
+/-- info: 'Erdos289.CompatibleTransversePool.CoversAtGrade' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.CompatibleTransversePool.CoversAtGrade
+
 /-- info: 'Erdos289.exists_pool_state_of_class' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_pool_state_of_class
 
+/-- info: 'Erdos289.CompatibleTransversePool.coversAtGrade_of_restrictedFold' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.CompatibleTransversePool.coversAtGrade_of_restrictedFold
+
 /-- info: 'Erdos289.tailStage_of_pool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.tailStage_of_pool
+
+/-- info: 'Erdos289.tailStage_of_pool_of_restrictedFold' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.tailStage_of_pool_of_restrictedFold
 
 /-- info: 'Erdos289.SaturationWitness.mono' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

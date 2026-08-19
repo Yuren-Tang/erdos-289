@@ -190,6 +190,29 @@ theorem TransverseReservoir.card_simpleValues_of_subset
     Support.transverseClass_congr (R.transverse T (hsub hT)) (P.transverse T hT)]
   exact hST
 
+/-! ### The local target of one current, and the mechanism that reaches it -/
+
+/--
+The local target of one prime-power current, stated without reference to the
+arithmetic that reaches it: every class of the simple fibre is the class of a
+pairwise-compatible subfamily of exactly `h` atoms, of aggregate grade `h` and
+aggregate mass at most `h · maxMass`.
+
+This is the grade-`h` slice of the jump's grade-fibre epimorphism spectrum,
+realized physically.  Which arithmetic supplies it — the fixed-cardinality fold
+at a prime current, or the cyclic structure at a proper prime power — is not
+visible here, and the descent never asks.
+-/
+def CompatibleTransversePool.CoversAtGrade
+    {Q : ℕ} {c : PhysicalConstraint} (P : CompatibleTransversePool Q c)
+    (h : ℕ) (maxMass : ℚ) : Prop :=
+  ∀ x : PrimePowerSimpleFibre Q, ∃ A : Finset Support, A ⊆ P.atoms ∧ A.card = h ∧
+    (A : Set Support).Pairwise (fun S T ↦ S.CompatibleFor T c) ∧
+    (aggregateSupport A).grade = h ∧
+    (aggregateSupport A).value ≤ h * maxMass ∧
+    ∀ hfac : (aggregateSupport A).FactorsThroughPrimePowerStage Q,
+      (aggregateSupport A).simpleFibreClass hfac = x
+
 /-! ### One stage realizes every class at every grade of its interval -/
 
 /--
@@ -282,5 +305,21 @@ theorem exists_pool_state_of_class
           Finset.sum_congr rfl fun w _ => hgclass w
       _ = ∑ v ∈ Tset, v := Finset.sum_attach Tset id
       _ = x := hTsum
+
+/--
+The fixed-cardinality fold reaches the local target: a pool whose image in the
+simple fibre is large enough covers every class at every grade of its
+Dias da Silva–Hamidoune interval.
+-/
+theorem CompatibleTransversePool.coversAtGrade_of_restrictedFold
+    {Q p e : ℕ} {c : PhysicalConstraint} (P : CompatibleTransversePool Q c)
+    (hp : p.Prime) (he : 0 < e) (hQ : Q = p ^ e)
+    {a h : ℕ} (hh : 0 < h) (hah : a ≤ h)
+    (hhm : h + a ≤ P.toTransverseReservoir.simpleValues.card)
+    (hend : p ≤ a * (P.toTransverseReservoir.simpleValues.card - a) + 1)
+    {maxMass : ℚ} (hmass : ∀ S ∈ P.atoms, S.value ≤ maxMass)
+    (hgrade : ∀ S ∈ P.atoms, S.grade = 1) :
+    P.CoversAtGrade h maxMass :=
+  fun x => exists_pool_state_of_class P hp he hQ hh hah hhm hend hmass hgrade x
 
 end Erdos289
