@@ -7,6 +7,8 @@ Authors: Yuren Tang
 -/
 
 public import Erdos289.Statement
+public import Erdos289.IntervalBlocks
+public import Erdos289.PoolComposition
 public import Mathlib.Order.Filter.AtTopBot.Basic
 public import Mathlib.Order.Interval.Finset.Nat
 public import Mathlib.Data.Fintype.BigOperators
@@ -14,37 +16,34 @@ public import Mathlib.Data.Fintype.BigOperators
 @[expose] public section
 
 /-!
-# The literal form of Erdős problem 289
+# The source-level form of Erdős problem 289
 
-`Erdos289.Erdos289Statement` is phrased through the intrinsic objects of this
+`Erdos289.IntervalSaturation` is phrased through the intrinsic objects of this
 development: a finite support in the positive-integer path, its connected
 components, and the exact reciprocal value.  Nothing in that phrasing mentions
 intervals, because an interval decomposition is a presentation of a support and
 not an invariant of it.
 
-This module proves that the two phrasings agree.  The mathematical content is
-one lemma: a connected component of the graph induced by a finite set of
-positive integers on the path is *convex*, hence an integer interval.  Given
-that, a support of grade `k` is literally a family of `k` pairwise disjoint,
-pairwise non-adjacent integer intervals, and the intrinsic statement unfolds to
-the sentence printed on erdosproblems.com.
+This module proves that the two phrasings are *equivalent*.  The mathematical
+content is one lemma in each direction.
+
+* A connected component of the graph induced by a finite set of positive
+  integers on the path is *convex*, hence an integer interval.  So a support of
+  grade `k` yields `k` pairwise disjoint, pairwise non-adjacent intervals.
+* Conversely an integer interval is connected
+  (`Erdos289.denominatorIcc_preconnected`), so a family of `k` pairwise
+  non-adjacent intervals has exactly `k` components when united.
 
 ## Main statements
 
-* `Erdos289.Erdos289Literal` — the form used by the `erdos_289` entry of
-  `google-deepmind/formal-conjectures`.
-* `Erdos289.Erdos289LiteralSeparated` — the form displayed on
-  erdosproblems.com/289, which additionally requires the intervals to be
-  non-adjacent.
-* `Erdos289.erdos289Literal_of_statement` and
-  `Erdos289.erdos289LiteralSeparated_of_statement` — both follow from
-  `Erdos289Statement`.
+* `Erdos289.ErdosProblem289` — the sentence displayed on erdosproblems.com/289.
+* `Erdos289.erdosProblem289_of_intervalSaturation` and
+  `Erdos289.intervalSaturation_of_erdosProblem289` — the two directions.
+* `Erdos289.erdosProblem289_iff_intervalSaturation` — the equivalence.
 
 ## References
 
 * [erdosproblems.com/289](https://www.erdosproblems.com/289)
-* `FormalConjectures/ErdosProblems/289.lean` in
-  [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures)
 -/
 
 set_option autoImplicit false
@@ -382,5 +381,92 @@ theorem erdosProblem289_of_intervalSaturation (h : IntervalSaturation) :
 theorem erdosProblem289_of_smallBlockSaturation (h : SmallBlockSaturation) :
     ErdosProblem289 :=
   erdosProblem289_of_intervalSaturation (intervalSaturation_of_smallBlock h)
+
+/-! ## The converse: an interval family is a saturation witness -/
+
+/--
+A family of `k` pairwise non-adjacent integer intervals of length at least two,
+of total reciprocal sum one, is a saturation witness of grade `k`.
+
+The intervals are exactly the components of their union: each is connected, and
+the gap condition keeps distinct ones both disjoint and non-adjacent.
+-/
+noncomputable def saturationWitness_of_intervalFamily
+    {k : ℕ} (I : Fin k → ℕ × ℕ)
+    (hpos : ∀ i, 0 < (I i).1)
+    (hlt : ∀ i, (I i).1 < (I i).2)
+    (hgap : ∀ i j, i ≠ j → (I i).2 + 1 < (I j).1 ∨ (I j).2 + 1 < (I i).1)
+    (hsum : ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n : ℚ)⁻¹ = 1) :
+    SaturationWitness nontrivialBlockSizes 1 originalConstraint k := by
+  classical
+  set B : Fin k → Support := fun i => denominatorIcc (I i).1 (I i).2 with hB
+  -- distinct indices give cross-separated, hence distinct, intervals
+  have hcross : ∀ i j, i ≠ j → (B i).CrossSeparated (B j) 1 := by
+    intro i j hij
+    rcases hgap i j hij with h | h
+    · exact denominatorIcc_crossSeparated (hpos i) (hpos j) h
+    · intro x hx y hy
+      have := denominatorIcc_crossSeparated (hpos j) (hpos i) h y hy x hx
+      have hcomm := Nat.dist_comm x.1 y.1
+      omega
+  have hne : ∀ i, (B i).Nonempty := fun i =>
+    denominatorIcc_nonempty (hpos i) (le_of_lt (hlt i))
+  have hinj : Function.Injective B := by
+    intro i j hij
+    by_contra hne'
+    obtain ⟨x, hx⟩ := hne i
+    have hxj : x ∈ B j := hij ▸ hx
+    exact absurd (hcross i j hne' x hx x hxj) (by simp)
+  set A : Finset Support := Finset.univ.image B with hA
+  have hAcard : A.card = k := by
+    rw [hA, Finset.card_image_of_injective _ hinj, Finset.card_univ, Fintype.card_fin]
+  have hmemA : ∀ S ∈ A, ∃ i, B i = S := by
+    intro S hS
+    rcases Finset.mem_image.1 hS with ⟨i, -, rfl⟩
+    exact ⟨i, rfl⟩
+  have hadm : ∀ S ∈ A, S.Admissible nontrivialBlockSizes originalConstraint := by
+    intro S hS
+    obtain ⟨i, rfl⟩ := hmemA S hS
+    refine ⟨denominatorIcc_hasBlockSizes (hpos i) (hlt i), ?_,
+      denominatorIcc_separated (hpos i) _⟩
+    simpa [Support.Avoids, originalConstraint] using Finset.disjoint_empty_right (B i)
+  have hpair : (A : Set Support).Pairwise
+      fun S T ↦ S.CompatibleFor T originalConstraint := by
+    intro S hS T hT hST
+    obtain ⟨i, rfl⟩ := hmemA S hS
+    obtain ⟨j, rfl⟩ := hmemA T hT
+    have hij : i ≠ j := fun h => hST (by rw [h])
+    exact ⟨crossSeparated_graphDisjoint (hcross i j hij), hcross i j hij⟩
+  refine
+    { support := aggregateSupport A
+      admissible := aggregateSupport_admissible hadm hpair
+      value_eq := ?_
+      grade_eq := ?_ }
+  · rw [aggregateSupport_value hpair, hA,
+      Finset.sum_image (fun i _ j _ h => hinj h)]
+    rw [← hsum]
+    exact Finset.sum_congr rfl fun i _ => denominatorIcc_value (hpos i)
+  · rw [aggregateSupport_grade hpair, hA,
+      Finset.sum_image (fun i _ j _ h => hinj h)]
+    rw [Finset.sum_congr rfl fun i _ =>
+      denominatorIcc_grade (hpos i) (le_of_lt (hlt i))]
+    simp
+
+/-- The source-level problem implies the intrinsic statement. -/
+theorem intervalSaturation_of_erdosProblem289 (h : ErdosProblem289) :
+    IntervalSaturation := by
+  obtain ⟨N, hN⟩ := Filter.eventually_atTop.1 h
+  refine ⟨N, fun k hk => ?_⟩
+  obtain ⟨I, hpos, hlt, hgap, hsum⟩ := hN k hk
+  exact ⟨saturationWitness_of_intervalFamily I hpos hlt hgap hsum⟩
+
+/--
+The identification of the two phrasings, as an equivalence.  Both directions
+are theorems: components of a support are intervals, and intervals are
+components of their union.
+-/
+theorem erdosProblem289_iff_intervalSaturation :
+    ErdosProblem289 ↔ IntervalSaturation :=
+  ⟨intervalSaturation_of_erdosProblem289, erdosProblem289_of_intervalSaturation⟩
 
 end Erdos289

@@ -29,6 +29,7 @@ formalization:
       reciprocal grade spectrum at 1 is cofinite, over the problem's own class
       of block sizes, every block of length at least two.
     implies_source_statement: Erdos289.erdosProblem289_of_intervalSaturation
+    equivalent_to_source_statement: Erdos289.erdosProblem289_iff_intervalSaturation
   strengthening:
     name: Erdos289.SmallBlockSaturation
     file: Erdos289/Statement.lean
@@ -46,9 +47,11 @@ formalization:
   proved: false
   reduced_to: Erdos289.smallBlockSaturation_of_tailInterface
   open_obligation: >-
-    The cofinal tail interface: beyond any finite footprint, states of every
-    sufficiently large grade whose residues cover the ambient group modulo the
-    core's cyclic subgroup, with total load below the core's barrier slack.
+    The cofinal tail interface: compatibly with any finite core footprint,
+    states of every sufficiently large grade realizing every target of the
+    ambient group modulo the core's cyclic subgroup, with total load below the
+    core's barrier slack.  Compatibility means avoidance of the footprint and
+    its separation neighbourhood, not remoteness beyond it.
   remaining_work: ROADMAP.md
 
 conventions:
@@ -65,6 +68,10 @@ conventions:
 trust:
   source_scan: scripts/source_scan.py
   axiom_audit: Audit.lean
+  axiom_audit_coverage: >-
+    Every declaration of Erdos289/ and AffineCorrection/ not marked private.
+    The set is derived from the sources by scripts/public_decls.py, so coverage
+    is complete by construction rather than by a hand-maintained list.
   external_kernel_checks:
     - leanchecker
     - nanoda

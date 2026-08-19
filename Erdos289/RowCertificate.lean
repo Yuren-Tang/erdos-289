@@ -22,7 +22,7 @@ the family, and every statement below quantifies the section existentially.
 Three selections cut a band down to a row, and each is parametric.
 
 1. *Deletion* removes the carriers with no usable orientation.  A band of ratio
-   `Λ` loses at most `8 (Λ - 1)` of them
+   `Λ` loses at most `4 (Λ - 1)` of them
    (`Erdos289.SignedInverse.card_goodCarriers_ge`).
 2. *Deduplication* removes repeated current coefficients.  If the coefficient
    fibre of the band has at most `d` points for each orientation, the fibre of
@@ -171,7 +171,7 @@ theorem exists_rowCertificate
       (∀ x ∈ R, σ x ∈ (x.pair hQ1).goodOrientations p) ∧
       Set.InjOn
         (fun x : Carrier Q p ↦ (x.pair hQ1).coefficient (σ x)) R ∧
-      A.card - 8 * (Λ - 1) ≤ 2 * d * R.card ∧
+      A.card - 4 * (Λ - 1) ≤ 2 * d * R.card ∧
       R.card - t ≤ T.card ∧
       (∀ x ∈ T, Q * t - 1 ≤ (x.pair hQ1).start (σ x)) := by
   classical

@@ -82,7 +82,7 @@ realization theorem", together with its assembly against the universal core.
 | --- | --- | --- |
 | `E` | every constrained unit-fraction presentation fibre is inhabited | `Erdos289.unitFractionRefinementCofinality` |
 | `N` | the neutral grade-one fibre has arbitrarily light remote points | `Erdos289.remoteLightNeutralGradeOne` |
-| `Π` | some ratio `Λ ≥ 2` makes the band `(n, Λn]` carry `≫ n / log n` primes | `Erdos289.ComparableBand`, inhabited by `Erdos289.comparableBandFour` |
+| `Π` | some ratio `Λ ≥ 2` makes the band `(n, Λn]` carry `≫ n / log n` primes | `Erdos289.ComparableBand`; every `Λ ≥ 3` is one (`Erdos289.bandPrimes_card_isBigO`), the smallest witness being `Erdos289.comparableBandThree` |
 | `P` | Haxell's `2Δ`-thick chunk packing | `Erdos289.IndependentTransversal.hasChunkPacking_of_two_mul_maxDegree_le` |
 | `D` | Dias da Silva–Hamidoune restricted-fold image growth | `Erdos289.RestrictedFold.image_card_lower_bound` |
 
@@ -104,12 +104,19 @@ source sentence.
 
 ### Faithfulness of the statement
 
-Three propositions are kept apart and the implications between them are proved:
+Three propositions are kept apart, and the relations between them are proved:
 
 ```text
-SmallBlockSaturation  →  IntervalSaturation  →  ErdosProblem289
-  intervalSaturation_of_smallBlock   erdosProblem289_of_intervalSaturation
+SmallBlockSaturation  →  IntervalSaturation  ↔  ErdosProblem289
+  intervalSaturation_of_smallBlock    erdosProblem289_iff_intervalSaturation
 ```
+
+The second arrow is an equivalence, not an identification asserted in prose.
+Forwards, a component of a support is convex, hence an integer interval.
+Backwards, an integer interval is connected
+(`Erdos289.denominatorIcc_preconnected`), so a family of pairwise non-adjacent
+intervals has exactly as many components as members
+(`Erdos289.saturationWitness_of_intervalFamily`).
 
 * `Erdos289.ErdosProblem289` is the sentence of problem 289 itself, with
   positivity of every lower endpoint and with non-adjacency, written out
@@ -140,9 +147,12 @@ specialization, which the manuscript states as three elementary lemmas.
 * `CoreStage` is the finite core interface: one common grade, a complete torsor
   of residues under a subgroup `H ≤ ℚ/ℤ`, a strictly positive barrier slack
   `2 - sup W`, and a footprint.
-* `TailCovers` is the cofinal tail interface at one grade `h`: states beyond
-  that footprint, of grade exactly `h` and mass at most `ε`, whose residues
-  cover `G/H`.
+* `TailCovers` is the cofinal tail interface at one grade `h`: states
+  compatible with that footprint, of grade exactly `h` and mass at most `ε`,
+  realizing every target of `G` modulo `H`.  The bare interface assumes neither
+  `H ≤ G` nor that the realized residue lies in `G`; only along the filtration
+  chain, where the groups do increase, is this literally coverage of a
+  quotient.
 * `exists_saturationWitness_of_tailCovers` is *torsor induction* at the class
   `0` (manuscript §5): the tail is asked for `-τ`, its discrepancy lands in
   `H`, and the core state at that element of the torsor cancels it exactly.
@@ -237,48 +247,65 @@ stage is now proved, end to end.
   every sufficiently large prime current is a tail stage, provided the total
   demand of the selections and the packing is `o(Q / log Q)`.
 
-What is left is therefore three items, one heavy and two light.
+What is left is therefore three items, one heavy and two coupled.
 
-* **T1 (heavy), the proper prime powers.** At `Q = p ^ e` with `e ≥ 2` the
-  simple fibre is cyclic of order `p` and the row's atoms need not have
-  distinct classes, so Dias da Silva–Hamidoune is not the mechanism; the
-  manuscript uses the cyclic orbit
-  (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) instead.
-  Realizing `j · c` at a *prescribed* grade needs neutral atoms — grade one,
-  class zero — as padding, and exporting those is the open construction.  The
-  chain cannot skip a current: `lowerPrimePowerStage Q'` contains
+* **T1 (heavy), the proper prime powers.** The public target is
+  mechanism-independent, and it is the one the descent already consumes: the
+  physical row of a current satisfies `Erdos289.CoversAtGrade` throughout an
+  explicit grade range — equivalently, its intrinsic grade-fibre epimorphism
+  spectrum contains that range.  This is §9's local object `I(J)` of one simple
+  jump, and both the prime and the proper-prime-power arithmetic serve it; the
+  split between them is internal, and §10 records that it "is not an invariant
+  of the qualitative theorem".
+
+  At a prime current the target is proved
+  (`Erdos289.TransverseReservoir.restrictedFold_coversAtGrade_of_mem_Icc`,
+  reached through `Erdos289.SignedInverse.exists_tailStage_of_band`).  At
+  `Q = p ^ e` with `e ≥ 2` the simple fibre is cyclic of order `p`, the row's
+  atoms need not have distinct classes, and Dias da Silva–Hamidoune is not the
+  mechanism.
+
+  One weakest-looking mechanism is already proved:
+  `Erdos289.exists_multiplicities_of_two_simpleFibreClasses` says that a stock
+  of atoms carrying two *distinct* classes `c ≠ c'` realizes every class at
+  every grade `h ≥ p`, and exhibits the multiplicities `k₁ + k₂ = h`, `k₂ < p`.
+  Writing `d = c' - c ≠ 0`, the total class is `h·c + k₂·d` and `d` is
+  invertible.  Using it needs exactly this arithmetic input, stated with its
+  multiplicities rather than loosely: the pool at a proper prime power contains
+  two atoms of distinct classes `c ≠ c'` and, for the requested grade `h`, at
+  least `h` atoms of class `c` and at least `p - 1` of class `c'`.  The
+  alternative mechanism — the cyclic orbit
+  (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) with padding by
+  neutral atoms of grade one and class zero — would sit below the same
+  `CoversAtGrade` interface, and the choice between the two is not visible to
+  the descent.
+
+  The chain cannot skip a current: `lowerPrimePowerStage Q'` contains
   `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
   through *all* prime powers between the core exponent and the top.
+* **T2 and T3 are one coupled problem, and it is unresolved.** Each ingredient
+  is in place:
 
-  The combinatorial core of the cyclic mechanism is proved:
-  `Erdos289.exists_multiplicities_of_two_simpleFibreClasses` says that a row
-  carrying two *distinct* classes realizes every class at every grade at least
-  `p`, with the multiplicities exhibited.  Writing `d = c' - c ≠ 0`, the total
-  class of `k₁` atoms of class `c` and `k₂` of class `c'` is `h·c + k₂·d`, and
-  `d` is invertible; the least representative of the required `k₂` is below
-  `p ≤ h`, so `k₁ = h - k₂` is a count.  What is missing is the arithmetic
-  input that a row at a proper prime power does carry two distinct classes,
-  with enough atoms of each.
+  * grades — `Erdos289.GradeAggregation.exists_grades_of_mem_sum_Icc` for the
+    Minkowski step, `AffineCorrection.intervalSpectrum_cofinite_of_eventually`
+    for the eventual ray, and the per-current interval `[a, m - a]` of
+    `exists_tailStage_of_band`;
+  * loads — `Erdos289.exists_rank_of_cost_le`, which lowers a stage's load by
+    raising its truncation rank, and `Erdos289.sum_lt_of_le_geometric`, which
+    keeps a geometrically prescribed run of loads under the barrier slack;
+  * supply — `Erdos289.SignedInverse.eventually_demand_le_card_carrierPrimes`,
+    which meets any demand growing more slowly than `Q / log Q`.
 
-  The manuscript records the mechanism split as provider-internal (§10: the
-  prime/proper-prime-power split "is not an invariant of the qualitative
-  theorem"), and §9 states the uniform interface both mechanisms serve: the
-  grade-fibre epimorphism spectrum `I(J)` of one simple jump.  That interface
-  is `Erdos289.CoversAtGrade`, already formalized.
-* **T2.** Grades: a decomposition of every large `h` into per-stage grades
-  lying in each stage's interval.  The Minkowski step is
-  `Erdos289.GradeAggregation.exists_grades_of_mem_sum_Icc` and the eventual-ray
-  step is `AffineCorrection.intervalSpectrum_cofinite_of_eventually`; the
-  overlap estimate `A_{j+1} ≤ B_j + 1` is what has to be supplied.  With the
-  per-current interval `[a, m - a]` of `exists_tailStage_of_band` this is a
-  statement about how `a` and `m` may be chosen against each other, not a new
-  arithmetic input.
-* **T3.** Loads: `∑ᵢ costᵢ < s`.  No longer an obstruction.  The truncation
-  rank is a free parameter and the load falls with it
-  (`Erdos289.exists_rank_of_cost_le`), so the per-stage loads can be
-  *prescribed* geometrically, and `Erdos289.sum_lt_of_le_geometric` keeps any
-  finite run under the barrier slack.  What remains is to make the choice and
-  check it against the supply inequality.
+  What does not yet exist is a *simultaneous* schedule: a single choice of
+  `m(Q)`, `t(Q)`, `a(Q)` and `h(Q)`, over the currents the chain must use,
+  satisfying the grade-overlap estimate `A_{j+1} ≤ B_j + 1`, the load
+  summability, the supply inequality, and the restricted-fold endpoint
+  condition at once — while the chain runs through every prime power.  The
+  constraints pull against each other: raising the truncation rank lowers the
+  load but raises the demand, and raising the surviving size widens the grade
+  interval but raises the demand again.  Until such a schedule is proved, T2
+  and T3 are an open coupled asymptotic parameter-balancing problem.  There is
+  no presently known need for new external number theory in it.
 
 **T4, the endpoints — done.**  The bottom is
 `Erdos289.lowerPrimePowerStage_le_zmultiples_coreExponent`: taking the core
@@ -296,9 +323,12 @@ the core, is
   `Erdos289.ComparableBand` packages a ratio `Λ ≥ 2` together with
   `(fun n => n / log n) =O[atTop] (fun n => #(bandPrimes Λ n))`.  The ratio is
   existentially quantified, so no particular ratio enters the mathematics
-  downstream; `Erdos289.comparableBandFour` is the witness `Λ = 4` supplied by
-  `Erdos289.bandPrimes_four_card_isBigO`, which is where mathlib's Chebyshev
-  bounds already give a positive main term.
+  downstream.  `Erdos289.bandPrimes_card_isBigO` proves that *every* integer
+  ratio at least three is a comparable band: subtracting mathlib's two
+  Chebyshev estimates leaves the main term `(Λ - 2)(log 2) n`, positive exactly
+  from `Λ = 3` on.  `Erdos289.comparableBandThree` is the smallest witness this
+  mechanism supplies; whether a stronger route eventually reaches ratio two is
+  irrelevant, since the statement quantifies the ratio away.
 
   A note on style, binding for the rest: **an asymptotic statement is
   formalized as an asymptotic statement.**  It is not replaced by an inequality
@@ -321,14 +351,18 @@ the core, is
   * The deletion step:
     `Erdos289.SignedInverse.exists_multiplier_of_goodOrientations_eq_empty`
     exhibits a multiplier in `[1, Λ)`, and `card_badCarriers_le` bounds the
-    carriers lost by `8 (Λ - 1)` — two orientations times the four-point fibre
-    bound, per multiplier, uniformly in the current.
+    carriers lost by `4 (Λ - 1)`, uniformly in the current.  The two signed
+    targets of one multiplier do not double the four-point fibre bound, because
+    the two worst cases never coincide: where a square fibre has four points the
+    current is a power of two beyond the third, and there `-1` is not a square,
+    so only one of the two signed targets is hit
+    (`Erdos289.primePower_signedSquareFibre_card_le_four`).
   * Deduplication and truncation: `Erdos289.SignedInverse.exists_injOn_subset`,
     `sectionCoefficientFibre_card_le` (at most `2d` carriers share a
     coefficient, for any scale `d` with `Q² + 1 < (n+1)^{d+1}`),
     `card_upperCoefficient_ge`, and the assembly
     `Erdos289.SignedInverse.exists_rowCertificate`, which gives a row `R` with
-    pairwise distinct coefficients, `#A - 8(Λ-1) ≤ 2d · #R`, a truncation `T`
+    pairwise distinct coefficients, `#A - 4(Λ-1) ≤ 2d · #R`, a truncation `T`
     with `#R - t ≤ #T` at any rank `t`, and distinguished centres at least
     `Q·t - 1` — hence remoteness beyond any fixed footprint and a corresponding
     mass bound.  The band ratio `Λ`, the fibre scale `d` and the truncation
@@ -353,8 +387,7 @@ the core, is
 * **B6. Donor flow.** The running-balance inequality is
   `Erdos289.GradeAggregation.donor_flow_nonneg`; the injective matching it
   supports is not yet written.
-* **B7.** See T2.
-* **B8.** See T3.
+* **B7, B8.** See T2 and T3, which are one coupled problem.
 * **B10. Core-obstacle deletion.** *Done.*
   `Erdos289.SignedInverse.card_obstructed_le`: at most twice the obstacle's
   size many members of a row have an atom meeting the obstacle, whatever the

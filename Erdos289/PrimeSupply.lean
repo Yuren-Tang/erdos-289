@@ -67,34 +67,40 @@ theorem sum_log_bandPrimes_le (Λ n : ℕ) :
     _ = (bandPrimes Λ n).card * log (Λ * n) := by simp
 
 /--
-The Chebyshev bound at the witness ratio four, in raw form.  The `4` here is a
-witness: it is the ratio at which the available mathlib bounds already give a
-positive main term.  The statement used downstream is the parametric
-`Erdos289.ComparableBand`.
+The Chebyshev bound for the log mass of a band of ratio `Λ`, in raw form.
+
+Subtracting the two available mathlib estimates leaves the main term
+`(Λ · log 2 - log 4) n = (Λ - 2)(log 2) n`, so every integer ratio at least
+three already gives a positive main term.  The ratio is a parameter of the
+statement; `Erdos289.ComparableBand` quantifies it away.
 -/
-theorem bandPrimeSupply_explicit_four (n : ℕ) (hn : 0 < n) :
-    (((4 * n : ℕ) : ℝ) * log 2 - log ((4 * n + 1 : ℕ) : ℝ) -
-          2 * √((4 * n : ℕ) : ℝ) * log ((4 * n : ℕ) : ℝ) -
+theorem bandPrimeSupply_explicit {Λ : ℕ} (hΛ : 1 ≤ Λ) (n : ℕ) (hn : 1 < Λ * n) :
+    (((Λ * n : ℕ) : ℝ) * log 2 - log ((Λ * n + 1 : ℕ) : ℝ) -
+          2 * √((Λ * n : ℕ) : ℝ) * log ((Λ * n : ℕ) : ℝ) -
         log 4 * (n : ℝ)) /
-        log ((4 * n : ℕ) : ℝ) ≤
-      (bandPrimes 4 n).card := by
-  have hlog : 0 < log ((4 * n : ℕ) : ℝ) := by
+        log ((Λ * n : ℕ) : ℝ) ≤
+      (bandPrimes Λ n).card := by
+  have hlog : 0 < log ((Λ * n : ℕ) : ℝ) := by
     apply Real.log_pos
-    exact_mod_cast (show 1 < 4 * n by omega)
+    exact_mod_cast hn
   apply (div_le_iff₀ hlog).2
   calc
-    ((4 * n : ℕ) : ℝ) * log 2 - log ((4 * n + 1 : ℕ) : ℝ) -
-          2 * √((4 * n : ℕ) : ℝ) * log ((4 * n : ℕ) : ℝ) -
+    ((Λ * n : ℕ) : ℝ) * log 2 - log ((Λ * n + 1 : ℕ) : ℝ) -
+          2 * √((Λ * n : ℕ) : ℝ) * log ((Λ * n : ℕ) : ℝ) -
         log 4 * (n : ℝ)
-        ≤ Chebyshev.theta ((4 * n : ℕ) : ℝ) - Chebyshev.theta (n : ℝ) := by
-          simpa only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one] using
-            sub_le_sub (Chebyshev.theta_ge (4 * n))
-              (Chebyshev.theta_le_log4_mul_x (x := (n : ℝ)) (by positivity))
-    _ = ∑ p ∈ bandPrimes 4 n, log p := by
-      rw [sum_log_bandPrimes (by norm_num)]
-    _ ≤ (bandPrimes 4 n).card * log (4 * n) :=
-      sum_log_bandPrimes_le 4 n
-    _ = ((bandPrimes 4 n).card : ℝ) * log ((4 * n : ℕ) : ℝ) := by
-      norm_num
+        ≤ Chebyshev.theta ((Λ * n : ℕ) : ℝ) - Chebyshev.theta (n : ℝ) := by
+          have hge := Chebyshev.theta_ge (Λ * n)
+          have hle := Chebyshev.theta_le_log4_mul_x (x := (n : ℝ))
+            (Nat.cast_nonneg n)
+          have hcast : ((Λ * n + 1 : ℕ) : ℝ) = ((Λ * n : ℕ) : ℝ) + 1 := by push_cast; ring
+          rw [hcast]
+          linarith
+    _ = ∑ p ∈ bandPrimes Λ n, log p := by
+      rw [sum_log_bandPrimes hΛ]
+    _ ≤ (bandPrimes Λ n).card * log (Λ * n) :=
+      sum_log_bandPrimes_le Λ n
+    _ = ((bandPrimes Λ n).card : ℝ) * log ((Λ * n : ℕ) : ℝ) := by
+      push_cast
+      ring
 
 end Erdos289

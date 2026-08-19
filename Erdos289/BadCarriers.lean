@@ -16,15 +16,18 @@ public import Erdos289.LocalProfiles
 # Carriers of a band that admit no usable orientation
 
 A carrier of the comparable band fails to admit a usable orientation only if it
-solves a quadratic congruence modulo the current prime power.  On the band
-`(⌊(Q-1)/4⌋, 4⌊(Q-1)/4⌋]` one has `Q ≤ 4 b`, so the multiplier of that
-congruence is at most three; and the multiplier is prime to the current, because
-a common factor would divide `1`.
+solves a quadratic congruence modulo the current prime power.  On a band of
+ratio `Λ` one has `Q ≤ Λ b`, so the multiplier `ell` of that congruence
+satisfies `1 ≤ ell < Λ`; and it is prime to the current, because a common
+factor would divide `1`.
 
-Together with the uniform four-point bound for square fibres
-(`Erdos289.primePower_squareFibre_card_le_four`) this is the deletion step of
-the row certificate: the band supplies `≫ Q / log Q` carriers and only `O(1)`
-of them are lost.
+The finite set of signed targets is therefore
+`{± ell⁻¹ : 1 ≤ ell < Λ, p ∤ ell}`, and the bad carriers of one multiplier
+inject into the two signed square fibres of `ell⁻¹`.  Those two fibres never
+hold more than four roots between them
+(`Erdos289.primePower_signedSquareFibre_card_le_four`), so a band of ratio `Λ`
+loses at most `4 (Λ - 1)` carriers, independently of the current: the band
+supplies `≫ Q / log Q` carriers and only `O(1)` of them are lost.
 -/
 
 set_option autoImplicit false
@@ -150,90 +153,79 @@ theorem Carrier.unit_injOn {Q p : ℕ} [NeZero Q] :
 
 /--
 Only boundedly many carriers of a band admit no usable orientation, and the
-bound is forced by the band ratio alone: there are `Λ - 1` admissible
-multipliers, two signs, and at most four square roots of each resulting unit,
-hence at most `8 (Λ - 1)` bad carriers, independently of the current.
+bound comes from the band ratio alone: there are `Λ - 1` admissible
+multipliers, and the two signed square fibres of one multiplier hold at most
+four roots between them, so at most `4 (Λ - 1)` carriers are lost, whatever the
+current.
+
+The two worst cases of the square-fibre mechanism never occur together, which
+is why the two signs do not double the bound: see
+`Erdos289.primePower_signedSquareFibre_card_le_four`.
 -/
 theorem card_badCarriers_le
     {Λ Q p e : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ : Q = p ^ e) (hQ1 : 1 < Q)
     (A : Finset (Carrier Q p))
     (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ Q p (bandBase Λ Q))
     (hbad : ∀ x ∈ A, (x.pair hQ1).goodOrientations p = ∅) :
-    A.card ≤ 8 * (Λ - 1) := by
+    A.card ≤ 4 * (Λ - 1) := by
   classical
   subst hQ
   have : NeZero (p ^ e) := ⟨by omega⟩
   have hpQ : p ∣ p ^ e := dvd_pow_self p (by rintro rfl; simp at hQ1)
-  set f : Carrier (p ^ e) p → (ZMod (p ^ e))ˣ := fun x => x.unit ^ 2 with hf
-  have hfib : ∀ y ∈ A.image f, (A.filter fun x => f x = y).card ≤ 4 := by
-    intro y _
-    refine le_trans (Finset.card_le_card_of_injOn Carrier.unit ?_ ?_)
-      (primePower_squareFibre_card_le_four hp y)
-    · intro x hx
-      simp only [Finset.coe_filter, Set.mem_ofPred_eq] at hx
-      exact Finset.mem_filter.mpr ⟨Finset.mem_univ _, hx.2⟩
-    · intro a _ b _ hab
-      exact Carrier.unit_injOn hab
-  have himg : (A.image f).card ≤ 2 * (Λ - 1) := by
-    set T : Finset (ZMod (p ^ e)) :=
-      ((Finset.Ico 1 Λ).image fun l : ℕ => ((l : ZMod (p ^ e))⁻¹)) ∪
-        ((Finset.Ico 1 Λ).image fun l : ℕ => -((l : ZMod (p ^ e))⁻¹)) with hT
-    have hIco : (Finset.Ico 1 Λ).card = Λ - 1 := by
-      rw [Nat.card_Ico]
-    have hTcard : T.card ≤ 2 * (Λ - 1) := by
-      refine le_trans (Finset.card_union_le _ _) ?_
-      have h1 : ((Finset.Ico 1 Λ).image
-          fun l : ℕ => ((l : ZMod (p ^ e))⁻¹)).card ≤ Λ - 1 :=
-        le_trans Finset.card_image_le (le_of_eq hIco)
-      have h2 : ((Finset.Ico 1 Λ).image
-          fun l : ℕ => -((l : ZMod (p ^ e))⁻¹)).card ≤ Λ - 1 :=
-        le_trans Finset.card_image_le (le_of_eq hIco)
-      omega
-    have hsub : (A.image f).image (Units.val) ⊆ T := by
-      intro z hz
-      rcases Finset.mem_image.mp hz with ⟨y, hy, rfl⟩
-      rcases Finset.mem_image.mp hy with ⟨x, hx, rfl⟩
-      obtain ⟨ell, hell1, hellΛ, hpell, hsq⟩ :=
-        exists_multiplier_of_goodOrientations_eq_empty hΛ hp hpQ hQ1 x
-          (hband x hx) (hbad x hx)
-      have hcop : Nat.Coprime ell (p ^ e) :=
-        Nat.Coprime.pow_right _ ((Nat.Prime.coprime_iff_not_dvd hp).2 hpell).symm
-      have hunit : IsUnit ((ell : ℕ) : ZMod (p ^ e)) :=
-        (ZMod.isUnit_iff_coprime ell (p ^ e)).2 hcop
-      have hinv : ((ell : ℕ) : ZMod (p ^ e))⁻¹ * ((ell : ℕ) : ZMod (p ^ e)) = 1 :=
-        ZMod.inv_mul_of_unit _ hunit
-      have hmem3 : ell ∈ Finset.Ico 1 Λ := Finset.mem_Ico.mpr ⟨hell1, hellΛ⟩
-      have hval : ((x.unit ^ 2 : (ZMod (p ^ e))ˣ) : ZMod (p ^ e))
-          = (x.b : ZMod (p ^ e)) ^ 2 := by
-        rw [Units.val_pow_eq_pow_val, Carrier.unit_val]
-      rw [hT, Finset.mem_union]
-      rcases hsq with hsq | hsq
-      · left
-        refine Finset.mem_image.mpr ⟨ell, hmem3, ?_⟩
-        rw [hval]
-        calc ((ell : ℕ) : ZMod (p ^ e))⁻¹
-            = ((ell : ℕ) : ZMod (p ^ e))⁻¹ *
-                (((ell : ℕ) : ZMod (p ^ e)) * (x.b : ZMod (p ^ e)) ^ 2) := by
-              rw [hsq, mul_one]
-          _ = (x.b : ZMod (p ^ e)) ^ 2 := by rw [← mul_assoc, hinv, one_mul]
-      · right
-        refine Finset.mem_image.mpr ⟨ell, hmem3, ?_⟩
-        rw [hval]
-        calc -((ell : ℕ) : ZMod (p ^ e))⁻¹
-            = ((ell : ℕ) : ZMod (p ^ e))⁻¹ *
-                (((ell : ℕ) : ZMod (p ^ e)) * (x.b : ZMod (p ^ e)) ^ 2) := by
-              rw [hsq]
-              ring
-          _ = (x.b : ZMod (p ^ e)) ^ 2 := by rw [← mul_assoc, hinv, one_mul]
-    calc (A.image f).card
-        = ((A.image f).image (Units.val)).card :=
-          (Finset.card_image_of_injective _ Units.val_injective).symm
-      _ ≤ T.card := Finset.card_le_card hsub
-      _ ≤ 2 * (Λ - 1) := hTcard
-  calc A.card ≤ (A.image f).card * 4 :=
-        Erdos289.Finset.card_le_card_image_mul_of_fibre_bound A f 4 hfib
-    _ ≤ (2 * (Λ - 1)) * 4 := Nat.mul_le_mul_right _ himg
-    _ = 8 * (Λ - 1) := by ring
+  -- the bad carriers attached to one multiplier
+  set slice : ℕ → Finset (Carrier (p ^ e) p) := fun l =>
+    A.filter fun x =>
+      ((l : ℕ) : ZMod (p ^ e)) * (x.b : ZMod (p ^ e)) ^ 2 = 1 ∨
+        ((l : ℕ) : ZMod (p ^ e)) * (x.b : ZMod (p ^ e)) ^ 2 = -1 with hslice
+  have hcover : A ⊆ (Finset.Ico 1 Λ).biUnion slice := by
+    intro x hx
+    obtain ⟨ell, hell1, hellΛ, -, hsq⟩ :=
+      exists_multiplier_of_goodOrientations_eq_empty hΛ hp hpQ hQ1 x
+        (hband x hx) (hbad x hx)
+    exact Finset.mem_biUnion.2 ⟨ell, Finset.mem_Ico.2 ⟨hell1, hellΛ⟩,
+      Finset.mem_filter.2 ⟨hx, hsq⟩⟩
+  have hsliceLe : ∀ l : ℕ, (slice l).card ≤ 4 := by
+    intro l
+    rcases Finset.eq_empty_or_nonempty (slice l) with hempty | ⟨x₀, hx₀⟩
+    · simp [hempty]
+    · have hx₀eq := (Finset.mem_filter.1 hx₀).2
+      have hunit : IsUnit ((l : ℕ) : ZMod (p ^ e)) := by
+        rcases hx₀eq with h | h
+        · exact isUnit_iff_exists_inv.2 ⟨_, h⟩
+        · refine isUnit_iff_exists_inv.2 ⟨-((x₀.b : ZMod (p ^ e)) ^ 2), ?_⟩
+          rw [mul_neg, h, neg_neg]
+      set u : (ZMod (p ^ e))ˣ := hunit.unit with hu
+      have huval : (u : ZMod (p ^ e)) = ((l : ℕ) : ZMod (p ^ e)) := hunit.unit_spec
+      set target : Finset (ZMod (p ^ e))ˣ :=
+        (Finset.univ.filter fun z : (ZMod (p ^ e))ˣ => z ^ 2 = u⁻¹) ∪
+          (Finset.univ.filter fun z : (ZMod (p ^ e))ˣ => z ^ 2 = -u⁻¹) with htarget
+      refine le_trans (Finset.card_le_card_of_injOn Carrier.unit (t := target) ?_
+        (fun a _ b _ h => Carrier.unit_injOn h)) ?_
+      · intro x hx
+        have hxeq := (Finset.mem_filter.1 hx).2
+        have hval : ((x.unit ^ 2 * u : (ZMod (p ^ e))ˣ) : ZMod (p ^ e))
+            = ((l : ℕ) : ZMod (p ^ e)) * (x.b : ZMod (p ^ e)) ^ 2 := by
+          rw [Units.val_mul, Units.val_pow_eq_pow_val, Carrier.unit_val, huval]
+          ring
+        rw [htarget]
+        rcases hxeq with h | h
+        · refine Finset.mem_union_left _ (Finset.mem_filter.2 ⟨Finset.mem_univ _, ?_⟩)
+          refine eq_inv_of_mul_eq_one_left ?_
+          exact Units.ext (by rw [hval, h]; rfl)
+        · refine Finset.mem_union_right _ (Finset.mem_filter.2 ⟨Finset.mem_univ _, ?_⟩)
+          have hmul : x.unit ^ 2 * u = -1 := Units.ext (by rw [hval, h]; rfl)
+          have hcancel : x.unit ^ 2 = (x.unit ^ 2 * u) * u⁻¹ := by
+            rw [mul_assoc, mul_inv_cancel, mul_one]
+          rw [hcancel, hmul, neg_one_mul]
+      · rw [htarget]
+        exact le_trans (Finset.card_union_le _ _)
+          (primePower_signedSquareFibre_card_le_four hp u⁻¹)
+  calc A.card ≤ ((Finset.Ico 1 Λ).biUnion slice).card := Finset.card_le_card hcover
+    _ ≤ ∑ l ∈ Finset.Ico 1 Λ, (slice l).card := Finset.card_biUnion_le
+    _ ≤ ∑ _l ∈ Finset.Ico 1 Λ, 4 := Finset.sum_le_sum fun l _ => hsliceLe l
+    _ = 4 * (Λ - 1) := by
+        rw [Finset.sum_const, Nat.card_Ico, smul_eq_mul]
+        ring
 
 /-- The carriers of a band that admit a usable orientation. -/
 noncomputable def goodCarriers {Q p : ℕ} (hQ1 : 1 < Q) (A : Finset (Carrier Q p)) :
@@ -243,20 +235,20 @@ noncomputable def goodCarriers {Q p : ℕ} (hQ1 : 1 < Q) (A : Finset (Carrier Q 
 
 /--
 Assembly of the deletion step: a family of band carriers loses at most
-`8 (Λ - 1)` members to downwardness exceptions, where `Λ` is the band ratio.
+`4 (Λ - 1)` members to downwardness exceptions, where `Λ` is the band ratio.
 -/
 theorem card_goodCarriers_ge
     {Λ Q p e : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ : Q = p ^ e) (hQ1 : 1 < Q)
     (A : Finset (Carrier Q p))
     (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ Q p (bandBase Λ Q)) :
-    A.card - 8 * (Λ - 1) ≤ (goodCarriers hQ1 A).card := by
+    A.card - 4 * (Λ - 1) ≤ (goodCarriers hQ1 A).card := by
   classical
   subst hQ
   set P : Carrier (p ^ e) p → Prop :=
     fun x => ((x.pair hQ1).goodOrientations p).Nonempty with hPdef
   have hsplit : (A.filter P).card + (A.filter fun x => ¬ P x).card = A.card :=
     Finset.card_filter_add_card_filter_not _
-  have hbadle : (A.filter fun x => ¬ P x).card ≤ 8 * (Λ - 1) := by
+  have hbadle : (A.filter fun x => ¬ P x).card ≤ 4 * (Λ - 1) := by
     refine card_badCarriers_le hΛ hp rfl hQ1 _
       (fun x hx => hband x (Finset.mem_filter.mp hx).1) (fun x hx => ?_)
     have := (Finset.mem_filter.mp hx).2

@@ -89,16 +89,9 @@ theorem card_carrierFamily {Λ Q p e n : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) :
   intro a _ b _ hab
   exact Subtype.ext (congrArg Carrier.b hab)
 
-/--
-The coefficient-fibre scale can be taken to be the absolute constant two.
-
-The scale inequality of the row certificate is `Q² + 1 < (n+1)^(d+1)` for the
-band base `n`.  Since the base is a fixed fraction of the current, the cube of
-the base already beats the square of the current once the current exceeds
-`2 Λ³`; so `d = 2` serves every large current, and the fibre scale never has to
-grow with the current.
--/
-theorem scale_two_of_lt {Λ Q : ℕ} (hΛ : 0 < Λ) (hQ : 2 * Λ ^ 3 < Q) :
+/-- A sufficient finite threshold for the scale inequality.  The threshold is a
+proof witness; the public statement is `Erdos289.SignedInverse.eventually_scale_two`. -/
+private theorem scale_two_of_lt {Λ Q : ℕ} (hΛ : 0 < Λ) (hQ : 2 * Λ ^ 3 < Q) :
     Q ^ 2 + 1 < (bandBase Λ Q + 1) ^ (2 + 1) := by
   have h1 : Q ≤ Λ * (bandBase Λ Q + 1) := by
     have := le_ratio_mul_bandBase_add (Λ := Λ) (Q := Q) hΛ
@@ -115,7 +108,16 @@ theorem scale_two_of_lt {Λ Q : ℕ} (hΛ : 0 < Λ) (hQ : 2 * Λ ^ 3 < Q) :
   have : Λ ^ 3 * (Q ^ 2 + 1) < Λ ^ 3 * (bandBase Λ Q + 1) ^ 3 := lt_of_lt_of_le h3 h2
   simpa using Nat.lt_of_mul_lt_mul_left this
 
-/-- The scale two serves every sufficiently large current. -/
+/--
+The coefficient-fibre scale can be taken to be the absolute constant two.
+
+The scale inequality of the row certificate is `Q² + 1 < (n+1)^(d+1)` for the
+band base `n`.  Since the base is a fixed fraction of the current, the cube of
+the base already beats the square of the current for every large current, so
+`d = 2` serves them all and the fibre scale never has to grow with the current.
+Two is the least fixed exponent for which this is possible: a quadratic band
+term cannot dominate `Q²`.
+-/
 theorem eventually_scale_two {Λ : ℕ} (hΛ : 0 < Λ) :
     ∀ᶠ Q : ℕ in atTop, Q ^ 2 + 1 < (bandBase Λ Q + 1) ^ (2 + 1) := by
   filter_upwards [eventually_gt_atTop (2 * Λ ^ 3)] with Q hQ

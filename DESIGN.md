@@ -53,13 +53,13 @@ The current core has the following audited correspondence.
 | same-grade mobility fibre | binary faces and ternary endpoint extensions of one remote presentation | `SameGradeDeformation`, `RationalPresentation.endpointDeformation` |
 | light mobility from reciprocal fibres | positive-excess blockification plus the exact finite neutral grade tower | `PositiveExcessBlockification`, `NeutralGradePoint`, `arbitrarilyLightMobility_of_refinement_neutral` |
 | neutral grade-one deformation | nonempty `(ΔW,Δg)=(0,1)` fibre at arbitrarily small load | `NeutralGradeOnePoint`, `RemoteLightNeutralGradeOne`, realized by `remoteLightNeutralGradeOne` |
-| comparable prime band | a ratio `Λ ≥ 2` whose band `(n, Λn]` carries `≫ n / log n` primes | `ComparableBand`, witnessed at `Λ = 4` by `comparableBandFour` |
+| comparable prime band | a ratio `Λ ≥ 2` whose band `(n, Λn]` carries `≫ n / log n` primes | `ComparableBand`; every `Λ ≥ 3` is one (`bandPrimes_card_isBigO`), witnessed at `Λ = 3` by `comparableBandThree` |
 | cofinal union of touching grade intervals | principal final ideal | `intervalSpectrum_cofinite`, `cofiniteSaturation_of_interval_witnesses` |
 | epi-grade interval of a prime row | concavity of `h ↦ h (m - h)` on the symmetric range | `mul_sub_le_mul_sub_of_between`, `TransverseReservoir.restrictedFold_coversAtGrade_Icc` |
 | coefficient fibre of a carrier band | roots of a quadratic congruence in `(ZMod (p^e))ˣ` | `primePower_squareFibre_card_le_four`, `SignedInverse.sectionCoefficientFibre_card_le` |
 | row certificate of a prime-power current | deletion, deduplication and rank truncation of the band | `SignedInverse.exists_rowCertificate` |
 | finite homogeneous affine prefix | complete torsor of a finite cyclic residue group at one grade | `CoreStage`, `exists_coreStage` |
-| cofinal defect-controlled correction system | residue cover of `G/H` at one grade beyond a footprint | `TailCovers` |
+| cofinal defect-controlled correction system | relative residue realization: every target of `G` matched modulo `H`, at one grade, compatibly with a footprint | `TailCovers` |
 | torsor induction | cancellation of the tail discrepancy inside the core torsor | `exists_saturationWitness_of_tailCovers` |
 | eventual torsor trivialization | finite additive order of a centered residue | `exists_mem_lowerPrimePowerStage` |
 | compatibility of two physical states | avoidance of a footprint together with its separation neighbourhood | `constraintAvoiding`, `crossSeparated_of_avoids_avoiding`, `saturationWitness_of_pair` |
@@ -88,11 +88,33 @@ a *witness*: it may occur inside a proof, or as a clearly labelled corollary,
 but it must not replace the parametric theorem in the public API, in the
 documentation, or in the dependency architecture.
 
-The operative test: replacing a witness such as the band ratio `4`, the core
-slack `1/2`, the truncation fraction, or a coarse placement threshold by
-another valid witness must require changing only the proof or the definition
-that constructs the corresponding abstract datum — never a downstream
-mathematical statement.
+The operative test: replacing a witness such as the band ratio, the core slack,
+the truncation rank, or a coarse placement threshold by another valid witness
+must require changing only the proof or the definition that constructs the
+corresponding abstract datum — never a downstream mathematical statement.
+
+Where a constant does remain public, it is because the theorem needs a
+numerical structural bound, and then the bound proved is the strongest natural
+one rather than the first sufficient one.  The constants that are public on
+those grounds, and the mechanism each comes from:
+
+| constant | statement | mechanism |
+| --- | --- | --- |
+| `4` | `primePower_squareFibre_card_le_four` | the square fibre of a unit is a coset of the two-torsion kernel; four is attained at `2 ^ e`, `e ≥ 3` |
+| `2` | `oddPrimePower_squareFibre_card_le_two` | at an odd prime power the unit group is cyclic, so its two-torsion is `{±1}` |
+| `4` | `primePower_signedSquareFibre_card_le_four` | the two worst cases never coincide: where a fibre has four points, `-1` is not a square, so only one signed target is hit |
+| `4 (Λ - 1)` | `card_badCarriers_le` | `Λ - 1` admissible multipliers, four roots across the two signed targets of each |
+| `2` | `card_obstructed_le` | an obstacle point lies in at most two binary blocks of a row with distinct starts |
+| `2` | `binaryBlockMass_lt_two_div` | `1/n + 1/(n+1) < 2/n`, asymptotically an equality |
+| `2 w` | the punctured-window conflict bound | a window of radius `w` on the path has `2 w` other points |
+| `(0, 2)` | the selector interval | the two lifts of the target `1 mod ℤ` adjacent to it |
+| `2` | `eventually_scale_two` | the least fixed exponent scale for which a band-base power dominates `Q ²` |
+| `{2, 3}` | `smallBlockSizes` | the block lengths the construction uses; `nontrivialBlockSizes` is the problem's own class |
+| `+1` | the Dias da Silva–Hamidoune growth | the theorem's own constant |
+| `p - 1` | the cyclic ladder | the order of the unit group of `ZMod p` |
+
+These are mechanisms, not parameter choices, and they are documented as such at
+their declarations.
 
 Likewise an asymptotic statement is formalized as an asymptotic statement, and
 is never replaced by an inequality valid beyond a hand-picked threshold.

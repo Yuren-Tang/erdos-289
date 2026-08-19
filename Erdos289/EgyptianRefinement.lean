@@ -219,7 +219,7 @@ def positiveDenominator (n : ℕ) (hn : 0 < n) : Denominator := ⟨n, hn⟩
 
 /-- A sufficiently small positive rational has a separated Egyptian tail beyond
 any prescribed cutoff.  The induction measure is the unreduced numerator. -/
-theorem exists_greedySeparatedTail
+private theorem exists_greedySeparatedTail
     (u v K margin : ℕ) (hu : 0 < u) (hv : 0 < v)
     (hK : margin + 2 < K)
     (hsmall : (u : ℚ) / (v : ℚ) ≤ 1 / (K : ℚ)) :

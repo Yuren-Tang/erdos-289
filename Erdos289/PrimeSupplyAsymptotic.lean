@@ -19,9 +19,11 @@ the band `(n, Λ n]` carries at least of the order of `n / log n` primes.  That
 existential statement is `Erdos289.ComparableBand`, and it is what the row
 mathematics uses.
 
-A particular ratio is a *witness*, not the definition.  `comparableBandFour`
-is the witness supplied by mathlib's Chebyshev bounds, which already have a
-positive main term at ratio four.
+A particular ratio is a *witness*, not the definition.
+`Erdos289.bandPrimes_card_isBigO` proves that every integer ratio at least
+three is one, and `Erdos289.comparableBandThree` is the smallest witness this
+mechanism supplies: subtracting mathlib's two Chebyshev estimates leaves the
+main term `(Λ - 2)(log 2) n`.
 
 The statement is asymptotic because the mathematics is asymptotic; it is not
 replaced by an inequality valid beyond a hand-chosen numerical threshold.  The
@@ -47,39 +49,45 @@ private theorem log_isLittleO_sqrt : Real.log =o[atTop] Real.sqrt := by
 /-! ### The comparable band carries linearly many log-weights -/
 
 /--
-The error term of the Chebyshev lower bound for the theta increment over the
-band `(x, 4x]` is `o(x)`.
+The error term of the Chebyshev lower bound for the theta increment over a
+band of ratio `Λ` is `o(x)`.
 -/
-private theorem chebyshev_error_isLittleO :
-    (fun x : ℝ => Real.log (4 * x + 1) + 2 * √(4 * x) * Real.log (4 * x)) =o[atTop]
+private theorem chebyshev_error_isLittleO {Λ : ℕ} (hΛ : 1 ≤ Λ) :
+    (fun x : ℝ => Real.log ((Λ : ℝ) * x + 1)
+        + 2 * √((Λ : ℝ) * x) * Real.log ((Λ : ℝ) * x)) =o[atTop]
       fun x : ℝ => x := by
-  have h4 : Tendsto (fun x : ℝ => 4 * x) atTop atTop :=
-    Filter.tendsto_id.const_mul_atTop (by norm_num : (0 : ℝ) < 4)
-  have h4' : Tendsto (fun x : ℝ => 4 * x + 1) atTop atTop := h4.atTop_add tendsto_const_nhds
-  -- `log (4x + 1) = o(x)`
-  have hlog : (fun x : ℝ => Real.log (4 * x + 1)) =o[atTop] fun x : ℝ => x := by
-    refine (Real.isLittleO_log_id_atTop.comp_tendsto h4').trans_isBigO ?_
-    refine IsBigO.of_bound 5 ?_
+  have hΛR : (1 : ℝ) ≤ (Λ : ℝ) := by exact_mod_cast hΛ
+  have hΛpos : (0 : ℝ) < (Λ : ℝ) := by linarith
+  have hmul : Tendsto (fun x : ℝ => (Λ : ℝ) * x) atTop atTop :=
+    Filter.tendsto_id.const_mul_atTop hΛpos
+  have hmul' : Tendsto (fun x : ℝ => (Λ : ℝ) * x + 1) atTop atTop :=
+    hmul.atTop_add tendsto_const_nhds
+  have hsq : ∀ x : ℝ, 0 ≤ x → √((Λ : ℝ) * x) = √(Λ : ℝ) * √x := fun x hx =>
+    Real.sqrt_mul hΛpos.le x
+  have hsqrtΛ : (1 : ℝ) ≤ √(Λ : ℝ) := by
+    rw [show (1 : ℝ) = √1 by simp]
+    exact Real.sqrt_le_sqrt hΛR
+  -- `log (Λ x + 1) = o(x)`
+  have hlog : (fun x : ℝ => Real.log ((Λ : ℝ) * x + 1)) =o[atTop] fun x : ℝ => x := by
+    refine (Real.isLittleO_log_id_atTop.comp_tendsto hmul').trans_isBigO ?_
+    refine IsBigO.of_bound ((Λ : ℝ) + 1) ?_
     filter_upwards [eventually_ge_atTop (1 : ℝ)] with x hx
     simp only [Function.comp_apply, id_eq]
-    rw [Real.norm_of_nonneg (by linarith), Real.norm_of_nonneg (by linarith)]
-    linarith
-  -- `√(4x) log (4x) = o(x)`
+    rw [Real.norm_of_nonneg (by nlinarith), Real.norm_of_nonneg (by linarith)]
+    nlinarith
+  -- `√(Λ x) log (Λ x) = o(x)`
   have hsqrtlog :
-      (fun x : ℝ => 2 * √(4 * x) * Real.log (4 * x)) =o[atTop] fun x : ℝ => x := by
-    have hsq : ∀ x : ℝ, 0 ≤ x → √(4 * x) = 2 * √x := by
-      intro x hx
-      rw [show (4 : ℝ) * x = 2 ^ 2 * x by norm_num, Real.sqrt_mul (by positivity),
-        Real.sqrt_sq (by norm_num)]
-    have hA : (fun x : ℝ => 2 * √(4 * x)) =O[atTop] Real.sqrt := by
-      refine IsBigO.of_bound 4 ?_
+      (fun x : ℝ => 2 * √((Λ : ℝ) * x) * Real.log ((Λ : ℝ) * x)) =o[atTop]
+        fun x : ℝ => x := by
+    have hA : (fun x : ℝ => 2 * √((Λ : ℝ) * x)) =O[atTop] Real.sqrt := by
+      refine IsBigO.of_bound (2 * √(Λ : ℝ)) ?_
       filter_upwards [eventually_ge_atTop (0 : ℝ)] with x hx
       rw [hsq x hx, Real.norm_of_nonneg (by positivity),
         Real.norm_of_nonneg (Real.sqrt_nonneg x)]
-      linarith [Real.sqrt_nonneg x]
-    have hB : (fun x : ℝ => Real.log (4 * x)) =o[atTop] Real.sqrt := by
-      refine (log_isLittleO_sqrt.comp_tendsto h4).trans_isBigO ?_
-      refine IsBigO.of_bound 2 ?_
+      nlinarith [Real.sqrt_nonneg x, Real.sqrt_nonneg (Λ : ℝ)]
+    have hB : (fun x : ℝ => Real.log ((Λ : ℝ) * x)) =o[atTop] Real.sqrt := by
+      refine (log_isLittleO_sqrt.comp_tendsto hmul).trans_isBigO ?_
+      refine IsBigO.of_bound (√(Λ : ℝ)) ?_
       filter_upwards [eventually_ge_atTop (0 : ℝ)] with x hx
       simp only [Function.comp_apply]
       rw [hsq x hx, Real.norm_of_nonneg (by positivity),
@@ -103,71 +111,86 @@ structure ComparableBand where
     (fun n : ℕ => (n : ℝ) / Real.log n) =O[atTop]
       fun n : ℕ => ((bandPrimes ratio n).card : ℝ)
 
-/-- The witness computation behind `comparableBandFour`.  The ratio four is a
-witness for `Erdos289.ComparableBand`, not part of its statement. -/
-theorem bandPrimes_four_card_isBigO :
+/--
+Every integer ratio at least three is a comparable band.
+
+Three is the smallest ratio this mechanism reaches: subtracting the two
+mathlib estimates leaves the main term `(Λ - 2)(log 2) n`, which is positive
+exactly from `Λ = 3` on.  Whether a stronger route eventually reaches ratio two
+is irrelevant to the statement, which quantifies the ratio away.
+-/
+theorem bandPrimes_card_isBigO {Λ : ℕ} (hΛ : 3 ≤ Λ) :
     (fun n : ℕ => (n : ℝ) / Real.log n) =O[atTop]
-      fun n : ℕ => ((bandPrimes 4 n).card : ℝ) := by
+      fun n : ℕ => ((bandPrimes Λ n).card : ℝ) := by
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hΛR : (3 : ℝ) ≤ (Λ : ℝ) := by exact_mod_cast hΛ
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
   -- the error term, transported to `ℕ`
-  have herr := chebyshev_error_isLittleO.comp_tendsto
+  have herr := (chebyshev_error_isLittleO (Λ := Λ) (by omega)).comp_tendsto
     (tendsto_natCast_atTop_atTop (R := ℝ))
   have hsmall : ∀ᶠ n : ℕ in atTop,
-      Real.log (4 * (n : ℝ) + 1) + 2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ)) ≤
-        Real.log 2 * (n : ℝ) := by
-    filter_upwards [herr.def hlog2, eventually_ge_atTop 1] with n hn hn1
+      Real.log ((Λ : ℝ) * (n : ℝ) + 1)
+          + 2 * √((Λ : ℝ) * (n : ℝ)) * Real.log ((Λ : ℝ) * (n : ℝ))
+        ≤ (Real.log 2 / 2) * (n : ℝ) := by
+    filter_upwards [herr.def (by positivity : (0 : ℝ) < Real.log 2 / 2)] with n hn
     have hn0 : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg n
     calc
-      Real.log (4 * (n : ℝ) + 1) + 2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ))
-          ≤ ‖Real.log (4 * (n : ℝ) + 1) + 2 * √(4 * (n : ℝ)) * Real.log (4 * (n : ℝ))‖ :=
+      Real.log ((Λ : ℝ) * (n : ℝ) + 1)
+            + 2 * √((Λ : ℝ) * (n : ℝ)) * Real.log ((Λ : ℝ) * (n : ℝ))
+          ≤ ‖Real.log ((Λ : ℝ) * (n : ℝ) + 1)
+              + 2 * √((Λ : ℝ) * (n : ℝ)) * Real.log ((Λ : ℝ) * (n : ℝ))‖ :=
         le_abs_self _
-      _ ≤ Real.log 2 * ‖(n : ℝ)‖ := hn
-      _ = Real.log 2 * (n : ℝ) := by rw [Real.norm_of_nonneg hn0]
-  refine IsBigO.of_bound (2 / Real.log 2) ?_
-  filter_upwards [hsmall, eventually_ge_atTop 4] with n hn hn4
+      _ ≤ (Real.log 2 / 2) * ‖(n : ℝ)‖ := hn
+      _ = (Real.log 2 / 2) * (n : ℝ) := by rw [Real.norm_of_nonneg hn0]
+  refine IsBigO.of_bound (4 / Real.log 2) ?_
+  filter_upwards [hsmall, eventually_ge_atTop (max Λ 2)] with n hn hnbig
+  have hnΛ : Λ ≤ n := le_trans (le_max_left _ _) hnbig
+  have hn2 : 2 ≤ n := le_trans (le_max_right _ _) hnbig
   have hn0 : (0 : ℝ) < (n : ℝ) := by
     have : (0 : ℕ) < n := by omega
     exact_mod_cast this
-  have hn4' : (4 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn4
+  have hn2' : (2 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn2
+  have hnΛ' : (Λ : ℝ) ≤ (n : ℝ) := by exact_mod_cast hnΛ
   have hlogn : 0 < Real.log (n : ℝ) := Real.log_pos (by linarith)
-  have hcast : ((4 * n : ℕ) : ℝ) = 4 * (n : ℝ) := by push_cast; ring
+  have hcast : ((Λ * n : ℕ) : ℝ) = (Λ : ℝ) * (n : ℝ) := by push_cast; ring
   -- lower bound for the log mass of the band
-  have hband : Real.log 2 * (n : ℝ) ≤ ∑ p ∈ bandPrimes 4 n, Real.log p := by
-    have hge := Chebyshev.theta_ge (4 * n)
+  have hband : (Real.log 2 / 2) * (n : ℝ) ≤ ∑ p ∈ bandPrimes Λ n, Real.log p := by
+    have hge := Chebyshev.theta_ge (Λ * n)
     have hle := Chebyshev.theta_le_log4_mul_x (x := (n : ℝ)) hn0.le
-    have hlog4 : Real.log 4 = 2 * Real.log 2 := by
-      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
-    rw [sum_log_bandPrimes (by norm_num)]
-    rw [hcast] at hge ⊢
-    rw [hlog4] at hle
-    linarith [hn]
+    rw [hcast] at hge
+    have hmain : Real.log 2 * (n : ℝ)
+        ≤ (Λ : ℝ) * (n : ℝ) * Real.log 2 - Real.log 4 * (n : ℝ) := by
+      rw [hlog4]
+      have hkey : 0 ≤ ((Λ : ℝ) - 3) * ((n : ℝ) * Real.log 2) :=
+        mul_nonneg (by linarith) (by positivity)
+      nlinarith [hkey]
+    rw [sum_log_bandPrimes (by omega : 1 ≤ Λ), hcast]
+    linarith
   -- upper bound for the same mass
-  have hupper : ∑ p ∈ bandPrimes 4 n, Real.log p ≤
-      (bandPrimes 4 n).card * (2 * Real.log (n : ℝ)) := by
-    refine le_trans (sum_log_bandPrimes_le 4 n) ?_
-    have hle : Real.log (4 * (n : ℝ)) ≤ 2 * Real.log (n : ℝ) := by
-      rw [Real.log_mul (by norm_num) (ne_of_gt hn0)]
-      have : Real.log 4 ≤ Real.log (n : ℝ) := Real.log_le_log (by norm_num) hn4'
+  have hupper : ∑ p ∈ bandPrimes Λ n, Real.log p ≤
+      (bandPrimes Λ n).card * (2 * Real.log (n : ℝ)) := by
+    refine le_trans (sum_log_bandPrimes_le Λ n) ?_
+    have hΛ0 : (0 : ℝ) < (Λ : ℝ) := by linarith
+    have hle : Real.log ((Λ : ℝ) * (n : ℝ)) ≤ 2 * Real.log (n : ℝ) := by
+      rw [Real.log_mul (ne_of_gt hΛ0) (ne_of_gt hn0)]
+      have : Real.log (Λ : ℝ) ≤ Real.log (n : ℝ) := Real.log_le_log hΛ0 hnΛ'
       linarith
-    have hcard : (0 : ℝ) ≤ ((bandPrimes 4 n).card : ℝ) := Nat.cast_nonneg _
-    calc
-      ((bandPrimes 4 n).card : ℝ) * Real.log (4 * (n : ℝ))
-          ≤ ((bandPrimes 4 n).card : ℝ) * (2 * Real.log (n : ℝ)) := by
-        exact mul_le_mul_of_nonneg_left hle hcard
-      _ = _ := rfl
-  have hcard0 : (0 : ℝ) ≤ ((bandPrimes 4 n).card : ℝ) := Nat.cast_nonneg _
+    exact mul_le_mul_of_nonneg_left hle (Nat.cast_nonneg _)
+  have hcard0 : (0 : ℝ) ≤ ((bandPrimes Λ n).card : ℝ) := Nat.cast_nonneg _
   rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg hcard0, div_le_iff₀ hlogn]
   have key := le_trans hband hupper
-  have hshape : (2 : ℝ) / Real.log 2 * ((bandPrimes 4 n).card : ℝ) * Real.log (n : ℝ)
-      = (((bandPrimes 4 n).card : ℝ) * (2 * Real.log (n : ℝ))) / Real.log 2 := by
+  have hshape : (4 : ℝ) / Real.log 2 * ((bandPrimes Λ n).card : ℝ) * Real.log (n : ℝ)
+      = (((bandPrimes Λ n).card : ℝ) * (2 * Real.log (n : ℝ))) / (Real.log 2 / 2) := by
     field_simp
-  rw [hshape, le_div_iff₀ hlog2]
+    ring
+  rw [hshape, le_div_iff₀ (by positivity : (0 : ℝ) < Real.log 2 / 2)]
   linarith [key]
 
-/-- The witness ratio supplied by the available Chebyshev bounds. -/
-def comparableBandFour : ComparableBand where
-  ratio := 4
+/-- The smallest ratio the available Chebyshev bounds supply. -/
+def comparableBandThree : ComparableBand where
+  ratio := 3
   two_le_ratio := by norm_num
-  card_isBigO := bandPrimes_four_card_isBigO
+  card_isBigO := bandPrimes_card_isBigO (by norm_num)
 
 end Erdos289

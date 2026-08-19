@@ -13,16 +13,18 @@ public import Erdos289.Descent
 /-!
 # Composing tail stages along the residue filtration
 
-`Erdos289.TailCovers` asks a single family to cover `G/H`.  Such a family is
-built one simple jump at a time: stage `i` covers `G_{i+1}/G_i` and lives beyond
-everything already placed.  Composing two consecutive stages is torsor
-induction again — the same argument as `exists_saturationWitness_of_tailCovers`,
-one level down — and iterating it along a chain from `H` to `G` is a plain
-induction.
+`Erdos289.TailCovers` asks a single family to realize every target of `G`
+modulo `H`.  Such a family is built one simple jump at a time: stage `i`
+realizes every target of `G_{i+1}` modulo `G_i`, compatibly with everything
+already placed.  Composing two consecutive stages is torsor induction again —
+the same argument as `exists_saturationWitness_of_tailCovers`, one level down —
+and iterating it along a chain from `H` to `G` is a plain induction.  Along
+that chain the groups do increase, so there the relative statement is literally
+coverage of the successive quotients.
 
 `TailStage` is `TailCovers` with the extra datum the composition needs: a finite
 footprint containing the stage's states, so that the next stage can be required
-to live beyond it.  Grades and loads add.
+to be compatible with it.  Grades and loads add.
 -/
 
 set_option autoImplicit false
@@ -43,7 +45,7 @@ theorem Support.residue_empty : (∅ : Support).residue = 0 := by
 
 /--
 One stage of the tail: states of grade exactly `h` and mass at most `ε`, all
-inside the finite footprint `F`, whose residues cover `G` modulo `H`.
+inside the finite footprint `F`, realizing every target of `G` modulo `H`.
 -/
 def TailStage (c : PhysicalConstraint) (F : Support)
     (H G : AddSubgroup TargetResidue) (h : ℕ) (ε : ℚ) : Prop :=
@@ -62,9 +64,9 @@ theorem tailStage_empty (c : PhysicalConstraint) (H : AddSubgroup TargetResidue)
   · simp [Support.value]
 
 /--
-Torsor induction one level down: a stage covering `G₁/H` and a stage beyond its
-footprint covering `G₂/G₁` compose to a stage covering `G₂/H`, with grades and
-loads added.
+Torsor induction one level down: a stage realizing `G₁` modulo `H`, and a
+stage compatible with its footprint realizing `G₂` modulo `G₁`, compose to a
+stage realizing `G₂` modulo `H`, with grades and loads added.
 -/
 theorem TailStage.comp
     {c : PhysicalConstraint} {F₁ F₂ : Support}
@@ -93,8 +95,8 @@ theorem TailStage.comp
     linarith
 
 /--
-A chain of stages, each beyond the accumulated footprint of its predecessors,
-covers the top group modulo the bottom one.
+A chain of stages, each compatible with the accumulated footprint of its
+predecessors, realizes the top group modulo the bottom one.
 -/
 theorem tailStage_chain
     (b : PhysicalConstraint) (H : AddSubgroup TargetResidue)
@@ -155,9 +157,9 @@ theorem tailCovers_of_tailStage
   exact ⟨V, hadm, hgrade, hres, hpos, hle⟩
 
 /--
-The tail interface from a finite chain of stages: each stage lives beyond the
-accumulated footprint of its predecessors, the grades add up to the requested
-one, and the loads add up to at most the requested margin.
+The tail interface from a finite chain of stages: each stage is compatible
+with the accumulated footprint of its predecessors, the grades add up to the
+requested one, and the loads add up to at most the requested margin.
 
 This is the shape in which the arithmetic layers supply the tail interface.
 -/

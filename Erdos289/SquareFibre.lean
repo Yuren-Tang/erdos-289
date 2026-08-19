@@ -236,4 +236,80 @@ theorem primePower_squareFibre_card_le_four
     exact twoPower_squareFibre_card_le_four y
   · exact le_trans (oddPrimePower_squareFibre_card_le_two hp hp2 y) (by norm_num)
 
+/-! ### The two signed fibres together -/
+
+/-- Beyond the third power of two, `-1` is not a square: an odd square is `1`
+modulo `8`. -/
+theorem neg_one_ne_sq_twoPow {e : ℕ} (he : 3 ≤ e) (x : ZMod (2 ^ e)) :
+    x ^ 2 ≠ -1 := by
+  have hdvd : (8 : ℕ) ∣ 2 ^ e := by
+    have h8 : (8 : ℕ) = 2 ^ 3 := by norm_num
+    rw [h8]
+    exact pow_dvd_pow 2 he
+  intro h
+  have himg : (ZMod.castHom hdvd (ZMod 8) x) ^ 2 = -1 := by
+    rw [← map_pow, h, map_neg, map_one]
+  revert himg
+  generalize ZMod.castHom hdvd (ZMod 8) x = y
+  revert y
+  decide
+
+/--
+The two signed square fibres of a unit contain at most four roots between
+them, uniformly in the prime power.
+
+This is the sharp shape of the mechanism, and the two worst cases never occur
+together.  At an odd prime power the unit group is cyclic, so each fibre alone
+has at most two points.  At a power of two a single fibre can have four, but
+then `-1` is not a square, so a root of `y` and a root of `-y` cannot both
+exist; and below the third power of two the unit group itself has at most two
+elements.
+-/
+theorem primePower_signedSquareFibre_card_le_four
+    {p e : ℕ} [NeZero (p ^ e)] (hp : p.Prime) (y : (ZMod (p ^ e))ˣ) :
+    (Finset.univ.filter fun x : (ZMod (p ^ e))ˣ ↦ x ^ 2 = y).card
+      + (Finset.univ.filter fun x : (ZMod (p ^ e))ˣ ↦ x ^ 2 = -y).card ≤ 4 := by
+  classical
+  by_cases hp2 : p = 2
+  · subst hp2
+    rcases Nat.lt_or_ge e 3 with he | he
+    · -- the unit group itself has at most two elements
+      have hcard : Fintype.card (ZMod (2 ^ e))ˣ = Nat.totient (2 ^ e) :=
+        ZMod.card_units_eq_totient _
+      have hunits : Fintype.card (ZMod (2 ^ e))ˣ ≤ 2 := by
+        rw [hcard]
+        interval_cases e <;> decide
+      have h1 : (Finset.univ.filter fun x : (ZMod (2 ^ e))ˣ ↦ x ^ 2 = y).card
+          ≤ Fintype.card (ZMod (2 ^ e))ˣ := by
+        simpa using Finset.card_filter_le Finset.univ
+          (fun x : (ZMod (2 ^ e))ˣ ↦ x ^ 2 = y)
+      have h2 : (Finset.univ.filter fun x : (ZMod (2 ^ e))ˣ ↦ x ^ 2 = -y).card
+          ≤ Fintype.card (ZMod (2 ^ e))ˣ := by
+        simpa using Finset.card_filter_le Finset.univ
+          (fun x : (ZMod (2 ^ e))ˣ ↦ x ^ 2 = -y)
+      omega
+    · -- one of the two fibres is empty
+      by_cases hy : ∃ u : (ZMod (2 ^ e))ˣ, u ^ 2 = y
+      · have hempty : (Finset.univ.filter fun x : (ZMod (2 ^ e))ˣ ↦ x ^ 2 = -y) = ∅ := by
+          rw [Finset.filter_eq_empty_iff]
+          rintro w -
+          intro hw
+          obtain ⟨u, hu⟩ := hy
+          have hsq : (u * w⁻¹) ^ 2 = -1 := by
+            rw [mul_pow, inv_pow, hu, hw, inv_neg, mul_neg, mul_inv_cancel]
+          exact neg_one_ne_sq_twoPow he ((u * w⁻¹ : (ZMod (2 ^ e))ˣ) : ZMod (2 ^ e)) (by
+            rw [← Units.val_pow_eq_pow_val, hsq]
+            simp)
+        rw [hempty, Finset.card_empty, Nat.add_zero]
+        exact twoPower_squareFibre_card_le_four y
+      · have hempty : (Finset.univ.filter fun x : (ZMod (2 ^ e))ˣ ↦ x ^ 2 = y) = ∅ := by
+          rw [Finset.filter_eq_empty_iff]
+          rintro w - hw
+          exact hy ⟨w, hw⟩
+        rw [hempty, Finset.card_empty, Nat.zero_add]
+        exact twoPower_squareFibre_card_le_four (-y)
+  · have h1 := oddPrimePower_squareFibre_card_le_two hp hp2 y
+    have h2 := oddPrimePower_squareFibre_card_le_two hp hp2 (-y)
+    omega
+
 end Erdos289

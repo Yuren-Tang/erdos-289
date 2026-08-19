@@ -32,7 +32,8 @@ beyond the previous one's footprint and each arbitrarily light, has states of
 * mass `β + j/D` for `j = 0, …, D - 1` with `0 < β` arbitrarily small,
 * residues `ρ(β) + j·[1/D]`, i.e. one complete torsor under `⟨[1/D]⟩`.
 
-With `β < 1/2` the barrier slack is `1/2 > 0`, and the seed *is* a `CoreStage`.
+Bounding `β` below the prescribed margin makes the barrier slack that margin,
+so the seed *is* a `CoreStage` at any admissible slack.
 No lcm bridge is needed for this interface: enlarging the core subgroup only
 moves work from the tail interface to the core interface, and the descent spine
 does not care which side does it.
@@ -233,9 +234,9 @@ The `{2,3}` saturation theorem from the tail interface alone.
 
 The core interface is discharged by `exists_coreStage`, so the only remaining
 obligation is the manuscript's cofinal tail: beyond any finite footprint, and
-for any target class, states of every large grade whose residues cover the
-ambient group modulo the core's cyclic subgroup, with total load below the
-barrier slack `1/2`.
+for any target class, states of every large grade realizing every target of
+the ambient group modulo the core's cyclic subgroup, with total load below the
+barrier slack.
 -/
 theorem smallBlockSaturation_of_tailInterface
     {D : ℕ} (hD : 0 < D) {s : ℚ} (hs0 : 0 < s) (hs1 : s < 1)

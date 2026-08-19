@@ -51,17 +51,17 @@ implications between them.
 | `SmallBlockSaturation` | the strengthening this development proves: the same, with every block of length exactly two or three | `Erdos289/Statement.lean` |
 
 ```text
-SmallBlockSaturation  →  IntervalSaturation  →  ErdosProblem289
-  intervalSaturation_of_smallBlock   erdosProblem289_of_intervalSaturation
+SmallBlockSaturation  →  IntervalSaturation  ↔  ErdosProblem289
+  intervalSaturation_of_smallBlock    erdosProblem289_iff_intervalSaturation
 ```
 
 An interval decomposition is a *presentation* of a finite support in the
 positive-integer path, not an invariant of it, so intervals do not appear in
-the intrinsic phrasing. That the two phrasings agree is proved rather than
-asserted: `Erdos289/Literal.lean` shows that a connected component of the
-induced path graph is convex, hence an integer interval, and
-`exists_intervalFamily_of_saturationWitness` reads off the interval family,
-including positivity of every lower endpoint.
+the intrinsic phrasing. That the two phrasings agree is an **equivalence
+theorem**, not a claim: `Erdos289/Literal.lean` shows that a connected
+component of the induced path graph is convex, hence an integer interval, and
+conversely that an integer interval is connected, so a family of pairwise
+non-adjacent intervals has exactly as many components as members.
 
 `Erdos289Test/Smoke.lean` checks by `Iff.rfl` that `ErdosProblem289` is the
 source sentence and not a paraphrase, and derives from it the weaker sentence
@@ -79,10 +79,16 @@ target — is a parameter of the statement, and the particular value that the
 present proof happens to use is a *witness* constructed inside a proof or
 exhibited by a clearly labelled corollary.
 
-For instance `Erdos289.ComparableBand` is existential in the band ratio `Λ`;
-`Erdos289.comparableBandFour` is the witness `Λ = 4` supplied by mathlib's
-Chebyshev bounds. Replacing it by another valid ratio changes that one
+For instance `Erdos289.ComparableBand` is existential in the band ratio `Λ`,
+and `Erdos289.bandPrimes_card_isBigO` shows every integer ratio at least three
+is one; `Erdos289.comparableBandThree` is the smallest witness the available
+Chebyshev bounds supply. Replacing it by another valid ratio changes that one
 definition and nothing downstream.
+
+Numbers that *are* mathematics stay: the sharp four-point square-fibre bound,
+the two-point bound at odd prime powers, the `2 · |obstacle|` deletion bound,
+the selector interval `(0, 2)`, the block sizes `{2, 3}`. `DESIGN.md` lists
+them with the mechanism each comes from.
 
 An asymptotic statement is formalized as an asymptotic statement. It is never
 replaced by an inequality valid beyond a hand-picked numerical threshold.
@@ -109,8 +115,9 @@ replaced by an inequality valid beyond a hand-picked numerical threshold.
   size, simple-fibre multiplicity, atom mass and conflict degree, together with
   its bounded conflict degree and its packing into compatible pools;
 * the row certificate of a prime-power current: the comparable carrier band,
-  the uniform four-point square-fibre bound, the carrier-deletion bound,
-  deduplication by coefficient and rank truncation, all parametric;
+  the uniform four-point square-fibre bound and its signed refinement, the
+  carrier-deletion bound `4 (Λ - 1)`, deduplication by coefficient and rank
+  truncation, all parametric;
 * the composition law of the descent, stated as *compatibility*: a state
   avoiding a footprint together with its separation neighbourhood composes with
   anything inside that footprint, and only that is needed for admissibility,
@@ -131,7 +138,9 @@ replaced by an inequality valid beyond a hand-picked numerical threshold.
 
 Three checks of different kinds, all run in CI. `lake build` succeeding does
 not by itself mean the proof closure is assumption-free, so the axiom audit is
-separate and its expected output is pinned with `#guard_msgs`.
+separate, its expected output is pinned with `#guard_msgs`, and its coverage is
+derived from the sources rather than maintained by hand — every declaration of
+`Erdos289/` and `AffineCorrection/` that is not `private` is audited.
 `VERIFICATION.md` explains all three and how to reproduce them.
 
 ```bash
@@ -148,6 +157,7 @@ pinned, and dependency bumps go through their own pull request.
 ```text
 AffineCorrection/     universal core (Part I); imports nothing from Erdos289/
 Erdos289/             reciprocal descent (Part II)
+Erdos289.lean         publication root: re-exports the public mathematics only
 IndependentTransversals/, LeanPool/
                       vendored Apache-2.0 sources; see THIRD_PARTY.md
 Erdos289Test/         tests using only the deliberate public API

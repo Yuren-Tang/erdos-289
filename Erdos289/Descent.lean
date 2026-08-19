@@ -22,9 +22,11 @@ tail interface*.
 
 * `CoreStage` — a finite family of admissible states of one common grade whose
   residues form a complete torsor under a finite subgroup `H ≤ ℚ/ℤ`, with a
-  strictly positive barrier slack and a footprint the tail can avoid.
-* `TailCovers` — for one grade `h`, a family of states beyond that footprint,
-  all of grade `h` and mass at most `ε`, whose residues cover `G/H`.
+  strictly positive barrier slack and a footprint the tail must be compatible
+  with.
+* `TailCovers` — for one grade `h`, a family of states compatible with that
+  footprint, all of grade `h` and mass at most `ε`, realizing every target of
+  `G` modulo `H`.
 
 Three universal lemmas then finish the descent.
 
@@ -101,11 +103,15 @@ structure CoreStage (c : PhysicalConstraint) where
 
 /--
 The tail interface at one grade: states of grade exactly `h` and mass at most
-`ε`, each compatible with the core footprint `F`, whose residues cover every
-class of `G/H`.
+`ε`, each compatible with the core footprint `F`, realizing every target of `G`
+modulo `H`.
 
 `G` is the ambient residue group of the tail (`G_X` in the manuscript) and `H`
-is the core subgroup.
+is the core subgroup.  Nothing here assumes `H ≤ G`, and the realized residue
+is not required to lie in `G`; the assertion is the relative one, that each
+`v ∈ G` is matched by a state whose residue differs from `v` by an element of
+`H`.  Only in the filtration specialization, where `H ≤ G` is supplied, does
+this become coverage of the quotient `G/H`.
 
 Compatibility, not remoteness: a tail state has to be disjoint from the core
 and separated from it, and may interleave with it freely.  This is what the

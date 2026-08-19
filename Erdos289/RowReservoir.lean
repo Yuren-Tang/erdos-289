@@ -228,7 +228,7 @@ theorem exists_rowReservoir
     (hpos : 1 < Q * t) :
     ∃ (R : TransverseReservoir Q c) (starts : Finset Denominator),
       R.atoms = starts.image binaryBlock ∧
-      A.card - 8 * (Λ - 1)
+      A.card - 4 * (Λ - 1)
         ≤ 2 * d * (R.atoms.card + t + 2 * c.obstacle.card) ∧
       ∀ S ∈ R.atoms, S.value < 2 / ((Q * t - 1 : ℕ) : ℚ) := by
   classical
@@ -269,7 +269,7 @@ theorem exists_rowReservoir
       (hinj₀.mono hTsub₀)
     rw [hcard]
     have hchain : Row.card ≤ T.card + t + 2 * c.obstacle.card := by omega
-    calc A.card - 8 * (Λ - 1) ≤ 2 * d * Row.card := hdedup
+    calc A.card - 4 * (Λ - 1) ≤ 2 * d * Row.card := hdedup
       _ ≤ 2 * d * (T.card + t + 2 * c.obstacle.card) := Nat.mul_le_mul_left _ hchain
   · intro S hS
     rw [rowReservoir_atoms hp he hQ hQ1 σ T hgood havoid] at hS

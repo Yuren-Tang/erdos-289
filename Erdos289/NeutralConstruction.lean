@@ -252,7 +252,7 @@ theorem neutralGradeOnePoint_of_placements
     exact add_pos (binaryBlockMass_pos a)
       (binaryBlockMass_pos (neutralQuadratic a))
 
-theorem neutralQuadratic_mass_lt_two_div (a : Denominator) :
+private theorem neutralQuadratic_mass_lt_two_div (a : Denominator) :
     binaryBlockMass (neutralQuadratic a) < 2 / (a.1 : ℚ) := by
   have ha : (0 : ℚ) < a.1 := by exact_mod_cast a.2
   have hq : (0 : ℚ) < (neutralQuadratic a).1 := by
@@ -269,7 +269,7 @@ theorem neutralQuadratic_mass_lt_two_div (a : Denominator) :
   nlinarith
 
 /-- The concrete lower side tends to zero, with a uniform elementary bound. -/
-theorem neutralLower_value_lt_four_div
+private theorem neutralLower_value_lt_four_div
     (c : PhysicalConstraint) (a : Denominator)
     (hplace : BinaryPlacement c (neutralLowerStarts a)) :
     (binaryConfiguration (neutralLowerStarts a)).value < 4 / (a.1 : ℚ) := by
