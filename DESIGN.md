@@ -62,6 +62,8 @@ The current core has the following audited correspondence.
 | cofinal defect-controlled correction system | residue cover of `G/H` at one grade beyond a footprint | `TailCovers` |
 | torsor induction | cancellation of the tail discrepancy inside the core torsor | `exists_saturationWitness_of_tailCovers` |
 | eventual torsor trivialization | finite additive order of a centered residue | `exists_mem_lowerPrimePowerStage` |
+| compatibility of two physical states | avoidance of a footprint together with its separation neighbourhood | `constraintAvoiding`, `crossSeparated_of_avoids_avoiding`, `saturationWitness_of_pair` |
+| grade-fibre epimorphism spectrum of one simple jump | image of the joint class/grade map at a fixed grade | `CoversAtGrade`, `exists_multiplicities_of_two_simpleFibreClasses` |
 | cofinite exact grade spectrum, over a class of block sizes | principal final ideal in component count | `CofiniteSaturation`, `IntervalSaturation`, `SmallBlockSaturation` |
 | the source-level sentence of problem 289 | eventually many pairwise non-overlapping, non-adjacent integer intervals of reciprocal sum one | `ErdosProblem289`, `erdosProblem289_of_intervalSaturation` |
 
