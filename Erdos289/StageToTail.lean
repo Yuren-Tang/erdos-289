@@ -60,10 +60,7 @@ theorem tailStage_of_pool
   · intro x hx
     obtain ⟨S, hS, hxS⟩ := Finset.mem_biUnion.mp hx
     exact hfoot S (hAsub hS) hxS
-  · refine (stageClass_eq_iff_sub_mem hagg hv).1 ?_
-    show (aggregateSupport A).simpleFiberClass hagg
-      = QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨v, hv⟩ : primePowerStage Q)
-    rw [← Support.stageClass_eq hagg]
-    exact hAclass
+  · refine (simpleFibre_mk_eq_iff_sub_mem hagg hv).1 ?_
+    exact hAclass hagg
 
 end Erdos289

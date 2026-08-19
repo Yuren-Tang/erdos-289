@@ -21,6 +21,9 @@ lies in the lower stage, so two atoms have the same class exactly when their
 distinguished reciprocals do, and `Erdos289.reciprocalResidue_sub_notMem_lower`
 says that happens only for equal coefficients.
 
+Both factorization proofs are supplied by
+`Erdos289.SignedInverse.atom_factorsThroughPrimePowerStage`.
+
 Consequently a deduplicated prime row injects into the simple fibre, and the
 image that feeds the Dias da Silva–Hamidoune interval is as large as the row.
 -/
@@ -35,18 +38,16 @@ namespace SignedInverse
 Distinct current coefficients give distinct simple-fibre classes at a prime
 current.
 -/
-theorem atom_stageClass_ne_of_coefficient_ne
+theorem atom_simpleFiberClass_ne_of_coefficient_ne
     {p b b' : ℕ} {w : ComplementaryPair p b} {w' : ComplementaryPair p b'}
     (hp : p.Prime) (g : GoodOrientation p w) (g' : GoodOrientation p w')
     (hppos : 0 < p) (hb : b < p) (hb' : b' < p)
-    (hne : w.coefficient g.sign ≠ w'.coefficient g'.sign) :
-    (g.atom hppos).stageClass p ≠ (g'.atom hppos).stageClass p := by
+    (hne : w.coefficient g.sign ≠ w'.coefficient g'.sign)
+    (hfac : (g.atom hppos).FactorsThroughPrimePowerStage p)
+    (hfac' : (g'.atom hppos).FactorsThroughPrimePowerStage p) :
+    (g.atom hppos).simpleFiberClass hfac ≠ (g'.atom hppos).simpleFiberClass hfac' := by
   intro heq
-  have hfac : (g.atom hppos).FactorsThroughPrimePowerStage p :=
-    atom_factorsThroughPrimePowerStage g hp Nat.one_pos (pow_one p).symm hb
-  have hfac' : (g'.atom hppos).FactorsThroughPrimePowerStage p :=
-    atom_factorsThroughPrimePowerStage g' hp Nat.one_pos (pow_one p).symm hb'
-  rw [Support.stageClass_eq_iff hfac hfac'] at heq
+  rw [Support.simpleFiberClass_eq_iff hfac hfac'] at heq
   rw [atom_residue_eq_distinguished_add_companion,
     atom_residue_eq_distinguished_add_companion] at heq
   have hcomp : reciprocalResidue g.companionDenominator

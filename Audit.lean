@@ -390,9 +390,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TransverseReservoir.mem_simpleValues_iff
 
-/-- info: 'Erdos289.aggregateSupport_stageClass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.aggregateSupport_simpleFiberClass' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.aggregateSupport_stageClass
+#print axioms Erdos289.aggregateSupport_simpleFiberClass
 
 /-- info: 'Erdos289.exists_pool_state_of_class' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -418,9 +418,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TailStage.mono
 
-/-- info: 'Erdos289.stageClass_eq_iff_sub_mem' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.simpleFibre_mk_eq_iff_sub_mem' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.stageClass_eq_iff_sub_mem
+#print axioms Erdos289.simpleFibre_mk_eq_iff_sub_mem
 
 /-- info: 'Erdos289.tailStage_of_pool' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -442,17 +442,17 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.reciprocalResidue_sub_notMem_lower
 
-/-- info: 'Erdos289.Support.stageClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.Support.simpleFiberClass_eq_iff' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.Support.stageClass_eq_iff
+#print axioms Erdos289.Support.simpleFiberClass_eq_iff
 
 /-- info: 'Erdos289.TransverseReservoir.card_simpleValues_of_injective' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.TransverseReservoir.card_simpleValues_of_injective
 
-/-- info: 'Erdos289.SignedInverse.atom_stageClass_ne_of_coefficient_ne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.SignedInverse.atom_simpleFiberClass_ne_of_coefficient_ne' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.SignedInverse.atom_stageClass_ne_of_coefficient_ne
+#print axioms Erdos289.SignedInverse.atom_simpleFiberClass_ne_of_coefficient_ne
 
 /-- info: 'Erdos289.SignedInverse.carrierFamily_coefficientFibre_card_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -493,3 +493,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.CofiniteSaturation.mono' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.CofiniteSaturation.mono
+
+/-- info: 'Erdos289.eq_of_mem_zmultiples_of_lt_two_mul' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.eq_of_mem_zmultiples_of_lt_two_mul
+
+/-- info: 'Erdos289.Support.value_eq_of_centredResidue_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.Support.value_eq_of_centredResidue_zero

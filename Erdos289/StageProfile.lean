@@ -43,29 +43,37 @@ open scoped BigOperators
 
 namespace Erdos289
 
-/-! ### A total form of the simple-fibre class -/
+/-! ### Proof technology: a total form of the simple-fibre class
+
+The canonical class of a support at a stage is the dependent
+`Support.simpleFiberClass`, defined on the subobject of supports that factor
+through the stage.  The total extension below is *not* mathematics: it exists
+only so that sums over a finite family need not carry membership proofs, and it
+is private.  Every statement exported from this module speaks of
+`simpleFiberClass`.
+-/
 
 open Classical in
 /-- The residue of a support, lifted to the current stage subgroup; zero when
 the support does not factor through the stage. -/
-noncomputable def Support.stageLift (S : Support) (Q : ℕ) : primePowerStage Q :=
+private noncomputable def Support.stageLift (S : Support) (Q : ℕ) : primePowerStage Q :=
   if hS : S.FactorsThroughPrimePowerStage Q then ⟨S.residue, hS⟩ else 0
 
-theorem Support.stageLift_val {S : Support} {Q : ℕ}
+private theorem Support.stageLift_val {S : Support} {Q : ℕ}
     (hS : S.FactorsThroughPrimePowerStage Q) :
     ((S.stageLift Q : primePowerStage Q) : TargetResidue) = S.residue := by
   rw [stageLift, dif_pos hS]
 
 /-- The simple-fibre class as a total function. -/
-noncomputable def Support.stageClass (S : Support) (Q : ℕ) : PrimePowerSimpleFiber Q :=
+private noncomputable def Support.stageClass (S : Support) (Q : ℕ) : PrimePowerSimpleFiber Q :=
   QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (S.stageLift Q)
 
-theorem Support.stageClass_eq {S : Support} {Q : ℕ}
+private theorem Support.stageClass_eq {S : Support} {Q : ℕ}
     (hS : S.FactorsThroughPrimePowerStage Q) :
     S.stageClass Q = S.simpleFiberClass hS := by
   rw [stageClass, simpleFiberClass, stageLift, dif_pos hS]
 
-theorem Support.stageClass_eq_transverseClass {S : Support} {Q : ℕ}
+private theorem Support.stageClass_eq_transverseClass {S : Support} {Q : ℕ}
     (hS : S.FilteredTransverse Q) :
     S.stageClass Q = S.transverseClass hS :=
   Support.stageClass_eq _
@@ -82,7 +90,7 @@ theorem aggregateSupport_factorsThrough
   rw [aggregateSupport_residue hpair]
   exact AddSubgroup.sum_mem _ fun S hS => hfac S hS
 
-theorem aggregateSupport_stageClass
+private theorem aggregateSupport_stageClass
     {Q : ℕ} {c : PhysicalConstraint} {A : Finset Support}
     (hpair : (A : Set Support).Pairwise fun S T ↦ S.CompatibleFor T c)
     (hfac : ∀ S ∈ A, S.FactorsThroughPrimePowerStage Q) :
@@ -97,9 +105,10 @@ theorem aggregateSupport_stageClass
   rw [Support.stageClass, hlift, map_sum]
   rfl
 
-/-- Two elements of the current stage have the same simple-fibre class exactly
-when they differ by an element of the lower stage. -/
-theorem stageClass_eq_iff_sub_mem {Q : ℕ} {y z : TargetResidue}
+/-- Two elements of the current stage have the same image in the simple fibre
+exactly when they differ by an element of the lower stage.  This is the defining
+property of the subquotient. -/
+theorem simpleFibre_mk_eq_iff_sub_mem {Q : ℕ} {y z : TargetResidue}
     (hy : y ∈ primePowerStage Q) (hz : z ∈ primePowerStage Q) :
     QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨y, hy⟩ : primePowerStage Q)
         = QuotientAddGroup.mk' (lowerInsidePrimePowerStage Q) (⟨z, hz⟩ : primePowerStage Q)
@@ -126,29 +135,43 @@ theorem stageClass_eq_iff_sub_mem {Q : ℕ} {y z : TargetResidue}
     simp only [AddSubgroup.coe_add]
     abel
 
-/-- Two supports factoring through the current stage have the same class
-exactly when their residues differ by an element of the lower stage. -/
-theorem Support.stageClass_eq_iff {Q : ℕ} {S T : Support}
+/-- Two supports factoring through the current stage have the same simple-fibre
+class exactly when their residues differ by an element of the lower stage. -/
+theorem Support.simpleFiberClass_eq_iff {Q : ℕ} {S T : Support}
     (hS : S.FactorsThroughPrimePowerStage Q) (hT : T.FactorsThroughPrimePowerStage Q) :
-    S.stageClass Q = T.stageClass Q ↔ S.residue - T.residue ∈ lowerPrimePowerStage Q := by
-  rw [Support.stageClass_eq hS, Support.stageClass_eq hT]
-  exact stageClass_eq_iff_sub_mem hS hT
+    S.simpleFiberClass hS = T.simpleFiberClass hT
+      ↔ S.residue - T.residue ∈ lowerPrimePowerStage Q :=
+  simpleFibre_mk_eq_iff_sub_mem hS hT
+
+/-- The simple-fibre class is additive over a compatible pool. -/
+theorem aggregateSupport_simpleFiberClass
+    {Q : ℕ} {c : PhysicalConstraint} {A : Finset Support}
+    (hpair : (A : Set Support).Pairwise fun S T ↦ S.CompatibleFor T c)
+    (hfac : ∀ S ∈ A, S.FactorsThroughPrimePowerStage Q) :
+    (aggregateSupport A).simpleFiberClass (aggregateSupport_factorsThrough hpair hfac)
+      = ∑ S ∈ A.attach, S.1.simpleFiberClass (hfac S.1 S.2) := by
+  classical
+  have hterm : ∀ S : {x // x ∈ A},
+      S.1.simpleFiberClass (hfac S.1 S.2) = S.1.stageClass Q :=
+    fun S => (Support.stageClass_eq (hfac S.1 S.2)).symm
+  rw [Finset.sum_congr rfl fun S _ => hterm S,
+    Finset.sum_attach A fun S => S.stageClass Q,
+    ← aggregateSupport_stageClass hpair hfac,
+    Support.stageClass_eq (aggregateSupport_factorsThrough hpair hfac)]
 
 /-- A reservoir whose atoms have pairwise distinct simple-fibre classes has an
 image in the fibre as large as itself. -/
 theorem TransverseReservoir.card_simpleValues_of_injective
     {Q : ℕ} {c : PhysicalConstraint} (R : TransverseReservoir Q c)
-    (hinj : ∀ S ∈ R.atoms, ∀ T ∈ R.atoms, S.stageClass Q = T.stageClass Q → S = T) :
+    (hinj : ∀ S, ∀ hS : S ∈ R.atoms, ∀ T, ∀ hT : T ∈ R.atoms,
+      S.transverseClass (R.transverse S hS) = T.transverseClass (R.transverse T hT) → S = T) :
     R.simpleValues.card = R.atoms.card := by
   classical
   have hkey : R.simpleValues
       = R.atoms.attach.image fun S => S.1.transverseClass (R.transverse S.1 S.2) := rfl
   rw [hkey, Finset.card_image_of_injOn, Finset.card_attach]
   intro S _ T _ hST
-  refine Subtype.ext (hinj S.1 S.2 T.1 T.2 ?_)
-  rw [Support.stageClass_eq_transverseClass (R.transverse S.1 S.2),
-    Support.stageClass_eq_transverseClass (R.transverse T.1 T.2)]
-  exact hST
+  exact Subtype.ext (hinj S.1 S.2 T.1 T.2 hST)
 
 /-! ### One stage realizes every class at every grade of its interval -/
 
@@ -175,7 +198,8 @@ theorem exists_pool_state_of_class
       (A : Set Support).Pairwise (fun S T ↦ S.CompatibleFor T c) ∧
       (aggregateSupport A).grade = h ∧
       (aggregateSupport A).value ≤ h * maxMass ∧
-      (aggregateSupport A).stageClass Q = x := by
+      ∀ hfac : (aggregateSupport A).FactorsThroughPrimePowerStage Q,
+        (aggregateSupport A).simpleFiberClass hfac = x := by
   classical
   have hne : P.toTransverseReservoir.simpleValues.Nonempty := by
     rw [← Finset.card_pos]
@@ -233,8 +257,10 @@ theorem exists_pool_state_of_class
           Finset.sum_le_sum fun S hS => hmass S (hAsub hS)
       _ = A.card * maxMass := by rw [Finset.sum_const, nsmul_eq_mul]
       _ = h * maxMass := by rw [hAcard]
-  · rw [aggregateSupport_stageClass hApair
-      (fun S hS => Classical.choose (P.transverse S (hAsub hS))), hreindex]
+  · intro hfac
+    rw [← Support.stageClass_eq hfac,
+      aggregateSupport_stageClass hApair
+        (fun S hS => Classical.choose (P.transverse S (hAsub hS))), hreindex]
     calc ∑ w ∈ Tset.attach, (g w).stageClass Q = ∑ w ∈ Tset.attach, (w : PrimePowerSimpleFiber Q) :=
           Finset.sum_congr rfl fun w _ => hgclass w
       _ = ∑ v ∈ Tset, v := Finset.sum_attach Tset id
