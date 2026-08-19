@@ -183,13 +183,28 @@ to the core interface, and the spine does not care which side does it.
 ### Interface 2, the cofinal tail — open, and delimited
 
 `Erdos289.smallBlockSaturation_of_tailInterface` is the `{2,3}` strengthening
-with this as its only hypothesis: beyond any finite footprint `F`, and for any
+with this as its only hypothesis: for any finite core footprint `F` and any
 core class `τ`, there is `N` such that every grade `h ≥ N` admits an ambient
 group `G ∋ τ` and a load `ε < s` with
 `TailCovers originalConstraint F ⟨[1/D]⟩ G h ε`, where `D` and the slack `s`
 are parameters of the theorem.
 
-The scaffolding that turns arithmetic into that hypothesis is complete.
+**A correction, recorded because it changed the interface.**  The tail was
+originally required to lie entirely *beyond* the core's footprint.  That is
+strictly stronger than the manuscript's requirement, which is that every tail
+state be *physically compatible* with every core state, and it is not
+achievable: the atoms of a row at current `Q` reach only as far as the
+truncation rank allows, and the band size bounds that rank, whereas a core
+footprint can lie arbitrarily far out.  `Erdos289.constraintAvoiding` is the
+faithful condition — the constraint together with the footprint and its
+separation neighbourhood as obstacles — and `TailCovers`, `TailStage` and the
+stage chain now use it.  Remoteness implies it
+(`avoids_avoiding_of_avoids_beyond`), so nothing that used to fit stopped
+fitting.  On the arithmetic side this is the manuscript's *core-obstacle
+deletion*, and it costs at most twice the obstacle's size
+(`Erdos289.SignedInverse.card_obstructed_le`).
+
+The scaffolding that turns arithmetic into the hypothesis is complete.
 
 * `TailStage` is `TailCovers` plus the footprint the next stage must clear.
 * `TailStage.comp` is torsor induction one level down; `tailStage_empty` is the
@@ -204,37 +219,66 @@ The scaffolding that turns arithmetic into that hypothesis is complete.
   `exists_compatiblePool_of_binary_of_card` produces the pool from a row that
   is merely large enough, together with the chunk count it preserves.
 
-What is left is exactly four arithmetic statements, one heavy and three light.
+At a **prime** current the whole passage from a band of carriers to a tail
+stage is now proved, end to end.
 
-* **T1 (heavy).** For every large prime power `Q` and every finite footprint, a
-  compatible transverse pool at `Q` beyond that footprint whose image in the
-  simple fibre is large and whose atoms are light.
+* `Erdos289.SignedInverse.exists_rowReservoir` turns the row certificate into a
+  reservoir of binary atoms: exactly one atom per surviving carrier (distinct
+  coefficients give starts at least `Q - 1` apart), each avoiding the obstacle,
+  each of mass below `2 / (Q t - 1)`.
+* `Erdos289.SignedInverse.card_simpleValues_rowReservoir`: at a prime current
+  the image in the simple fibre is as large as the row, and the injectivity
+  passes to the packed subpool
+  (`TransverseReservoir.card_simpleValues_of_subset`).
+* `Erdos289.SignedInverse.exists_tailStage_of_band` composes row certificate,
+  reservoir, pool and stage, with `Λ, d, t`, the surviving size `m` and the
+  interval endpoint `a` all parameters, and one supply inequality.
+* `Erdos289.SignedInverse.eventually_exists_tailStage` is its asymptotic form:
+  every sufficiently large prime current is a tail stage, provided the total
+  demand of the selections and the packing is `o(Q / log Q)`.
 
-  Done: the row certificate (B2), the conflict bound (B3), the packing from a
-  merely large row (B4), the remoteness and mass bounds supplied by the row
-  truncation, and — for a *prime* current — the fibre image, which equals the
-  row size because distinct coefficients give distinct classes
-  (`Erdos289.atom_simpleFibreClass_ne_of_coefficient_ne`,
-  `Erdos289.TransverseReservoir.card_simpleValues_of_injective`).
+What is left is therefore three items, one heavy and two light.
 
-  Missing: the passage from the row certificate's carriers through
-  `SignedInverse.candidateFamily` and `SignedInverse.reservoir` to a reservoir
-  whose atoms are exactly the row's, and the proper-prime-power currents, which
-  the manuscript handles by the cyclic orbit
-  (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) rather than by
-  Dias da Silva–Hamidoune.
+* **T1 (heavy), the proper prime powers.** At `Q = p ^ e` with `e ≥ 2` the
+  simple fibre is cyclic of order `p` and the row's atoms need not have
+  distinct classes, so Dias da Silva–Hamidoune is not the mechanism; the
+  manuscript uses the cyclic orbit
+  (`Erdos289.TransverseReservoir.atom_cyclic_coversAtGrade`) instead.
+  Realizing `j · c` at a *prescribed* grade needs neutral atoms — grade one,
+  class zero — as padding, and exporting those is the open construction.  The
+  chain cannot skip a current: `lowerPrimePowerStage Q'` contains
+  `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
+  through *all* prime powers between the core exponent and the top.
+
+  The manuscript records this as a provider-internal split (§10: the
+  prime/proper-prime-power split "is not an invariant of the qualitative
+  theorem"), and §9 states the uniform interface both mechanisms serve: the
+  grade-fibre epimorphism spectrum `I(J)` of one simple jump.  That interface
+  is `Erdos289.CoversAtGrade`, already formalized.
 * **T2.** Grades: a decomposition of every large `h` into per-stage grades
   lying in each stage's interval.  The Minkowski step is
   `Erdos289.GradeAggregation.exists_grades_of_mem_sum_Icc` and the eventual-ray
   step is `AffineCorrection.intervalSpectrum_cofinite_of_eventually`; the
-  overlap estimate `A_{j+1} ≤ B_j + 1` is what has to be supplied.
-* **T3.** Loads: `∑ᵢ costᵢ < s`.  The tail-vanishing statement is
-  `Erdos289.exists_tail_sum_lt_rat`; the summability of the actual per-stage
-  costs is what has to be supplied.
-* **T4.** Endpoints: `⟨[1/D]⟩ ≤ lowerPrimePowerStage Q₀` for the first stage,
-  and `τ ∈ G n` for the last.  The second is
-  `Erdos289.exists_mem_lowerPrimePowerStage`, already proved; the first is a
-  choice of `D` against the first current.
+  overlap estimate `A_{j+1} ≤ B_j + 1` is what has to be supplied.  With the
+  per-current interval `[a, m - a]` of `exists_tailStage_of_band` this is a
+  statement about how `a` and `m` may be chosen against each other, not a new
+  arithmetic input.
+* **T3.** Loads: `∑ᵢ costᵢ < s`.  No longer an obstruction.  The truncation
+  rank is a free parameter and the load falls with it
+  (`Erdos289.exists_rank_of_cost_le`), so the per-stage loads can be
+  *prescribed* geometrically, and `Erdos289.sum_lt_of_le_geometric` keeps any
+  finite run under the barrier slack.  What remains is to make the choice and
+  check it against the supply inequality.
+
+**T4, the endpoints — done.**  The bottom is
+`Erdos289.lowerPrimePowerStage_le_zmultiples_coreExponent`: taking the core
+modulus to be the current's core exponent `lcm(1, …, Q-1)` makes the chain
+start exactly where the core torsor ends, because
+`Erdos289.annihilatorStage_eq_zmultiples` identifies the `q`-torsion of `ℚ/ℤ`
+with `⟨[1/q]⟩`.  The converse inclusion, needed to place a later current above
+the core, is
+`Erdos289.zmultiples_reciprocalResidue_le_lowerPrimePowerStage`.  The top is
+`Erdos289.exists_mem_lowerPrimePowerStage`, already proved.
 
 #### The arithmetic already proved for T1–T3
 
@@ -301,6 +345,17 @@ What is left is exactly four arithmetic statements, one heavy and three light.
   supports is not yet written.
 * **B7.** See T2.
 * **B8.** See T3.
+* **B10. Core-obstacle deletion.** *Done.*
+  `Erdos289.SignedInverse.card_obstructed_le`: at most twice the obstacle's
+  size many members of a row have an atom meeting the obstacle, whatever the
+  current and the row.  Each obstacle point lies in at most two of the row's
+  binary blocks, and the row's starts are distinct.
+* **B11. Supply.** *Done, asymptotically.*
+  `Erdos289.SignedInverse.eventually_demand_le_card_carrierPrimes`: a demand
+  growing more slowly than `Q / log Q` is eventually met by the band.  The
+  coefficient-fibre scale needed for it is the absolute constant two
+  (`Erdos289.SignedInverse.scale_two_of_lt`), because the band base is a fixed
+  fraction of the current.
 * **B9. Tempered prefix.** *No longer a separate obligation.*
   In this factorization the tail is required to be admissible for
   `constraintBeyond c F`, which is exactly "compatible with every core state";

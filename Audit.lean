@@ -601,3 +601,15 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.lowerPrimePowerStage_le_annihilatorStage' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.lowerPrimePowerStage_le_annihilatorStage
+
+/-- info: 'Erdos289.coreExponent_pos' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.coreExponent_pos
+
+/-- info: 'Erdos289.lowerPrimePowerStage_le_annihilatorStage_coreExponent' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.lowerPrimePowerStage_le_annihilatorStage_coreExponent
+
+/-- info: 'Erdos289.lowerPrimePowerStage_le_zmultiples_coreExponent' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.lowerPrimePowerStage_le_zmultiples_coreExponent
