@@ -306,10 +306,23 @@ What is left is therefore three items, one heavy and two coupled.
   threshold `(p-1)(p-2) < m`, room below the current for `h` padding blocks,
   and `max 1 separation < Q (t-1)`.
 
-  Nothing in it distinguishes a prime current from a proper prime power, so the
-  prime-only route through the fixed-cardinality fold
-  (`exists_tailStage_of_band`) is now one option rather than the only one, and
-  the exponent no longer enters the case analysis at all.
+  Nothing in its *statement* distinguishes a prime current from a proper prime
+  power.  Its room condition does, and the two routes turn out to be exactly
+  complementary, which is worth recording as the reason both are kept.
+
+  * The padding needs `cutoff + h · spacing + 3 < Q` with `h ≥ p - 1`, so it
+    needs `Q` large compared with `p`: it serves the proper prime powers, where
+    `Q = p ^ e` with `e ≥ 2`, and there the padding mass `≈ 2/Q` makes the
+    stage load `≈ 2(p-1)/p ^ e`, which sums over `e ≥ 2`.
+  * At a prime current `Q = p` there is no room below the current for `p - 1`
+    padding blocks, and none is needed: the fibre injectivity holds
+    (`atom_simpleFibreClass_eq_iff` with coefficients below `p`), so the
+    fixed-cardinality fold applies and `exists_tailStage_of_band` supplies the
+    stage from light atoms of mass `≈ 2/(p t)`.
+
+  So the exponent no longer enters as a gap in the mathematics; it enters only
+  as the choice of which of two proved routes to use, and that choice is not
+  visible above `CoversAtGrade`.
 
   The chain cannot skip a current: `lowerPrimePowerStage Q'` contains
   `annihilatorStage R` for every prime power `R < Q'`, so the stages must run
