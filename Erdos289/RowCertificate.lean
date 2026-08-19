@@ -14,26 +14,30 @@ public import Erdos289.BadCarriers
 /-!
 # The row certificate of a prime-power current
 
-This module assembles the exact half of the row supply (manuscript Thm 17.1).
-Starting from a family of prime carriers in the comparable band, three
-selections are performed, none of which introduces a chosen constant:
+A row is a finite family of carriers together with a section of the
+good-orientation fibration *over that family*: an orientation for each member,
+required to be usable only where it is used.  No orientation is named outside
+the family, and every statement below quantifies the section existentially.
 
-1. *deletion* — the carriers with no usable orientation, at most twenty-four of
-   them (`Erdos289.SignedInverse.card_goodCarriers_ge`);
-2. *deduplication* — carriers sharing a current coefficient, in fibres of at
-   most eight points because a quadratic congruence has at most four roots and
-   there are two orientations (`chosenCoefficientFiber_card_le_eight`);
-3. *rank truncation* — the coefficients below half their number
-   (`Erdos289.SignedInverse.card_upperCoefficient_ge`).
+Three selections cut a band down to a row, and each is parametric.
 
-What survives is a row whose members have pairwise distinct coefficients, all
-at least half the row's length; hence distinguished centres at least
-`Q ⌊|row|/2⌋ - 1`, hence remoteness beyond any fixed obstacle cutoff and
-reciprocal mass below `2 / (Q ⌊|row|/2⌋ - 1)`.
+1. *Deletion* removes the carriers with no usable orientation.  A band of ratio
+   `Λ` loses at most `8 (Λ - 1)` of them
+   (`Erdos289.SignedInverse.card_goodCarriers_ge`).
+2. *Deduplication* removes repeated current coefficients.  If the coefficient
+   fibre of the band has at most `d` points for each orientation, the fibre of
+   a section has at most `2 d`, and a subfamily with pairwise distinct
+   coefficients retains a `2 d`-th of the band.
+3. *Rank truncation* discards the coefficients below a threshold `t`, which
+   costs at most `t` members (`Erdos289.SignedInverse.card_upperCoefficient_ge`).
 
-The size of the surviving row is bounded below by an *exact* linear function of
-the band size, `(#band - 24 - 191) / 16`; the asymptotics of the band itself
-stay in `Erdos289.SignedInverse.bandCard_isBigO`, where they belong.
+The surviving row has pairwise distinct coefficients, all at least `t`; hence
+distinguished centres at least `Q t - 1`, hence remoteness beyond any fixed
+obstacle cutoff and reciprocal mass below `2 / (Q t - 1)`.
+
+Every constant in the conclusion is one of the three parameters `Λ`, `d`, `t`,
+or is quoted from a sharp structural theorem proved elsewhere.  Replacing a
+parameter by another admissible value changes no statement in this module.
 -/
 
 set_option autoImplicit false
@@ -42,45 +46,21 @@ set_option relaxedAutoImplicit false
 namespace Erdos289
 namespace SignedInverse
 
-/-! ### A total orientation selector -/
-
-/--
-One usable orientation per carrier.  The selector is total for convenience of
-statement; it is meaningful exactly on the carriers that have one, and
-`chosenSign_mem` is the only fact ever used about it.
--/
-noncomputable def chosenSign {Q p : ℕ} (hQ1 : 1 < Q) (x : Carrier Q p) : Orientation :=
-  if h : ((x.pair hQ1).goodOrientations p).Nonempty then h.choose else .plus
-
-theorem chosenSign_mem {Q p : ℕ} (hQ1 : 1 < Q) {x : Carrier Q p}
-    (h : ((x.pair hQ1).goodOrientations p).Nonempty) :
-    chosenSign hQ1 x ∈ (x.pair hQ1).goodOrientations p := by
-  rw [chosenSign, dif_pos h]
-  exact h.choose_spec
-
-/-- The good orientation selected at a carrier, as a `GoodOrientation`. -/
-noncomputable def chosenOrientation {Q p : ℕ} (hQ1 : 1 < Q) {x : Carrier Q p}
-    (h : ((x.pair hQ1).goodOrientations p).Nonempty) :
-    GoodOrientation p (x.pair hQ1) :=
-  (x.pair hQ1).goodOrientationOfMem _ (chosenSign_mem hQ1 h)
-
-theorem chosenOrientation_sign {Q p : ℕ} (hQ1 : 1 < Q) {x : Carrier Q p}
-    (h : ((x.pair hQ1).goodOrientations p).Nonempty) :
-    (chosenOrientation hQ1 h).sign = chosenSign hQ1 x := rfl
-
 /-! ### Deduplication by coefficient -/
 
-/-- The coefficient-fibre bound with the positivity side condition discharged:
-a coefficient is never zero, so its oriented target is never zero either. -/
-theorem carrierFamily_coefficientFiber_card_le_four'
-    {Q p e n k : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
+/--
+The coefficient-fibre bound with the positivity side condition discharged: a
+coefficient is never zero, so its oriented target is never zero either.
+-/
+theorem carrierFamily_coefficientFibre_card_le
+    {Λ Q p e n d k : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
     (hstage : 1 < Q) (s : Orientation)
-    (hscale : Q ^ 2 + 1 < (n + 1) ^ 5) :
-    ((carrierFamily (n := n) hp hQ).filter fun x ↦
-      (x.pair hstage).coefficient s = k).card ≤ 4 := by
+    (hscale : Q ^ 2 + 1 < (n + 1) ^ (d + 1)) :
+    ((carrierFamily (Λ := Λ) (n := n) hp hQ).filter fun x ↦
+      (x.pair hstage).coefficient s = k).card ≤ d := by
   classical
   by_cases hne :
-      ((carrierFamily (n := n) hp hQ).filter fun x ↦
+      ((carrierFamily (Λ := Λ) (n := n) hp hQ).filter fun x ↦
         (x.pair hstage).coefficient s = k).Nonempty
   · obtain ⟨x, hx⟩ := hne
     have hk : 0 < k := by
@@ -91,125 +71,130 @@ theorem carrierFamily_coefficientFiber_card_le_four'
       omega
     have hN : 0 < coefficientTarget Q k s := by
       cases s <;> simp only [coefficientTarget] <;> omega
-    exact carrierFamily_coefficientFiber_card_le_four hp hQ hstage s hN hscale
+    exact carrierFamily_coefficientFiber_card_le hp hQ hstage s hN hscale
   · rw [Finset.not_nonempty_iff_eq_empty.mp hne]
     simp
 
 /--
-Fibres of the selected coefficient have at most eight points: four roots of the
-quadratic congruence for each of the two orientations.
+The coefficient fibre of an arbitrary section has at most `2 d` points: at most
+`d` for each of the two orientations.  Nothing is assumed about the section.
 -/
-theorem chosenCoefficientFiber_card_le_eight
-    {Q p e n k : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) (hstage : 1 < Q)
-    (A : Finset (Carrier Q p)) (hA : A ⊆ carrierFamily (n := n) hp hQ)
-    (hscale : Q ^ 2 + 1 < (n + 1) ^ 5) :
-    (A.filter fun x ↦
-      (x.pair hstage).coefficient (chosenSign hstage x) = k).card ≤ 8 := by
+theorem sectionCoefficientFibre_card_le
+    {Λ Q p e n d k : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) (hstage : 1 < Q)
+    (σ : Carrier Q p → Orientation) (A : Finset (Carrier Q p))
+    (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp hQ)
+    (hscale : Q ^ 2 + 1 < (n + 1) ^ (d + 1)) :
+    (A.filter fun x ↦ (x.pair hstage).coefficient (σ x) = k).card ≤ 2 * d := by
   classical
-  have hsub :
-      (A.filter fun x ↦ (x.pair hstage).coefficient (chosenSign hstage x) = k) ⊆
-        ((carrierFamily (n := n) hp hQ).filter fun x ↦
-            (x.pair hstage).coefficient .plus = k) ∪
-          ((carrierFamily (n := n) hp hQ).filter fun x ↦
-            (x.pair hstage).coefficient .minus = k) := by
+  have hsub : (A.filter fun x ↦ (x.pair hstage).coefficient (σ x) = k) ⊆
+      ((carrierFamily (Λ := Λ) (n := n) hp hQ).filter fun x ↦
+          (x.pair hstage).coefficient .plus = k) ∪
+        ((carrierFamily (Λ := Λ) (n := n) hp hQ).filter fun x ↦
+          (x.pair hstage).coefficient .minus = k) := by
     intro x hx
     rcases Finset.mem_filter.mp hx with ⟨hxA, hxk⟩
-    have hxF : x ∈ carrierFamily (n := n) hp hQ := hA hxA
-    rcases hs : chosenSign hstage x with _ | _
-    · exact Finset.mem_union_left _ (Finset.mem_filter.mpr ⟨hxF, by rw [← hs]; exact hxk⟩)
-    · exact Finset.mem_union_right _ (Finset.mem_filter.mpr ⟨hxF, by rw [← hs]; exact hxk⟩)
+    cases hs : σ x with
+    | plus =>
+        exact Finset.mem_union_left _
+          (Finset.mem_filter.mpr ⟨hA hxA, by rw [← hs]; exact hxk⟩)
+    | minus =>
+        exact Finset.mem_union_right _
+          (Finset.mem_filter.mpr ⟨hA hxA, by rw [← hs]; exact hxk⟩)
   refine le_trans (Finset.card_le_card hsub) ?_
   refine le_trans (Finset.card_union_le _ _) ?_
-  have h1 := carrierFamily_coefficientFiber_card_le_four' (k := k) hp hQ hstage .plus hscale
-  have h2 := carrierFamily_coefficientFiber_card_le_four' (k := k) hp hQ hstage .minus hscale
+  have h1 := carrierFamily_coefficientFibre_card_le (Λ := Λ) (n := n) (d := d) (k := k)
+    hp hQ hstage Orientation.plus hscale
+  have h2 := carrierFamily_coefficientFibre_card_le (Λ := Λ) (n := n) (d := d) (k := k)
+    hp hQ hstage Orientation.minus hscale
   omega
 
-/-- Deduplication: a subfamily of the band with pairwise distinct coefficients
-retains an eighth of it. -/
+/--
+Deduplication: a subfamily with pairwise distinct coefficients retains a
+`2 d`-th of the family.
+-/
 theorem exists_dedup_row
-    {Q p e n : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) (hstage : 1 < Q)
-    (A : Finset (Carrier Q p)) (hA : A ⊆ carrierFamily (n := n) hp hQ)
-    (hscale : Q ^ 2 + 1 < (n + 1) ^ 5) :
+    {Λ Q p e n d : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) (hstage : 1 < Q)
+    (σ : Carrier Q p → Orientation) (A : Finset (Carrier Q p))
+    (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp hQ)
+    (hscale : Q ^ 2 + 1 < (n + 1) ^ (d + 1)) :
     ∃ R ⊆ A,
-      Set.InjOn (fun x : Carrier Q p ↦ (x.pair hstage).coefficient (chosenSign hstage x)) R ∧
-      A.card ≤ 8 * R.card := by
+      Set.InjOn (fun x : Carrier Q p ↦ (x.pair hstage).coefficient (σ x)) R ∧
+      A.card ≤ 2 * d * R.card := by
   classical
   obtain ⟨R, hRA, hinj, -, hcard⟩ :=
-    exists_injOn_subset A (fun x ↦ (x.pair hstage).coefficient (chosenSign hstage x))
-      (d := 8) (fun k _ => chosenCoefficientFiber_card_le_eight hp hQ hstage A hA hscale)
+    exists_injOn_subset A (fun x : Carrier Q p ↦ (x.pair hstage).coefficient (σ x))
+      (d := 2 * d)
+      (fun k _ => sectionCoefficientFibre_card_le (Λ := Λ) (n := n) hp hQ hstage σ A hA hscale)
   exact ⟨R, hRA, hinj, hcard⟩
 
-/-! ### The row certificate -/
+/-! ### Consequences of the truncation -/
 
-/-- The retained half of a deduplicated row. -/
-noncomputable def truncate {Q p : ℕ} (hQ1 : 1 < Q) (R : Finset (Carrier Q p)) :
-    Finset (Carrier Q p) :=
-  R.filter fun x ↦ R.card / 2 ≤ (x.pair hQ1).coefficient (chosenSign hQ1 x)
+/-- A retained coefficient forces a remote distinguished centre. -/
+theorem le_start_of_mem_truncation
+    {Q p t : ℕ} (hQ1 : 1 < Q) (σ : Carrier Q p → Orientation) {x : Carrier Q p}
+    (hx : t ≤ (x.pair hQ1).coefficient (σ x)) :
+    Q * t - 1 ≤ (x.pair hQ1).start (σ x) :=
+  le_start_of_le_coefficient _ _ hx
 
-theorem truncate_subset {Q p : ℕ} (hQ1 : 1 < Q) (R : Finset (Carrier Q p)) :
-    truncate hQ1 R ⊆ R := Finset.filter_subset _ _
-
-theorem card_truncate_ge {Q p : ℕ} (hQ1 : 1 < Q) (R : Finset (Carrier Q p))
-    (hinj : Set.InjOn (fun x : Carrier Q p ↦ (x.pair hQ1).coefficient (chosenSign hQ1 x)) R) :
-    R.card - R.card / 2 ≤ (truncate hQ1 R).card :=
-  card_upperCoefficient_ge R _ hinj
-
-/-- Every retained carrier has a remote distinguished centre. -/
-theorem le_start_of_mem_truncate {Q p : ℕ} (hQ1 : 1 < Q) (R : Finset (Carrier Q p))
-    {x : Carrier Q p} (hx : x ∈ truncate hQ1 R) :
-    Q * (R.card / 2) - 1 ≤ (x.pair hQ1).start (chosenSign hQ1 x) :=
-  le_start_of_le_coefficient _ _ (Finset.mem_filter.mp hx).2
-
-/-- Every retained carrier carries a light atom. -/
-theorem atom_value_lt_of_mem_truncate {Q p : ℕ} (hQ1 : 1 < Q)
-    (R : Finset (Carrier Q p)) {x : Carrier Q p} (hx : x ∈ truncate hQ1 R)
-    (hgood : ((x.pair hQ1).goodOrientations p).Nonempty)
-    (hpos : 1 < Q * (R.card / 2)) :
-    ((chosenOrientation hQ1 hgood).atom (by omega)).value
-      < 2 / ((Q * (R.card / 2) - 1 : ℕ) : ℚ) :=
-  GoodOrientation.atom_value_lt_of_le_coefficient (chosenOrientation hQ1 hgood)
-    (by omega) (by
-      rw [chosenOrientation_sign]
-      exact (Finset.mem_filter.mp hx).2) hpos
+/-- A retained coefficient forces a light atom. -/
+theorem atom_value_lt_of_mem_truncation
+    {Q p t : ℕ} (hQ1 : 1 < Q) (σ : Carrier Q p → Orientation) {x : Carrier Q p}
+    (hgood : σ x ∈ (x.pair hQ1).goodOrientations p)
+    (hx : t ≤ (x.pair hQ1).coefficient (σ x)) (hpos : 1 < Q * t) :
+    (((x.pair hQ1).goodOrientationOfMem (σ x) hgood).atom (by omega)).value
+      < 2 / ((Q * t - 1 : ℕ) : ℚ) :=
+  GoodOrientation.atom_value_lt_of_le_coefficient _ (by omega) hx hpos
 
 /-! ### Assembly -/
 
 /--
-The row certificate of a prime-power current, in exact form.
+The row certificate of a prime-power current.
 
-From a family `A` of band carriers one extracts a row `T ⊆ A` whose members
-have pairwise distinct current coefficients, all at least `|T|`-large in the
-sense that each is at least half the deduplicated row's length; consequently
-each has distinguished centre at least `Q ⌊·/2⌋ - 1`.
+From a family `A` of band carriers one extracts a section `σ`, usable on the
+retained row, and a row `T` whose coefficients are pairwise distinct and at
+least `t`; hence whose distinguished centres are at least `Q t - 1`.
 
-Every constant appearing here is forced: twenty-four bad carriers, eight-point
-coefficient fibres, and a halving.  `#A - 24 - 191 ≤ 16 #T` is the arithmetic
-of `(#A - 24) ≤ 8 #R` and `#R - ⌊#R/2⌋ ≤ #T` combined.
+The three parameters are the band ratio `Λ`, the coefficient-fibre bound `d`
+— valid under the scale inequality `Q² + 1 < (n+1)^(d+1)` — and the truncation
+threshold `t`.  The two size inequalities are the exact costs of the three
+selections: deletion, deduplication, truncation.
 -/
 theorem exists_rowCertificate
-    {p e n : ℕ} (hp : p.Prime) (hQ1 : 1 < p ^ e)
+    {Λ p e n d t : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ1 : 1 < p ^ e)
     (A : Finset (Carrier (p ^ e) p))
-    (hA : A ⊆ carrierFamily (n := n) hp rfl)
-    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes (p ^ e) p (bandBase (p ^ e)))
-    (hscale : (p ^ e) ^ 2 + 1 < (n + 1) ^ 5) :
-    ∃ (R T : Finset (Carrier (p ^ e) p)),
-      T = truncate hQ1 R ∧ R ⊆ A ∧
-      (∀ x ∈ R, ((x.pair hQ1).goodOrientations p).Nonempty) ∧
-      Set.InjOn (fun x : Carrier (p ^ e) p ↦ (x.pair hQ1).coefficient (chosenSign hQ1 x)) R ∧
-      A.card - 24 ≤ 8 * R.card ∧
-      R.card - R.card / 2 ≤ T.card ∧
-      (∀ x ∈ T, p ^ e * (R.card / 2) - 1 ≤ (x.pair hQ1).start (chosenSign hQ1 x)) := by
+    (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp rfl)
+    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ (p ^ e) p (bandBase Λ (p ^ e)))
+    (hscale : (p ^ e) ^ 2 + 1 < (n + 1) ^ (d + 1)) :
+    ∃ (σ : Carrier (p ^ e) p → Orientation) (R T : Finset (Carrier (p ^ e) p)),
+      T = R.filter (fun x ↦ t ≤ (x.pair hQ1).coefficient (σ x)) ∧
+      R ⊆ A ∧
+      (∀ x ∈ R, σ x ∈ (x.pair hQ1).goodOrientations p) ∧
+      Set.InjOn
+        (fun x : Carrier (p ^ e) p ↦ (x.pair hQ1).coefficient (σ x)) R ∧
+      A.card - 8 * (Λ - 1) ≤ 2 * d * R.card ∧
+      R.card - t ≤ T.card ∧
+      (∀ x ∈ T, p ^ e * t - 1 ≤ (x.pair hQ1).start (σ x)) := by
   classical
-  have hgoodsub : goodCarriers hQ1 A ⊆ A := Finset.filter_subset _ _
-  obtain ⟨R, hRG, hinj, hcard⟩ :=
-    exists_dedup_row hp rfl hQ1 (goodCarriers hQ1 A) (hgoodsub.trans hA) hscale
-  have hRA : R ⊆ A := hRG.trans hgoodsub
-  have hgood : ∀ x ∈ R, ((x.pair hQ1).goodOrientations p).Nonempty := by
+  -- a section of the good-orientation fibration, chosen only as proof technology
+  set σ : Carrier (p ^ e) p → Orientation := fun x =>
+    if h : ((x.pair hQ1).goodOrientations p).Nonempty then h.choose else .plus with hσdef
+  have hσgood : ∀ x : Carrier (p ^ e) p, ((x.pair hQ1).goodOrientations p).Nonempty →
+      σ x ∈ (x.pair hQ1).goodOrientations p := by
     intro x hx
-    exact (Finset.mem_filter.mp (hRG hx)).2
-  have hdel := card_goodCarriers_ge hp hQ1 A hband
-  refine ⟨R, truncate hQ1 R, rfl, hRA, hgood, hinj, by omega,
-    card_truncate_ge hQ1 R hinj, fun x hx => le_start_of_mem_truncate hQ1 R hx⟩
+    rw [hσdef]
+    simp only [dif_pos hx]
+    exact hx.choose_spec
+  have hgoodsub : goodCarriers hQ1 A ⊆ A := Finset.filter_subset _ _
+  have hgood : ∀ x ∈ goodCarriers hQ1 A, ((x.pair hQ1).goodOrientations p).Nonempty :=
+    fun x hx => (Finset.mem_filter.mp hx).2
+  obtain ⟨R, hRG, hinj, hcard⟩ :=
+    exists_dedup_row (Λ := Λ) (n := n) (d := d) hp rfl hQ1 σ (goodCarriers hQ1 A)
+      (hgoodsub.trans hA) hscale
+  have hdel := card_goodCarriers_ge hΛ hp hQ1 A hband
+  refine ⟨σ, R, R.filter (fun x ↦ t ≤ (x.pair hQ1).coefficient (σ x)), rfl,
+    hRG.trans hgoodsub, fun x hx => hσgood x (hgood x (hRG hx)), hinj, by omega,
+    card_upperCoefficient_ge R _ hinj t, fun x hx => ?_⟩
+  exact le_start_of_mem_truncation hQ1 σ (Finset.mem_filter.mp hx).2
 
 end SignedInverse
 end Erdos289

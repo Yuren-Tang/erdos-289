@@ -74,15 +74,15 @@ private theorem card_primeDivisors_le_of_lt_pow
 
 namespace SignedInverse
 
-/-- Prime carriers retained from a comparable band after the two intrinsic
+/-- Prime carriers retained from a band of ratio `Λ` after the two intrinsic
 current-stage exclusions. -/
-def carrierPrimes (Q p n : ℕ) : Finset ℕ :=
-  (comparablePrimes n).filter fun b ↦ b < Q ∧ b ≠ p
+def carrierPrimes (Λ Q p n : ℕ) : Finset ℕ :=
+  (bandPrimes Λ n).filter fun b ↦ b < Q ∧ b ≠ p
 
-theorem mem_carrierPrimes_iff {Q p n b : ℕ} :
-    b ∈ carrierPrimes Q p n ↔
-      n < b ∧ b ≤ 4 * n ∧ b.Prime ∧ b < Q ∧ b ≠ p := by
-  simp only [carrierPrimes, Finset.mem_filter, mem_comparablePrimes]
+theorem mem_carrierPrimes_iff {Λ Q p n b : ℕ} :
+    b ∈ carrierPrimes Λ Q p n ↔
+      n < b ∧ b ≤ Λ * n ∧ b.Prime ∧ b < Q ∧ b ≠ p := by
+  simp only [carrierPrimes, Finset.mem_filter, mem_bandPrimes]
   aesop
 
 /-- One implementation witness for a remote filtered-transverse atom. -/
@@ -143,10 +143,10 @@ end Carrier
 /-- Convert the retained prime band into the carrier certificate family for a
 prime-power current stage. -/
 noncomputable def carrierFamily
-    {Q p e n : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) :
+    {Λ Q p e n : ℕ} (hp : p.Prime) (hQ : Q = p ^ e) :
     Finset (Carrier Q p) := by
   classical
-  exact (carrierPrimes Q p n).attach.image fun b ↦
+  exact (carrierPrimes Λ Q p n).attach.image fun b ↦
     { b := b.1
       prime := (mem_carrierPrimes_iff.mp b.2).2.2.1
       b_lt := (mem_carrierPrimes_iff.mp b.2).2.2.2.1
@@ -159,9 +159,9 @@ noncomputable def carrierFamily
           exact (mem_carrierPrimes_iff.mp b.2).2.2.2.2 hpeq.symm) }
 
 theorem Carrier.mem_carrierFamily_b
-    {Q p e n : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
-    {x : Carrier Q p} (hx : x ∈ carrierFamily (n := n) hp hQ) :
-    x.b ∈ carrierPrimes Q p n := by
+    {Λ Q p e n : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
+    {x : Carrier Q p} (hx : x ∈ carrierFamily (Λ := Λ) (n := n) hp hQ) :
+    x.b ∈ carrierPrimes Λ Q p n := by
   classical
   rw [carrierFamily, Finset.mem_image] at hx
   rcases hx with ⟨b, hb, rfl⟩
@@ -220,17 +220,21 @@ theorem coefficientCarrierFiber_card_le
           (x.pair hQ).carrier_dvd_coefficientTarget Orientation.minus
   · exact hpow
 
-/-- In the comparable prime band `(n,4n]`, the coefficient fibre is at most
-four once the single explicit scale inequality `(Q²+1)<(n+1)^5` holds. -/
-theorem carrierFamily_coefficientFiber_card_le_four
-    {Q p e n k : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
+/--
+In a prime band above `n`, the coefficient fibre has at most `d` points as soon
+as the scale inequality `Q² + 1 < (n+1)^(d+1)` holds.  Both the fibre bound and
+the exponent are the same parameter: the exponent is `d + 1` because the
+oriented target is below `Q² + 1` and every carrier exceeds `n`.
+-/
+theorem carrierFamily_coefficientFiber_card_le
+    {Λ Q p e n k d : ℕ} (hp : p.Prime) (hQ : Q = p ^ e)
     (hstage : 1 < Q) (s : Orientation)
     (hN : 0 < coefficientTarget Q k s)
-    (hscale : Q ^ 2 + 1 < (n + 1) ^ 5) :
-    ((carrierFamily (n := n) hp hQ).filter fun x ↦
-      (x.pair hstage).coefficient s = k).card ≤ 4 := by
+    (hscale : Q ^ 2 + 1 < (n + 1) ^ (d + 1)) :
+    ((carrierFamily (Λ := Λ) (n := n) hp hQ).filter fun x ↦
+      (x.pair hstage).coefficient s = k).card ≤ d := by
   classical
-  let A := carrierFamily (n := n) hp hQ
+  let A := carrierFamily (Λ := Λ) (n := n) hp hQ
   let F := A.filter fun x ↦ (x.pair hstage).coefficient s = k
   by_cases hF : F.Nonempty
   · rcases hF with ⟨x, hx⟩
@@ -255,7 +259,7 @@ theorem carrierFamily_coefficientFiber_card_le_four
     · exact lt_trans htarget hscale
   · have hzero : F.card = 0 :=
       Finset.card_eq_zero.mpr (Finset.not_nonempty_iff_eq_empty.mp hF)
-    change F.card ≤ 4
+    change F.card ≤ d
     omega
 
 namespace Candidate

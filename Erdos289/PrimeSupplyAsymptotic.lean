@@ -12,18 +12,21 @@ public import Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics
 @[expose] public section
 
 /-!
-# Leaf `Π` in the form the descent consumes
+# The comparable-band leaf
 
-`Erdos289.comparablePrimeSupply_explicit` is the raw Chebyshev consequence: an
-inequality still carrying the `√x log x` error term of the lower bound for the
-theta function.  What the descent actually uses is the asymptotic statement
+The leaf is existential in the band ratio: there is a ratio `Λ > 1` for which
+the band `(n, Λ n]` carries at least of the order of `n / log n` primes.  That
+existential statement is `Erdos289.ComparableBand`, and it is what the row
+mathematics consumes.
 
-`#{p prime : n < p ≤ 4n}  ≫  n / log n`,
+A particular ratio is a *witness*, not the definition.  `comparableBandFour`
+is the witness supplied by mathlib's Chebyshev bounds, which already have a
+positive main term at ratio four.
 
-and that is what this module exports.  The statement is asymptotic because the
-mathematics is asymptotic; it is *not* replaced by an inequality valid beyond a
-hand-chosen numerical threshold.  The error term is absorbed by
-`Asymptotics.IsLittleO`, so no constant of the construction is ever named.
+The statement is asymptotic because the mathematics is asymptotic; it is not
+replaced by an inequality valid beyond a hand-chosen numerical threshold.  The
+`√x log x` error term of the theta lower bound is absorbed by
+`Asymptotics.IsLittleO`.
 -/
 
 set_option autoImplicit false
@@ -87,12 +90,25 @@ private theorem chebyshev_error_isLittleO :
   exact hlog.add hsqrtlog
 
 /--
-Leaf `Π`, asymptotic form: the comparable band `(n, 4n]` contains at least of
-the order of `n / log n` primes.
+A comparable band: an integer ratio at least two whose band `(n, Λ n]` carries
+at least of the order of `n / log n` primes.  This is the leaf; the ratio is
+existentially quantified, so no particular ratio enters the mathematics
+downstream.
 -/
-theorem comparablePrimes_card_isBigO :
+structure ComparableBand where
+  /-- The band ratio. -/
+  ratio : ℕ
+  two_le_ratio : 2 ≤ ratio
+  /-- The band carries `≫ n / log n` primes. -/
+  card_isBigO :
     (fun n : ℕ => (n : ℝ) / Real.log n) =O[atTop]
-      fun n : ℕ => ((comparablePrimes n).card : ℝ) := by
+      fun n : ℕ => ((bandPrimes ratio n).card : ℝ)
+
+/-- The witness computation behind `comparableBandFour`.  The ratio four is a
+witness of the leaf, not part of its statement. -/
+theorem bandPrimes_four_card_isBigO :
+    (fun n : ℕ => (n : ℝ) / Real.log n) =O[atTop]
+      fun n : ℕ => ((bandPrimes 4 n).card : ℝ) := by
   have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
   -- the error term, transported to `ℕ`
   have herr := chebyshev_error_isLittleO.comp_tendsto
@@ -117,36 +133,42 @@ theorem comparablePrimes_card_isBigO :
   have hlogn : 0 < Real.log (n : ℝ) := Real.log_pos (by linarith)
   have hcast : ((4 * n : ℕ) : ℝ) = 4 * (n : ℝ) := by push_cast; ring
   -- lower bound for the log mass of the band
-  have hband : Real.log 2 * (n : ℝ) ≤ ∑ p ∈ comparablePrimes n, Real.log p := by
+  have hband : Real.log 2 * (n : ℝ) ≤ ∑ p ∈ bandPrimes 4 n, Real.log p := by
     have hge := Chebyshev.theta_ge (4 * n)
     have hle := Chebyshev.theta_le_log4_mul_x (x := (n : ℝ)) hn0.le
     have hlog4 : Real.log 4 = 2 * Real.log 2 := by
       rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
-    rw [sum_log_comparablePrimes]
+    rw [sum_log_bandPrimes (by norm_num)]
     rw [hcast] at hge ⊢
     rw [hlog4] at hle
     linarith [hn]
   -- upper bound for the same mass
-  have hupper : ∑ p ∈ comparablePrimes n, Real.log p ≤
-      (comparablePrimes n).card * (2 * Real.log (n : ℝ)) := by
-    refine le_trans (sum_log_comparablePrimes_le n) ?_
+  have hupper : ∑ p ∈ bandPrimes 4 n, Real.log p ≤
+      (bandPrimes 4 n).card * (2 * Real.log (n : ℝ)) := by
+    refine le_trans (sum_log_bandPrimes_le 4 n) ?_
     have hle : Real.log (4 * (n : ℝ)) ≤ 2 * Real.log (n : ℝ) := by
       rw [Real.log_mul (by norm_num) (ne_of_gt hn0)]
       have : Real.log 4 ≤ Real.log (n : ℝ) := Real.log_le_log (by norm_num) hn4'
       linarith
-    have hcard : (0 : ℝ) ≤ ((comparablePrimes n).card : ℝ) := Nat.cast_nonneg _
+    have hcard : (0 : ℝ) ≤ ((bandPrimes 4 n).card : ℝ) := Nat.cast_nonneg _
     calc
-      ((comparablePrimes n).card : ℝ) * Real.log (4 * (n : ℝ))
-          ≤ ((comparablePrimes n).card : ℝ) * (2 * Real.log (n : ℝ)) := by
+      ((bandPrimes 4 n).card : ℝ) * Real.log (4 * (n : ℝ))
+          ≤ ((bandPrimes 4 n).card : ℝ) * (2 * Real.log (n : ℝ)) := by
         exact mul_le_mul_of_nonneg_left hle hcard
       _ = _ := rfl
-  have hcard0 : (0 : ℝ) ≤ ((comparablePrimes n).card : ℝ) := Nat.cast_nonneg _
+  have hcard0 : (0 : ℝ) ≤ ((bandPrimes 4 n).card : ℝ) := Nat.cast_nonneg _
   rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg hcard0, div_le_iff₀ hlogn]
   have key := le_trans hband hupper
-  have hshape : (2 : ℝ) / Real.log 2 * ((comparablePrimes n).card : ℝ) * Real.log (n : ℝ)
-      = (((comparablePrimes n).card : ℝ) * (2 * Real.log (n : ℝ))) / Real.log 2 := by
+  have hshape : (2 : ℝ) / Real.log 2 * ((bandPrimes 4 n).card : ℝ) * Real.log (n : ℝ)
+      = (((bandPrimes 4 n).card : ℝ) * (2 * Real.log (n : ℝ))) / Real.log 2 := by
     field_simp
   rw [hshape, le_div_iff₀ hlog2]
   linarith [key]
+
+/-- The witness ratio supplied by the available Chebyshev bounds. -/
+def comparableBandFour : ComparableBand where
+  ratio := 4
+  two_le_ratio := by norm_num
+  card_isBigO := bandPrimes_four_card_isBigO
 
 end Erdos289

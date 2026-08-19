@@ -20,14 +20,14 @@ pure pigeonhole.
 most four points, so a subfamily on which the coefficient is injective retains
 at least a quarter of the band.
 
-*Rank truncation.*  Distinct coefficients are distinct naturals, so fewer than
-half of them can lie below half their number; the retained half therefore has
-coefficient at least `⌊|row|/2⌋`, and the centre and mass bounds are exact
-consequences of the inverse equation.
+*Rank truncation.*  Distinct coefficients are distinct naturals, so at most `t`
+of them can lie below `t`: retaining the coefficients at least `t` costs at
+most `t` members, for *every* threshold `t`.  The centre and mass bounds are
+then exact consequences of the inverse equation, in the free parameter `t`.
 
-Nothing here is chosen: the fibre bound is four because a quadratic congruence
-has at most four roots, and the truncation threshold is the length of the row
-itself.
+Nothing here is chosen.  Both the fibre bound and the threshold are parameters;
+the fact that a particular value of either is convenient downstream is a fact
+about the construction, not about the row.
 -/
 
 set_option autoImplicit false
@@ -80,44 +80,44 @@ theorem exists_injOn_subset {α : Type*} [DecidableEq α] {β : Type*} [Decidabl
 /-! ### Rank truncation -/
 
 /--
-At least half of a finite set of naturals is at least half its cardinality.
-This is the rank truncation: the retained coefficients are as large as the row
-is long.
+The rank trade-off.  Discarding the elements of a finite set of naturals that
+lie below a threshold `t` costs at most `t` elements, because those elements
+embed into the initial segment of length `t`.
 -/
-theorem card_upperRank_ge (S : Finset ℕ) :
-    S.card - S.card / 2 ≤ (S.filter fun k => S.card / 2 ≤ k).card := by
+theorem card_upperRank_ge (S : Finset ℕ) (t : ℕ) :
+    S.card - t ≤ (S.filter fun k => t ≤ k).card := by
   classical
-  have hsub : (S.filter fun k => ¬ S.card / 2 ≤ k) ⊆ Finset.range (S.card / 2) := by
+  have hsub : (S.filter fun k => ¬ t ≤ k) ⊆ Finset.range t := by
     intro k hk
     rcases Finset.mem_filter.mp hk with ⟨-, hlt⟩
     exact Finset.mem_range.mpr (by omega)
-  have hle : (S.filter fun k => ¬ S.card / 2 ≤ k).card ≤ S.card / 2 := by
+  have hle : (S.filter fun k => ¬ t ≤ k).card ≤ t := by
     refine le_trans (Finset.card_le_card hsub) ?_
     simp
   have hsplit :=
-    Finset.card_filter_add_card_filter_not (s := S) (p := fun k => S.card / 2 ≤ k)
+    Finset.card_filter_add_card_filter_not (s := S) (p := fun k => t ≤ k)
   omega
 
 /--
-The rank truncation in the form the row certificate uses: on a family whose
-coefficients are pairwise distinct, at least half the members have coefficient
-at least half the family's size.
+The rank trade-off in the form the row certificate uses: on a family whose
+natural-valued coefficients are pairwise distinct, retaining the coefficients
+at least `t` costs at most `t` members.
 -/
 theorem card_upperCoefficient_ge {α : Type*}
-    (B : Finset α) (f : α → ℕ) (hinj : Set.InjOn f B) :
-    B.card - B.card / 2 ≤ (B.filter fun x => B.card / 2 ≤ f x).card := by
+    (B : Finset α) (f : α → ℕ) (hinj : Set.InjOn f B) (t : ℕ) :
+    B.card - t ≤ (B.filter fun x => t ≤ f x).card := by
   classical
   have hcard : (B.image f).card = B.card := Finset.card_image_of_injOn hinj
   have hfilter :
-      ((B.image f).filter fun k => B.card / 2 ≤ k)
-        = (B.filter fun x => B.card / 2 ≤ f x).image f := Finset.filter_image
-  have hinj' : Set.InjOn f (B.filter fun x => B.card / 2 ≤ f x) :=
+      ((B.image f).filter fun k => t ≤ k)
+        = (B.filter fun x => t ≤ f x).image f := Finset.filter_image
+  have hinj' : Set.InjOn f (B.filter fun x => t ≤ f x) :=
     hinj.mono (by exact_mod_cast Finset.filter_subset _ _)
   have heq :
-      ((B.image f).filter fun k => B.card / 2 ≤ k).card
-        = (B.filter fun x => B.card / 2 ≤ f x).card := by
+      ((B.image f).filter fun k => t ≤ k).card
+        = (B.filter fun x => t ≤ f x).card := by
     rw [hfilter, Finset.card_image_of_injOn hinj']
-  have hmain := card_upperRank_ge (B.image f)
+  have hmain := card_upperRank_ge (B.image f) t
   rw [hcard] at hmain
   rw [← heq]
   exact hmain
