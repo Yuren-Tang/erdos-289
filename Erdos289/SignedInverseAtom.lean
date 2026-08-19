@@ -75,6 +75,18 @@ theorem ComplementaryPair.distinguished_le_start_succ
       simpa [ComplementaryPair.start, ComplementaryPair.coefficient] using
         Nat.le_of_eq w.minus_eq.symm
 
+/-- The distinguished `Q`-multiple is the other adjacent endpoint: the start of
+an oriented atom is `Q k` or `Q k - 1`, never anything else. -/
+theorem ComplementaryPair.start_le_distinguished
+    {Q b : ℕ} (w : ComplementaryPair Q b) (s : Orientation) :
+    w.start s ≤ Q * w.coefficient s := by
+  cases s with
+  | plus => simp [ComplementaryPair.start, ComplementaryPair.coefficient]
+  | minus =>
+      have := w.minus_eq
+      simp only [ComplementaryPair.start, ComplementaryPair.coefficient]
+      omega
+
 /-- One orientation satisfying both current-unit and downward-companion conditions. -/
 structure GoodOrientation (p : ℕ) {Q b : ℕ} (w : ComplementaryPair Q b) where
   sign : Orientation

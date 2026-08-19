@@ -147,6 +147,20 @@ theorem binaryBlock_admissible
   ⟨binaryBlock_hasBlockSizes a, binaryBlock_avoids c a ha,
     binaryBlock_separated a c.separation⟩
 
+theorem binaryBlock_injective : Function.Injective binaryBlock := by
+  intro a b h
+  have ha : a ∈ binaryBlock b := h ▸ (mem_binaryBlock.mpr (Or.inl rfl))
+  have hb : b ∈ binaryBlock a := h ▸ (mem_binaryBlock.mpr (Or.inl rfl))
+  rcases mem_binaryBlock.mp ha with hab | hab
+  · exact hab
+  · rcases mem_binaryBlock.mp hb with hba | hba
+    · exact hba.symm
+    · have h1 : (b + 1).1 = b.1 + 1 := PNat.add_coe b 1
+      have h2 : (a + 1).1 = a.1 + 1 := PNat.add_coe a 1
+      have h3 : a.1 = b.1 + 1 := by rw [hab, h1]
+      have h4 : b.1 = a.1 + 1 := by rw [hba, h2]
+      omega
+
 @[simp]
 theorem binaryBlock_value (a : Denominator) :
     (binaryBlock a).value = binaryBlockMass a := by

@@ -173,6 +173,23 @@ theorem TransverseReservoir.card_simpleValues_of_injective
   intro S _ T _ hST
   exact Subtype.ext (hinj S.1 S.2 T.1 T.2 hST)
 
+/-- Injectivity of the fibre class passes to every subreservoir, because the
+class depends only on the support. -/
+theorem TransverseReservoir.card_simpleValues_of_subset
+    {Q : ℕ} {c : PhysicalConstraint} (R P : TransverseReservoir Q c)
+    (hsub : P.atoms ⊆ R.atoms)
+    (hinj : ∀ S, ∀ hS : S ∈ R.atoms, ∀ T, ∀ hT : T ∈ R.atoms,
+      S.transverseClass (R.transverse S hS) = T.transverseClass (R.transverse T hT) →
+        S = T) :
+    P.simpleValues.card = P.atoms.card := by
+  classical
+  refine P.card_simpleValues_of_injective ?_
+  intro S hS T hT hST
+  refine hinj S (hsub hS) T (hsub hT) ?_
+  rw [Support.transverseClass_congr (R.transverse S (hsub hS)) (P.transverse S hS),
+    Support.transverseClass_congr (R.transverse T (hsub hT)) (P.transverse T hT)]
+  exact hST
+
 /-! ### One stage realizes every class at every grade of its interval -/
 
 /--

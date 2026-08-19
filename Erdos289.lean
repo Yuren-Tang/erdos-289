@@ -48,6 +48,8 @@ public import Erdos289.StageProfile
 public import Erdos289.TailComposition
 public import Erdos289.StageToTail
 public import Erdos289.PrimeRowFibre
+public import Erdos289.RowReservoir
+public import Erdos289.PrimeRowStage
 
 /-!
 # Erdős problem 289

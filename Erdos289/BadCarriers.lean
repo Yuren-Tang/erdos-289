@@ -155,12 +155,13 @@ multipliers, two signs, and at most four square roots of each resulting unit,
 hence at most `8 (Λ - 1)` bad carriers, independently of the current.
 -/
 theorem card_badCarriers_le
-    {Λ p e : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ1 : 1 < p ^ e)
-    (A : Finset (Carrier (p ^ e) p))
-    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ (p ^ e) p (bandBase Λ (p ^ e)))
+    {Λ Q p e : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ : Q = p ^ e) (hQ1 : 1 < Q)
+    (A : Finset (Carrier Q p))
+    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ Q p (bandBase Λ Q))
     (hbad : ∀ x ∈ A, (x.pair hQ1).goodOrientations p = ∅) :
     A.card ≤ 8 * (Λ - 1) := by
   classical
+  subst hQ
   have : NeZero (p ^ e) := ⟨by omega⟩
   have hpQ : p ∣ p ^ e := dvd_pow_self p (by rintro rfl; simp at hQ1)
   set f : Carrier (p ^ e) p → (ZMod (p ^ e))ˣ := fun x => x.unit ^ 2 with hf
@@ -245,17 +246,18 @@ Assembly of the deletion step: a family of band carriers loses at most
 `8 (Λ - 1)` members to downwardness exceptions, where `Λ` is the band ratio.
 -/
 theorem card_goodCarriers_ge
-    {Λ p e : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ1 : 1 < p ^ e)
-    (A : Finset (Carrier (p ^ e) p))
-    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ (p ^ e) p (bandBase Λ (p ^ e))) :
+    {Λ Q p e : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ : Q = p ^ e) (hQ1 : 1 < Q)
+    (A : Finset (Carrier Q p))
+    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ Q p (bandBase Λ Q)) :
     A.card - 8 * (Λ - 1) ≤ (goodCarriers hQ1 A).card := by
   classical
+  subst hQ
   set P : Carrier (p ^ e) p → Prop :=
     fun x => ((x.pair hQ1).goodOrientations p).Nonempty with hPdef
   have hsplit : (A.filter P).card + (A.filter fun x => ¬ P x).card = A.card :=
     Finset.card_filter_add_card_filter_not _
   have hbadle : (A.filter fun x => ¬ P x).card ≤ 8 * (Λ - 1) := by
-    refine card_badCarriers_le hΛ hp hQ1 _
+    refine card_badCarriers_le hΛ hp rfl hQ1 _
       (fun x hx => hband x (Finset.mem_filter.mp hx).1) (fun x hx => ?_)
     have := (Finset.mem_filter.mp hx).2
     rw [hPdef] at this

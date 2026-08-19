@@ -505,3 +505,31 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.IndependentTransversal.card_le_card_chosen' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.IndependentTransversal.card_le_card_chosen
+
+/-- info: 'Erdos289.SignedInverse.rowStart_injOn_of_coefficient_injOn' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.rowStart_injOn_of_coefficient_injOn
+
+/-- info: 'Erdos289.SignedInverse.card_rowReservoir_atoms' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_rowReservoir_atoms
+
+/-- info: 'Erdos289.SignedInverse.exists_rowReservoir' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_rowReservoir
+
+/-- info: 'Erdos289.SignedInverse.card_simpleValues_rowReservoir' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.card_simpleValues_rowReservoir
+
+/-- info: 'Erdos289.SignedInverse.exists_tailStage_of_band' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.SignedInverse.exists_tailStage_of_band
+
+/-- info: 'Erdos289.TransverseReservoir.card_simpleValues_of_subset' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.TransverseReservoir.card_simpleValues_of_subset
+
+/-- info: 'Erdos289.binaryBlock_injective' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.binaryBlock_injective

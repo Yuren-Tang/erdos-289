@@ -52,6 +52,11 @@ theorem Support.simpleFibreClass_ne_zero_iff {S : Support} {Q : ℕ}
     apply hlower
     exact (QuotientAddGroup.eq_zero_iff x).1 hclass
 
+/-- The class in the simple quotient depends only on the support. -/
+theorem Support.simpleFibreClass_congr {S : Support} {Q : ℕ}
+    (h₁ h₂ : S.FactorsThroughPrimePowerStage Q) :
+    S.simpleFibreClass h₁ = S.simpleFibreClass h₂ := rfl
+
 /-- Intrinsic filtered transversality at a prime-power stage. -/
 def Support.FilteredTransverse (S : Support) (Q : ℕ) : Prop :=
   ∃ hS : S.FactorsThroughPrimePowerStage Q, S.simpleFibreClass hS ≠ 0
@@ -64,6 +69,16 @@ noncomputable def Support.transverseClass {S : Support} {Q : ℕ}
 theorem Support.transverseClass_ne_zero {S : Support} {Q : ℕ}
     (hS : S.FilteredTransverse Q) : S.transverseClass hS ≠ 0 :=
   (Classical.choose_spec hS)
+
+/-- The transverse class depends only on the support. -/
+theorem Support.transverseClass_congr {S : Support} {Q : ℕ}
+    (h₁ h₂ : S.FilteredTransverse Q) :
+    S.transverseClass h₁ = S.transverseClass h₂ := rfl
+
+/-- The transverse class is the simple-fibre class of any factorization. -/
+theorem Support.transverseClass_eq_simpleFibreClass {S : Support} {Q : ℕ}
+    (hS : S.FilteredTransverse Q) (hfac : S.FactorsThroughPrimePowerStage Q) :
+    S.transverseClass hS = S.simpleFibreClass hfac := rfl
 
 /-- A finite physical reservoir before global compatibility selection. -/
 structure TransverseReservoir (Q : ℕ) (c : PhysicalConstraint) where

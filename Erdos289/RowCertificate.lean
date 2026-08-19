@@ -160,25 +160,25 @@ threshold `t`.  The two size inequalities are the exact costs of the three
 selections: deletion, deduplication, truncation.
 -/
 theorem exists_rowCertificate
-    {Λ p e n d t : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ1 : 1 < p ^ e)
-    (A : Finset (Carrier (p ^ e) p))
-    (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp rfl)
-    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ (p ^ e) p (bandBase Λ (p ^ e)))
-    (hscale : (p ^ e) ^ 2 + 1 < (n + 1) ^ (d + 1)) :
-    ∃ (σ : Carrier (p ^ e) p → Orientation) (R T : Finset (Carrier (p ^ e) p)),
+    {Λ Q p e n d t : ℕ} (hΛ : 0 < Λ) (hp : p.Prime) (hQ : Q = p ^ e) (hQ1 : 1 < Q)
+    (A : Finset (Carrier Q p))
+    (hA : A ⊆ carrierFamily (Λ := Λ) (n := n) hp hQ)
+    (hband : ∀ x ∈ A, x.b ∈ carrierPrimes Λ Q p (bandBase Λ Q))
+    (hscale : Q ^ 2 + 1 < (n + 1) ^ (d + 1)) :
+    ∃ (σ : Carrier Q p → Orientation) (R T : Finset (Carrier Q p)),
       T = R.filter (fun x ↦ t ≤ (x.pair hQ1).coefficient (σ x)) ∧
       R ⊆ A ∧
       (∀ x ∈ R, σ x ∈ (x.pair hQ1).goodOrientations p) ∧
       Set.InjOn
-        (fun x : Carrier (p ^ e) p ↦ (x.pair hQ1).coefficient (σ x)) R ∧
+        (fun x : Carrier Q p ↦ (x.pair hQ1).coefficient (σ x)) R ∧
       A.card - 8 * (Λ - 1) ≤ 2 * d * R.card ∧
       R.card - t ≤ T.card ∧
-      (∀ x ∈ T, p ^ e * t - 1 ≤ (x.pair hQ1).start (σ x)) := by
+      (∀ x ∈ T, Q * t - 1 ≤ (x.pair hQ1).start (σ x)) := by
   classical
   -- a section of the good-orientation fibration, chosen only as proof technology
-  set σ : Carrier (p ^ e) p → Orientation := fun x =>
+  set σ : Carrier Q p → Orientation := fun x =>
     if h : ((x.pair hQ1).goodOrientations p).Nonempty then h.choose else .plus with hσdef
-  have hσgood : ∀ x : Carrier (p ^ e) p, ((x.pair hQ1).goodOrientations p).Nonempty →
+  have hσgood : ∀ x : Carrier Q p, ((x.pair hQ1).goodOrientations p).Nonempty →
       σ x ∈ (x.pair hQ1).goodOrientations p := by
     intro x hx
     rw [hσdef]
@@ -188,9 +188,9 @@ theorem exists_rowCertificate
   have hgood : ∀ x ∈ goodCarriers hQ1 A, ((x.pair hQ1).goodOrientations p).Nonempty :=
     fun x hx => (Finset.mem_filter.mp hx).2
   obtain ⟨R, hRG, hinj, hcard⟩ :=
-    exists_dedup_row (Λ := Λ) (n := n) (d := d) hp rfl hQ1 σ (goodCarriers hQ1 A)
+    exists_dedup_row (Λ := Λ) (n := n) (d := d) hp hQ hQ1 σ (goodCarriers hQ1 A)
       (hgoodsub.trans hA) hscale
-  have hdel := card_goodCarriers_ge hΛ hp hQ1 A hband
+  have hdel := card_goodCarriers_ge hΛ hp hQ hQ1 A hband
   refine ⟨σ, R, R.filter (fun x ↦ t ≤ (x.pair hQ1).coefficient (σ x)), rfl,
     hRG.trans hgoodsub, fun x hx => hσgood x (hgood x (hRG hx)), hinj, by omega,
     card_upperCoefficient_ge R _ hinj t, fun x hx => ?_⟩
