@@ -58,12 +58,12 @@ of admissible atoms whose exact values sum into `(0, 2)` and whose centered
 residues cancel is a saturation witness at the sum of the grades.
 -/
 noncomputable def saturationWitness_of_pool
-    {c : PhysicalConstraint} {A : Finset Support}
-    (hadm : ∀ S ∈ A, S.Admissible smallBlockSizes c)
+    {L : Set ℕ} {c : PhysicalConstraint} {A : Finset Support}
+    (hadm : ∀ S ∈ A, S.Admissible L c)
     (hpair : (A : Set Support).Pairwise fun S T ↦ S.CompatibleFor T c)
     (hpos : 0 < ∑ S ∈ A, S.value) (hlt : ∑ S ∈ A, S.value < 2)
     (hres : ∑ S ∈ A, S.residue = 0) :
-    SaturationWitness 1 c (∑ S ∈ A, S.grade) :=
+    SaturationWitness L 1 c (∑ S ∈ A, S.grade) :=
   saturationWitness_of_residue_zero
     (aggregateSupport_admissible hadm hpair)
     (aggregateSupport_grade hpair)
@@ -87,13 +87,13 @@ footprint compose to a saturation witness when their values and residues meet
 the selector conditions.
 -/
 noncomputable def saturationWitness_of_pairBeyond
-    (c : PhysicalConstraint) {S F V : Support}
+    {L : Set ℕ} (c : PhysicalConstraint) {S F V : Support}
     (hSF : S ⊆ F)
-    (hS : S.Admissible smallBlockSizes c)
-    (hV : V.Admissible smallBlockSizes (constraintBeyond c F))
+    (hS : S.Admissible L c)
+    (hV : V.Admissible L (constraintBeyond c F))
     (hpos : 0 < S.value + V.value) (hlt : S.value + V.value < 2)
     (hres : S.residue + V.residue = 0) :
-    SaturationWitness 1 c (S.grade + V.grade) :=
+    SaturationWitness L 1 c (S.grade + V.grade) :=
   saturationWitness_of_residue_zero
     (admissible_union_of_pairBeyond c hSF hS hV)
     (grade_union_of_pairBeyond c hSF hV.2.1)
@@ -107,14 +107,14 @@ pools.  This is the exact interface the quantitative arithmetic layers have to
 meet; see `ROADMAP.md`.
 -/
 theorem cofiniteSaturation_one_of_pools
-    {c : PhysicalConstraint} {N : ℕ}
+    {L : Set ℕ} {c : PhysicalConstraint} {N : ℕ}
     (h : ∀ k, N ≤ k → ∃ A : Finset Support,
-      (∀ S ∈ A, S.Admissible smallBlockSizes c) ∧
+      (∀ S ∈ A, S.Admissible L c) ∧
       (A : Set Support).Pairwise (fun S T ↦ S.CompatibleFor T c) ∧
       ∑ S ∈ A, S.grade = k ∧
       0 < ∑ S ∈ A, S.value ∧ ∑ S ∈ A, S.value < 2 ∧
       ∑ S ∈ A, S.residue = 0) :
-    CofiniteSaturation 1 c := by
+    CofiniteSaturation L 1 c := by
   refine ⟨N, fun k hk => ?_⟩
   obtain ⟨A, hadm, hpair, hgrade, hpos, hlt, hres⟩ := h k hk
   exact ⟨hgrade ▸ saturationWitness_of_pool hadm hpair hpos hlt hres⟩

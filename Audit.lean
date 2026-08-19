@@ -190,9 +190,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.cofiniteSaturation_of_interval_witnesses
 
-/-- info: 'Erdos289.erdos289_of_positiveRationalSaturation' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.intervalSaturation_of_positiveRational' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.erdos289_of_positiveRationalSaturation
+#print axioms Erdos289.intervalSaturation_of_positiveRational
 
 /-- info: 'Erdos289.Support.value_eq_one_of_residue_zero' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -214,13 +214,13 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.Support.blockNat_eq_Icc
 
-/-- info: 'Erdos289.erdos289LiteralSeparated_of_statement' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.erdosProblem289_of_intervalSaturation' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.erdos289LiteralSeparated_of_statement
+#print axioms Erdos289.erdosProblem289_of_intervalSaturation
 
-/-- info: 'Erdos289.erdos289Literal_of_statement' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.erdosProblem289_of_smallBlockSaturation' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.erdos289Literal_of_statement
+#print axioms Erdos289.erdosProblem289_of_smallBlockSaturation
 
 /-- info: 'Erdos289.bandPrimes_four_card_isBigO' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -338,9 +338,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.cofiniteSaturation_one_of_core_tail
 
-/-- info: 'Erdos289.erdos289Statement_of_core_tail' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.smallBlockSaturation_of_core_tail' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.erdos289Statement_of_core_tail
+#print axioms Erdos289.smallBlockSaturation_of_core_tail
 
 /-- info: 'Erdos289.Support.value_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -362,9 +362,9 @@ and regenerate rather than editing it by hand.
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.exists_coreStage
 
-/-- info: 'Erdos289.erdos289Statement_of_tailInterface' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+/-- info: 'Erdos289.smallBlockSaturation_of_tailInterface' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
-#print axioms Erdos289.erdos289Statement_of_tailInterface
+#print axioms Erdos289.smallBlockSaturation_of_tailInterface
 
 /-- info: 'AffineCorrection.intervalSpectrum_cofinite_of_eventually' depends on axioms: [propext, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
@@ -485,3 +485,11 @@ and regenerate rather than editing it by hand.
 /-- info: 'Erdos289.ternaryBlock_crossSeparated_of_dist' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms Erdos289.ternaryBlock_crossSeparated_of_dist
+
+/-- info: 'Erdos289.intervalSaturation_of_smallBlock' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.intervalSaturation_of_smallBlock
+
+/-- info: 'Erdos289.CofiniteSaturation.mono' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms Erdos289.CofiniteSaturation.mono

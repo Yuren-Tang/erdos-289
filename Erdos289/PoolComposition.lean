@@ -64,17 +64,17 @@ private theorem compatible_aggregate
 
 /-- Pairwise compatible admissible atoms have an admissible aggregate. -/
 theorem aggregateSupport_admissible
-    {c : PhysicalConstraint} {A : Finset Support}
-    (hadm : ∀ S ∈ A, S.Admissible smallBlockSizes c)
+    {L : Set ℕ} {c : PhysicalConstraint} {A : Finset Support}
+    (hadm : ∀ S ∈ A, S.Admissible L c)
     (hpair : (A : Set Support).Pairwise fun S T ↦ S.CompatibleFor T c) :
-    (aggregateSupport A).Admissible smallBlockSizes c := by
+    (aggregateSupport A).Admissible L c := by
   induction A using Finset.induction_on with
   | empty =>
       simp [aggregateSupport, Support.Admissible, Support.HasBlockSizes,
         Support.Avoids, Support.Separated]
   | @insert S A hSA ih =>
-      have hSadm : S.Admissible smallBlockSizes c := hadm S (by simp)
-      have hAadm : ∀ T ∈ A, T.Admissible smallBlockSizes c := by
+      have hSadm : S.Admissible L c := hadm S (by simp)
+      have hAadm : ∀ T ∈ A, T.Admissible L c := by
         intro T hT
         exact hadm T (by simp [hT])
       have hApair : (A : Set Support).Pairwise fun U V ↦ U.CompatibleFor V c :=

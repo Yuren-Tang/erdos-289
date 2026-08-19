@@ -125,7 +125,7 @@ theorem exists_saturationWitness_of_tailCovers
     {G : AddSubgroup TargetResidue} {h : ℕ} {ε : ℚ}
     (hcentre : B.centre ∈ G) (hε : ε < B.slack)
     (htail : TailCovers c B.footprint B.subgroup G h ε) :
-    Nonempty (SaturationWitness 1 c (B.grade + h)) := by
+    Nonempty (SaturationWitness smallBlockSizes 1 c (B.grade + h)) := by
   obtain ⟨V, hVadm, hVgrade, hVres, hVpos, hVle⟩ := htail (-B.centre) (G.neg_mem hcentre)
   -- the residual discrepancy lies in the core subgroup, so the torsor supplies it
   have huH : -(V.residue + B.centre) ∈ B.subgroup := by
@@ -153,19 +153,19 @@ theorem cofiniteSaturation_one_of_core_tail
     {c : PhysicalConstraint} (B : CoreStage c) {N : ℕ}
     (hsupply : ∀ h, N ≤ h → ∃ (G : AddSubgroup TargetResidue) (ε : ℚ),
       B.centre ∈ G ∧ ε < B.slack ∧ TailCovers c B.footprint B.subgroup G h ε) :
-    CofiniteSaturation 1 c := by
+    CofiniteSaturation smallBlockSizes 1 c := by
   refine ⟨B.grade + N, fun k hk => ?_⟩
   obtain ⟨h, rfl⟩ : ∃ h, k = B.grade + h := ⟨k - B.grade, by omega⟩
   obtain ⟨G, ε, hcentre, hε, htail⟩ := hsupply h (by omega)
   exact exists_saturationWitness_of_tailCovers B hcentre hε htail
 
-/-- Erdős 289 itself, from the two provider interfaces. -/
-theorem erdos289Statement_of_core_tail
+/-- The `{2,3}` saturation theorem, from the core and tail interfaces. -/
+theorem smallBlockSaturation_of_core_tail
     (B : CoreStage originalConstraint) {N : ℕ}
     (hsupply : ∀ h, N ≤ h → ∃ (G : AddSubgroup TargetResidue) (ε : ℚ),
       B.centre ∈ G ∧ ε < B.slack ∧
         TailCovers originalConstraint B.footprint B.subgroup G h ε) :
-    Erdos289Statement :=
+    SmallBlockSaturation :=
   cofiniteSaturation_one_of_core_tail B hsupply
 
 end Erdos289

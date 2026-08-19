@@ -223,7 +223,7 @@ theorem exists_coreStage (c : PhysicalConstraint) {D : ℕ} (hD : 0 < D) :
     linarith [L.base_lt]
 
 /--
-Erdős 289 from the tail interface alone.
+The `{2,3}` saturation theorem from the tail interface alone.
 
 The core interface is discharged by `exists_coreStage`, so the only remaining
 obligation is the manuscript's cofinal tail: beyond any finite footprint, and
@@ -231,14 +231,14 @@ for any target class, states of every large grade whose residues cover the
 ambient group modulo the core's cyclic subgroup, with total load below the
 barrier slack `1/2`.
 -/
-theorem erdos289Statement_of_tailInterface
+theorem smallBlockSaturation_of_tailInterface
     {D : ℕ} (hD : 0 < D)
     (hsupply : ∀ (F : Support) (τ : TargetResidue), ∃ N : ℕ, ∀ h, N ≤ h →
       ∃ (G : AddSubgroup TargetResidue) (ε : ℚ),
         τ ∈ G ∧ ε < 1 / 2 ∧
         TailCovers originalConstraint F
           (AddSubgroup.zmultiples (reciprocalResidue ⟨D, hD⟩)) G h ε) :
-    Erdos289Statement := by
+    SmallBlockSaturation := by
   obtain ⟨B, hsub, hslack⟩ := exists_coreStage originalConstraint hD
   obtain ⟨N, hN⟩ := hsupply B.footprint B.centre
   refine cofiniteSaturation_one_of_core_tail B (N := N) ?_

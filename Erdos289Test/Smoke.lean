@@ -59,31 +59,44 @@ example {V I : Type*} [DecidableEq V] [Fintype V]
     G pools hpartition hthick
 
 /-!
-### Faithfulness of the literal statements
+### Faithfulness of the source-level statement
 
-These two examples restate the target sentences verbatim and check that the
-definitions in `Erdos289/Literal.lean` are the same propositions, so that the
-derivations in that file cannot silently drift away from what they claim to
-formalize.  The first is the right-hand side of `erdos_289` in
-`google-deepmind/formal-conjectures`, copied as written there.
+This example restates the target sentence verbatim and checks that
+`Erdos289.ErdosProblem289` is the same proposition, so that the derivation in
+`Erdos289/Literal.lean` cannot silently drift away from what it claims to
+formalize.  The wording is the one displayed at
+<https://www.erdosproblems.com/289>.
 -/
 
-example : Erdos289.Erdos289Literal ↔
+example : Erdos289.ErdosProblem289 ↔
     (∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
-    (∀ i, (I i).1 < (I i).2) ∧
-    (∀ i j, i ≠ j → (I i).2 < (I j).1 ∨ (I j).2 < (I i).1) ∧
-    ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n⁻¹ : ℚ) = 1) :=
-  Iff.rfl
-
-/-- The erdosproblems.com wording, which also forbids adjacent intervals. -/
-example : Erdos289.Erdos289LiteralSeparated ↔
-    (∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
+    (∀ i, 0 < (I i).1) ∧
     (∀ i, (I i).1 < (I i).2) ∧
     (∀ i j, i ≠ j → (I i).2 + 1 < (I j).1 ∨ (I j).2 + 1 < (I i).1) ∧
     ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n⁻¹ : ℚ) = 1) :=
   Iff.rfl
 
-example (h : Erdos289.Erdos289Statement) : Erdos289.Erdos289Literal :=
-  Erdos289.erdos289Literal_of_statement h
+example (h : Erdos289.IntervalSaturation) : Erdos289.ErdosProblem289 :=
+  Erdos289.erdosProblem289_of_intervalSaturation h
+
+/-!
+### Quarantine: the weaker `formal-conjectures` formulation
+
+The `erdos_289` entry of `google-deepmind/formal-conjectures` omits the
+non-adjacency requirement of the source problem, so it is a strictly weaker
+sentence and is *not* a production target of this development.  It is recorded
+here, outside the library, only to show that the canonical statement implies
+it.
+-/
+
+example (h : Erdos289.ErdosProblem289) :
+    (∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
+      (∀ i, (I i).1 < (I i).2) ∧
+      (∀ i j, i ≠ j → (I i).2 < (I j).1 ∨ (I j).2 < (I i).1) ∧
+      ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n⁻¹ : ℚ) = 1) := by
+  filter_upwards [h] with k hk
+  obtain ⟨I, -, hlen, hsep, hsum⟩ := hk
+  exact ⟨I, hlen, fun i j hij => (hsep i j hij).imp (fun h => by omega) fun h => by omega,
+    hsum⟩
 
 end Erdos289Test

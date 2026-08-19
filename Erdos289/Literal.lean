@@ -284,40 +284,36 @@ theorem Support.value_eq_sum_blockNat (S : Support) {k : ℕ} (e : Fin k ≃ S.B
 
 end Blocks
 
-/-! ## The literal statements -/
+/-! ## The source-level statement -/
 
 /--
-Erdős problem 289 in the form used by the `erdos_289` entry of
-`google-deepmind/formal-conjectures`: for all sufficiently large `k` there are
-`k` pairwise disjoint integer intervals of length at least two whose reciprocal
-sum is one.
--/
-def Erdos289Literal : Prop :=
-  ∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
-    (∀ i, (I i).1 < (I i).2) ∧
-    (∀ i j, i ≠ j → (I i).2 < (I j).1 ∨ (I j).2 < (I i).1) ∧
-    ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n : ℚ)⁻¹ = 1
+Erdős problem 289, in the formulation displayed at
+<https://www.erdosproblems.com/289>:
 
-/--
-Erdős problem 289 as displayed on erdosproblems.com/289, where the intervals
-are additionally required to be non-adjacent.  This is the stronger sentence:
-adjacent intervals would merge into a single block.
+> Is it true that, for all sufficiently large `k`, there exist finite intervals
+> `I₁, …, I_k ⊂ ℕ`, distinct, not overlapping or adjacent, with `|Iᵢ| ≥ 2`,
+> such that `1 = ∑ᵢ ∑_{n ∈ Iᵢ} 1/n`?
+
+The intervals are given by their endpoints.  `(I i).1 < (I i).2` is `|Iᵢ| ≥ 2`;
+`0 < (I i).1` is the requirement that the intervals lie in the positive
+integers, without which the reciprocal sum would silently admit a zero
+denominator; and the gap condition is "not overlapping or adjacent", which also
+forces the intervals to be distinct.
 -/
-def Erdos289LiteralSeparated : Prop :=
+def ErdosProblem289 : Prop :=
   ∀ᶠ k : ℕ in Filter.atTop, ∃ I : Fin k → ℕ × ℕ,
+    (∀ i, 0 < (I i).1) ∧
     (∀ i, (I i).1 < (I i).2) ∧
     (∀ i j, i ≠ j → (I i).2 + 1 < (I j).1 ∨ (I j).2 + 1 < (I i).1) ∧
     ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n : ℚ)⁻¹ = 1
 
-theorem erdos289Literal_of_separated (h : Erdos289LiteralSeparated) : Erdos289Literal := by
-  filter_upwards [h] with k hk
-  obtain ⟨I, hlen, hsep, hsum⟩ := hk
-  exact ⟨I, hlen, fun i j hij => (hsep i j hij).imp (fun h => by omega) fun h => by omega, hsum⟩
-
-/-- One saturation witness of grade `k` is literally a family of `k` blocks. -/
+/-- One saturation witness of grade `k` is literally a family of `k` intervals
+of the source problem. -/
 theorem exists_intervalFamily_of_saturationWitness
-    {k : ℕ} (hk : 0 < k) (w : SaturationWitness 1 originalConstraint k) :
+    {k : ℕ} (hk : 0 < k)
+    (w : SaturationWitness nontrivialBlockSizes 1 originalConstraint k) :
     ∃ I : Fin k → ℕ × ℕ,
+      (∀ i, 0 < (I i).1) ∧
       (∀ i, (I i).1 < (I i).2) ∧
       (∀ i j, i ≠ j → (I i).2 + 1 < (I j).1 ∨ (I j).2 + 1 < (I i).1) ∧
       ∑ i, ∑ n ∈ Finset.Icc (I i).1 (I i).2, (n : ℚ)⁻¹ = 1 := by
@@ -327,11 +323,11 @@ theorem exists_intervalFamily_of_saturationWitness
   have hpos : Nat.card S.Blocks ≠ 0 := by rw [hcard]; omega
   let e : Fin k ≃ S.Blocks :=
     ((Nat.equivFinOfCardPos hpos).trans (finCongr hcard)).symm
-  refine ⟨fun i => (S.blockMin (e i), S.blockMax (e i)), ?_, ?_, ?_⟩
+  refine ⟨fun i => (S.blockMin (e i), S.blockMax (e i)), ?_, ?_, ?_, ?_⟩
   · intro i
-    refine S.blockMin_lt_blockMax ?_
-    have hsize : S.blockSize (e i) = 2 ∨ S.blockSize (e i) = 3 := w.admissible.1 (e i)
-    omega
+    exact S.pos_of_mem_blockNat (S.blockMin_mem (e i))
+  · intro i
+    exact S.blockMin_lt_blockMax (w.admissible.1 (e i))
   · intro i j hij
     have hne : e i ≠ e j := fun h => hij (e.injective h)
     have hdisj := S.blockNat_disjoint hne
@@ -371,18 +367,20 @@ theorem exists_intervalFamily_of_saturationWitness
       _ = 1 := w.value_eq
 
 /--
-The intrinsic theorem implies the sentence displayed on erdosproblems.com/289.
+The intrinsic statement implies the source-level problem.  This is what makes
+the identification of the two a theorem rather than a claim.
 -/
-theorem erdos289LiteralSeparated_of_statement (h : Erdos289Statement) :
-    Erdos289LiteralSeparated := by
+theorem erdosProblem289_of_intervalSaturation (h : IntervalSaturation) :
+    ErdosProblem289 := by
   obtain ⟨N, hN⟩ := h
   refine Filter.eventually_atTop.2 ⟨max N 1, fun k hk => ?_⟩
   obtain ⟨w⟩ := hN k (le_trans (le_max_left N 1) hk)
   exact exists_intervalFamily_of_saturationWitness
     (lt_of_lt_of_le Nat.one_pos (le_trans (le_max_right N 1) hk)) w
 
-/-- The intrinsic theorem implies the `formal-conjectures` form. -/
-theorem erdos289Literal_of_statement (h : Erdos289Statement) : Erdos289Literal :=
-  erdos289Literal_of_separated (erdos289LiteralSeparated_of_statement h)
+/-- The same, from the `{2,3}` strengthening. -/
+theorem erdosProblem289_of_smallBlockSaturation (h : SmallBlockSaturation) :
+    ErdosProblem289 :=
+  erdosProblem289_of_intervalSaturation (intervalSaturation_of_smallBlock h)
 
 end Erdos289

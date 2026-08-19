@@ -59,10 +59,10 @@ An admissible support of grade `k` that is centered and lies in the selector
 interval is a saturation witness at the unit target.
 -/
 def saturationWitness_of_residue_zero
-    {c : PhysicalConstraint} {k : ℕ} {S : Support}
-    (hadm : S.Admissible smallBlockSizes c) (hgrade : S.grade = k)
+    {L : Set ℕ} {c : PhysicalConstraint} {k : ℕ} {S : Support}
+    (hadm : S.Admissible L c) (hgrade : S.grade = k)
     (h0 : 0 < S.value) (h2 : S.value < 2) (hres : S.residue = 0) :
-    SaturationWitness 1 c k where
+    SaturationWitness L 1 c k where
   support := S
   admissible := hadm
   value_eq := Support.value_eq_one_of_residue_zero h0 h2 hres
@@ -74,10 +74,10 @@ admissible supports realizing every sufficiently large grade inside the
 selector interval.
 -/
 theorem cofiniteSaturation_one_of_centered
-    {c : PhysicalConstraint} {N : ℕ}
-    (h : ∀ k, N ≤ k → ∃ S : Support, S.Admissible smallBlockSizes c ∧
+    {L : Set ℕ} {c : PhysicalConstraint} {N : ℕ}
+    (h : ∀ k, N ≤ k → ∃ S : Support, S.Admissible L c ∧
       S.grade = k ∧ 0 < S.value ∧ S.value < 2 ∧ S.residue = 0) :
-    CofiniteSaturation 1 c := by
+    CofiniteSaturation L 1 c := by
   refine ⟨N, fun k hk => ?_⟩
   obtain ⟨S, hadm, hgrade, h0, h2, hres⟩ := h k hk
   exact ⟨saturationWitness_of_residue_zero hadm hgrade h0 h2 hres⟩

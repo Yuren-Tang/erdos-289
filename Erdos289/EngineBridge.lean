@@ -85,7 +85,7 @@ noncomputable def saturationWitness_of_mem_exactSpectrum
     {c : PhysicalConstraint} {k : ℕ}
     (h : k ∈ AffineCorrection.exactSpectrum (selectorFamily c)
       Support.residue Support.grade 0) :
-    SaturationWitness 1 c k :=
+    SaturationWitness smallBlockSizes 1 c k :=
   saturationWitness_of_residue_zero
     (Classical.choose_spec h).1.1
     (Classical.choose_spec h).2.2
@@ -101,7 +101,7 @@ theorem cofiniteSaturation_of_exactSpectrum
     {c : PhysicalConstraint} {N : ℕ}
     (h : ∀ k, N ≤ k → k ∈ AffineCorrection.exactSpectrum (selectorFamily c)
       Support.residue Support.grade 0) :
-    CofiniteSaturation 1 c :=
+    CofiniteSaturation smallBlockSizes 1 c :=
   ⟨N, fun k hk => ⟨saturationWitness_of_mem_exactSpectrum (h k hk)⟩⟩
 
 /-- Exact reciprocal value is additive on the physical partial monoid. -/
