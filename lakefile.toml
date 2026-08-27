@@ -1,6 +1,6 @@
 name = "erdos289"
 version = "0.1.0"
-defaultTargets = ["Erdos289", "Erdos289Defect"]
+defaultTargets = ["Erdos289"]
 
 [[require]]
 name = "mathlib"
@@ -9,7 +9,23 @@ rev = "v4.33.0"
 
 [[lean_lib]]
 name = "Erdos289"
-
-[[lean_lib]]
-name = "Erdos289Defect"
-
+roots = [
+  "Erdos289",
+  "Erdos289Defect",
+  "Universal",
+  "Reciprocal",
+  "Neutral",
+  "PrimeGrowth",
+  "Packing",
+  "RestrictedFold",
+  "Transverse",
+  "Prefix",
+  "Tail",
+  "Exact",
+  "Defect",
+]
+globs = [
+  "Erdos289",
+  "Erdos289Defect",
+  "Universal.+",
+]
