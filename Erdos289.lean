@@ -1,5 +1,9 @@
 import Universal.AffineFiber
 import Universal.Asymptotics
+import Universal.ComponentProfileQuotient
+import Universal.NaryCompatibility
+import Universal.PhysicalPartialMonoid
+import Universal.FiniteComponentState
 import Universal.ReflexiveGraph
 import Universal.Target.Centering
 

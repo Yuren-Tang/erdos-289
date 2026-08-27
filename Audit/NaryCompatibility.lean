@@ -1,0 +1,23 @@
+import Universal.NaryCompatibility
+
+open scoped BigOperators
+
+open Erdos289
+
+#check naryComponentMap
+#check NaryCompatible
+#check naryComponentMap_surjective
+#check naryCompatible_pairwise_support_disjoint
+#check naryCompatible_union_admissible
+#check naryUnion
+#check componentProfile_naryUnion
+#check vertexFold_naryUnion
+#check naryCompatible_maximal
+#check naryCompatible_of_support_profile_eq
+
+#print axioms naryCompatible_pairwise_support_disjoint
+#print axioms naryCompatible_union_admissible
+#print axioms componentProfile_naryUnion
+#print axioms vertexFold_naryUnion
+#print axioms naryCompatible_maximal
+#print axioms naryCompatible_of_support_profile_eq

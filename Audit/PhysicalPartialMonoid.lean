@@ -1,0 +1,39 @@
+import Universal.PhysicalPartialMonoid
+
+open scoped BigOperators
+
+open Erdos289
+
+#check BinaryPhysicalDomain
+#check binaryUnion
+#check binaryCompatible_comm
+#check binaryUnion_comm
+#check FiniteMultiplicationDomain
+#check NaryPhysicalDomain
+#check finitePhysicalUnion
+#check finitePhysicalUnion_witness_independent
+#check mem_naryPhysicalDomain_iff
+#check componentProfile_finitePhysicalUnion
+#check vertexFold_finitePhysicalUnion
+#check emptyPhysicalState
+#check emptyPhysicalState_left_compatible
+#check emptyPhysicalState_right_compatible
+#check binaryUnion_empty_left
+#check binaryUnion_empty_right
+#check PhysicalPartialMonoid
+#check physicalPartialMonoid
+#check PhysicalFamily
+#check FinitePhysicalFamily
+#check AllCompatible
+#check allCompatible_iff
+#check NaryFamilyCompatible
+#check naryFamilyCompatible_iff
+
+#print axioms componentProfile_finitePhysicalUnion
+#print axioms vertexFold_finitePhysicalUnion
+#print axioms binaryCompatible_comm
+#print axioms binaryUnion_comm
+#print axioms binaryUnion_empty_left
+#print axioms binaryUnion_empty_right
+#print axioms allCompatible_iff
+#print axioms naryFamilyCompatible_iff
