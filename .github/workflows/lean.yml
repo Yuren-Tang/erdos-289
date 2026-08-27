@@ -14,4 +14,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
         with:
-          use-mathlib-cache: true
+          auto-config: false
+          build: false
+          test: false
+          lint: false
+      - name: Resolve dependencies
+        run: lake update
+      - name: Restore Mathlib cache
+        run: lake exe cache get
+      - name: Build
+        run: lake build
