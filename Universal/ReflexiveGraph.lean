@@ -180,3 +180,4 @@ def piZeroAdjunction : π₀ ⊣ Disc :=
         rfl }
 
 end Erdos289
+

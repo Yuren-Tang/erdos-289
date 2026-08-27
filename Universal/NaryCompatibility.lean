@@ -49,6 +49,29 @@ def naryComponentMap (S : I → FiniteComponentState G Θ) :
     (Σ i, (S i).Components) → PiZeroObj (inducedGraph G (narySupport S))
   | ⟨i, c⟩ => piZeroMap (naryGraphInclusion S i) c
 
+/-- Inclusion of the ambient union of a reindexed subfamily into the ambient
+union of the original family. -/
+def narySubfamilyGraphInclusion {J : Type w} (S : I → FiniteComponentState G Θ)
+    (e : J ↪ I) :
+    inducedGraph G (narySupport (fun j ↦ S (e j))) ⟶
+      inducedGraph G (narySupport S) where
+  toRelHom :=
+    { toFun := fun x ↦ ⟨x.1, by
+        obtain ⟨j, hxj⟩ := Set.mem_iUnion.1 x.2
+        exact Set.mem_iUnion.2 ⟨e j, hxj⟩⟩
+      map_rel' := fun h ↦ h }
+
+omit [Fintype I] in
+theorem naryComponentMap_subfamily {J : Type w}
+    (S : I → FiniteComponentState G Θ) (e : J ↪ I)
+    (p : Σ j, (S (e j)).Components) :
+    piZeroMap (narySubfamilyGraphInclusion S e)
+        (naryComponentMap (fun j ↦ S (e j)) p) =
+      naryComponentMap S ⟨e p.1, p.2⟩ := by
+  obtain ⟨j, c⟩ := p
+  obtain ⟨x, rfl⟩ := Quotient.exists_rep c
+  rfl
+
 /-- Direct n-ary compatibility is the isomorphism locus of the canonical
 component map. -/
 def NaryCompatible (S : I → FiniteComponentState G Θ) : Prop :=
@@ -62,6 +85,26 @@ theorem naryComponentMap_surjective (S : I → FiniteComponentState G Θ) :
   obtain ⟨x, rfl⟩ := Quotient.exists_rep c
   obtain ⟨i, hxi⟩ := Set.mem_iUnion.1 x.2
   exact ⟨⟨i, piZeroMk (S i).graph ⟨x.1, hxi⟩⟩, rfl⟩
+
+omit [Fintype I] in
+/-- Direct compatibility is inherited by every reindexed subfamily. -/
+theorem naryCompatible_subfamily {J : Type w}
+    {S : I → FiniteComponentState G Θ} (hS : NaryCompatible S)
+    (e : J ↪ I) : NaryCompatible (fun j ↦ S (e j)) := by
+  constructor
+  · intro p q hpq
+    have hmap := congrArg (piZeroMap (narySubfamilyGraphInclusion S e)) hpq
+    rw [naryComponentMap_subfamily S e p, naryComponentMap_subfamily S e q] at hmap
+    have hpq' := hS.1 hmap
+    have hindex : p.1 = q.1 := e.injective (congrArg Sigma.fst hpq')
+    cases p with
+    | mk i c =>
+      cases q with
+      | mk j d =>
+        dsimp at hindex
+        subst j
+        exact Sigma.ext rfl (Sigma.mk.inj_iff.mp hpq').2
+  · exact naryComponentMap_surjective _
 
 omit [Fintype I] in
 /-- Compatibility forces distinct input supports to be disjoint. -/
@@ -303,8 +346,9 @@ private theorem naryCompatible_support_admissible
 
 /-- Compatibility transfers to a finite family with the same ambient union
 and the same total component profile. -/
-theorem naryCompatible_of_support_profile_eq
-    {S T : I → FiniteComponentState G Θ} (hS : NaryCompatible S)
+theorem naryCompatible_of_support_profile_eq {J : Type w} [Fintype J]
+    {S : I → FiniteComponentState G Θ}
+    {T : J → FiniteComponentState G Θ} (hS : NaryCompatible S)
     (hsupport : narySupport T = narySupport S)
     (hprofile : (∑ i, componentProfile (T i)) =
       ∑ i, componentProfile (S i)) : NaryCompatible T := by

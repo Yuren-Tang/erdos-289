@@ -14,6 +14,7 @@ open Erdos289
 #check vertexFold_naryUnion
 #check naryCompatible_maximal
 #check naryCompatible_of_support_profile_eq
+#check naryCompatible_subfamily
 
 #print axioms naryCompatible_pairwise_support_disjoint
 #print axioms naryCompatible_union_admissible
@@ -21,3 +22,4 @@ open Erdos289
 #print axioms vertexFold_naryUnion
 #print axioms naryCompatible_maximal
 #print axioms naryCompatible_of_support_profile_eq
+#print axioms naryCompatible_subfamily

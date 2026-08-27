@@ -126,3 +126,4 @@ def singletonMarking {Γ : Type u} (τ : Γ) : Marking Γ :=
   Over.mk (TypeCat.ofHom fun _ : PUnit ↦ τ)
 
 end Erdos289
+

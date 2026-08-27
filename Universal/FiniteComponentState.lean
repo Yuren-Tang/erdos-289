@@ -137,3 +137,4 @@ theorem componentProfile_universal {G : Graphᵣ.{u}} {Θ : Set ℕ+}
   exact (componentLabelLift_existsUnique ell).unique hlift.1 (componentLabelLift_single ell)
 
 end Erdos289
+

@@ -12,6 +12,13 @@ open Erdos289
 #check NaryPhysicalDomain
 #check finitePhysicalUnion
 #check finitePhysicalUnion_witness_independent
+#check PhysicalParenthesizationTree
+#check BinaryParenthesization
+#check IteratedBinaryEvaluation
+#check IteratedBinaryDomain
+#check iteratedBinaryDomain_iff_naryCompatible
+#check iteratedBinaryEvaluation_eq_finitePhysicalUnion
+#check iteratedBinaryEvaluation_parenthesization_independent
 #check mem_naryPhysicalDomain_iff
 #check componentProfile_finitePhysicalUnion
 #check vertexFold_finitePhysicalUnion
@@ -31,6 +38,9 @@ open Erdos289
 
 #print axioms componentProfile_finitePhysicalUnion
 #print axioms vertexFold_finitePhysicalUnion
+#print axioms iteratedBinaryDomain_iff_naryCompatible
+#print axioms iteratedBinaryEvaluation_eq_finitePhysicalUnion
+#print axioms iteratedBinaryEvaluation_parenthesization_independent
 #print axioms binaryCompatible_comm
 #print axioms binaryUnion_comm
 #print axioms binaryUnion_empty_left
