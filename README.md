@@ -5,7 +5,7 @@ specification identified by SHA-256
 `76b2ddd0797cea4d8614f1528c4a7f070c912d0a12418b5de9bd867a29142517`.
 
 The production module tree follows the normative DAG in the sealed
-specification. Implementation work is translation only: changes to fixed
+specification.  Implementation work is translation only: changes to fixed
 mathematical statements, binders, witnesses, constants, or proof routes require
 a newly sealed specification.
 
@@ -15,3 +15,4 @@ a newly sealed specification.
 lake exe cache get
 lake build
 ```
+
