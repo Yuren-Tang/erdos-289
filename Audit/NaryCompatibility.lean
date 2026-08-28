@@ -15,6 +15,9 @@ open Erdos289
 #check naryCompatible_maximal
 #check naryCompatible_of_support_profile_eq
 #check naryCompatible_subfamily
+#check narySumGrouping
+#check naryCompatible_sum_iff_grouping
+#check naryUnion_sum_grouping
 
 #print axioms naryCompatible_pairwise_support_disjoint
 #print axioms naryCompatible_union_admissible
@@ -23,3 +26,5 @@ open Erdos289
 #print axioms naryCompatible_maximal
 #print axioms naryCompatible_of_support_profile_eq
 #print axioms naryCompatible_subfamily
+#print axioms naryCompatible_sum_iff_grouping
+#print axioms naryUnion_sum_grouping

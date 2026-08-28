@@ -1,5 +1,6 @@
 import Universal.FiniteComponentState
 
+import Mathlib.Algebra.BigOperators.Fin
 import Mathlib.Data.Fintype.BigOperators
 import Mathlib.Data.Fintype.EquivFin
 import Mathlib.Data.Set.Finite.Lattice
@@ -361,5 +362,80 @@ theorem naryCompatible_of_support_profile_eq {J : Type w} [Fintype J]
     apply FiniteComponentState.ext
     exact hsupport
   rw [hstates, componentProfile_naryUnion hS, hprofile]
+
+/-- Group a sum-indexed family into the two direct unions of its summands.
+This construction is intrinsic to `naryUnion`; it does not choose a binary
+physical multiplication or a parenthesization. -/
+noncomputable def narySumGrouping {J : Type w} [Fintype J]
+    (S : I ⊕ J → FiniteComponentState G Θ)
+    (hleft : NaryCompatible fun i ↦ S (.inl i))
+    (hright : NaryCompatible fun j ↦ S (.inr j)) :
+    Fin 2 → FiniteComponentState G Θ :=
+  fun k ↦ if k = 0 then
+    naryUnion (fun i ↦ S (.inl i)) hleft
+  else
+    naryUnion (fun j ↦ S (.inr j)) hright
+
+@[simp]
+theorem narySumGrouping_zero {J : Type w} [Fintype J]
+    (S : I ⊕ J → FiniteComponentState G Θ)
+    (hleft : NaryCompatible fun i ↦ S (.inl i))
+    (hright : NaryCompatible fun j ↦ S (.inr j)) :
+    narySumGrouping S hleft hright 0 =
+      naryUnion (fun i ↦ S (.inl i)) hleft := by
+  simp [narySumGrouping]
+
+@[simp]
+theorem narySumGrouping_one {J : Type w} [Fintype J]
+    (S : I ⊕ J → FiniteComponentState G Θ)
+    (hleft : NaryCompatible fun i ↦ S (.inl i))
+    (hright : NaryCompatible fun j ↦ S (.inr j)) :
+    narySumGrouping S hleft hright 1 =
+      naryUnion (fun j ↦ S (.inr j)) hright := by
+  simp [narySumGrouping]
+
+/-- Grouping/flattening characterization of the direct finite multiplication
+domain.  A sum-indexed family is directly compatible exactly when both
+summands are directly compatible and their two direct unions are directly
+compatible. -/
+theorem naryCompatible_sum_iff_grouping {J : Type w} [Fintype J]
+    (S : I ⊕ J → FiniteComponentState G Θ) :
+    NaryCompatible S ↔
+      ∃ hleft : NaryCompatible (fun i ↦ S (.inl i)),
+        ∃ hright : NaryCompatible (fun j ↦ S (.inr j)),
+          NaryCompatible (narySumGrouping S hleft hright) := by
+  constructor
+  · intro hS
+    let hleft : NaryCompatible (fun i ↦ S (.inl i)) :=
+      naryCompatible_subfamily hS Function.Embedding.inl
+    let hright : NaryCompatible (fun j ↦ S (.inr j)) :=
+      naryCompatible_subfamily hS Function.Embedding.inr
+    refine ⟨hleft, hright, ?_⟩
+    apply naryCompatible_of_support_profile_eq hS
+    · ext x
+      simp [narySupport, narySumGrouping, naryUnion]
+    · rw [Fin.sum_univ_two, Fintype.sum_sum_type]
+      simp only [narySumGrouping_zero, narySumGrouping_one,
+        componentProfile_naryUnion]
+  · rintro ⟨hleft, hright, hgroup⟩
+    apply naryCompatible_of_support_profile_eq hgroup
+    · ext x
+      simp [narySupport, narySumGrouping, naryUnion]
+    · rw [Fintype.sum_sum_type, Fin.sum_univ_two]
+      simp only [narySumGrouping_zero, narySumGrouping_one,
+        componentProfile_naryUnion]
+
+/-- Flattening a compatible two-block grouping gives exactly the same ambient
+union as the original sum-indexed family.  This is the invariant core from
+which parenthesization independence follows. -/
+theorem naryUnion_sum_grouping {J : Type w} [Fintype J]
+    (S : I ⊕ J → FiniteComponentState G Θ) (hS : NaryCompatible S)
+    (hleft : NaryCompatible fun i ↦ S (.inl i))
+    (hright : NaryCompatible fun j ↦ S (.inr j))
+    (hgroup : NaryCompatible (narySumGrouping S hleft hright)) :
+    naryUnion S hS = naryUnion (narySumGrouping S hleft hright) hgroup := by
+  apply FiniteComponentState.ext
+  ext x
+  simp [naryUnion, narySupport, narySumGrouping]
 
 end Erdos289

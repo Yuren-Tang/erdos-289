@@ -121,12 +121,16 @@ private theorem sumFamily_compatible_of_binary
       (naryUnion (fun i ↦ S (.inl i)) hleft)
       (naryUnion (fun j ↦ S (.inr j)) hright))) :
     NaryCompatible S := by
-  apply naryCompatible_of_support_profile_eq hmerge
-  · ext x
-    simp [narySupport, binaryStateFamily, naryUnion]
-  · rw [Fintype.sum_sum_type, Fin.sum_univ_two]
-    simp only [binaryStateFamily_zero, binaryStateFamily_one,
-      componentProfile_naryUnion]
+  apply (naryCompatible_sum_iff_grouping S).2
+  refine ⟨hleft, hright, ?_⟩
+  have heq : narySumGrouping S hleft hright =
+      binaryStateFamily
+        (naryUnion (fun i ↦ S (.inl i)) hleft)
+        (naryUnion (fun j ↦ S (.inr j)) hright) := by
+    funext k
+    fin_cases k <;> simp [narySumGrouping, binaryStateFamily]
+  rw [heq]
+  exact hmerge
 
 private theorem sumFamily_binary_of_compatible
     {I : Type v} {J : Type w} [Fintype I] [Fintype J]
@@ -136,17 +140,17 @@ private theorem sumFamily_binary_of_compatible
         NaryCompatible (binaryStateFamily
           (naryUnion (fun i ↦ S (.inl i)) hleft)
           (naryUnion (fun j ↦ S (.inr j)) hright)) := by
-  let hleft : NaryCompatible (fun i ↦ S (.inl i)) :=
-    naryCompatible_subfamily hS Function.Embedding.inl
-  let hright : NaryCompatible (fun j ↦ S (.inr j)) :=
-    naryCompatible_subfamily hS Function.Embedding.inr
+  obtain ⟨hleft, hright, hgroup⟩ :=
+    (naryCompatible_sum_iff_grouping S).1 hS
   refine ⟨hleft, hright, ?_⟩
-  apply naryCompatible_of_support_profile_eq hS
-  · ext x
-    simp [narySupport, binaryStateFamily, naryUnion]
-  · rw [Fin.sum_univ_two, Fintype.sum_sum_type]
-    simp only [binaryStateFamily_zero, binaryStateFamily_one,
-      componentProfile_naryUnion]
+  have heq : narySumGrouping S hleft hright =
+      binaryStateFamily
+        (naryUnion (fun i ↦ S (.inl i)) hleft)
+        (naryUnion (fun j ↦ S (.inr j)) hright) := by
+    funext k
+    fin_cases k <;> simp [narySumGrouping, binaryStateFamily]
+  rw [← heq]
+  exact hgroup
 
 private theorem emptyFamily_compatible
     (S : PEmpty → FiniteComponentState G Θ) : NaryCompatible S := by
