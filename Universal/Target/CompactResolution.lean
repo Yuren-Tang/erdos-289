@@ -3,6 +3,7 @@ import Universal.Target.Centering
 import Mathlib.Algebra.Category.Grp.Zero
 import Mathlib.CategoryTheory.Filtered.Basic
 import Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects
+import Mathlib.Order.Bounds.OrderIso
 import Mathlib.RingTheory.Finiteness.Basic
 
 /-!
@@ -31,11 +32,11 @@ private theorem isCompactElement_of_orderIso
   have himage : (e '' s).Nonempty := hs.image e
   have hdirectedImage : DirectedOn (· ≤ ·) (e '' s) := by
     rintro _ ⟨x, hx, rfl⟩ _ ⟨y, hy, rfl⟩
-    obtain ⟨z, hz, hxz, hyz⟩ := hdirected hx hy
+    obtain ⟨z, hz, hxz, hyz⟩ := hdirected x hx y hy
     exact ⟨e z, ⟨z, hz, rfl⟩, e.monotone hxz, e.monotone hyz⟩
   obtain ⟨_, ⟨x, hx, rfl⟩, hax⟩ :=
     ha (e '' s) (e b) himage hdirectedImage
-      ((e.isLUB_image').2 hlub) (e.monotone hab)
+      ((OrderIso.isLUB_image' e).2 hlub) (e.monotone hab)
   exact ⟨x, hx, e.le_iff_le.mp hax⟩
 
 private theorem isCompactElement_orderIso_iff
@@ -45,8 +46,8 @@ private theorem isCompactElement_orderIso_iff
   constructor
   · exact isCompactElement_of_orderIso e
   · intro ha
-    have h := isCompactElement_of_orderIso e.symm ha
-    simpa using h
+    apply isCompactElement_of_orderIso e.symm
+    simpa using ha
 
 /-- Compactness in the algebraic subgroup lattice is exactly finite
 generation. -/

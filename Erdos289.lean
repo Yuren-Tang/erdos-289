@@ -11,6 +11,7 @@ import Universal.PhysicalPartialMonoid
 import Universal.FiniteComponentState
 import Universal.ReflexiveGraph
 import Universal.Target.Centering
+import Universal.Target.CompactResolution
 
 /-!
 # Erdős Problem 289

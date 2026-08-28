@@ -60,6 +60,7 @@ cd "$project_dir"
   Mathlib.Algebra.Category.Grp.Zero \
   Mathlib.CategoryTheory.Filtered.Basic \
   Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects \
+  Mathlib.Order.Bounds.OrderIso \
   Mathlib.RingTheory.Finiteness.Basic
 
 if [ "$#" -gt 0 ]; then
