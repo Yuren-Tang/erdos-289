@@ -13,6 +13,7 @@ import Universal.ReflexiveGraph
 import Universal.Target.Centering
 import Universal.Target.CompactResolution
 import Universal.Target.LeastAbsorber
+import Universal.Target.ExactTransfer
 
 /-!
 # Erdős Problem 289
