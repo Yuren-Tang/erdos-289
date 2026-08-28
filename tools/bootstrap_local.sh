@@ -62,6 +62,9 @@ cd "$project_dir"
   Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects \
   Mathlib.Order.Bounds.OrderIso \
   Mathlib.RingTheory.Finiteness.Basic
+  Mathlib.RingTheory.Finiteness.Finsupp
+  Mathlib.Algebra.Module.Submodule.Map
+  Mathlib.CategoryTheory.Limits.Shapes.IsTerminal
 
 if [ "$#" -gt 0 ]; then
   ./e289 build "$@"

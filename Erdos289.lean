@@ -12,6 +12,7 @@ import Universal.FiniteComponentState
 import Universal.ReflexiveGraph
 import Universal.Target.Centering
 import Universal.Target.CompactResolution
+import Universal.Target.LeastAbsorber
 
 /-!
 # Erdős Problem 289
