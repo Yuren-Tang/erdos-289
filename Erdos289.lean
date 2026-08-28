@@ -2,6 +2,7 @@ import Universal.AffineFiber
 import Universal.Asymptotics
 import Universal.ComponentProfileQuotient
 import Universal.Correction.Core
+import Universal.Correction.Composition
 import Universal.Correction.Observation
 import Universal.Correction.Realizer
 import Universal.NaryCompatibility

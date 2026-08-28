@@ -149,6 +149,13 @@ Checkpoint: `U2-correction-spine`.
 
 Run the full 21-interface Gate U audit and consumer checks.
 
+At Gate U, audit the regular-epimorphism boundary explicitly.  The correction
+spine's current `Covers` interface is the surjectivity characterization in
+the frozen `Type` setting.  If Translation, ExactTransfer, or any later
+consumer uses a general categorical regular-epi API, first export an explicit
+`Type` bridge (surjective implies split epi, hence regular epi); never treat
+surjectivity as regular epimorphicity in an arbitrary category.
+
 Checkpoint: `gate-U`.
 
 ### R0 — reciprocal specialization

@@ -1,0 +1,17 @@
+import Universal.Correction.Composition
+
+open CategoryTheory
+open Erdos289
+open Erdos289.ObservationSystem
+
+#check ObservationSystem.CorrectionString
+#check CorrectionString.composite
+#check ObservationSystem.CompatibleRealizer
+#check ObservationSystem.compatibleRealizerMap
+#check ObservationSystem.compatibleRealizerSumFamily
+#check ObservationSystem.naryCompositionCriterion
+#check ObservationSystem.binaryCompositionCriterion
+
+#print axioms CorrectionString.map_observation_sum_eq_composite_label
+#print axioms ObservationSystem.naryCompositionCriterion
+#print axioms ObservationSystem.binaryCompositionCriterion

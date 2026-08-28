@@ -2,6 +2,7 @@ import Universal.Correction.Realizer
 import Universal.NaryCompatibility
 
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Data.Fintype.Sum
 
 /-!
 # Finite physical composition of corrections
@@ -42,12 +43,18 @@ variable {O M}
 
 /-- The finite position type of a correction string. -/
 @[reducible]
-def Index {i j : I} : O.CorrectionString M i j → Type
-  | .nil _ => PEmpty
-  | .cons _ tail => PUnit ⊕ tail.Index
+def Index {i j : I} : O.CorrectionString M i j → Type u
+  | .nil _ => ULift.{u} Empty
+  | .cons _ tail => ULift.{u} Unit ⊕ tail.Index
 
-instance {i j : I} (s : O.CorrectionString M i j) : Fintype s.Index := by
-  cases s <;> dsimp [Index] <;> infer_instance
+noncomputable instance {i j : I} (s : O.CorrectionString M i j) :
+    Fintype s.Index := by
+  induction s with
+  | nil => dsimp [Index]; infer_instance
+  | cons head tail ih =>
+      dsimp [Index]
+      letI : Fintype tail.Index := ih
+      infer_instance
 
 /-- An arrow of the correction category with its endpoints retained. -/
 structure Arrow where
@@ -57,9 +64,10 @@ structure Arrow where
 
 /-- The correction at a position of a composable string. -/
 @[reducible]
-def arrow {i j : I} (s : O.CorrectionString M i j) : s.Index → s.Arrow :=
+def arrow {i j : I} (s : O.CorrectionString M i j) :
+    s.Index → Arrow (O := O) (M := M) :=
   match s with
-  | .nil _ => PEmpty.elim
+  | .nil _ => fun x ↦ nomatch x.down
   | .cons head tail =>
       Sum.elim (fun _ ↦ ⟨_, _, head⟩) tail.arrow
 
@@ -83,19 +91,32 @@ theorem map_observation_sum_eq_composite_label
       s.composite.label := by
   induction s with
   | nil i =>
-      exact map_zero _
+      simp [composite]
   | @cons i k j head tail ih =>
+      simp only [Index] at state required hobservation ⊢
       rw [show (CorrectionString.composite (.cons head tail)).base =
         head.base ≫ tail.composite.base by rfl]
-      rw [Functor.map_comp_apply]
+      have hmapcomp := ConcreteCategory.congr_hom
+        ((O.gradedObservation M).map_comp head.base tail.composite.base)
+      rw [hmapcomp]
+      rw [CategoryTheory.comp_apply]
+      change (O.gradedObservation M).map tail.composite.base
+        ((O.gradedObservation M).map head.base
+          (∑ a, O.physicalObservation M W g i (state a))) =
+            (CorrectionString.composite (.cons head tail)).label
       rw [Fintype.sum_sum_type, Fintype.sum_unique]
       rw [map_add]
       have hhead :
           (O.gradedObservation M).map head.base
-              (O.physicalObservation M W g i (state (.inl PUnit.unit))) =
+              (O.physicalObservation M W g i
+                (state (.inl (ULift.up Unit.unit)))) =
             head.label := by
-        rw [hobservation (.inl PUnit.unit)]
-        exact (required (.inl PUnit.unit)).condition
+        have hobs := hobservation (.inl (ULift.up Unit.unit))
+        change O.physicalObservation M W g i
+            (state (.inl (ULift.up Unit.unit))) =
+          (required (.inl (ULift.up Unit.unit))).1 at hobs
+        rw [hobs]
+        exact (required (.inl (ULift.up Unit.unit))).condition
       rw [hhead]
       have htailObs : ∀ a,
           O.physicalObservation M W g (tail.arrow a).source (state (.inr a)) =
@@ -118,7 +139,7 @@ variable {O M W g}
 
 /-- Families attached to all entries of a correction string. -/
 abbrev CorrectionFamilies {i j : I} (s : O.CorrectionString M i j) :=
-  ∀ a : s.Index, PhysicalFamily (FiniteComponentState G Θ)
+  ∀ _a : s.Index, PhysicalFamily (FiniteComponentState G Θ)
 
 /-- The product of the individual family realizers restricted by the direct
 n-ary physical compatibility locus. -/
@@ -133,7 +154,9 @@ noncomputable def compatibleRealizerState {i j : I}
     {F : CorrectionFamilies (G := G) (Θ := Θ) s}
     (r : CompatibleRealizer (O := O) (M := M) (W := W) (g := g) s F) :
     FiniteComponentState G Θ :=
-  finitePhysicalUnion ⟨fun a ↦ (r.1 a).universal.state, r.2⟩
+  finitePhysicalUnion
+    (⟨fun a ↦ (r.1 a).universal.state, r.2⟩ :
+      NaryPhysicalDomain G Θ s.Index)
 
 /-- The canonical map from compatible realizers to the required fibre of the
 composite correction. -/
@@ -146,11 +169,22 @@ noncomputable def compatibleRealizerMap {i j : I}
     ⟨O.physicalObservation M W g i
         (compatibleRealizerState (O := O) (M := M) (W := W) (g := g) r),
       by
-        rw [O.physicalObservation_finitePhysicalUnion]
-        exact s.map_observation_sum_eq_composite_label
-          (fun a ↦ (r.1 a).universal.state)
-          (fun a ↦ (r.1 a).required)
-          (fun a ↦ (r.1 a).universal.observation_eq)⟩
+        let S : NaryPhysicalDomain G Θ s.Index :=
+          ⟨fun a ↦ (r.1 a).universal.state, r.2⟩
+        change (O.gradedObservation M).map s.composite.base
+          (O.physicalObservation M W g i (finitePhysicalUnion S)) =
+            s.composite.label
+        calc
+          _ = (O.gradedObservation M).map s.composite.base
+              (∑ a, O.physicalObservation M W g i (S.1 a)) :=
+            congrArg ((O.gradedObservation M).map s.composite.base)
+              (O.physicalObservation_finitePhysicalUnion M W g i S)
+          _ = s.composite.label :=
+            CorrectionString.map_observation_sum_eq_composite_label
+              (O := O) (M := M) (W := W) (g := g) s
+              (fun a ↦ (r.1 a).universal.state)
+              (fun a ↦ (r.1 a).required)
+              (fun a ↦ (r.1 a).universal.observation_eq)⟩
 
 /-- The physical family of direct n-ary sums indexed by compatible
 realizers. -/
@@ -178,8 +212,12 @@ theorem naryCompositionCriterion {i j : I}
     refine ⟨r.branch, ?_⟩
     apply Subtype.ext
     rw [← hr]
-    exact r.universal.observation_eq.symm.trans
-      (congrArg (O.physicalObservation M W g i) r.family_state_eq.symm)
+    change O.physicalObservation M W g i
+        ((compatibleRealizerSumFamily
+          (O := O) (M := M) (W := W) (g := g) s F).hom r.branch) =
+      r.required.1
+    rw [r.family_state_eq]
+    exact r.universal.observation_eq
   · intro h target
     obtain ⟨branch, hbranch⟩ := h target
     refine ⟨{
@@ -192,7 +230,7 @@ theorem naryCompositionCriterion {i j : I}
       condition := rfl }, ?_⟩
     · rw [← hbranch]
       rfl
-    · exact hbranch
+    · rfl
 
 /-- The two-entry correction string used by the binary specialization. -/
 def binaryCorrectionString {i j k : I}
