@@ -179,8 +179,7 @@ theorem covers_iff_familyRequiredPullback_surjective {i j : I}
     (F : PhysicalFamily (FiniteComponentState G Θ))
     (φ : O.Correction M i j) :
     O.Covers M W g F φ ↔ Function.Surjective
-      (FamilyRequiredPullback.required O M W g :
-        O.FamilyRequiredPullback M W g F φ → O.Required M φ) := by
+      (fun r : O.FamilyRequiredPullback M W g F φ ↦ r.right) := by
   constructor
   · intro h t
     obtain ⟨r, hr⟩ := h t
