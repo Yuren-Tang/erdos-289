@@ -60,10 +60,11 @@ cd "$project_dir"
   Mathlib.Algebra.Category.Grp.Zero \
   Mathlib.CategoryTheory.Filtered.Basic \
   Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects \
+  Mathlib.CategoryTheory.Whiskering \
   Mathlib.Order.Bounds.OrderIso \
-  Mathlib.RingTheory.Finiteness.Basic
-  Mathlib.RingTheory.Finiteness.Finsupp
-  Mathlib.Algebra.Module.Submodule.Map
+  Mathlib.RingTheory.Finiteness.Basic \
+  Mathlib.RingTheory.Finiteness.Finsupp \
+  Mathlib.Algebra.Module.Submodule.Map \
   Mathlib.CategoryTheory.Limits.Shapes.IsTerminal
 
 if [ "$#" -gt 0 ]; then

@@ -3,6 +3,7 @@ import Universal.Target.Centering
 import Mathlib.Algebra.Category.Grp.Zero
 import Mathlib.CategoryTheory.Filtered.Basic
 import Mathlib.CategoryTheory.Limits.Shapes.ZeroObjects
+import Mathlib.CategoryTheory.Whiskering
 import Mathlib.Order.Bounds.OrderIso
 import Mathlib.RingTheory.Finiteness.Basic
 
@@ -205,7 +206,21 @@ end Resolution
 section MarkingMap
 
 variable {Γ : Type u} [AddCommGroup Γ]
-variable {t t' : Marking Γ}
+variable {t t' t'' : Marking Γ}
+
+private theorem markingCenteringMap_id_apply (x : CenteredMarking t) :
+    markingCenteringMap (𝟙 t) x = x := by
+  obtain ⟨a, rfl⟩ :=
+    QuotientAddGroup.mk'_surjective (markingFreeMap t).range x
+  rfl
+
+private theorem markingCenteringMap_comp_apply (h : t ⟶ t') (k : t' ⟶ t'')
+    (x : CenteredMarking t) :
+    markingCenteringMap (h ≫ k) x =
+      markingCenteringMap k (markingCenteringMap h x) := by
+  obtain ⟨a, rfl⟩ :=
+    QuotientAddGroup.mk'_surjective (markingFreeMap t).range x
+  rfl
 
 /-- Image of compact subgroups under the centering comparison, as a functor
 between compact-stage categories. -/
@@ -218,6 +233,44 @@ def compactStage_mapMarking (h : t ⟶ t') : CompactStage t ⥤ CompactStage t' 
             ((compactSubgroup_iff_finitelyGenerated H.1).1 H.2)).map
               (markingCenteringMap h).toIntLinearMap))⟩
   map f := homOfLE (AddSubgroup.map_mono (leOfHom f))
+
+/-- Identity coherence for the image construction on compact stages. -/
+theorem compactStage_mapMarking_id_obj (H : CompactStage t) :
+    ((compactStage_mapMarking (𝟙 t)).obj H).1 = H.1 := by
+  ext x
+  constructor
+  · rintro ⟨y, hy, rfl⟩
+    change y ∈ H.1 at hy
+    rw [markingCenteringMap_id_apply]
+    exact hy
+  · intro hx
+    exact ⟨x, hx, markingCenteringMap_id_apply x⟩
+
+/-- Composition coherence for the image construction on compact stages. -/
+theorem compactStage_mapMarking_comp_obj (h : t ⟶ t') (k : t' ⟶ t'')
+    (H : CompactStage t) :
+    ((compactStage_mapMarking (h ≫ k)).obj H).1 =
+      ((compactStage_mapMarking h ⋙ compactStage_mapMarking k).obj H).1 := by
+  ext x
+  constructor
+  · rintro ⟨y, hy, rfl⟩
+    exact ⟨markingCenteringMap h y, ⟨y, hy, rfl⟩,
+      (markingCenteringMap_comp_apply h k y).symm⟩
+  · rintro ⟨_, ⟨y, hy, rfl⟩, rfl⟩
+    exact ⟨y, hy, markingCenteringMap_comp_apply h k y⟩
+
+/-- The compact-stage image functor preserves identity, canonically. -/
+def compactStage_mapMarking_idIso :
+    compactStage_mapMarking (𝟙 t) ≅ 𝟭 (CompactStage t) :=
+  NatIso.ofComponents
+    (fun H ↦ eqToIso (Subtype.ext (compactStage_mapMarking_id_obj H)))
+
+/-- The compact-stage image functor preserves composition, canonically. -/
+def compactStage_mapMarking_compIso (h : t ⟶ t') (k : t' ⟶ t'') :
+    compactStage_mapMarking (h ≫ k) ≅
+      compactStage_mapMarking h ⋙ compactStage_mapMarking k :=
+  NatIso.ofComponents
+    (fun H ↦ eqToIso (Subtype.ext (compactStage_mapMarking_comp_obj h k H)))
 
 /-- The natural comparison of compact quotient resolutions induced by a
 morphism of markings. -/
@@ -235,6 +288,71 @@ def compactResolution_mapMarking (h : t ⟶ t') :
     intro x
     obtain ⟨a, rfl⟩ := QuotientAddGroup.mk'_surjective H.1 x
     rfl
+
+/-- Identity coherence of the quotient-resolution comparison. -/
+theorem compactResolution_mapMarking_id :
+    compactResolution_mapMarking (t := t) (𝟙 t) ≫
+        Functor.whiskerRight (compactStage_mapMarking_idIso (t := t)).hom
+          (compactResolution t) =
+      𝟙 (compactResolution t) := by
+  apply NatTrans.ext
+  funext H
+  apply AddCommGrpCat.hom_ext
+  apply AddMonoidHom.ext
+  intro x
+  obtain ⟨a, rfl⟩ := QuotientAddGroup.mk'_surjective H.1 x
+  simp only [Functor.whiskerRight, compactStage_mapMarking_idIso,
+    compactResolution_mapMarking, compactResolution,
+    compactResolutionTransition, NatTrans.comp_app,
+    Functor.comp_obj, Functor.id_obj,
+    NatIso.ofComponents_hom_app]
+  change QuotientAddGroup.mk' H.1 (markingCenteringMap (𝟙 t) a) =
+    QuotientAddGroup.mk' H.1 a
+  rw [markingCenteringMap_id_apply]
+
+/-- Composition coherence of the quotient-resolution comparison. -/
+theorem compactResolution_mapMarking_comp (h : t ⟶ t') (k : t' ⟶ t'') :
+    compactResolution_mapMarking (h ≫ k) ≫
+        Functor.whiskerRight (compactStage_mapMarking_compIso h k).hom
+          (compactResolution t'') =
+      compactResolution_mapMarking h ≫
+        Functor.whiskerLeft (compactStage_mapMarking h)
+          (compactResolution_mapMarking k) := by
+  apply NatTrans.ext
+  funext H
+  apply AddCommGrpCat.hom_ext
+  apply AddMonoidHom.ext
+  intro x
+  obtain ⟨a, rfl⟩ := QuotientAddGroup.mk'_surjective H.1 x
+  simp only [Functor.whiskerRight, Functor.whiskerLeft,
+    compactStage_mapMarking_compIso, compactResolution_mapMarking,
+    compactResolution, compactResolutionTransition,
+    NatTrans.comp_app, Functor.comp_obj,
+    NatIso.ofComponents_hom_app]
+  change QuotientAddGroup.mk'
+      ((compactStage_mapMarking k).obj ((compactStage_mapMarking h).obj H)).1
+        (markingCenteringMap (h ≫ k) a) =
+    QuotientAddGroup.mk'
+      ((compactStage_mapMarking k).obj ((compactStage_mapMarking h).obj H)).1
+        (markingCenteringMap k (markingCenteringMap h a))
+  rw [markingCenteringMap_comp_apply]
+
+/-- The frozen U4.3 functoriality package: compact-stage images and their
+quotient-resolution comparisons preserve identity and composition. -/
+theorem compactResolution_functorial :
+    (compactResolution_mapMarking (t := t) (𝟙 t) ≫
+        Functor.whiskerRight (compactStage_mapMarking_idIso (t := t)).hom
+          (compactResolution t) =
+      𝟙 (compactResolution t)) ∧
+    (∀ {t' t'' : Marking Γ} (h : t ⟶ t') (k : t' ⟶ t''),
+      compactResolution_mapMarking (h ≫ k) ≫
+          Functor.whiskerRight (compactStage_mapMarking_compIso h k).hom
+            (compactResolution t'') =
+        compactResolution_mapMarking h ≫
+          Functor.whiskerLeft (compactStage_mapMarking h)
+            (compactResolution_mapMarking k)) :=
+  ⟨compactResolution_mapMarking_id, fun h k ↦
+    compactResolution_mapMarking_comp h k⟩
 
 end MarkingMap
 

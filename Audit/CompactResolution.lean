@@ -14,7 +14,12 @@ import Universal.Target.CompactResolution
 #check Erdos289.compactResolution_eventually_zero
 #check Erdos289.compactResolution_colimit_zero
 #check Erdos289.compactStage_mapMarking
+#check Erdos289.compactStage_mapMarking_idIso
+#check Erdos289.compactStage_mapMarking_compIso
 #check Erdos289.compactResolution_mapMarking
+#check Erdos289.compactResolution_mapMarking_id
+#check Erdos289.compactResolution_mapMarking_comp
+#check Erdos289.compactResolution_functorial
 
 #print axioms Erdos289.compactSubgroup_iff_finitelyGenerated
 #print axioms Erdos289.CompactStage.finiteJoin_upperBounds
@@ -24,3 +29,4 @@ import Universal.Target.CompactResolution
 #print axioms Erdos289.compactResolution_colimit_zero
 #print axioms Erdos289.compactStage_mapMarking
 #print axioms Erdos289.compactResolution_mapMarking
+#print axioms Erdos289.compactResolution_functorial
