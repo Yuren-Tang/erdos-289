@@ -6,8 +6,8 @@ import Mathlib.Algebra.Category.Grp.Basic
 # Abelian translation certificate
 
 The abelian specialization is recorded before forgetting to commutative
-monoids.  Thus every subtraction below uses the same additive structure as the
-original observation functor.
+monoids.  Subtraction is used only in the observation coordinate; the grading
+coordinate remains in the fixed commutative grading monoid.
 -/
 
 open CategoryTheory
@@ -47,75 +47,23 @@ namespace ObservationSystem
 variable {I : Type u} [Category.{v} I]
 variable {Γ : Type w} [AddCommGroup Γ]
 variable (A : AbelianObservationSystem I Γ)
-variable (M : Type x) [AddCommGroup M]
+variable (M : Type x) [AddCommMonoid M]
 variable {G : Graphᵣ.{u}} {Θ : Set ℕ+}
 variable (W : PhysicalAdditiveMap G Θ Γ)
 variable (g : PhysicalAdditiveMap G Θ M)
 variable {i j k : I}
 
-/-- Subtraction in the abelian graded observation, using the group structure
-before it is forgotten to `AddCommMonCat`. -/
-def abelianGradedSub (i : I)
-    (p q : (A.toObservationSystem.gradedObservation M).obj i) :
-    (A.toObservationSystem.gradedObservation M).obj i :=
-  ((show A.Q.obj i from p.1) - (show A.Q.obj i from q.1), p.2 - q.2)
-
-theorem gradedMap_abelianGradedSub {i j : I} (f : i ⟶ j)
-    (p q : (A.toObservationSystem.gradedObservation M).obj i) :
-    (A.toObservationSystem.gradedObservation M).map f
-        (abelianGradedSub A M i p q) =
-      abelianGradedSub A M j
-        ((A.toObservationSystem.gradedObservation M).map f p)
-        ((A.toObservationSystem.gradedObservation M).map f q) := by
-  apply Prod.ext
-  · change (A.Q.map f)
-        ((show A.Q.obj i from p.1) - (show A.Q.obj i from q.1)) =
-      (A.Q.map f) (show A.Q.obj i from p.1) -
-        (A.Q.map f) (show A.Q.obj i from q.1)
-    exact map_sub (A.Q.map f).hom
-      (show A.Q.obj i from p.1) (show A.Q.obj i from q.1)
-  · rfl
-
-theorem abelianGradedSub_add_cancel (i : I)
-    (p q : (A.toObservationSystem.gradedObservation M).obj i) :
-    abelianGradedSub A M i (p + q) p = q := by
-  apply Prod.ext
-  · change ((show A.Q.obj i from p.1) + (show A.Q.obj i from q.1)) -
-      (show A.Q.obj i from p.1) = (show A.Q.obj i from q.1)
-    exact add_sub_cancel_left
-      (show A.Q.obj i from p.1) (show A.Q.obj i from q.1)
-  · simp [abelianGradedSub]
-
-theorem abelianGradedSub_sub_cancel_left (i : I)
-    (p q : (A.toObservationSystem.gradedObservation M).obj i) :
-    abelianGradedSub A M i p (abelianGradedSub A M i p q) = q := by
-  apply Prod.ext
-  · change (show A.Q.obj i from p.1) -
-      ((show A.Q.obj i from p.1) - (show A.Q.obj i from q.1)) =
-        (show A.Q.obj i from q.1)
-    exact sub_sub_cancel
-      (show A.Q.obj i from p.1) (show A.Q.obj i from q.1)
-  · simp [abelianGradedSub]
-
-theorem abelianGradedSub_add_cancel_self (i : I)
-    (p q : (A.toObservationSystem.gradedObservation M).obj i) :
-    abelianGradedSub A M i p q + q = p := by
-  apply Prod.ext
-  · change ((show A.Q.obj i from p.1) - (show A.Q.obj i from q.1)) +
-      (show A.Q.obj i from q.1) = (show A.Q.obj i from p.1)
-    exact sub_add_cancel
-      (show A.Q.obj i from p.1) (show A.Q.obj i from q.1)
-  · simp [abelianGradedSub]
-
 /-- The fixed translation `y = Q̃(u)x - a` from a composite source
-requirement to the source requirement of the second correction. -/
+requirement to the source requirement of the second correction, with grade
+coordinate supplied by the second correction label. -/
 def translationSecondRequired
     (φ : A.toObservationSystem.Correction M i j)
     (ψ : A.toObservationSystem.Correction M j k)
     (x : A.toObservationSystem.Required M (φ.comp ψ)) :
     A.toObservationSystem.Required M ψ :=
-  ⟨abelianGradedSub A M j
-      ((A.toObservationSystem.gradedObservation M).map φ.base x.1) φ.label, by
+  ⟨(((show A.Q.obj j from
+        ((A.toObservationSystem.gradedObservation M).map φ.base x.1).1) -
+      (show A.Q.obj j from φ.label.1)), ψ.label.2), by
     have hmapcomp := ConcreteCategory.congr_hom
       ((A.toObservationSystem.gradedObservation M).map_comp φ.base ψ.base)
     have hx :
@@ -126,8 +74,22 @@ def translationSecondRequired
       rw [← CategoryTheory.comp_apply]
       rw [← hmapcomp]
       exact x.condition
-    rw [gradedMap_abelianGradedSub, hx]
-    exact abelianGradedSub_add_cancel A M k _ _⟩
+    apply Prod.ext
+    · have hxQ := congrArg Prod.fst hx
+      change (A.Q.map ψ.base)
+          ((show A.Q.obj j from
+              ((A.toObservationSystem.gradedObservation M).map φ.base x.1).1) -
+            (show A.Q.obj j from φ.label.1)) =
+        (show A.Q.obj k from ψ.label.1)
+      rw [map_sub (A.Q.map ψ.base).hom]
+      change (A.Q.map ψ.base)
+          (show A.Q.obj j from
+            ((A.toObservationSystem.gradedObservation M).map φ.base x.1).1) =
+        (A.Q.map ψ.base) (show A.Q.obj j from φ.label.1) +
+          (show A.Q.obj k from ψ.label.1) at hxQ
+      rw [hxQ]
+      exact add_sub_cancel_left _ _
+    · rfl⟩
 
 /-- The public canonical translation from the composite required fibre to the
 second required fibre. -/
@@ -139,7 +101,8 @@ def translationCertificate
   translationSecondRequired A M φ ψ
 
 /-- After choosing the second realizer, the fixed translation
-`z = x - ρ_i W(r)` lies in the first required fibre. -/
+`z = (x_Q - ρ_i W(r), m)` lies in the first required fibre, where `m`
+is the first correction's grade label. -/
 def translationFirstRequired
     (φ : A.toObservationSystem.Correction M i j)
     (ψ : A.toObservationSystem.Correction M j k)
@@ -147,13 +110,41 @@ def translationFirstRequired
     (r : A.toObservationSystem.UniversalRealizer M W g ψ)
     (hr : r.required = translationCertificate A M φ ψ x) :
     A.toObservationSystem.Required M φ :=
-  ⟨abelianGradedSub A M i x.1
-      (A.toObservationSystem.physicalObservation M W g i r.state), by
-    rw [gradedMap_abelianGradedSub]
-    rw [A.toObservationSystem.physicalObservation_naturality M W g φ.base]
-    rw [r.observation_eq]
-    rw [hr]
-    exact abelianGradedSub_sub_cancel_left A M j _ _⟩
+  ⟨(((show A.Q.obj i from x.1.1) -
+      (show A.Q.obj i from
+        (A.toObservationSystem.physicalObservation M W g i r.state).1)),
+      φ.label.2), by
+    apply Prod.ext
+    · have hnat := congrArg Prod.fst
+        (A.toObservationSystem.physicalObservation_naturality M W g
+          φ.base r.state)
+      have hobs := congrArg Prod.fst r.observation_eq
+      have hreq := congrArg (fun q ↦ q.val.1) hr
+      change (A.Q.map φ.base)
+          ((show A.Q.obj i from x.1.1) -
+            (show A.Q.obj i from
+              (A.toObservationSystem.physicalObservation M W g i r.state).1)) =
+        (show A.Q.obj j from φ.label.1)
+      rw [map_sub (A.Q.map φ.base).hom]
+      change (A.Q.map φ.base) (show A.Q.obj i from
+          (A.toObservationSystem.physicalObservation M W g i r.state).1) =
+        (show A.Q.obj j from
+          (A.toObservationSystem.physicalObservation M W g j r.state).1) at hnat
+      rw [hnat]
+      change (show A.Q.obj j from
+          (A.toObservationSystem.physicalObservation M W g j r.state).1) =
+        (show A.Q.obj j from r.required.val.1) at hobs
+      rw [hobs]
+      change (show A.Q.obj j from r.required.val.1) =
+        (show A.Q.obj j from
+          (translationCertificate A M φ ψ x).val.1) at hreq
+      rw [hreq]
+      change (A.Q.map φ.base) (show A.Q.obj i from x.1.1) -
+          ((A.Q.map φ.base) (show A.Q.obj i from x.1.1) -
+            (show A.Q.obj j from φ.label.1)) =
+        (show A.Q.obj j from φ.label.1)
+      exact sub_sub_cancel _ _
+    · rfl⟩
 
 /-- The canonical binary compatible realizer selected by the two translated
 required fibres. -/
@@ -233,7 +224,34 @@ theorem covers_comp_of_allCompatible
   rw [rf.universal.observation_eq]
   have hrf' : rf.universal.required = z := hrf
   rw [hrf']
-  exact abelianGradedSub_add_cancel_self A M i _ _
+  apply Prod.ext
+  · change ((show A.Q.obj i from target.1.1) -
+        (show A.Q.obj i from
+          (A.toObservationSystem.physicalObservation M W g i
+            rr.universal.state).1)) +
+        (show A.Q.obj i from
+          (A.toObservationSystem.physicalObservation M W g i
+            rr.universal.state).1) =
+      (show A.Q.obj i from target.1.1)
+    exact sub_add_cancel _ _
+  · have hnat := congrArg Prod.snd
+        (A.toObservationSystem.physicalObservation_naturality M W g
+          φ.base rr.universal.state)
+    have hobs := congrArg Prod.snd rr.universal.observation_eq
+    have hreq := congrArg (fun q ↦ q.val.2) hrr'
+    have htarget := congrArg Prod.snd targetComp.condition
+    change (A.toObservationSystem.physicalObservation M W g i
+        rr.universal.state).2 =
+      (A.toObservationSystem.physicalObservation M W g j
+        rr.universal.state).2 at hnat
+    change (A.toObservationSystem.physicalObservation M W g j
+        rr.universal.state).2 = rr.universal.required.val.2 at hobs
+    change rr.universal.required.val.2 = ψ.label.2 at hreq
+    change target.1.2 = φ.label.2 + ψ.label.2 at htarget
+    change φ.label.2 +
+        (A.toObservationSystem.physicalObservation M W g i
+          rr.universal.state).2 = target.1.2
+    rw [hnat, hobs, hreq, htarget]
 
 end ObservationSystem
 

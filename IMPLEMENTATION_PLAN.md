@@ -138,10 +138,10 @@ composition, and the abelian translation certificate.
 
 The abelian specialization is represented by an
 `AddCommGrpCat`-valued observation functor and then forgotten to the existing
-`AddCommMonCat` interface.  Its grading monoid is likewise required to be an
-abelian group, since the frozen translation formula subtracts in both factors
-of `Q̃(i) = Q(i) × M`.  This makes the group operations definitionally
-compatible with the monoid operations already used by corrections.
+`AddCommMonCat` interface.  The grading object `M` remains an arbitrary
+commutative additive monoid.  The frozen translation subtracts only in the
+`Q(i)` coordinate; its grade coordinates come from the two correction labels,
+and the composite-required grade equality closes their final sum.
 
 Checkpoint: `U2-correction-spine`.
 
