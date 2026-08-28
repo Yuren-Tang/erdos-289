@@ -80,14 +80,14 @@ theorem id_comp (φ : O.Correction M i j) :
     (Correction.id (O := O) (M := M) i).comp φ = φ := by
   apply Correction.ext
   · simp [comp, id]
-  · simp [comp, id]
+  · apply Prod.ext <;> simp [comp, id]
 
 @[simp]
 theorem comp_id (φ : O.Correction M i j) :
     φ.comp (Correction.id (O := O) (M := M) j) = φ := by
   apply Correction.ext
   · simp [comp, id]
-  · simp [comp, id]
+  · apply Prod.ext <;> simp [comp, id]
 
 @[simp]
 theorem comp_assoc (φ : O.Correction M i j) (ψ : O.Correction M j k)
@@ -95,7 +95,7 @@ theorem comp_assoc (φ : O.Correction M i j) (ψ : O.Correction M j k)
     (φ.comp ψ).comp χ = φ.comp (ψ.comp χ) := by
   apply Correction.ext
   · simp [comp, Category.assoc]
-  · simp [comp, add_assoc]
+  · apply Prod.ext <;> simp [comp, add_assoc]
 
 end Correction
 

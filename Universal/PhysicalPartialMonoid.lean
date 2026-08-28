@@ -500,13 +500,19 @@ noncomputable def physicalPartialMonoid (G : Graphᵣ.{u}) (Θ : Set ℕ+) :
   binaryDomain := {p | NaryCompatible (binaryStateFamily p.1 p.2)}
   multiply := binaryUnion
 
-/-- A physical family over a state object `C` is an object of `Type / C`. -/
-abbrev PhysicalFamily (C : Type u) := CategoryTheory.Over (X := C)
+/-- A physical family over a state object `C` is the literal data of an
+object of `Type / C`.  The branch type is universe-polymorphic, as it is in
+the slice of all types over `C`. -/
+structure PhysicalFamily (C : Type u) where
+  /-- The branch type. -/
+  left : Type v
+  /-- The structure map to physical states. -/
+  hom : left → C
 
 /-- A physical family whose domain is finite. -/
 structure FinitePhysicalFamily (C : Type u) where
   /-- The underlying object of `Type / C`. -/
-  family : PhysicalFamily C
+  family : PhysicalFamily.{u, v} C
   /-- Finiteness of its branch type. -/
   finite_domain : Finite family.left
 

@@ -1,0 +1,219 @@
+import Universal.Correction.Realizer
+import Universal.NaryCompatibility
+
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+
+/-!
+# Finite physical composition of corrections
+
+This module translates the finite-string construction fixed in the
+specification.  Its compatible-realizer object is the pullback of the product
+of the individual family realizers along the direct n-ary physical domain.
+No parenthesization is part of the public data.
+-/
+
+open CategoryTheory
+open scoped BigOperators
+
+namespace Erdos289
+
+universe u v w x y
+
+namespace ObservationSystem
+
+variable {I : Type u} [Category.{v} I]
+variable {Γ : Type w} [AddCommMonoid Γ]
+variable (O : ObservationSystem I Γ)
+variable (M : Type x) [AddCommMonoid M]
+variable {G : Graphᵣ.{u}} {Θ : Set ℕ+}
+variable (W : PhysicalAdditiveMap G Θ Γ)
+variable (g : PhysicalAdditiveMap G Θ M)
+
+/-- A finite composable string of corrections, with its endpoints in the
+type. -/
+inductive CorrectionString : I → I → Type (max u v w x)
+  | nil (i : I) : CorrectionString i i
+  | cons {i j k : I} (head : O.Correction M i j)
+      (tail : CorrectionString j k) : CorrectionString i k
+
+namespace CorrectionString
+
+variable {O M}
+
+/-- The finite position type of a correction string. -/
+@[reducible]
+def Index {i j : I} : O.CorrectionString M i j → Type
+  | .nil _ => PEmpty
+  | .cons _ tail => PUnit ⊕ tail.Index
+
+instance {i j : I} (s : O.CorrectionString M i j) : Fintype s.Index := by
+  cases s <;> dsimp [Index] <;> infer_instance
+
+/-- An arrow of the correction category with its endpoints retained. -/
+structure Arrow where
+  source : I
+  target : I
+  correction : O.Correction M source target
+
+/-- The correction at a position of a composable string. -/
+@[reducible]
+def arrow {i j : I} (s : O.CorrectionString M i j) : s.Index → s.Arrow :=
+  match s with
+  | .nil _ => PEmpty.elim
+  | .cons head tail =>
+      Sum.elim (fun _ ↦ ⟨_, _, head⟩) tail.arrow
+
+/-- The fixed Grothendieck composite of a correction string. -/
+noncomputable def composite {i j : I} :
+    O.CorrectionString M i j → O.Correction M i j
+  | .nil i => Correction.id (O := O) (M := M) i
+  | .cons head tail => head.comp tail.composite
+
+/-- Additivity and naturality identify the observation of the physical sum
+with the label of the fixed Grothendieck composite. -/
+theorem map_observation_sum_eq_composite_label
+    {i j : I} (s : O.CorrectionString M i j)
+    (state : s.Index → FiniteComponentState G Θ)
+    (required : ∀ a, O.Required M (s.arrow a).correction)
+    (hobservation : ∀ a,
+      O.physicalObservation M W g (s.arrow a).source (state a) =
+        (required a).1) :
+    (O.gradedObservation M).map s.composite.base
+        (∑ a, O.physicalObservation M W g i (state a)) =
+      s.composite.label := by
+  induction s with
+  | nil i =>
+      exact map_zero _
+  | @cons i k j head tail ih =>
+      rw [show (CorrectionString.composite (.cons head tail)).base =
+        head.base ≫ tail.composite.base by rfl]
+      rw [Functor.map_comp_apply]
+      rw [Fintype.sum_sum_type, Fintype.sum_unique]
+      rw [map_add]
+      have hhead :
+          (O.gradedObservation M).map head.base
+              (O.physicalObservation M W g i (state (.inl PUnit.unit))) =
+            head.label := by
+        rw [hobservation (.inl PUnit.unit)]
+        exact (required (.inl PUnit.unit)).condition
+      rw [hhead]
+      have htailObs : ∀ a,
+          O.physicalObservation M W g (tail.arrow a).source (state (.inr a)) =
+            (required (.inr a)).1 :=
+        fun a ↦ hobservation (.inr a)
+      have hnat : ∀ a,
+          (O.gradedObservation M).map head.base
+              (O.physicalObservation M W g i (state (.inr a))) =
+            O.physicalObservation M W g k (state (.inr a)) :=
+        fun a ↦ O.physicalObservation_naturality M W g head.base _
+      rw [map_sum]
+      simp_rw [hnat]
+      rw [map_add, ih (fun a ↦ state (.inr a))
+        (fun a ↦ required (.inr a)) htailObs]
+      rfl
+
+end CorrectionString
+
+variable {O M W g}
+
+/-- Families attached to all entries of a correction string. -/
+abbrev CorrectionFamilies {i j : I} (s : O.CorrectionString M i j) :=
+  ∀ a : s.Index, PhysicalFamily (FiniteComponentState G Θ)
+
+/-- The product of the individual family realizers restricted by the direct
+n-ary physical compatibility locus. -/
+def CompatibleRealizer {i j : I} (s : O.CorrectionString M i j)
+    (F : CorrectionFamilies (G := G) (Θ := Θ) s) :=
+  {r : ∀ a, O.FamilyRealizer M W g (F a) (s.arrow a).correction //
+    NaryCompatible (fun a ↦ (r a).universal.state)}
+
+/-- The direct n-ary physical state underlying compatible realizers. -/
+noncomputable def compatibleRealizerState {i j : I}
+    {s : O.CorrectionString M i j}
+    {F : CorrectionFamilies (G := G) (Θ := Θ) s}
+    (r : CompatibleRealizer (O := O) (M := M) (W := W) (g := g) s F) :
+    FiniteComponentState G Θ :=
+  finitePhysicalUnion ⟨fun a ↦ (r.1 a).universal.state, r.2⟩
+
+/-- The canonical map from compatible realizers to the required fibre of the
+composite correction. -/
+noncomputable def compatibleRealizerMap {i j : I}
+    (s : O.CorrectionString M i j)
+    (F : CorrectionFamilies (G := G) (Θ := Θ) s) :
+    CompatibleRealizer (O := O) (M := M) (W := W) (g := g) s F →
+      O.Required M s.composite :=
+  fun r ↦
+    ⟨O.physicalObservation M W g i
+        (compatibleRealizerState (O := O) (M := M) (W := W) (g := g) r),
+      by
+        rw [O.physicalObservation_finitePhysicalUnion]
+        exact s.map_observation_sum_eq_composite_label
+          (fun a ↦ (r.1 a).universal.state)
+          (fun a ↦ (r.1 a).required)
+          (fun a ↦ (r.1 a).universal.observation_eq)⟩
+
+/-- The physical family of direct n-ary sums indexed by compatible
+realizers. -/
+noncomputable def compatibleRealizerSumFamily {i j : I}
+    (s : O.CorrectionString M i j)
+    (F : CorrectionFamilies (G := G) (Θ := Θ) s) :
+    PhysicalFamily (FiniteComponentState G Θ) where
+  left := CompatibleRealizer (O := O) (M := M) (W := W) (g := g) s F
+  hom := compatibleRealizerState
+
+/-- Finite-string composition criterion: the direct n-ary physical sums cover
+the composite exactly when the canonical compatible-realizer map is regular
+epimorphic, expressed here by surjectivity in the fixed category `Type`. -/
+theorem naryCompositionCriterion {i j : I}
+    (s : O.CorrectionString M i j)
+    (F : CorrectionFamilies (G := G) (Θ := Θ) s) :
+    O.Covers M W g
+        (compatibleRealizerSumFamily (O := O) (M := M) (W := W) (g := g) s F)
+        s.composite ↔
+      Function.Surjective
+        (compatibleRealizerMap (O := O) (M := M) (W := W) (g := g) s F) := by
+  constructor
+  · intro h target
+    obtain ⟨r, hr⟩ := h target
+    refine ⟨r.branch, ?_⟩
+    apply Subtype.ext
+    rw [← hr]
+    exact r.universal.observation_eq.symm.trans
+      (congrArg (O.physicalObservation M W g i) r.family_state_eq.symm)
+  · intro h target
+    obtain ⟨branch, hbranch⟩ := h target
+    refine ⟨{
+      left := branch
+      right := {
+        left := compatibleRealizerState
+          (O := O) (M := M) (W := W) (g := g) branch
+        right := target
+        condition := ?_ }
+      condition := rfl }, ?_⟩
+    · rw [← hbranch]
+      rfl
+    · exact hbranch
+
+/-- The two-entry correction string used by the binary specialization. -/
+def binaryCorrectionString {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k) :
+    O.CorrectionString M i k :=
+  .cons φ (.cons ψ (.nil k))
+
+/-- Binary specialization of the finite-string composition criterion. -/
+theorem binaryCompositionCriterion {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k)
+    (F : CorrectionFamilies (G := G) (Θ := Θ)
+      (binaryCorrectionString φ ψ)) :
+    O.Covers M W g
+        (compatibleRealizerSumFamily (O := O) (M := M) (W := W) (g := g)
+          (binaryCorrectionString φ ψ) F)
+        (binaryCorrectionString φ ψ).composite ↔
+      Function.Surjective
+        (compatibleRealizerMap (O := O) (M := M) (W := W) (g := g)
+          (binaryCorrectionString φ ψ) F) :=
+  naryCompositionCriterion _ _
+
+end ObservationSystem
+
+end Erdos289

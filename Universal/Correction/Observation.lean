@@ -34,7 +34,7 @@ variable {I : Type u} [Category.{v} I]
 variable {Γ : Type w} [AddCommMonoid Γ]
 
 /-- The graded observation functor `Q̃(i) = U(Q(i)) × M`. -/
-def gradedObservation (O : ObservationSystem I Γ)
+abbrev gradedObservation (O : ObservationSystem I Γ)
     (M : Type x) [AddCommMonoid M] : I ⥤ AddCommMonCat.{max w x} where
   obj i := AddCommMonCat.of (O.Q.obj i × M)
   map f := AddCommMonCat.ofHom
@@ -84,7 +84,7 @@ def physicalObservation (O : ObservationSystem I Γ)
     {G : Graphᵣ.{u}} {Θ : Set ℕ+}
     (W : PhysicalAdditiveMap G Θ Γ)
     (g : PhysicalAdditiveMap G Θ M) (i : I) :
-    FiniteComponentState G Θ → O.Q.obj i × M :=
+    FiniteComponentState G Θ → (O.gradedObservation M).obj i :=
   fun c ↦ (O.rho.app i (W c), g c)
 
 @[simp]
