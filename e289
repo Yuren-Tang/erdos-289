@@ -3,6 +3,16 @@ set -eu
 
 project_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
+# Keep the project on the checked-out Mathlib 4.33 tree instead of asking Lake
+# to clone or update Mathlib after a scratch-workspace reset.
+if [ -d "$project_dir/../mathlib4" ] &&
+    [ ! -f "$project_dir/.lake/package-overrides.json" ]; then
+  mkdir -p "$project_dir/.lake"
+  cat > "$project_dir/.lake/package-overrides.json" <<'EOF'
+{"schemaVersion":"1.2.0","packages":[{"type":"path","name":"mathlib","scope":"","inherited":false,"configFile":"lakefile.lean","manifestFile":"lake-manifest.json","dir":"../mathlib4"}]}
+EOF
+fi
+
 if [ -n "${LEAN_433_HOME:-}" ]; then
   lean_home=$LEAN_433_HOME
 elif [ -x "$project_dir/../lean433/bin/lean" ]; then
