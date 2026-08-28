@@ -1,0 +1,22 @@
+import Universal.Correction.Realizer
+
+open CategoryTheory
+open Erdos289
+open Erdos289.ObservationSystem
+
+#check TypePullback
+#check TypePullback.fst_surjective_of_right_surjective
+#check ObservationSystem.UniversalRealizer
+#check UniversalRealizer.state
+#check UniversalRealizer.required
+#check ObservationSystem.FamilyRealizer
+#check FamilyRealizer.branch
+#check FamilyRealizer.required
+#check ObservationSystem.FamilyRequiredPullback
+#check ObservationSystem.familyRealizerBaseChangeEquiv
+#check ObservationSystem.Covers
+#check ObservationSystem.covers_iff_familyRequiredPullback_surjective
+
+#print axioms TypePullback.fst_surjective_of_right_surjective
+#print axioms ObservationSystem.familyRealizerBaseChangeEquiv
+#print axioms ObservationSystem.covers_iff_familyRequiredPullback_surjective

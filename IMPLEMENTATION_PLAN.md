@@ -48,7 +48,12 @@ Each node below has the same entry, implementation, and exit discipline.
 2. The module contract, owned public interfaces, object definitions, binder
    signatures, proof-obligation entries, and applicable private certificate
    have been cross-read.
-3. Expected imports and declaration names are recorded before coding.
+3. Before coding, make an ownership matrix whose rows are the module's owned
+   API IDs, mathematical objects, characterization obligations, and public
+   theorem names. Record the expected direct imports beside it.
+4. If a proof needs scaffolding owned by a different module, first expose the
+   invariant/core theorem from its frozen owner; keep representation-specific
+   wrappers in the consuming module.
 
 ### Implementation
 
@@ -60,6 +65,9 @@ Each node below has the same entry, implementation, and exit discipline.
 4. Compile the module after each coherent declaration group.
 5. Add a consumer smoke check where a dependent binder or coercion is not
    visible from the producer alone.
+6. Keep parenthesizations, concrete pullback bookkeeping, and other chosen
+   representations out of downstream APIs unless the frozen owner contract
+   explicitly exports them.
 
 ### Exit
 
@@ -72,6 +80,8 @@ Each node below has the same entry, implementation, and exit discipline.
 5. `#print axioms` audit entries contain only the intended foundational
    principles already present in Lean/Mathlib.
 6. Source scans and the relevant consumer smoke checks pass.
+7. The owner-module audit checks every row of the entry ownership matrix; a
+   theorem checked only from a consumer module does not discharge ownership.
 
 A node is committed and uploaded only after its exit criteria pass. A failed
 node remains local and is repaired before any dependent node starts.
@@ -287,4 +297,3 @@ Implementation stops for user direction if any of the following occurs:
 
 Ordinary elaboration, namespace, coercion, import, API-discovery, and local
 engineering choices are resolved without escalation.
-
