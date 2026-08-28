@@ -3,4 +3,4 @@
 *.olean
 *.ilean
 *.c
-
+!tools/lean_proc_compat.c

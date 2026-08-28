@@ -16,3 +16,15 @@ lake exe cache get
 lake build
 ```
 
+In a managed container with restricted procfs executable discovery, use the
+checked-in local wrapper instead.  It finds the pinned Lean installation (or
+uses `LEAN_433_HOME`), rebuilds the small compatibility shim when necessary,
+and runs Lake with the same local environment:
+
+```sh
+./e289 build
+```
+
+Individual audits use `./e289 lean Audit/Module.lean`; arbitrary Lake commands
+use `./e289 lake ...`.  This wrapper is local build infrastructure only and
+does not invoke remote CI.

@@ -1,0 +1,16 @@
+import Universal.Correction.Observation
+
+open CategoryTheory
+open Erdos289
+
+#check ObservationSystem
+#check ObservationSystem.Q
+#check ObservationSystem.rho
+#check ObservationSystem.gradedObservation
+#check ObservationSystem.PhysicalAdditiveMap
+#check ObservationSystem.physicalObservation
+#check ObservationSystem.physicalObservation_naturality
+#check ObservationSystem.physicalObservation_finitePhysicalUnion
+
+#print axioms ObservationSystem.physicalObservation_naturality
+#print axioms ObservationSystem.physicalObservation_finitePhysicalUnion

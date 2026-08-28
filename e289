@@ -1,0 +1,56 @@
+#!/bin/sh
+set -eu
+
+project_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+if [ -n "${LEAN_433_HOME:-}" ]; then
+  lean_home=$LEAN_433_HOME
+elif [ -x "$project_dir/../lean433/bin/lean" ]; then
+  lean_home=$(CDPATH= cd -- "$project_dir/../lean433" && pwd)
+elif command -v elan >/dev/null 2>&1; then
+  lean_binary=$(elan which lean)
+  lean_home=$(CDPATH= cd -- "$(dirname -- "$lean_binary")/.." && pwd)
+else
+  echo "Lean 4.33.0 not found; set LEAN_433_HOME to its installation root." >&2
+  exit 1
+fi
+
+lean_binary=$lean_home/bin/lean
+lake_binary=$lean_home/bin/lake
+if [ ! -x "$lean_binary" ] || [ ! -x "$lake_binary" ]; then
+  echo "LEAN_433_HOME does not contain executable bin/lean and bin/lake." >&2
+  exit 1
+fi
+
+shim_dir=$project_dir/.lake/local-tools
+shim=$shim_dir/lean_proc_compat.so
+shim_source=$project_dir/tools/lean_proc_compat.c
+if [ ! -f "$shim" ] || [ "$shim_source" -nt "$shim" ]; then
+  mkdir -p "$shim_dir"
+  cc -shared -fPIC -O2 -o "$shim" "$shim_source" -ldl
+fi
+
+export PATH="$lean_home/bin:$PATH"
+export LEAN_PROC_SELF_EXE="$lean_binary"
+export LEAN_SYSROOT="$lean_home"
+export LD_PRELOAD="$shim${LD_PRELOAD:+:$LD_PRELOAD}"
+
+cd "$project_dir"
+case "${1:-}" in
+  build)
+    shift
+    exec "$lake_binary" build "$@"
+    ;;
+  lean)
+    shift
+    exec "$lake_binary" env lean "$@"
+    ;;
+  lake)
+    shift
+    exec "$lake_binary" "$@"
+    ;;
+  *)
+    echo "usage: ./e289 {build [TARGETS...]|lean FILE|lake ARGS...}" >&2
+    exit 2
+    ;;
+esac
