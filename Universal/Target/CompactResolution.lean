@@ -23,20 +23,45 @@ namespace Erdos289
 
 universe u
 
+private theorem isCompactElement_of_orderIso
+    {α β : Type*} [PartialOrder α] [PartialOrder β]
+    (e : α ≃o β) {a : α} (ha : IsCompactElement (e a)) :
+    IsCompactElement a := by
+  intro s b hs hdirected hlub hab
+  have himage : (e '' s).Nonempty := hs.image e
+  have hdirectedImage : DirectedOn (· ≤ ·) (e '' s) := by
+    rintro _ ⟨x, hx, rfl⟩ _ ⟨y, hy, rfl⟩
+    obtain ⟨z, hz, hxz, hyz⟩ := hdirected hx hy
+    exact ⟨e z, ⟨z, hz, rfl⟩, e.monotone hxz, e.monotone hyz⟩
+  obtain ⟨_, ⟨x, hx, rfl⟩, hax⟩ :=
+    ha (e '' s) (e b) himage hdirectedImage
+      ((e.isLUB_image').2 hlub) (e.monotone hab)
+  exact ⟨x, hx, e.le_iff_le.mp hax⟩
+
+private theorem isCompactElement_orderIso_iff
+    {α β : Type*} [PartialOrder α] [PartialOrder β]
+    (e : α ≃o β) (a : α) :
+    IsCompactElement (e a) ↔ IsCompactElement a := by
+  constructor
+  · exact isCompactElement_of_orderIso e
+  · intro ha
+    have h := isCompactElement_of_orderIso e.symm ha
+    simpa using h
+
 /-- Compactness in the algebraic subgroup lattice is exactly finite
-generation.  We express lattice compactness through the canonically
-order-isomorphic lattice of `ℤ`-submodules. -/
+generation. -/
 theorem compactSubgroup_iff_finitelyGenerated
     {A : Type u} [AddCommGroup A] (H : AddSubgroup A) :
-    IsCompactElement H.toIntSubmodule ↔ H.FG := by
-  rw [← Submodule.fg_iff_compact, Submodule.fg_iff_addSubgroup_fg,
+    IsCompactElement H ↔ H.FG := by
+  rw [← (isCompactElement_orderIso_iff AddSubgroup.toIntSubmodule H),
+    ← Submodule.fg_iff_compact, Submodule.fg_iff_addSubgroup_fg,
     AddSubgroup.toIntSubmodule_toAddSubgroup]
 
 /-- The compact subgroup stages of the centered quotient of an arbitrary
 marking. -/
 abbrev CompactStage {Γ : Type u} [AddCommGroup Γ] (t : Marking Γ) :=
   {H : AddSubgroup (CenteredMarking t) //
-    IsCompactElement H.toIntSubmodule}
+    IsCompactElement H}
 
 namespace CompactStage
 
