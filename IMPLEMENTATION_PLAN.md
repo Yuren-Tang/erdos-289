@@ -136,6 +136,13 @@ Checkpoint: `U1-physical-spine`.
 Focus: coherent observations, correction objects, realizers/covers, n-ary
 composition, and the abelian translation certificate.
 
+The abelian specialization is represented by an
+`AddCommGrpCat`-valued observation functor and then forgotten to the existing
+`AddCommMonCat` interface.  Its grading monoid is likewise required to be an
+abelian group, since the frozen translation formula subtracts in both factors
+of `Q̃(i) = Q(i) × M`.  This makes the group operations definitionally
+compatible with the monoid operations already used by corrections.
+
 Checkpoint: `U2-correction-spine`.
 
 ### U3 — targets and profiles; Gate U

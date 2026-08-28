@@ -238,6 +238,62 @@ def binaryCorrectionString {i j k : I}
     O.CorrectionString M i k :=
   .cons φ (.cons ψ (.nil k))
 
+/-- The two physical families attached to the two-entry correction string. -/
+def binaryCorrectionFamilies {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k)
+    (F R : PhysicalFamily (FiniteComponentState G Θ)) :
+    CorrectionFamilies (G := G) (Θ := Θ) (binaryCorrectionString φ ψ)
+  | .inl _ => F
+  | .inr (.inl _) => R
+  | .inr (.inr a) => nomatch a.down
+
+/-- The canonical identification of the two-entry string positions with
+`Fin 2`. -/
+def binaryCorrectionIndexEquiv {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k) :
+    (binaryCorrectionString φ ψ).Index ≃ Fin 2 where
+  toFun
+    | .inl _ => 0
+    | .inr (.inl _) => 1
+    | .inr (.inr a) => nomatch a.down
+  invFun n := if n = 0
+    then .inl (ULift.up Unit.unit)
+    else .inr (.inl (ULift.up Unit.unit))
+  left_inv a := by
+    rcases a with a | a
+    · apply congrArg Sum.inl
+      exact Subsingleton.elim _ _
+    · rcases a with a | a
+      · apply congrArg Sum.inr
+        apply congrArg Sum.inl
+        exact Subsingleton.elim _ _
+      · exact nomatch a.down
+  right_inv n := by
+    fin_cases n <;> simp
+
+@[simp]
+theorem binaryCorrectionString_composite {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k) :
+    (binaryCorrectionString φ ψ).composite = φ.comp ψ := by
+  simp [binaryCorrectionString, CorrectionString.composite]
+
+theorem sum_binaryCorrectionIndex {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k)
+    {A : Type y} [AddCommMonoid A]
+    (f : (binaryCorrectionString φ ψ).Index → A) :
+    ∑ a, f a =
+      f (.inl (ULift.up Unit.unit)) +
+        f (.inr (.inl (ULift.up Unit.unit))) := by
+  let e := binaryCorrectionIndexEquiv φ ψ
+  calc
+    ∑ a, f a = ∑ n : Fin 2, f (e.symm n) :=
+      Fintype.sum_equiv e f _
+        (fun a ↦ congrArg f (e.symm_apply_apply a).symm)
+    _ = f (.inl (ULift.up Unit.unit)) +
+          f (.inr (.inl (ULift.up Unit.unit))) := by
+      rw [Fin.sum_univ_two]
+      rfl
+
 /-- Binary specialization of the finite-string composition criterion. -/
 theorem binaryCompositionCriterion {i j k : I}
     (φ : O.Correction M i j) (ψ : O.Correction M j k)

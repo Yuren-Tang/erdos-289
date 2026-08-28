@@ -1,0 +1,17 @@
+import Universal.Correction.Translation
+
+open CategoryTheory
+open Erdos289
+open Erdos289.ObservationSystem
+
+#check AbelianObservationSystem
+#check AbelianObservationSystem.toObservationSystem
+#check ObservationSystem.translationCertificate
+#check ObservationSystem.translationSecondRequired
+#check ObservationSystem.translationFirstRequired
+#check ObservationSystem.covers_comp_of_allCompatible
+
+#print axioms ObservationSystem.translationSecondRequired
+#print axioms ObservationSystem.translationCertificate
+#print axioms ObservationSystem.translationFirstRequired
+#print axioms ObservationSystem.covers_comp_of_allCompatible
