@@ -171,6 +171,15 @@ pullback.  The same closure pass completed the full least-absorber short exact
 sequence, naturality of the component-profile Hom equivalence, and the U6.3
 quotient/requirement/target-realizer comparison maps with U4.3 coherence.
 
+The profile closure now uses the literal powerset quantale, its arbitrary-join
+free universal property, and the grade-fixed upper-closure operator.  Its
+fixed points are equipped with the reflected Minkowski tensor and audited as
+a complete additive quantale.  `PhysWitness` retains the finite family,
+zero-correction cover, and branchwise resource bound; `Phys` is its proved
+fixed point.  The U7.7 certificate consumes the unreflected finite path-label
+locus, and the public transfer theorem derives saturation only through the
+reflection and resource-upper-closure laws.
+
 Checkpoint: `gate-U`.
 
 ### R0 — reciprocal specialization

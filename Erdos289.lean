@@ -16,6 +16,7 @@ import Universal.Target.LeastAbsorber
 import Universal.Target.ExactTransfer
 import Universal.Profile.GradeResource
 import Universal.Profile.BoundSaturation
+import Universal.Profile.FreeClosure
 
 /-!
 # Erdős Problem 289
