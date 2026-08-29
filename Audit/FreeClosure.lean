@@ -14,14 +14,17 @@ open Erdos289
 #check pathTensor_coe
 #check freePathProfile
 #check freePathProfile_characterization
-#check PathwiseEdgeWitness
-#check PathwiseEdgeWitness.toString
-#check PathwiseEdgeWitness.toFamilies
-#check PathwiseEdgeWitness.toString_composite
-#check PathwiseEdgeWitness.sum_toPositionData_bound
-#check PathwiseEdgeWitness.local_cover
-#check PathwiseEdgeWitness.local_resource_bound
-#check PathwiseEdgeWitness.mem_pathRawLabels
+#check PathLabelTuple
+#check PathLabelTuple.mem_pathRawLabels
+#check PathLabelTuple.nonempty_of_mem_pathRawLabels
+#check PathLabelTuple.mem_pathRawLabels_iff
+#check PathwisePhysics
+#check PathLabelTuple.toString
+#check PathLabelTuple.toFamilies
+#check PathLabelTuple.toString_composite
+#check PathLabelTuple.sum_toPositionData_bound
+#check PathLabelTuple.local_cover
+#check PathLabelTuple.local_resource_bound
 #check PathwisePhysicalCertificate
 #check PathwiseCompositionData
 #check PathwiseCompositionData.toPhysWitness
@@ -33,8 +36,8 @@ open Erdos289
 #print axioms ObservationSystem.physRaw_isClosed
 #print axioms ObservationSystem.PhysWitness.cover_regularEpi
 #print axioms pathTensor_le_phys
-#print axioms PathwiseEdgeWitness.toString_composite
-#print axioms PathwiseEdgeWitness.sum_toPositionData_bound
-#print axioms PathwiseEdgeWitness.mem_pathRawLabels
+#print axioms PathLabelTuple.mem_pathRawLabels_iff
+#print axioms PathLabelTuple.toString_composite
+#print axioms PathLabelTuple.sum_toPositionData_bound
 #print axioms PathwiseCompositionData.toPhysWitness
 #print axioms freePathProfile_le_phys
