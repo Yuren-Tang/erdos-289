@@ -177,31 +177,239 @@ variable (W : ObservationSystem.PhysicalAdditiveMap G Θ Γ)
 variable (g : ObservationSystem.PhysicalAdditiveMap G Θ M)
 variable (μ : ObservationSystem.PhysicalAdditiveMap G Θ U)
 
-/-- The mechanistic finite-composition data attached to one literal tuple of
-edge labels.  The entries are the edge-local physical families; their direct
-n-ary compatible union is required to satisfy the frozen regular-epimorphism
-criterion.  In particular, no composite `PhysWitness` is assumed here. -/
+/-- Local bookkeeping: append one further correction to the end of a
+compact-stage correction string.  Not part of any owned public interface; it
+only converts the right-recursive structure of a `Quiver.Path` into the
+string built by `CorrectionString.cons`. -/
+@[reducible]
+private noncomputable def stringSnoc :
+    ∀ {H K L : CompactStage t},
+      (compactProfileObservationSystem t).CorrectionString M H K →
+      (compactProfileObservationSystem t).Correction M K L →
+      (compactProfileObservationSystem t).CorrectionString M H L
+  | _, _, _, .nil H, e => .cons e (.nil _)
+  | _, _, _, .cons head tail, e => .cons head (stringSnoc tail e)
+
+private theorem stringSnoc_composite {H K L : CompactStage t}
+    (s : (compactProfileObservationSystem t).CorrectionString M H K)
+    (e : (compactProfileObservationSystem t).Correction M K L) :
+    (stringSnoc s e).composite = s.composite.comp e := by
+  induction s with
+  | nil H => simp [ObservationSystem.CorrectionString.composite]
+  | cons head tail ih =>
+      simp only [ObservationSystem.CorrectionString.composite, ih,
+        ObservationSystem.Correction.comp_assoc]
+
+/-- Local bookkeeping: the two zero-grade corrections attached to composable
+compact-stage arrows compose to the zero-grade correction of their sum. -/
+private theorem profileZeroSection_comp {H K L : CompactStage t}
+    (a : H ⟶ K) (b : K ⟶ L) (m₁ m₂ : M) :
+    (ObservationSystem.profileZeroSection (t := t) a m₁).comp
+        (ObservationSystem.profileZeroSection (t := t) b m₂) =
+      ObservationSystem.profileZeroSection (t := t) (a ≫ b) (m₁ + m₂) := by
+  apply ObservationSystem.Correction.ext
+  · rfl
+  · simp [ObservationSystem.Correction.comp, ObservationSystem.profileZeroSection]
+
+/-- Local bookkeeping: the data attached to a single position of a
+compact-stage correction string -- a physical family, its finiteness, a
+cover of the position's correction, and a branchwise resource bound. -/
+private structure PositionData {H K : CompactStage t}
+    (correction : (compactProfileObservationSystem t).Correction M H K) where
+  family : PhysicalFamily.{u, u} (FiniteComponentState G Θ)
+  finite : Finite family.left
+  cover : (compactProfileObservationSystem t).Covers M W g family correction
+  bound : U
+  resource_bound : ∀ b, μ (family.hom b) ≤ bound
+
+/-- Local bookkeeping: position data attached to a `stringSnoc`, built from
+the position data of the original string together with the position data of
+the newly appended correction. -/
+private noncomputable def snocPositionData :
+    ∀ {H K L : CompactStage t}
+      (s : (compactProfileObservationSystem t).CorrectionString M H K)
+      (ps : ∀ a : s.Index, PositionData W g μ (s.arrow a).correction)
+      (c : (compactProfileObservationSystem t).Correction M K L)
+      (pc : PositionData W g μ c),
+      ∀ a : (stringSnoc s c).Index,
+        PositionData W g μ ((stringSnoc s c).arrow a).correction := by
+  intro H K L s
+  induction s with
+  | nil H =>
+      intro ps c pc a
+      simp only [stringSnoc] at a
+      rcases a with a | a
+      · exact pc
+      · exact nomatch a.down
+  | cons head tail ih =>
+      intro ps c pc a
+      simp only [stringSnoc] at a
+      rcases a with a | a
+      · exact ps (.inl (ULift.up Unit.unit))
+      · exact ih (fun a ↦ ps (.inr a)) c pc a
+
+private theorem sum_snocPositionData_bound :
+    ∀ {H K L : CompactStage t}
+      (s : (compactProfileObservationSystem t).CorrectionString M H K)
+      (ps : ∀ a : s.Index, PositionData W g μ (s.arrow a).correction)
+      (c : (compactProfileObservationSystem t).Correction M K L)
+      (pc : PositionData W g μ c),
+      (∑ a, (snocPositionData W g μ s ps c pc a).bound) =
+        (∑ a, (ps a).bound) + pc.bound := by
+  intro H K L s
+  induction s with
+  | nil H =>
+      intro ps c pc
+      rw [Fintype.sum_sum_type]
+      have h1 : ∀ a : ULift.{u} Unit,
+          (snocPositionData W g μ (ObservationSystem.CorrectionString.nil H) ps c pc
+            (Sum.inl a)).bound = pc.bound := fun _ ↦ rfl
+      simp [h1]
+  | cons head tail ih =>
+      intro ps c pc
+      rw [Fintype.sum_sum_type, Fintype.sum_sum_type]
+      simp only [Fintype.sum_unique]
+      have h1 : (snocPositionData W g μ (.cons head tail) ps c pc
+          (Sum.inl (ULift.up Unit.unit))).bound =
+            (ps (Sum.inl (ULift.up Unit.unit))).bound := rfl
+      have h2 : ∀ a, (snocPositionData W g μ (.cons head tail) ps c pc (Sum.inr a)).bound =
+          (snocPositionData W g μ tail (fun a ↦ ps (.inr a)) c pc a).bound := fun _ ↦ rfl
+      simp only [h1, h2]
+      rw [ih (fun a ↦ ps (.inr a)) c pc, add_assoc]
+
+/-- The literal edge-label tuple witnessing a raw path label: the physical
+bound witness at every position of the path, whose grade-resource labels
+sum -- by the same recursion defining `pathRawLabels` -- to the specified
+label.  This is the pathwise counterpart of `PhysWitness`, carried edge by
+edge rather than supplied for the composite in a single step. -/
+inductive PathwiseEdgeWitness
+    (W : ObservationSystem.PhysicalAdditiveMap G Θ Γ)
+    (g : ObservationSystem.PhysicalAdditiveMap G Θ M)
+    (μ : ObservationSystem.PhysicalAdditiveMap G Θ U) :
+    ∀ {H K : CompactStage t}, Quiver.Path H K →
+      GradeResourceLabel M U → Type (max (u + 1) v w)
+  | nil (H : CompactStage t) :
+      PathwiseEdgeWitness W g μ (Quiver.Path.nil : Quiver.Path H H) 0
+  | cons {H K L : CompactStage t} {p : Quiver.Path H K} (e : K ⟶ L)
+      (m_e : M) (u_e : U) {r' : GradeResourceLabel M U}
+      (tail : PathwiseEdgeWitness W g μ p r')
+      (witness : ObservationSystem.PhysWitness W g μ e m_e u_e) :
+      PathwiseEdgeWitness W g μ (Quiver.Path.cons p e) (r' + (m_e, u_e))
+
+/-- Local bookkeeping: the correction string and position data of an
+edge-label witness tuple, built together so that the string and the
+positions it indexes stay definitionally in lockstep; the composite-label
+and resource-total identities are proved alongside the construction itself
+so no later proof needs to re-unfold the recursive builder. -/
+private structure BuiltEdges {H K : CompactStage t} (p : Quiver.Path H K)
+    (r : GradeResourceLabel M U) where
+  string : (compactProfileObservationSystem t).CorrectionString M H K
+  positions : ∀ a : string.Index, PositionData W g μ (string.arrow a).correction
+  composite_eq : string.composite =
+    ObservationSystem.profileZeroSection (t := t) (CategoryTheory.composePath p) r.1
+  sum_bound_eq : (∑ a, (positions a).bound) = r.2
+
+private noncomputable def PathwiseEdgeWitness.build :
+    ∀ {H K : CompactStage t} {p : Quiver.Path H K} {r : GradeResourceLabel M U},
+      PathwiseEdgeWitness W g μ p r → BuiltEdges W g μ p r
+  | _, _, _, _, .nil H =>
+      { string := .nil H
+        positions := fun (x : ULift.{u} Empty) ↦ nomatch x.down
+        composite_eq := by
+          apply ObservationSystem.Correction.ext
+          · rfl
+          · rfl
+        sum_bound_eq := by simp }
+  | _, _, _, _, .cons e m_e u_e tail witness =>
+      let btail := tail.build
+      let pc : PositionData W g μ (ObservationSystem.profileZeroSection (t := t) e m_e) :=
+        { family := witness.family.family
+          finite := witness.family.finite_domain
+          cover := witness.cover
+          bound := u_e
+          resource_bound := witness.resource_bound }
+      { string := stringSnoc btail.string
+          (ObservationSystem.profileZeroSection (t := t) e m_e)
+        positions := snocPositionData W g μ btail.string btail.positions
+          (ObservationSystem.profileZeroSection (t := t) e m_e) pc
+        composite_eq := by
+          rw [stringSnoc_composite, btail.composite_eq, profileZeroSection_comp,
+            CategoryTheory.composePath_cons]
+          rfl
+        sum_bound_eq := by
+          rw [sum_snocPositionData_bound, btail.sum_bound_eq]
+          rfl }
+
+namespace PathwiseEdgeWitness
+
+variable {W g μ}
+
+/-- The canonical correction string of an edge-label witness tuple: each
+position carries the simple zero correction at its local grade. -/
+noncomputable def toString {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    (compactProfileObservationSystem t).CorrectionString M H K :=
+  d.build.string
+
+/-- The canonical position data of an edge-label witness tuple: at each
+position, the local witness's own family, cover, and resource bound. -/
+noncomputable def toPositionData {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    ∀ a : d.toString.Index, PositionData W g μ (d.toString.arrow a).correction :=
+  d.build.positions
+
+/-- The canonical local families of an edge-label witness tuple. -/
+noncomputable def toFamilies {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    ∀ _a : d.toString.Index, PhysicalFamily.{u, u} (FiniteComponentState G Θ) :=
+  fun a ↦ (d.toPositionData a).family
+
+instance instFiniteToFamilies {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r)
+    (a : d.toString.Index) : Finite (d.toFamilies a).left :=
+  (d.toPositionData a).finite
+
+theorem toString_composite {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    d.toString.composite =
+      ObservationSystem.profileZeroSection (t := t)
+        (CategoryTheory.composePath p) r.1 :=
+  d.build.composite_eq
+
+theorem sum_toPositionData_bound {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    (∑ a, (d.toPositionData a).bound) = r.2 :=
+  d.build.sum_bound_eq
+
+theorem local_cover {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r)
+    (a : d.toString.Index) :
+    (compactProfileObservationSystem t).Covers M W g
+      (d.toFamilies a) (d.toString.arrow a).correction :=
+  (d.toPositionData a).cover
+
+theorem local_resource_bound {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r)
+    (a : d.toString.Index) (b : (d.toFamilies a).left) :
+    μ ((d.toFamilies a).hom b) ≤ (d.toPositionData a).bound :=
+  (d.toPositionData a).resource_bound b
+
+end PathwiseEdgeWitness
+
+/-- A pathwise physical-composition certificate at a literal edge-label
+tuple.  The correction string, local families, local covers, resource
+bounds, and composite zero correction are all canonically derived from the
+tuple's edge-local `PhysWitness` data; the only further datum is the
+regular-epimorphism certificate for the resulting compatible-realizer map,
+matching the specification's regular-epimorphic physical composition
+certificate for every tuple of edge labels (U7.7). -/
 structure PathwiseCompositionData
     {H K : CompactStage t} (p : Quiver.Path H K) (m : M) (u : U) where
-  string : (compactProfileObservationSystem t).CorrectionString M H K
-  families : ∀ _a : string.Index,
-    PhysicalFamily.{u, u} (FiniteComponentState G Θ)
-  finite_compatible : Finite (ObservationSystem.CompatibleRealizer
-    (O := compactProfileObservationSystem t) (M := M) (W := W) (g := g)
-    string families)
-  local_cover : ∀ a, (compactProfileObservationSystem t).Covers M W g
-    (families a) (string.arrow a).correction
-  localBound : string.Index → U
-  local_resource_bound : ∀ a b,
-    μ ((families a).hom b) ≤ localBound a
-  total_resource_bound : (∑ a, localBound a) ≤ u
-  composite_eq : string.composite =
-    ObservationSystem.profileZeroSection (t := t)
-      (CategoryTheory.composePath p) m
+  edges : PathwiseEdgeWitness W g μ p (m, u)
   compatible_regularEpi : TypeRegularEpi
     (ObservationSystem.compatibleRealizerMap
       (O := compactProfileObservationSystem t) (M := M) (W := W) (g := g)
-      string families)
+      edges.toString edges.toFamilies)
 
 /-- A pathwise physical-composition certificate.  For each literal tuple of
 edge labels it supplies edge-local realizers and the regular-epimorphic
@@ -222,8 +430,9 @@ noncomputable def PathwiseCompositionData.toPhysWitness
       (CategoryTheory.composePath p) m u := by
   let O := compactProfileObservationSystem t
   let F := ObservationSystem.compatibleRealizerSumFamily
-    (O := O) (M := M) (W := W) (g := g) d.string d.families
-  letI : Finite F.left := d.finite_compatible
+    (O := O) (M := M) (W := W) (g := g) d.edges.toString d.edges.toFamilies
+  haveI : Finite F.left := ObservationSystem.instFiniteCompatibleRealizer
+    (O := O) (M := M) (W := W) (g := g) d.edges.toString d.edges.toFamilies
   letI : Fintype F.left := Fintype.ofFinite F.left
   let e := Fintype.equivFin F.left
   let Fsmall : PhysicalFamily.{u, u} (FiniteComponentState G Θ) := {
@@ -234,11 +443,11 @@ noncomputable def PathwiseCompositionData.toPhysWitness
       (Finite (ULift.{u} (Fin (Fintype.card F.left))))⟩
     cover := ?_
     resource_bound := ?_ }
-  · have hcover : O.Covers M W g F d.string.composite :=
+  · have hcover : O.Covers M W g F d.edges.toString.composite :=
       (ObservationSystem.naryCompositionCriterion_regularEpi
       (O := O) (M := M) (W := W) (g := g)
-      d.string d.families).2 d.compatible_regularEpi
-    rw [d.composite_eq] at hcover
+      d.edges.toString d.edges.toFamilies).2 d.compatible_regularEpi
+    rw [d.edges.toString_composite] at hcover
     change O.Covers M W g Fsmall
       (ObservationSystem.profileZeroSection (t := t)
         (CategoryTheory.composePath p) m)
@@ -257,15 +466,15 @@ noncomputable def PathwiseCompositionData.toPhysWitness
       μ (Fsmall.hom n) = ∑ a, μ ((b.1 a).universal.state) := by
         exact μ.map_finitePhysicalUnion
           (⟨fun a ↦ (b.1 a).universal.state, b.2⟩ :
-            NaryPhysicalDomain G Θ d.string.Index)
-      _ = ∑ a, μ ((d.families a).hom ((b.1 a).branch)) := by
+            NaryPhysicalDomain G Θ d.edges.toString.Index)
+      _ = ∑ a, μ ((d.edges.toFamilies a).hom ((b.1 a).branch)) := by
         apply Finset.sum_congr rfl
         intro a _
         rw [(b.1 a).family_state_eq]
-      _ ≤ ∑ a, d.localBound a := by
+      _ ≤ ∑ a, (d.edges.toPositionData a).bound := by
         exact Finset.sum_le_sum fun a _ ↦
-          d.local_resource_bound a ((b.1 a).branch)
-      _ ≤ u := d.total_resource_bound
+          d.edges.local_resource_bound a ((b.1 a).branch)
+      _ = u := d.edges.sum_toPositionData_bound
 
 /-- Each certified path tensor is contained in physical realization. -/
 theorem pathTensor_le_phys

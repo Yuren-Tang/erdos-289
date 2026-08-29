@@ -119,6 +119,16 @@ theorem observation_eq (r : O.UniversalRealizer M W g φ) :
     O.physicalObservation M W g i r.state = r.required.1 :=
   r.condition
 
+/-- A universal realizer is determined by its physical state: the required
+fibre is a subtype, so the pullback condition pins its second component
+once the first is fixed. -/
+theorem ext_of_state {r₁ r₂ : O.UniversalRealizer M W g φ}
+    (h : r₁.state = r₂.state) : r₁ = r₂ := by
+  have hreq : r₁.required = r₂.required := by
+    apply Subtype.ext
+    rw [← r₁.observation_eq, ← r₂.observation_eq, h]
+  exact TypePullback.ext h hreq
+
 end UniversalRealizer
 
 /-- The family realizer `F ×_C UniversalRealizer(φ)`. -/
@@ -152,6 +162,19 @@ def required (r : O.FamilyRealizer M W g F φ) : O.Required M φ :=
 theorem family_state_eq (r : O.FamilyRealizer M W g F φ) :
     F.hom r.branch = r.universal.state :=
   r.condition
+
+/-- A family realizer is determined by its branch: the branch fixes the
+physical state, which in turn determines the universal realizer. -/
+theorem branch_injective :
+    Function.Injective (branch : O.FamilyRealizer M W g F φ → F.left) := by
+  intro r₁ r₂ h
+  have hstate : r₁.universal.state = r₂.universal.state := by
+    rw [← r₁.family_state_eq, ← r₂.family_state_eq, h]
+  exact TypePullback.ext h (UniversalRealizer.ext_of_state hstate)
+
+/-- A finite physical family has a finite family-realizer object. -/
+instance instFinite [Finite F.left] : Finite (O.FamilyRealizer M W g F φ) :=
+  Finite.of_injective branch branch_injective
 
 end FamilyRealizer
 

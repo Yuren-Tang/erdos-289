@@ -148,6 +148,16 @@ def CompatibleRealizer {i j : I} (s : O.CorrectionString M i j)
   {r : ∀ a, O.FamilyRealizer M W g (F a) (s.arrow a).correction //
     NaryCompatible (fun a ↦ (r a).universal.state)}
 
+/-- A finite-branched family at every position gives finitely many compatible
+realizers: each position's family realizer is finite, so the ambient product
+is finite, and compatibility is a further restriction. -/
+instance instFiniteCompatibleRealizer {i j : I} (s : O.CorrectionString M i j)
+    (F : CorrectionFamilies (G := G) (Θ := Θ) s) [∀ a, Finite (F a).left] :
+    Finite (CompatibleRealizer (O := O) (M := M) (W := W) (g := g) s F) := by
+  show Finite {r : ∀ a, O.FamilyRealizer M W g (F a) (s.arrow a).correction //
+    NaryCompatible (fun a ↦ (r a).universal.state)}
+  infer_instance
+
 /-- The direct n-ary physical state underlying compatible realizers. -/
 noncomputable def compatibleRealizerState {i j : I}
     {s : O.CorrectionString M i j}

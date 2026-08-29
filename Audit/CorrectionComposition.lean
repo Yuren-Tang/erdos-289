@@ -7,6 +7,7 @@ open Erdos289.ObservationSystem
 #check ObservationSystem.CorrectionString
 #check CorrectionString.composite
 #check ObservationSystem.CompatibleRealizer
+#check @ObservationSystem.instFiniteCompatibleRealizer
 #check ObservationSystem.compatibleRealizerMap
 #check ObservationSystem.compatibleRealizerSumFamily
 #check ObservationSystem.naryCompositionCriterion

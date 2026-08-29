@@ -12,6 +12,9 @@ open Erdos289.ObservationSystem
 #check ObservationSystem.FamilyRealizer
 #check FamilyRealizer.branch
 #check FamilyRealizer.required
+#check UniversalRealizer.ext_of_state
+#check FamilyRealizer.branch_injective
+#check @FamilyRealizer.instFinite
 #check ObservationSystem.FamilyRequiredPullback
 #check ObservationSystem.familyRealizerBaseChangeEquiv
 #check ObservationSystem.Covers
@@ -25,3 +28,5 @@ open Erdos289.ObservationSystem
 #print axioms ObservationSystem.covers_iff_familyRequiredPullback_surjective
 #print axioms type_regularEpi_iff_surjective
 #print axioms ObservationSystem.covers_iff_regularEpi
+#print axioms UniversalRealizer.ext_of_state
+#print axioms FamilyRealizer.branch_injective
