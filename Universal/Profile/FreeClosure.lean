@@ -128,7 +128,7 @@ def pathRawLabels
     ∀ {x y : X}, Quiver.Path x y → Set (GradeResourceLabel M U)
   | _, _, .nil => {0}
   | _, _, .cons p e =>
-      (pathTensor P p : Set (GradeResourceLabel M U)) +
+      pathRawLabels P p +
         (P e : Set (GradeResourceLabel M U))
 
 /-- Every path tensor is exactly the reflection of its literal tuple-sum
@@ -147,9 +147,10 @@ theorem pathTensor_coe
       change ((pathTensor P p + P e : BoundProfile M U) :
           Set (GradeResourceLabel M U)) =
         boundSaturation
-          ((pathTensor P p : Set (GradeResourceLabel M U)) +
+          (pathRawLabels P p +
             (P e : Set (GradeResourceLabel M U)))
-      exact boundProfile_add_coe (pathTensor P p) (P e)
+      rw [boundProfile_add_coe, pathTensor_coe]
+      exact boundSaturation_add_left _ _
 
 /-- U7.6: the free enriched hom is the join of the reflected tensors over
 all finite paths. -/
@@ -176,16 +177,74 @@ variable (W : ObservationSystem.PhysicalAdditiveMap G Θ Γ)
 variable (g : ObservationSystem.PhysicalAdditiveMap G Θ M)
 variable (μ : ObservationSystem.PhysicalAdditiveMap G Θ U)
 
-/-- A pathwise physical-composition certificate.  For each tensor label it
-supplies the frozen finite physical witness; its cover field is precisely the
-regular-epimorphic zero-correction certificate of the correction spine. -/
+/-- The mechanistic finite-composition data attached to one literal tuple of
+edge labels.  The entries are the edge-local physical families; their direct
+n-ary compatible union is required to satisfy the frozen regular-epimorphism
+criterion.  In particular, no composite `PhysWitness` is assumed here. -/
+structure PathwiseCompositionData
+    {H K : CompactStage t} (p : Quiver.Path H K) (m : M) (u : U) where
+  string : (compactProfileObservationSystem t).CorrectionString M H K
+  families : ObservationSystem.CorrectionFamilies
+    (G := G) (Θ := Θ) string
+  finite_compatible : Finite (ObservationSystem.CompatibleRealizer
+    (O := compactProfileObservationSystem t) (M := M) (W := W) (g := g)
+    string families)
+  local_cover : ∀ a, (compactProfileObservationSystem t).Covers M W g
+    (families a) (string.arrow a).correction
+  localBound : string.Index → U
+  local_resource_bound : ∀ a b,
+    μ ((families a).hom b) ≤ localBound a
+  total_resource_bound : (∑ a, localBound a) ≤ u
+  composite_eq : string.composite =
+    ObservationSystem.profileZeroSection (t := t)
+      (CategoryTheory.composePath p) m
+  compatible_regularEpi : TypeRegularEpi
+    (ObservationSystem.compatibleRealizerMap
+      (O := compactProfileObservationSystem t) (M := M) (W := W) (g := g)
+      string families)
+
+/-- A pathwise physical-composition certificate.  For each literal tuple of
+edge labels it supplies edge-local realizers and the regular-epimorphic
+compatible-realizer comparison required by the frozen composition spine. -/
 structure PathwisePhysicalCertificate
     (P : ∀ {H K : CompactStage t}, (H ⟶ K) → BoundProfile M U) where
   realize_raw : ∀ {H K : CompactStage t} (p : Quiver.Path H K)
     (r : GradeResourceLabel M U),
     r ∈ pathRawLabels P p →
-      Nonempty (ObservationSystem.PhysWitness W g μ
-        (CategoryTheory.composePath p) r.1 r.2)
+      Nonempty (PathwiseCompositionData W g μ p r.1 r.2)
+
+/-- The frozen regular-epimorphic n-ary composition criterion turns the
+pathwise edge-local data into the composite physical witness. -/
+theorem PathwiseCompositionData.toPhysWitness
+    {H K : CompactStage t} {p : Quiver.Path H K} {m : M} {u : U}
+    (d : PathwiseCompositionData W g μ p m u) :
+    ObservationSystem.PhysWitness W g μ
+      (CategoryTheory.composePath p) m u := by
+  let O := compactProfileObservationSystem t
+  let F := ObservationSystem.compatibleRealizerSumFamily
+    (O := O) (M := M) (W := W) (g := g) d.string d.families
+  refine {
+    family := ⟨F, d.finite_compatible⟩
+    cover := ?_
+    resource_bound := ?_ }
+  · rw [← d.composite_eq]
+    exact (ObservationSystem.naryCompositionCriterion_regularEpi
+      (O := O) (M := M) (W := W) (g := g)
+      d.string d.families).2 d.compatible_regularEpi
+  · intro b
+    calc
+      μ (F.hom b) = ∑ a, μ ((b.1 a).universal.state) := by
+        exact μ.map_finitePhysicalUnion
+          (⟨fun a ↦ (b.1 a).universal.state, b.2⟩ :
+            NaryPhysicalDomain G Θ d.string.Index)
+      _ = ∑ a, μ ((d.families a).hom ((b.1 a).branch)) := by
+        apply Finset.sum_congr rfl
+        intro a _
+        rw [(b.1 a).family_state_eq]
+      _ ≤ ∑ a, d.localBound a := by
+        exact Finset.sum_le_sum fun a _ ↦
+          d.local_resource_bound a ((b.1 a).branch)
+      _ ≤ u := d.total_resource_bound
 
 /-- Each certified path tensor is contained in physical realization. -/
 theorem pathTensor_le_phys
@@ -200,8 +259,9 @@ theorem pathTensor_le_phys
   rcases hr with ⟨⟨m₀, u⟩, hraw, hm, hu⟩
   dsimp [ResourceBoundLE] at hm hu
   subst m₀
-  exact ObservationSystem.physRaw_resource_upper W g μ hu
-    (cert.realize_raw p (m, u) hraw)
+  exact ObservationSystem.physRaw_resource_upper W g μ hu <| by
+    rcases cert.realize_raw p (m, u) hraw with ⟨d⟩
+    exact ⟨d.toPhysWitness W g μ⟩
 
 /-- Thinness of the compact-stage category identifies the path composite
 with the specified endpoint arrow. -/
