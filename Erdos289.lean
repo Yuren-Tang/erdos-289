@@ -14,6 +14,8 @@ import Universal.Target.Centering
 import Universal.Target.CompactResolution
 import Universal.Target.LeastAbsorber
 import Universal.Target.ExactTransfer
+import Universal.Profile.GradeResource
+import Universal.Profile.BoundSaturation
 
 /-!
 # Erdős Problem 289
