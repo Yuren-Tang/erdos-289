@@ -277,11 +277,29 @@ private theorem sum_snocPositionData_bound :
       simp only [h1, h2]
       rw [ih (fun a ↦ ps (.inr a)) c pc, add_assoc]
 
-/-- The literal edge-label tuple witnessing a raw path label: the physical
-bound witness at every position of the path, whose grade-resource labels
-sum -- by the same recursion defining `pathRawLabels` -- to the specified
-label.  This is the pathwise counterpart of `PhysWitness`, carried edge by
-edge rather than supplied for the composite in a single step. -/
+-- The edge-profile assignment against which a path's edge labels are drawn,
+-- scoped to this section only.  Declared as a section variable -- rather
+-- than an explicit parameter of `PathwiseEdgeWitness` below -- because Lean
+-- 4.33.0's inductive-family positivity checker rejects an explicit
+-- dependent-function-typed parameter whose type mentions the same index
+-- types as the family itself, even when that parameter is otherwise
+-- unused; auto-inclusion produces the identical signature
+-- (`PathwiseEdgeWitness P W g μ p r`) without tripping the check.  The
+-- section keeps this auto-inclusion from reaching the later declarations
+-- below, which take `P` as an ordinary explicit parameter instead.
+section PathwiseEdgeWitnessInductive
+
+variable (P : ∀ {H K : CompactStage t}, (H ⟶ K) → BoundProfile M U)
+
+/-- The literal edge-label tuple witnessing a raw path label: at every
+position of the path, a label literally drawn from the edge's own profile
+`P e`, together with the local `PhysWitness` realizing that same label.  The
+labels sum -- by the same recursion defining `pathRawLabels` -- to the
+specified label, so `pathRawLabels P p` is exactly the shadow of this
+Type-valued data (`mem_pathRawLabels` below); no other decomposition with
+the same aggregate is substituted for it.  This is the pathwise counterpart
+of `PhysWitness`, carried edge by edge rather than supplied for the
+composite in a single step. -/
 inductive PathwiseEdgeWitness
     (W : ObservationSystem.PhysicalAdditiveMap G Θ Γ)
     (g : ObservationSystem.PhysicalAdditiveMap G Θ M)
@@ -291,10 +309,14 @@ inductive PathwiseEdgeWitness
   | nil (H : CompactStage t) :
       PathwiseEdgeWitness W g μ (Quiver.Path.nil : Quiver.Path H H) 0
   | cons {H K L : CompactStage t} {p : Quiver.Path H K} (e : K ⟶ L)
-      (m_e : M) (u_e : U) {r' : GradeResourceLabel M U}
+      (m_e : M) (u_e : U)
+      (mem : (m_e, u_e) ∈ (P e : Set (GradeResourceLabel M U)))
+      {r' : GradeResourceLabel M U}
       (tail : PathwiseEdgeWitness W g μ p r')
       (witness : ObservationSystem.PhysWitness W g μ e m_e u_e) :
       PathwiseEdgeWitness W g μ (Quiver.Path.cons p e) (r' + (m_e, u_e))
+
+end PathwiseEdgeWitnessInductive
 
 /-- Local bookkeeping: the correction string and position data of an
 edge-label witness tuple, built together so that the string and the
@@ -310,9 +332,10 @@ private structure BuiltEdges {H K : CompactStage t} (p : Quiver.Path H K)
   sum_bound_eq : (∑ a, (positions a).bound) = r.2
 
 private noncomputable def PathwiseEdgeWitness.build :
-    ∀ {H K : CompactStage t} {p : Quiver.Path H K} {r : GradeResourceLabel M U},
-      PathwiseEdgeWitness W g μ p r → BuiltEdges W g μ p r
-  | _, _, _, _, .nil H =>
+    ∀ {P : ∀ {H K : CompactStage t}, (H ⟶ K) → BoundProfile M U}
+      {H K : CompactStage t} {p : Quiver.Path H K} {r : GradeResourceLabel M U},
+      PathwiseEdgeWitness P W g μ p r → BuiltEdges W g μ p r
+  | _, _, _, _, _, .nil H =>
       { string := .nil H
         positions := fun (x : ULift.{u} Empty) ↦ nomatch x.down
         composite_eq := by
@@ -320,7 +343,7 @@ private noncomputable def PathwiseEdgeWitness.build :
           · rfl
           · rfl
         sum_bound_eq := by simp }
-  | _, _, _, _, .cons e m_e u_e tail witness =>
+  | _, _, _, _, _, .cons e m_e u_e _mem tail witness =>
       let btail := tail.build
       let pc : PositionData W g μ (ObservationSystem.profileZeroSection (t := t) e m_e) :=
         { family := witness.family.family
@@ -342,70 +365,86 @@ private noncomputable def PathwiseEdgeWitness.build :
 
 namespace PathwiseEdgeWitness
 
-variable {W g μ}
+variable {P W g μ}
 
 /-- The canonical correction string of an edge-label witness tuple: each
 position carries the simple zero correction at its local grade. -/
 noncomputable def toString {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r) :
     (compactProfileObservationSystem t).CorrectionString M H K :=
   d.build.string
 
 /-- The canonical position data of an edge-label witness tuple: at each
 position, the local witness's own family, cover, and resource bound. -/
 noncomputable def toPositionData {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r) :
     ∀ a : d.toString.Index, PositionData W g μ (d.toString.arrow a).correction :=
   d.build.positions
 
 /-- The canonical local families of an edge-label witness tuple. -/
 noncomputable def toFamilies {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r) :
     ∀ _a : d.toString.Index, PhysicalFamily.{u, u} (FiniteComponentState G Θ) :=
   fun a ↦ (d.toPositionData a).family
 
 instance instFiniteToFamilies {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r)
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r)
     (a : d.toString.Index) : Finite (d.toFamilies a).left :=
   (d.toPositionData a).finite
 
 theorem toString_composite {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r) :
     d.toString.composite =
       ObservationSystem.profileZeroSection (t := t)
         (CategoryTheory.composePath p) r.1 :=
   d.build.composite_eq
 
 theorem sum_toPositionData_bound {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r) :
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r) :
     (∑ a, (d.toPositionData a).bound) = r.2 :=
   d.build.sum_bound_eq
 
 theorem local_cover {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r)
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r)
     (a : d.toString.Index) :
     (compactProfileObservationSystem t).Covers M W g
       (d.toFamilies a) (d.toString.arrow a).correction :=
   (d.toPositionData a).cover
 
 theorem local_resource_bound {H K : CompactStage t} {p : Quiver.Path H K}
-    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness W g μ p r)
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r)
     (a : d.toString.Index) (b : (d.toFamilies a).left) :
     μ ((d.toFamilies a).hom b) ≤ (d.toPositionData a).bound :=
   (d.toPositionData a).resource_bound b
 
+/-- Every edge-label witness tuple is a literal decomposition of a member of
+`pathRawLabels`: `pathRawLabels P p` is exactly the Set-image shadow of this
+Type-valued tuple data, so no other decomposition with the same aggregate
+label is smuggled in past the raw-label membership. -/
+theorem mem_pathRawLabels {H K : CompactStage t} {p : Quiver.Path H K}
+    {r : GradeResourceLabel M U} (d : PathwiseEdgeWitness P W g μ p r) :
+    r ∈ pathRawLabels P p := by
+  induction d with
+  | nil => simp [pathRawLabels]
+  | cons e m_e u_e mem tail witness ih =>
+      simp only [pathRawLabels]
+      exact Set.add_mem_add ih mem
+
 end PathwiseEdgeWitness
 
 /-- A pathwise physical-composition certificate at a literal edge-label
-tuple.  The correction string, local families, local covers, resource
-bounds, and composite zero correction are all canonically derived from the
-tuple's edge-local `PhysWitness` data; the only further datum is the
-regular-epimorphism certificate for the resulting compatible-realizer map,
-matching the specification's regular-epimorphic physical composition
-certificate for every tuple of edge labels (U7.7). -/
+tuple.  The tuple carries, for every edge, a label drawn from that edge's
+own profile together with the local `PhysWitness` realizing that same
+label; the correction string, local families, local covers, resource
+bounds, and composite zero correction are all canonically derived from this
+same tuple.  The only further datum is the regular-epimorphism certificate
+for the resulting compatible-realizer map, matching the specification's
+regular-epimorphic physical composition certificate for every tuple of edge
+labels (U7.7). -/
 structure PathwiseCompositionData
+    (P : ∀ {H K : CompactStage t}, (H ⟶ K) → BoundProfile M U)
     {H K : CompactStage t} (p : Quiver.Path H K) (m : M) (u : U) where
-  edges : PathwiseEdgeWitness W g μ p (m, u)
+  edges : PathwiseEdgeWitness P W g μ p (m, u)
   compatible_regularEpi : TypeRegularEpi
     (ObservationSystem.compatibleRealizerMap
       (O := compactProfileObservationSystem t) (M := M) (W := W) (g := g)
@@ -419,13 +458,14 @@ structure PathwisePhysicalCertificate
   realize_raw : ∀ {H K : CompactStage t} (p : Quiver.Path H K)
     (r : GradeResourceLabel M U),
     r ∈ pathRawLabels P p →
-      Nonempty (PathwiseCompositionData W g μ p r.1 r.2)
+      Nonempty (PathwiseCompositionData W g μ P p r.1 r.2)
 
 /-- The frozen regular-epimorphic n-ary composition criterion turns the
 pathwise edge-local data into the composite physical witness. -/
 noncomputable def PathwiseCompositionData.toPhysWitness
+    {P : ∀ {H K : CompactStage t}, (H ⟶ K) → BoundProfile M U}
     {H K : CompactStage t} {p : Quiver.Path H K} {m : M} {u : U}
-    (d : PathwiseCompositionData W g μ p m u) :
+    (d : PathwiseCompositionData W g μ P p m u) :
     ObservationSystem.PhysWitness W g μ
       (CategoryTheory.composePath p) m u := by
   let O := compactProfileObservationSystem t

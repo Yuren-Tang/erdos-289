@@ -21,6 +21,7 @@ open Erdos289
 #check PathwiseEdgeWitness.sum_toPositionData_bound
 #check PathwiseEdgeWitness.local_cover
 #check PathwiseEdgeWitness.local_resource_bound
+#check PathwiseEdgeWitness.mem_pathRawLabels
 #check PathwisePhysicalCertificate
 #check PathwiseCompositionData
 #check PathwiseCompositionData.toPhysWitness
@@ -34,5 +35,6 @@ open Erdos289
 #print axioms pathTensor_le_phys
 #print axioms PathwiseEdgeWitness.toString_composite
 #print axioms PathwiseEdgeWitness.sum_toPositionData_bound
+#print axioms PathwiseEdgeWitness.mem_pathRawLabels
 #print axioms PathwiseCompositionData.toPhysWitness
 #print axioms freePathProfile_le_phys
