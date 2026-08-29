@@ -184,8 +184,8 @@ criterion.  In particular, no composite `PhysWitness` is assumed here. -/
 structure PathwiseCompositionData
     {H K : CompactStage t} (p : Quiver.Path H K) (m : M) (u : U) where
   string : (compactProfileObservationSystem t).CorrectionString M H K
-  families : ObservationSystem.CorrectionFamilies
-    (G := G) (Θ := Θ) string
+  families : ∀ _a : string.Index,
+    PhysicalFamily.{u, u} (FiniteComponentState G Θ)
   finite_compatible : Finite (ObservationSystem.CompatibleRealizer
     (O := compactProfileObservationSystem t) (M := M) (W := W) (g := g)
     string families)
@@ -215,7 +215,7 @@ structure PathwisePhysicalCertificate
 
 /-- The frozen regular-epimorphic n-ary composition criterion turns the
 pathwise edge-local data into the composite physical witness. -/
-theorem PathwiseCompositionData.toPhysWitness
+noncomputable def PathwiseCompositionData.toPhysWitness
     {H K : CompactStage t} {p : Quiver.Path H K} {m : M} {u : U}
     (d : PathwiseCompositionData W g μ p m u) :
     ObservationSystem.PhysWitness W g μ
@@ -223,17 +223,38 @@ theorem PathwiseCompositionData.toPhysWitness
   let O := compactProfileObservationSystem t
   let F := ObservationSystem.compatibleRealizerSumFamily
     (O := O) (M := M) (W := W) (g := g) d.string d.families
+  letI : Finite F.left := d.finite_compatible
+  letI : Fintype F.left := Fintype.ofFinite F.left
+  let e := Fintype.equivFin F.left
+  let Fsmall : PhysicalFamily.{u, u} (FiniteComponentState G Θ) := {
+    left := ULift.{u} (Fin (Fintype.card F.left))
+    hom := fun n ↦ F.hom (e.symm n.down) }
   refine {
-    family := ⟨F, d.finite_compatible⟩
+    family := ⟨Fsmall, inferInstanceAs
+      (Finite (ULift.{u} (Fin (Fintype.card F.left))))⟩
     cover := ?_
     resource_bound := ?_ }
-  · rw [← d.composite_eq]
-    exact (ObservationSystem.naryCompositionCriterion_regularEpi
+  · have hcover : O.Covers M W g F d.string.composite :=
+      (ObservationSystem.naryCompositionCriterion_regularEpi
       (O := O) (M := M) (W := W) (g := g)
       d.string d.families).2 d.compatible_regularEpi
-  · intro b
+    rw [d.composite_eq] at hcover
+    change O.Covers M W g Fsmall
+      (ObservationSystem.profileZeroSection (t := t)
+        (CategoryTheory.composePath p) m)
+    intro target
+    obtain ⟨r, hr⟩ := hcover target
+    refine ⟨{
+      left := ULift.up (e r.branch)
+      right := r.universal
+      condition := ?_ }, hr⟩
+    change F.hom (e.symm (e r.branch)) = r.universal.state
+    rw [e.symm_apply_apply]
+    exact r.family_state_eq
+  · intro n
+    let b := e.symm n.down
     calc
-      μ (F.hom b) = ∑ a, μ ((b.1 a).universal.state) := by
+      μ (Fsmall.hom n) = ∑ a, μ ((b.1 a).universal.state) := by
         exact μ.map_finitePhysicalUnion
           (⟨fun a ↦ (b.1 a).universal.state, b.2⟩ :
             NaryPhysicalDomain G Θ d.string.Index)
