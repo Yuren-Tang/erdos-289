@@ -15,8 +15,13 @@ open Erdos289.ObservationSystem
 #check ObservationSystem.FamilyRequiredPullback
 #check ObservationSystem.familyRealizerBaseChangeEquiv
 #check ObservationSystem.Covers
+#check type_regularEpi_iff_surjective
+#check TypeRegularEpi
+#check ObservationSystem.covers_iff_regularEpi
 #check ObservationSystem.covers_iff_familyRequiredPullback_surjective
 
 #print axioms TypePullback.fst_surjective_of_right_surjective
 #print axioms ObservationSystem.familyRealizerBaseChangeEquiv
 #print axioms ObservationSystem.covers_iff_familyRequiredPullback_surjective
+#print axioms type_regularEpi_iff_surjective
+#print axioms ObservationSystem.covers_iff_regularEpi

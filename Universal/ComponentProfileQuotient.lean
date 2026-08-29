@@ -98,6 +98,34 @@ noncomputable def componentProfileQuotient_hom_equiv
       · simp [h]
   }
 
+/-- Postcomposition sends a vanishing component label to a vanishing label. -/
+def VanishingComponentLabel.map
+    {Θ₀ : Type v} {Θ : Type u} {L : Type w} {L' : Type*}
+    [AddCommMonoid L] [AddCommMonoid L'] (j : Θ₀ ↪ Θ)
+    (g : L →+ L') (ell : VanishingComponentLabel j L) :
+    VanishingComponentLabel j L' :=
+  ⟨fun θ ↦ g (ell.1 θ), fun θ₀ ↦ by
+    change g (ell.1 (j θ₀)) = 0
+    rw [ell.2 θ₀, map_zero]⟩
+
+/-- The Hom universal-property equivalence is natural in the target
+commutative monoid: its square with postcomposition commutes. -/
+theorem componentProfileQuotient_hom_equiv_natural
+    {Θ₀ : Type v} {Θ : Type u} {L : Type w} {L' : Type*}
+    [AddCommMonoid L] [AddCommMonoid L'] (j : Θ₀ ↪ Θ)
+    (g : L →+ L') (f : ComponentProfileQuotient j →+ L) :
+    componentProfileQuotient_hom_equiv j L' (g.comp f) =
+      VanishingComponentLabel.map j g
+        (componentProfileQuotient_hom_equiv j L f) := by
+  classical
+  apply Subtype.ext
+  funext θ
+  change (if h : θ ∈ Set.range j then 0
+      else g (f (Finsupp.single (⟨θ, h⟩ : {θ // θ ∉ Set.range j}) 1))) =
+    g (if h : θ ∈ Set.range j then 0
+      else f (Finsupp.single (⟨θ, h⟩ : {θ // θ ∉ Set.range j}) 1))
+  by_cases hθ : θ ∈ Set.range j <;> simp [hθ]
+
 /-- The embedding associated with a literal subset of component types. -/
 def componentTypeSubsetEmbedding {Θ : Type u} (Θ₀ : Set Θ) : Θ₀ ↪ Θ :=
   ⟨Subtype.val, Subtype.val_injective⟩

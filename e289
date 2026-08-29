@@ -2,16 +2,27 @@
 set -eu
 
 project_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+mathlib_dir=$project_dir/../mathlib4
+expected_mathlib_revision=db584cd6d46c92f209a44c0f1c829460d327499d
+expected_lean_revision=d8b18978322de05a8f3dba51ef03cf5461676c17
+
+cd "$project_dir"
 
 # Keep the project on the checked-out Mathlib 4.33 tree instead of asking Lake
 # to clone or update Mathlib after a scratch-workspace reset.
-if [ -d "$project_dir/../mathlib4" ] &&
-    [ ! -f "$project_dir/.lake/package-overrides.json" ]; then
-  mkdir -p "$project_dir/.lake"
-  cat > "$project_dir/.lake/package-overrides.json" <<'EOF'
+if [ ! -d "$mathlib_dir/.git" ]; then
+  echo "Pinned sibling Mathlib checkout not found at $mathlib_dir." >&2
+  exit 1
+fi
+actual_mathlib_revision=$(git -C "$mathlib_dir" rev-parse HEAD)
+if [ "$actual_mathlib_revision" != "$expected_mathlib_revision" ]; then
+  echo "Mathlib revision mismatch: expected $expected_mathlib_revision, got $actual_mathlib_revision." >&2
+  exit 1
+fi
+mkdir -p "$project_dir/.lake"
+cat > "$project_dir/.lake/package-overrides.json" <<'EOF'
 {"schemaVersion":"1.2.0","packages":[{"type":"path","name":"mathlib","scope":"","inherited":false,"configFile":"lakefile.lean","manifestFile":"lake-manifest.json","dir":"../mathlib4"}]}
 EOF
-fi
 
 if [ -n "${LEAN_433_HOME:-}" ]; then
   lean_home=$LEAN_433_HOME
@@ -45,7 +56,16 @@ export LEAN_PROC_SELF_EXE="$lean_binary"
 export LEAN_SYSROOT="$lean_home"
 export LD_PRELOAD="$shim${LD_PRELOAD:+:$LD_PRELOAD}"
 
-cd "$project_dir"
+lean_version=$("$lean_binary" --version)
+case "$lean_version" in
+  *"version 4.33.0,"*"commit $expected_lean_revision"*) ;;
+  *)
+    echo "Lean toolchain mismatch: expected Lean 4.33.0 at commit $expected_lean_revision." >&2
+    echo "Found: $lean_version" >&2
+    exit 1
+    ;;
+esac
+
 case "${1:-}" in
   build)
     shift

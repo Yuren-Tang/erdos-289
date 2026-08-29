@@ -159,6 +159,36 @@ theorem leastAbsorber_exact (H : CompactStage t)
     apply Subtype.ext
     exact (QuotientAddGroup.eq_zero_iff y.1).2 y.2
 
+/-- The left-hand map in the pullback short exact sequence is injective. -/
+theorem leastAbsorberKernelMap_injective (H : CompactStage t)
+    (d : CenteredMarking t ⧸ H.1) :
+    Function.Injective (leastAbsorberKernelMap H d) := by
+  intro x y hxy
+  apply Subtype.ext
+  exact congrArg (fun z : (LeastAbsorber H d).1 ↦ z.1) hxy
+
+/-- The right-hand map in the pullback short exact sequence is surjective. -/
+theorem leastAbsorberCyclicMap_surjective (H : CompactStage t)
+    (d : CenteredMarking t ⧸ H.1) :
+    Function.Surjective (leastAbsorberCyclicMap H d) := by
+  intro y
+  have hy : y.1 ∈ (leastAbsorberSubgroup H d).map
+      (QuotientAddGroup.mk' H.1) := by
+    rw [leastAbsorber_map H d]
+    exact y.2
+  rcases hy with ⟨x, hx, hxy⟩
+  exact ⟨⟨x, hx⟩, Subtype.ext hxy⟩
+
+/-- The complete frozen short exact sequence
+`0 → H → H[d] → ⟨d⟩ → 0`. -/
+theorem leastAbsorber_shortExact (H : CompactStage t)
+    (d : CenteredMarking t ⧸ H.1) :
+    Function.Injective (leastAbsorberKernelMap H d) ∧
+      Function.Exact (leastAbsorberKernelMap H d) (leastAbsorberCyclicMap H d) ∧
+      Function.Surjective (leastAbsorberCyclicMap H d) :=
+  ⟨leastAbsorberKernelMap_injective H d, leastAbsorber_exact H d,
+    leastAbsorberCyclicMap_surjective H d⟩
+
 theorem leastAbsorber_kills (H : CompactStage t)
     (d : CenteredMarking t ⧸ H.1) :
     compactResolutionTransition t (leastAbsorber_contains H d) d = 0 := by

@@ -232,6 +232,18 @@ theorem naryCompositionCriterion {i j : I}
       rfl
     · rfl
 
+/-- Invariant form of the finite-string composition criterion. -/
+theorem naryCompositionCriterion_regularEpi {i j : I}
+    (s : O.CorrectionString M i j)
+    (F : CorrectionFamilies (G := G) (Θ := Θ) s) :
+    O.Covers M W g
+        (compatibleRealizerSumFamily (O := O) (M := M) (W := W) (g := g) s F)
+        s.composite ↔
+      TypeRegularEpi
+        (compatibleRealizerMap (O := O) (M := M) (W := W) (g := g) s F) := by
+  rw [naryCompositionCriterion]
+  exact (type_regularEpi_iff_surjective _).symm
+
 /-- The two-entry correction string used by the binary specialization. -/
 def binaryCorrectionString {i j k : I}
     (φ : O.Correction M i j) (ψ : O.Correction M j k) :
@@ -307,6 +319,20 @@ theorem binaryCompositionCriterion {i j k : I}
         (compatibleRealizerMap (O := O) (M := M) (W := W) (g := g)
           (binaryCorrectionString φ ψ) F) :=
   naryCompositionCriterion _ _
+
+/-- Binary specialization of the invariant regular-epimorphism criterion. -/
+theorem binaryCompositionCriterion_regularEpi {i j k : I}
+    (φ : O.Correction M i j) (ψ : O.Correction M j k)
+    (F : CorrectionFamilies (G := G) (Θ := Θ)
+      (binaryCorrectionString φ ψ)) :
+    O.Covers M W g
+        (compatibleRealizerSumFamily (O := O) (M := M) (W := W) (g := g)
+          (binaryCorrectionString φ ψ) F)
+        (binaryCorrectionString φ ψ).composite ↔
+      TypeRegularEpi
+        (compatibleRealizerMap (O := O) (M := M) (W := W) (g := g)
+          (binaryCorrectionString φ ψ) F) :=
+  naryCompositionCriterion_regularEpi _ _
 
 end ObservationSystem
 

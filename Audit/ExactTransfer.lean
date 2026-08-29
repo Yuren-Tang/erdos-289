@@ -8,6 +8,13 @@ namespace Erdos289
 
 #check compactResolutionObservationSystem
 #check ObservationSystem.zeroSection
+#check ObservationSystem.zeroRequired
+#check ObservationSystem.compactGraded_mapMarking
+#check ObservationSystem.compactPhysicalObservation_mapMarking
+#check ObservationSystem.compactGraded_mapMarking_id
+#check ObservationSystem.compactGraded_mapMarking_comp
+#check ObservationSystem.zeroRequired_mapMarking
+#check ObservationSystem.zeroRequired_mapMarking_zero
 #check ObservationSystem.ExactMarkedFiber
 #check ObservationSystem.ExactSpectrum
 #check ObservationSystem.exactMarkedFiber_map
@@ -15,17 +22,29 @@ namespace Erdos289
 #check ObservationSystem.exactMarkedFiber_map_comp
 #check ObservationSystem.exactSpectrum_mono_marking
 #check ObservationSystem.TargetRealizer
+#check ObservationSystem.TargetRealizer.family_mapMarking
+#check ObservationSystem.TargetRealizer.mapMarking
+#check ObservationSystem.TargetRealizer.state_mapMarking
+#check ObservationSystem.TargetRealizer.mapMarking_id_state
+#check ObservationSystem.TargetRealizer.mapMarking_comp_state
+#check ObservationSystem.TargetRealizer.mapMarking_comp_state_coherence
 #check ObservationSystem.TargetRealizer.projection_surjective
+#check ObservationSystem.TargetRealizer.projection_regularEpi
 #check ObservationSystem.TargetRealizerFactorsThroughExactFiber
+#check ObservationSystem.targetRealizer_exactMarkedFiber_commutes
 #check ObservationSystem.exactTransfer
 #check ObservationSystem.exactTransfer_natural_marking
 #check ObservationSystem.exactTransfer_singleton
 
 #print axioms compactResolutionObservationSystem
 #print axioms ObservationSystem.TargetRealizer.projection_surjective
+#print axioms ObservationSystem.TargetRealizer.projection_regularEpi
 #print axioms ObservationSystem.exactSpectrum_mono_marking
 #print axioms ObservationSystem.exactTransfer
 #print axioms ObservationSystem.exactTransfer_natural_marking
+#print axioms ObservationSystem.targetRealizer_exactMarkedFiber_commutes
+#print axioms ObservationSystem.compactGraded_mapMarking_id
+#print axioms ObservationSystem.compactGraded_mapMarking_comp
 #print axioms ObservationSystem.exactTransfer_singleton
 
 end Erdos289

@@ -1,6 +1,9 @@
 import Universal.Correction.Core
 import Universal.PhysicalPartialMonoid
 
+import Mathlib.CategoryTheory.Limits.Shapes.RegularMono
+import Mathlib.CategoryTheory.Types.Basic
+
 /-!
 # Required fibres and physical realizers
 
@@ -14,6 +17,38 @@ open CategoryTheory
 namespace Erdos289
 
 universe u v w x y z
+
+/-- The canonical universe-lifted presentation of a function as a morphism in
+the fixed category `Type`. -/
+def typeLiftMap {A : Type u} {B : Type v} (f : A → B) :
+    ULift.{v} A → ULift.{u} B :=
+  fun a ↦ ULift.up (f a.down)
+
+/-- Invariant regular-epimorphism predicate for a map of possibly differently
+sized Lean types. -/
+abbrev TypeRegularEpi {A : Type u} {B : Type v} (f : A → B) : Prop :=
+  IsRegularEpi (TypeCat.ofHom (typeLiftMap f))
+
+/-- In the fixed category of types, concrete surjectivity is exactly
+categorical regular epimorphicity (after the canonical universe lift). -/
+theorem type_regularEpi_iff_surjective {A : Type u} {B : Type v} (f : A → B) :
+    TypeRegularEpi f ↔ Function.Surjective f := by
+  constructor
+  · intro h
+    have hs : Function.Surjective (typeLiftMap f) :=
+      (ofHom_epi_iff_surjective (typeLiftMap f)).1
+        (RegularEpi.epi _ h.regularEpi.some)
+    intro b
+    obtain ⟨a, ha⟩ := hs (ULift.up b)
+    exact ⟨a.down, congrArg ULift.down ha⟩
+  · intro h
+    have hs : Function.Surjective (typeLiftMap f) := by
+      rintro ⟨b⟩
+      obtain ⟨a, ha⟩ := h b
+      exact ⟨ULift.up a, congrArg ULift.up ha⟩
+    letI : Epi (TypeCat.ofHom (typeLiftMap f)) :=
+      (ofHom_epi_iff_surjective (typeLiftMap f)).2 hs
+    exact IsRegularEpiCategory.regularEpiOfEpi _
 
 /-- The literal pullback of two maps in `Type`. -/
 structure TypePullback {A : Type u} {B : Type v} {Z : Type w}
@@ -172,6 +207,16 @@ def Covers {i j : I}
     (φ : O.Correction M i j) : Prop :=
   Function.Surjective
     (FamilyRealizer.required : O.FamilyRealizer M W g F φ → O.Required M φ)
+
+/-- Invariant formulation of `Covers` in the fixed category `Type`. -/
+theorem covers_iff_regularEpi {i j : I}
+    (F : PhysicalFamily (FiniteComponentState G Θ))
+    (φ : O.Correction M i j) :
+    O.Covers M W g F φ ↔
+      TypeRegularEpi
+        (FamilyRealizer.required :
+          O.FamilyRealizer M W g F φ → O.Required M φ) := by
+  exact (type_regularEpi_iff_surjective _).symm
 
 /-- Covering can equivalently be checked on the direct base-change
 presentation. -/

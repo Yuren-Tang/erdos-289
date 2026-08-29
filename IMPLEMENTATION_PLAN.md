@@ -163,6 +163,14 @@ consumer uses a general categorical regular-epi API, first export an explicit
 `Type` bridge (surjective implies split epi, hence regular epi); never treat
 surjectivity as regular epimorphicity in an arbitrary category.
 
+The bridge is now exported as `TypeRegularEpi`, using canonical universe lifts
+to place source and target in one `Type` category, together with the proved
+equivalence `type_regularEpi_iff_surjective`.  Owner-side invariant forms are
+exported for `Covers`, the n-ary composition criterion, and the target-realizer
+pullback.  The same closure pass completed the full least-absorber short exact
+sequence, naturality of the component-profile Hom equivalence, and the U6.3
+quotient/requirement/target-realizer comparison maps with U4.3 coherence.
+
 Checkpoint: `gate-U`.
 
 ### R0 — reciprocal specialization

@@ -10,8 +10,11 @@ open Erdos289.ObservationSystem
 #check ObservationSystem.compatibleRealizerMap
 #check ObservationSystem.compatibleRealizerSumFamily
 #check ObservationSystem.naryCompositionCriterion
+#check ObservationSystem.naryCompositionCriterion_regularEpi
 #check ObservationSystem.binaryCompositionCriterion
+#check ObservationSystem.binaryCompositionCriterion_regularEpi
 
 #print axioms CorrectionString.map_observation_sum_eq_composite_label
 #print axioms ObservationSystem.naryCompositionCriterion
 #print axioms ObservationSystem.binaryCompositionCriterion
+#print axioms ObservationSystem.naryCompositionCriterion_regularEpi
