@@ -28,5 +28,6 @@ globs = [
   "Erdos289",
   "Erdos289Defect",
   "Universal.+",
+  "Reciprocal.+",
 ]
 

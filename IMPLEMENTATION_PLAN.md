@@ -193,6 +193,27 @@ Checkpoint: `gate-U`.
 Focus: exact state/grade/value definitions, centered residue, compact subgroup
 arithmetic, currents/predecessors/heights/endpoints, and named filters.
 
+The successor graph is the reflexive symmetric graph on `ℕ_{>0}` whose relation
+is `|m-n| ≤ 1`, so its graph distance is the one used by the finite physical
+constraints.  Connected components of a state are proved to be order-convex,
+which is the component/interval fact consumed by the later envelope map.  The
+reciprocal value is the vertex fold of `n ↦ 1/n`, and `W₊` is its unique
+nonnegative corestriction.
+
+`A = ℚ/ℤ` is defined as `ℚ ⧸ zmultiples 1` and identified with the centered
+target of the one-point marking at `τ = 1`.  The compact-subgroup lattice
+`KSub(A)` is realized as the compact elements of the subgroup lattice of `A`;
+every compact subgroup is the unique `H_n` of its own cardinality, and the
+order, joins, and meets are divisibility, `lcm`, and `gcd`.  Currents are the
+nonzero join-irreducible compact stages.  Their prime-power description, the
+lower-current stage, the simple factor, the intrinsic height, the predecessor
+map, and the canonical endpoints are all derived from those intrinsic
+definitions; the arithmetic coordinates appear only as proved equivalences.
+The named filters are the rank pullback of `atTop`, its height-one
+restriction, the endpoint index filter and its image, and the canonical
+current tail, whose restriction is proved equivalent to the ambient current
+filter.
+
 Checkpoint: `gate-R0`.
 
 ### L0 — independent leaf foundations

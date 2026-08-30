@@ -17,6 +17,11 @@ import Universal.Target.ExactTransfer
 import Universal.Profile.GradeResource
 import Universal.Profile.BoundSaturation
 import Universal.Profile.FreeClosure
+import Reciprocal.State
+import Reciprocal.CenteredResidue
+import Reciprocal.CompactSubgroups
+import Reciprocal.CurrentFiltration
+import Reciprocal.Filters
 
 /-!
 # Erdős Problem 289
