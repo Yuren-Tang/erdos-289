@@ -209,6 +209,11 @@ nonzero join-irreducible compact stages.  Their prime-power description, the
 lower-current stage, the simple factor, the intrinsic height, the predecessor
 map, and the canonical endpoints are all derived from those intrinsic
 definitions; the arithmetic coordinates appear only as proved equivalences.
+The simple factor carries the canonical `ZMod p_J`-scalar structure supplied by
+its own `p_J`-torsion additive-group structure, and R2.3 one-dimensionality is
+stated at the linear level as an inhabited `ZMod p_J`-linear equivalence; no
+basis is chosen and the scalar action is not transported across any additive
+equivalence.
 The named filters are the rank pullback of `atTop`, its height-one
 restriction, the endpoint index filter and its image, and the canonical
 current tail, whose restriction is proved equivalent to the ambient current

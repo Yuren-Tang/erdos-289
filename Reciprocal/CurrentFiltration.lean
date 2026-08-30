@@ -1,8 +1,11 @@
 import Reciprocal.CompactSubgroups
 
+import Mathlib.Algebra.Field.ZMod
+import Mathlib.Algebra.Module.Submodule.Equiv
+import Mathlib.Algebra.Module.ZMod
 import Mathlib.Data.Nat.Factorization.Basic
 import Mathlib.Data.Nat.Factorization.PrimePow
-import Mathlib.GroupTheory.SpecificGroups.Cyclic
+import Mathlib.GroupTheory.OrderOfElement
 import Mathlib.Order.Irreducible
 
 /-!
@@ -388,14 +391,78 @@ theorem simpleFactor_card_prime (J : Current) : Nat.Prime (simpleFactorOrder J) 
   rw [simpleFactorOrder_eq hp he hrank]
   exact hp
 
-/-- R2.3: the simple factor of a current is one-dimensional over the prime
-field of its own order. -/
+/-- R2.3: every element of the simple factor is annihilated by the order of
+that simple factor.  This is the canonical `p_J`-torsion structure carried by
+`S_J` itself. -/
+theorem simpleFactor_nsmul_eq_zero (J : Current) (x : SimpleFactor J) :
+    simpleFactorOrder J • x = 0 :=
+  card_nsmul_eq_zero'
+
+/-- R2.3: the canonical `F_{p_J}`-scalar structure on the simple factor,
+obtained from its own `p_J`-torsion additive-group structure.  No basis and no
+choice of additive equivalence enters this construction. -/
+noncomputable instance simpleFactorModule (J : Current) :
+    Module (ZMod (simpleFactorOrder J)) (SimpleFactor J) :=
+  AddCommGroup.zmodModule (simpleFactor_nsmul_eq_zero J)
+
+/-- The canonical scalar action restricts along `ℕ → ZMod p_J` to the ambient
+additive-group action, which is what makes it the intrinsic one. -/
+theorem simpleFactor_natCast_smul (J : Current) (c : ℕ) (x : SimpleFactor J) :
+    ((c : ZMod (simpleFactorOrder J)) • x) = c • x :=
+  Nat.cast_smul_eq_nsmul _ c x
+
+/-- The class in `S_J` of a vertex of `J` outside the lower-current stage is
+nonzero.  This is the intrinsic source of a frame for `S_J`. -/
+private theorem exists_ne_zero_simpleFactor (J : Current) :
+    ∃ x : SimpleFactor J, x ≠ 0 := by
+  obtain ⟨y, hyJ, hyF⟩ : ∃ y, y ∈ J.toSubgroup ∧ y ∉ Flt J := by
+    by_contra hc
+    refine not_le_Flt J fun y hy ↦ ?_
+    by_contra hyF
+    exact hc ⟨y, hy, hyF⟩
+  have hyFJ : y ∈ F J := (le_sup_right : J.toSubgroup ≤ F J) hyJ
+  refine ⟨QuotientAddGroup.mk (⟨y, hyFJ⟩ : F J), ?_⟩
+  rw [Ne, QuotientAddGroup.eq_zero_iff, AddSubgroup.mem_addSubgroupOf]
+  exact hyF
+
+/-- R2.3: the simple factor of a current is a one-dimensional vector object
+over the prime field `F_{p_J}` of its own order.  The scalar structure is the
+canonical torsion one; only the frame is asserted to exist. -/
 theorem simpleFactor_oneDimensional (J : Current) :
+    Nonempty (ZMod (simpleFactorOrder J) ≃ₗ[ZMod (simpleFactorOrder J)]
+      SimpleFactor J) := by
+  haveI hp : Fact (Nat.Prime (simpleFactorOrder J)) := ⟨simpleFactor_card_prime J⟩
+  haveI : NeZero (simpleFactorOrder J) := ⟨hp.out.ne_zero⟩
+  haveI : Finite (SimpleFactor J) := Nat.finite_of_card_ne_zero hp.out.ne_zero
+  obtain ⟨x, hx⟩ := exists_ne_zero_simpleFactor J
+  let f : ZMod (simpleFactorOrder J) →ₗ[ZMod (simpleFactorOrder J)] SimpleFactor J :=
+    { toFun := fun c ↦ c • x
+      map_add' := fun a b ↦ add_smul a b x
+      map_smul' := fun a b ↦ by simpa using mul_smul a b x }
+  have hker : ∀ c : ZMod (simpleFactorOrder J), c • x = 0 → c = 0 := by
+    intro c hc
+    by_contra hcne
+    apply hx
+    calc x = (1 : ZMod (simpleFactorOrder J)) • x := (one_smul _ _).symm
+      _ = (c⁻¹ * c) • x := by rw [inv_mul_cancel₀ hcne]
+      _ = c⁻¹ • c • x := mul_smul _ _ _
+      _ = 0 := by rw [hc, smul_zero]
+  have hinj : Function.Injective f := by
+    intro a b hab
+    have hab' : a • x = b • x := hab
+    have hsub : (a - b) • x = 0 := by rw [sub_smul, hab', sub_self]
+    exact sub_eq_zero.1 (hker _ hsub)
+  have hcard : Nat.card (ZMod (simpleFactorOrder J)) = Nat.card (SimpleFactor J) := by
+    rw [Nat.card_zmod, simpleFactorOrder]
+  exact ⟨LinearEquiv.ofBijective f
+    ((Nat.bijective_iff_injective_and_card f).2 ⟨hinj, hcard⟩)⟩
+
+/-- The underlying cyclic-group form of R2.3, obtained by forgetting the
+canonical scalar structure of the one-dimensional statement. -/
+theorem simpleFactor_addEquiv_zmod (J : Current) :
     Nonempty (ZMod (simpleFactorOrder J) ≃+ SimpleFactor J) := by
-  haveI : Fact (Nat.Prime (simpleFactorOrder J)) := ⟨simpleFactor_card_prime J⟩
-  haveI : IsAddCyclic (SimpleFactor J) :=
-    isAddCyclic_of_prime_card (p := simpleFactorOrder J) rfl
-  exact ⟨zmodAddCyclicAddEquiv (G := SimpleFactor J) inferInstance⟩
+  obtain ⟨e⟩ := simpleFactor_oneDimensional J
+  exact ⟨e.toAddEquiv⟩
 
 /-! ## R2.6 — intrinsic height -/
 

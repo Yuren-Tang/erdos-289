@@ -27,7 +27,23 @@ import Reciprocal.CurrentFiltration
 #check Erdos289.simpleFactorOrder
 #check Erdos289.simpleFactorOrder_eq
 #check Erdos289.simpleFactor_card_prime
+#check Erdos289.simpleFactor_nsmul_eq_zero
+#check Erdos289.simpleFactorModule
+#check Erdos289.simpleFactor_natCast_smul
 #check Erdos289.simpleFactor_oneDimensional
+#check Erdos289.simpleFactor_addEquiv_zmod
+
+-- The canonical `F_{p_J}`-scalar structure must be found by instance search,
+-- and the R2.3 one-dimensionality statement must live at the linear level.
+noncomputable example (J : Erdos289.Current) :
+    Module (ZMod (Erdos289.simpleFactorOrder J)) (Erdos289.SimpleFactor J) :=
+  inferInstance
+
+example (J : Erdos289.Current) :
+    Nonempty (ZMod (Erdos289.simpleFactorOrder J)
+      ≃ₗ[ZMod (Erdos289.simpleFactorOrder J)] Erdos289.SimpleFactor J) :=
+  Erdos289.simpleFactor_oneDimensional J
+
 #check Erdos289.Current.height
 #check Erdos289.Current.height_eq
 #check Erdos289.Current.height_pos
@@ -55,7 +71,11 @@ import Reciprocal.CurrentFiltration
 #print axioms Erdos289.not_le_Flt
 #print axioms Erdos289.simpleFactorOrder_eq
 #print axioms Erdos289.simpleFactor_card_prime
+#print axioms Erdos289.simpleFactor_nsmul_eq_zero
+#print axioms Erdos289.simpleFactorModule
+#print axioms Erdos289.simpleFactor_natCast_smul
 #print axioms Erdos289.simpleFactor_oneDimensional
+#print axioms Erdos289.simpleFactor_addEquiv_zmod
 #print axioms Erdos289.Current.height_eq
 #print axioms Erdos289.current_rank_eq_primePow_height
 #print axioms Erdos289.predecessor_spec
