@@ -231,6 +231,53 @@ Checkpoint: `gate-R0`.
 
 The fixed certificates CERT-N, CERT-PI, and CERT-RF are translated here.
 
+Realized as follows.
+
+`Neutral.Fibres` carries the run-family machinery: a family of pairwise
+separated consecutive successor runs, the identification of its connected
+components with its runs and of its component cardinalities with its run
+lengths, and hence the E289 state it induces, together with that state's
+reciprocal value, component profile, grade, constraint admissibility,
+remoteness from a finite forbidden support and linear lightness bound.  On top
+of this sit the group completion `Gr(M)` of the component-profile monoid with
+its generators `e₂` and `e₃`, the neutral pair object with its profile
+difference `Δχ`, the two fibres `Neu_g` and `Neu_δ`, the two sealed identities
+of CERT-N A.1 and A.2 at `a = 2l+4`, and `neutralFibres_remote_light`.
+
+`Neutral.Cube` adds the criterion that a family of states with pairwise
+separated supports factors through the direct n-ary physical compatibility
+locus, the neutral-type object `{e₂, e₃-e₂}`, the neutral coordinate object
+with its four sealed clauses, the finite neutral cube with its selectorwise
+compatibility field, and `neutralCube_regularEpi`, obtained by iteratively
+strengthening the finite constraint by the complete two-alternative footprints
+of the earlier coordinates.
+
+`PrimeGrowth.Chebyshev` reads the sealed prime-log functions off Mathlib's
+Chebyshev `θ` and `ψ`, records the four growth bounds, shows the Chebyshev
+error term sublinear, and packages the two-sided linear band as
+`PrimeLogBounds`.  `PrimeGrowth.ComparableBands` adds the admissible-dilation
+subtype with its inhabitance, the prime band `(X, ΛX]`, and its two-sided
+cardinality law.
+
+`Packing.RowedGraph` carries the finite rowed graph, its row fibres, its
+independent subobjects and its independent transversals.  `Packing.Sharpness`
+adds the disjoint sum of simple graphs, the amalgam of two rowed graphs along a
+dissolved row, obligation P.6, the complete bipartite obstruction `K_{d,d}`,
+and obligation P.7: for every `d ≥ 1` a finite rowed graph of maximum degree
+exactly `d` with `2d` rows, each of cardinality `2d-1`, and no independent
+transversal.
+
+`RestrictedFold.Basic` carries `FinSub`, the additive fold and its image,
+together with their equivariance under additive and linear isomorphisms.
+`RestrictedFold.Polynomial` carries the finite-grid coefficient detector
+(RF.1), the universal alternation and the falling-factorial determinant (RF.2),
+the coefficient formula for `(x_1 + ⋯ + x_h)^m Vdm(x)` in division-free and
+divided form (RF.3), and the fixed-sum exponent constructor (RF.4).
+`RestrictedFold.ImageGrowth` carries the top-degree comparison for a product of
+affine factors, the base-changed alternation, the image-growth theorem over
+`F_p` (RF.5) and its basis-free descent along the frame torsor of a
+one-dimensional `F_p`-vector object (RF.6).
+
 Checkpoint: `L0-independent-leaves`.
 
 ### L1 — Haxell preflight and packing; Gate L

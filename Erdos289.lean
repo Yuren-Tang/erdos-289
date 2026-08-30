@@ -22,6 +22,15 @@ import Reciprocal.CenteredResidue
 import Reciprocal.CompactSubgroups
 import Reciprocal.CurrentFiltration
 import Reciprocal.Filters
+import Neutral.Fibres
+import Neutral.Cube
+import PrimeGrowth.Chebyshev
+import PrimeGrowth.ComparableBands
+import Packing.RowedGraph
+import Packing.Sharpness
+import RestrictedFold.Basic
+import RestrictedFold.Polynomial
+import RestrictedFold.ImageGrowth
 
 /-!
 # Erdős Problem 289
