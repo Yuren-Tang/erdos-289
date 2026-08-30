@@ -29,5 +29,9 @@ globs = [
   "Erdos289Defect",
   "Universal.+",
   "Reciprocal.+",
+  "Neutral.+",
+  "PrimeGrowth.+",
+  "Packing.+",
+  "RestrictedFold.+",
 ]
 

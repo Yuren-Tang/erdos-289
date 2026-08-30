@@ -411,7 +411,7 @@ theorem simpleFactor_natCast_smul (J : Current) (c : ℕ) (x : SimpleFactor J) :
     ((c : ZMod (simpleFactorOrder J)) • x) = c • x :=
   Nat.cast_smul_eq_nsmul _ c x
 
-/-- The class in `S_J` of a vertex of `J` outside the lower-current stage is
+/-- The class in `S_J` of an element of `J` outside the lower-current stage is
 nonzero.  This is the intrinsic source of a frame for `S_J`. -/
 private theorem exists_ne_zero_simpleFactor (J : Current) :
     ∃ x : SimpleFactor J, x ≠ 0 := by
