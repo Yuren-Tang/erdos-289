@@ -1,0 +1,58 @@
+{
+  "schema_version": "E289-packet-v1-B0-static-review-v1.0",
+  "status": "STATIC_PACKET_MATCH_PASS__LEAN_BUILD_PENDING",
+  "branch": "formalization/lean-4.33-packet-v1",
+  "packet_manifest_sha": "256ceb967a1dcfe30eb7e6dc73792895c3ba369d",
+  "migration_ledger_sha": "10ceda6bbbea7b5baf21b1e3768f70b6b27008ef",
+  "reviewed_modules": {
+    "Universal.Regular": {
+      "source_sha": "a1a180fcf084f9bfc0cdf644b3c5d46f01258fe1",
+      "audit_sha": "3078f3862f41c340baf221b96ce2667b7895ce23",
+      "nodes": [
+        "U0-DESCENT",
+        "U0-COVER-FACTOR"
+      ],
+      "checks": {
+        "binding_registry_match": true,
+        "direct_import_contract_match": true,
+        "packet_binder_order_match": true,
+        "packet_statement_match": true,
+        "concrete_Type_regular_epi_bridge_ok": true,
+        "placeholder_scan": "source contains no sorry/admit/project axiom/native_decide",
+        "D0_static": "PASS"
+      }
+    },
+    "Universal.FiniteSubobject": {
+      "source_sha": "961dd7aad784412a7780a114e67bf98caeca4778",
+      "audit_sha": "93edef44848d52f6cdd74eab6ec26f3892eeffa7",
+      "nodes": [
+        "U1-FINSUBCARD",
+        "U1-FINSUBCARD-EPI"
+      ],
+      "checks": {
+        "binding_registry_match": true,
+        "direct_import_contract_match": true,
+        "total_object_representation": "Finset A realizes finite subobjects of the Fintype carrier",
+        "base_representation": "{h : Nat // h <= Fintype.card A} is canonically the Nat interval [0,|A|]",
+        "display_map_match": true,
+        "regular_epi_core": "Function.Surjective of the cardinality display map",
+        "proof_route_match": "Finset.powersetCard_nonempty",
+        "placeholder_scan": "source contains no sorry/admit/project axiom/native_decide",
+        "D0_static": "PASS"
+      },
+      "deferred_api_note": "If a later consumer needs the packet's pullback-selector corollary as a named API, add it as a theorem derived from U1_FINSUBCARD_EPI; do not export a selector section."
+    }
+  },
+  "runtime_gate": {
+    "required_toolchain": "leanprover/lean4:v4.33.0 + mathlib v4.33.0",
+    "build_status": "NOT_RUN",
+    "blocker": "Current isolated execution environment has neither lean nor lake; attempt to obtain elan was unavailable. Static review is not a substitute for elaboration.",
+    "required_before_verified_status": [
+      "lake build E289.Universal.Regular",
+      "lake build E289.Audit.Universal.Regular",
+      "lake build E289.Universal.FiniteSubobject",
+      "lake build E289.Audit.Universal.FiniteSubobject"
+    ]
+  },
+  "decision": "Do not mark these nodes VERIFIED until the runtime gate passes. Representation-sensitive B0 construction should not be treated as validated merely because these source files look correct."
+}
