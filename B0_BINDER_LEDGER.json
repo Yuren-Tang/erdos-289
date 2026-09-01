@@ -1,0 +1,616 @@
+{
+  "schema_version": "E289-B0-binder-ledger-v1.0",
+  "status": "READY_FOR_IMPLEMENTATION",
+  "packet_manifest_sha": "256ceb967a1dcfe30eb7e6dc73792895c3ba369d",
+  "modules": {
+    "Exact.Replay": {
+      "file": "E289/Exact/Replay.lean",
+      "imports": [],
+      "nodes": [
+        {
+          "id": "C-TAILEPS",
+          "lean_name": "Erdos289.Packet.C_TAILEPS",
+          "spec": {
+            "kind": "certificate_cover",
+            "binders": [
+              {
+                "name": "eta",
+                "type": {
+                  "sort": "QPos"
+                }
+              }
+            ],
+            "definition": "TailBudget(eta)={epsilon:QPos | epsilon<eta}",
+            "theorem": "TailBudget(eta)->Terminal is regular epi",
+            "lifecycle": "epsilon is a generalized certificate point; it is consumed by exactification and never becomes a semantic field",
+            "definition_ast": {
+              "op": "TailBudgetSubobject",
+              "margin": {
+                "var": "eta"
+              }
+            },
+            "cover_ast": {
+              "op": "CoversTerminal",
+              "display": {
+                "op": "TailBudgetSubobject",
+                "margin": {
+                  "var": "eta"
+                }
+              }
+            }
+          },
+          "diagram_contracts": []
+        }
+      ]
+    },
+    "Reciprocal.Compact": {
+      "file": "E289/Reciprocal/Compact.lean",
+      "imports": [],
+      "nodes": [
+        {
+          "id": "R0-COMPACT",
+          "lean_name": "Erdos289.Packet.R0_COMPACT",
+          "spec": {
+            "kind": "moduli_object",
+            "ambient_group": "A = Q/Z",
+            "order": "subgroup inclusion",
+            "bottom": "zero subgroup",
+            "finite_join": "subgroup join",
+            "canonical_cardinality_filtration": "F_X = join {H compact : |H| <= X}",
+            "ambient_group_ast": {
+              "op": "QuotientGroup",
+              "ambient": {
+                "sort": "Rat"
+              },
+              "subgroup": {
+                "op": "IntegerSubgroupOfRationals"
+              }
+            },
+            "definition_ast": {
+              "op": "PredicateSubobject",
+              "ambient": {
+                "op": "SubgroupOf",
+                "carrier": {
+                  "op": "QuotientGroup",
+                  "ambient": {
+                    "sort": "Rat"
+                  },
+                  "subgroup": {
+                    "op": "IntegerSubgroupOfRationals"
+                  }
+                }
+              },
+              "predicate_ref": "FinitelyGeneratedSubgroup"
+            }
+          },
+          "diagram_contracts": []
+        }
+      ]
+    },
+    "Universal.FiniteSubobject": {
+      "file": "E289/Universal/FiniteSubobject.lean",
+      "imports": [],
+      "nodes": [
+        {
+          "id": "U1-FINSUBCARD",
+          "lean_name": "Erdos289.Packet.U1_FINSUBCARD",
+          "spec": {
+            "kind": "base_fibration",
+            "binders": [
+              {
+                "name": "A",
+                "type_ast": {
+                  "op": "FiniteType"
+                }
+              }
+            ],
+            "total_object": "FinSub(A)",
+            "base_object": "[0,|A|] subset Nat",
+            "display_map": "card_A : FinSub(A) -> [0,|A|]",
+            "fibre": "FinSub_h(A) at h",
+            "base_ast": {
+              "op": "OrderInterval",
+              "lower": 0,
+              "upper": {
+                "op": "Card",
+                "term": {
+                  "var": "A"
+                }
+              }
+            },
+            "total_object_ast": {
+              "op": "FiniteSubobjectOf",
+              "carrier": {
+                "var": "A"
+              }
+            },
+            "display_map_ast": {
+              "op": "Map",
+              "from": {
+                "op": "FiniteSubobjectOf",
+                "carrier": {
+                  "var": "A"
+                }
+              },
+              "to": {
+                "op": "OrderInterval",
+                "lower": 0,
+                "upper": {
+                  "op": "Card",
+                  "term": {
+                    "var": "A"
+                  }
+                }
+              }
+            },
+            "fibre_ast": {
+              "op": "CardinalityFibre",
+              "carrier": {
+                "var": "A"
+              },
+              "card": {
+                "var": "h"
+              }
+            },
+            "base_binders": [
+              {
+                "name": "h",
+                "type_ast": {
+                  "op": "OrderInterval",
+                  "lower": 0,
+                  "upper": {
+                    "op": "Card",
+                    "term": {
+                      "var": "A"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "diagram_contracts": []
+        },
+        {
+          "id": "U1-FINSUBCARD-EPI",
+          "lean_name": "Erdos289.Packet.U1_FINSUBCARD_EPI",
+          "spec": {
+            "binders": [
+              {
+                "name": "A",
+                "type_ast": {
+                  "op": "FiniteType"
+                }
+              }
+            ],
+            "statement": "card_A : FinSub(A) -> [0,|A|] is regular epi",
+            "corollary": "every requested cardinality map r:X->[0,|A|] has a pullback selector object regular-epimorphic over X; no selector section is produced",
+            "statement_ast": {
+              "op": "RegularEpi",
+              "map": {
+                "op": "NodeMap",
+                "ref": "U1-FINSUBCARD",
+                "field": "display_map",
+                "args": [
+                  {
+                    "var": "A"
+                  }
+                ]
+              }
+            },
+            "replay": {
+              "representation": "with a Fintype carrier A, use Finset.univ and powersetCard h",
+              "existing_lemma": "Erdos289.finSub_nonempty, ultimately Finset.powersetCard_nonempty",
+              "proof_shape": "for h in [0,|A|], finSub_nonempty supplies a finite subobject of cardinality h; package it as a preimage of the cardinality display map"
+            }
+          },
+          "diagram_contracts": [
+            "DG-DEFECT-SLAB-WHOLE-IMAGE"
+          ]
+        }
+      ]
+    },
+    "Universal.Physical.Core": {
+      "file": "E289/Universal/Physical/Core.lean",
+      "imports": [],
+      "nodes": [
+        {
+          "id": "U1-PHYS",
+          "lean_name": "Erdos289.Packet.U1_PHYS",
+          "spec": {
+            "kind": "moduli_object",
+            "notation": "C23",
+            "ambient": "positive natural numbers with the reflexive successor relation d(m,n)<=1",
+            "structural_definition": "finite-support states whose induced connected components all have cardinality 2 or 3",
+            "no_stored_fields": [
+              "W",
+              "grade",
+              "delta3",
+              "binaryity"
+            ],
+            "derived_maps": [
+              "U1-W",
+              "U1-G",
+              "U1-D3"
+            ],
+            "definition_ast": {
+              "op": "FiniteComponentStateObject",
+              "vertex": {
+                "op": "PosNat"
+              },
+              "relation": {
+                "op": "ReflexiveSuccessorRelation",
+                "carrier": {
+                  "op": "PosNat"
+                }
+              },
+              "allowed_component_cardinalities": [
+                2,
+                3
+              ]
+            },
+            "lean_representation": "Erdos289.E289State = FiniteComponentState successorGraph allowedComponentTypes"
+          },
+          "diagram_contracts": []
+        },
+        {
+          "id": "U1-COMP",
+          "lean_name": "Erdos289.Packet.U1_COMP",
+          "spec": {
+            "kind": "incidence_relation",
+            "ambient": {
+              "op": "Product",
+              "left": {
+                "ref": "U1-PHYS"
+              },
+              "right": {
+                "ref": "U1-PHYS"
+              }
+            },
+            "definition": "cross-relation orthogonality for the reflexive successor graph: every support vertex of the left state has successorDist > 1 from every support vertex of the right state",
+            "definition_ast": {
+              "op": "RelationOrthogonality",
+              "state_object": {
+                "ref": "U1-PHYS"
+              },
+              "relation": {
+                "op": "ReflexiveSuccessorRelation",
+                "carrier": {
+                  "op": "PosNat"
+                }
+              }
+            },
+            "no_extra_disjointness_field": "support overlap is already forbidden by reflexivity"
+          },
+          "diagram_contracts": []
+        },
+        {
+          "id": "U1-FLAG",
+          "lean_name": "Erdos289.Packet.U1_FLAG",
+          "spec": {
+            "domain": "finite family of U1-PHYS states",
+            "statement": "direct n-ary physical compatibility iff every distinct pair is U1-COMP-compatible",
+            "binders": [
+              {
+                "name": "I",
+                "type_ast": {
+                  "op": "FiniteType"
+                }
+              },
+              {
+                "name": "x",
+                "type_ast": {
+                  "op": "Map",
+                  "from": {
+                    "var": "I"
+                  },
+                  "to": {
+                    "ref": "U1-PHYS"
+                  }
+                }
+              }
+            ],
+            "statement_ast": {
+              "op": "Iff",
+              "left": {
+                "op": "NaryCompatible",
+                "family": {
+                  "var": "x"
+                }
+              },
+              "right": {
+                "op": "PairwiseBinaryRelation",
+                "family": {
+                  "var": "x"
+                },
+                "relation": {
+                  "ref": "U1-COMP"
+                }
+              }
+            },
+            "replay": {
+              "forward": "a cross relation generator identifies two ambient union components; injectivity of naryComponentMap forces equal input indices",
+              "reverse": [
+                "use existing naryComponentMap_surjective",
+                "prove EqvGen support-index preservation by induction on Relation.EqvGen",
+                "corestrict the ambient EqvGen chain to the unique preserved input support",
+                "use Quotient.exact and Quotient.sound to prove injectivity of naryComponentMap"
+              ],
+              "existing_api": [
+                "Relation.EqvGen.rel",
+                "Relation.EqvGen.refl",
+                "Relation.EqvGen.symm",
+                "Relation.EqvGen.trans",
+                "Quotient.exists_rep",
+                "Quotient.exact",
+                "Quotient.sound",
+                "naryComponentMap_surjective"
+              ]
+            }
+          },
+          "diagram_contracts": [
+            "DG-CORRECTION-TYPED-COMPOSITION",
+            "DG-TAIL-SAME-WITNESS"
+          ]
+        },
+        {
+          "id": "U1-FINCONSTRAINT",
+          "lean_name": "Erdos289.Packet.U1_FINCONSTRAINT",
+          "spec": {
+            "kind": "moduli_object",
+            "order": "inclusion of finite subobjects",
+            "bottom": "empty finite subobject",
+            "singleton": "canonical singleton x ↦ {x}",
+            "finite_join": "finite union/join of finite state subobjects",
+            "no_fields": [
+              "enumeration",
+              "ordering",
+              "spatial radius",
+              "support cutoff"
+            ],
+            "interpretation": "a finite existing physical family against which a new state may be required to be compatible",
+            "definition_ast": {
+              "op": "FiniteSubobjectModuli",
+              "ambient": {
+                "ref": "U1-PHYS"
+              }
+            }
+          },
+          "diagram_contracts": []
+        },
+        {
+          "id": "U1-CONSTRAINT-COMP",
+          "lean_name": "Erdos289.Packet.U1_CONSTRAINT_COMP",
+          "spec": {
+            "kind": "incidence_relation",
+            "binders": [
+              {
+                "name": "x",
+                "type": {
+                  "ref": "U1-PHYS"
+                }
+              },
+              {
+                "name": "C",
+                "type": {
+                  "ref": "U1-FINCONSTRAINT"
+                }
+              }
+            ],
+            "ambient": {
+              "op": "Product",
+              "left": {
+                "ref": "U1-PHYS"
+              },
+              "right": {
+                "ref": "U1-FINCONSTRAINT"
+              }
+            },
+            "membership": "U1-CONSTRAINT-COMP(x,C) iff for every y in C, U1-COMP(x,y)",
+            "bottom_law": "every x is compatible with the empty constraint",
+            "finite_join_law": "x is compatible with C∨D iff x is compatible with C and with D",
+            "monotonicity": "if C<=D and x is compatible with D, then x is compatible with C",
+            "no_coordinate": "compatibility is quantified over the finite state subobject itself; no (E,s), radius or enumeration is stored",
+            "definition_ast": {
+              "op": "AllCompatibleWithFiniteSubobject",
+              "state_relation": {
+                "ref": "U1-COMP"
+              }
+            }
+          },
+          "diagram_contracts": []
+        },
+        {
+          "id": "U1-ENVELOPE",
+          "lean_name": "Erdos289.Packet.U1_ENVELOPE",
+          "spec": {
+            "kind": "moduli_object",
+            "notation": "Envelope",
+            "definition_ast": {
+              "op": "FiniteConsecutiveSubobjectModuli",
+              "carrier": {
+                "op": "PosNat"
+              },
+              "max_cardinality": 3,
+              "nonempty": true
+            },
+            "interpretation": "nonempty consecutive finite subobjects of positive naturals of cardinality at most three; no chosen centre or endpoint coordinates"
+          },
+          "diagram_contracts": []
+        }
+      ]
+    },
+    "Universal.Regular": {
+      "file": "E289/Universal/Regular.lean",
+      "imports": [],
+      "nodes": [
+        {
+          "id": "U0-DESCENT",
+          "lean_name": "Erdos289.Packet.U0_DESCENT",
+          "spec": {
+            "kind": "theorem",
+            "domain_signature": "surjection p:W->B and subobject S<=B in the fixed Type/set semantic host",
+            "statement": "if the inverse image of S along p is top, then S is top",
+            "statement_ast": {
+              "op": "Eq",
+              "left": {
+                "var": "S"
+              },
+              "right": {
+                "op": "Top",
+                "carrier": {
+                  "op": "SubobjectOf",
+                  "carrier": {
+                    "var": "B"
+                  }
+                }
+              }
+            },
+            "use_rule": "after every witness-sensitive downstream consumer has run, a truth-valued subobject proposition may be reflected from a surjective generalized-point cover",
+            "binders": [
+              {
+                "name": "W",
+                "type_ast": {
+                  "op": "TypeUniverse"
+                }
+              },
+              {
+                "name": "B",
+                "type_ast": {
+                  "op": "TypeUniverse"
+                }
+              },
+              {
+                "name": "p",
+                "type_ast": {
+                  "op": "Map",
+                  "from": {
+                    "var": "W"
+                  },
+                  "to": {
+                    "var": "B"
+                  }
+                }
+              },
+              {
+                "name": "hp",
+                "type_ast": {
+                  "op": "SurjectiveProof",
+                  "map": {
+                    "var": "p"
+                  }
+                }
+              },
+              {
+                "name": "S",
+                "type_ast": {
+                  "op": "SubobjectOf",
+                  "carrier": {
+                    "var": "B"
+                  }
+                }
+              },
+              {
+                "name": "hTop",
+                "type_ast": {
+                  "op": "TopPullbackProof",
+                  "map": {
+                    "var": "p"
+                  },
+                  "subobject": {
+                    "var": "S"
+                  }
+                }
+              }
+            ],
+            "replay": {
+              "host": "Type",
+              "proof": "intro b; obtain ⟨w,rfl⟩ := hp b; exact hTop w",
+              "note": "full kernel-pair effective descent remains the governing forgetting doctrine, but is not an extra root binder once only a truth-valued subobject remains"
+            }
+          },
+          "diagram_contracts": []
+        },
+        {
+          "id": "U0-COVER-FACTOR",
+          "lean_name": "Erdos289.Packet.U0_COVER_FACTOR",
+          "spec": {
+            "kind": "theorem",
+            "domain_signature": "maps W -f-> S -q-> B in Type with q∘f surjective",
+            "statement": "q:S->B is surjective",
+            "statement_ast": {
+              "op": "Surjective",
+              "map": {
+                "var": "q"
+              }
+            },
+            "role": "propagate a covering construction object to a semantic solution object without any section",
+            "binders": [
+              {
+                "name": "W",
+                "type_ast": {
+                  "op": "TypeUniverse"
+                }
+              },
+              {
+                "name": "S",
+                "type_ast": {
+                  "op": "TypeUniverse"
+                }
+              },
+              {
+                "name": "B",
+                "type_ast": {
+                  "op": "TypeUniverse"
+                }
+              },
+              {
+                "name": "f",
+                "type_ast": {
+                  "op": "Map",
+                  "from": {
+                    "var": "W"
+                  },
+                  "to": {
+                    "var": "S"
+                  }
+                }
+              },
+              {
+                "name": "q",
+                "type_ast": {
+                  "op": "Map",
+                  "from": {
+                    "var": "S"
+                  },
+                  "to": {
+                    "var": "B"
+                  }
+                }
+              },
+              {
+                "name": "hcomp",
+                "type_ast": {
+                  "op": "SurjectiveProof",
+                  "map": {
+                    "op": "Compose",
+                    "first": {
+                      "var": "f"
+                    },
+                    "second": {
+                      "var": "q"
+                    }
+                  }
+                }
+              }
+            ],
+            "replay": {
+              "host": "Type",
+              "proof": "intro b; obtain ⟨w,hw⟩ := hcomp b; exact ⟨f w,hw⟩"
+            }
+          },
+          "diagram_contracts": []
+        }
+      ]
+    }
+  }
+}

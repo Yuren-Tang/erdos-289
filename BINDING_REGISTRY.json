@@ -1,0 +1,938 @@
+{
+  "schema_version": "E289-packet-binding-registry-v1.0",
+  "status": "NORMATIVE_IMPLEMENTATION_BINDINGS",
+  "naming_rule": "lean_name = Erdos289.Packet. + packet node ID with '-' replaced by '_'",
+  "entries": {
+    "U0-EVENTUAL": {
+      "lean_name": "Erdos289.Packet.U0_EVENTUAL",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "U0-PROPERFILTEREDINDEX": {
+      "lean_name": "Erdos289.Packet.U0_PROPERFILTEREDINDEX",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "base_object",
+      "authority_layer": "semantic"
+    },
+    "U0-DESCENT": {
+      "lean_name": "Erdos289.Packet.U0_DESCENT",
+      "module": "Universal.Regular",
+      "file": "E289/Universal/Regular.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U0-COVER-FACTOR": {
+      "lean_name": "Erdos289.Packet.U0_COVER_FACTOR",
+      "module": "Universal.Regular",
+      "file": "E289/Universal/Regular.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U1-PHYS": {
+      "lean_name": "Erdos289.Packet.U1_PHYS",
+      "module": "Universal.Physical.Core",
+      "file": "E289/Universal/Physical/Core.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "U1-COMP": {
+      "lean_name": "Erdos289.Packet.U1_COMP",
+      "module": "Universal.Physical.Core",
+      "file": "E289/Universal/Physical/Core.lean",
+      "kind": "incidence_relation",
+      "authority_layer": "semantic"
+    },
+    "U1-FLAG": {
+      "lean_name": "Erdos289.Packet.U1_FLAG",
+      "module": "Universal.Physical.Core",
+      "file": "E289/Universal/Physical/Core.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U1-W": {
+      "lean_name": "Erdos289.Packet.U1_W",
+      "module": "Universal.Observation",
+      "file": "E289/Universal/Observation.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "U1-G": {
+      "lean_name": "Erdos289.Packet.U1_G",
+      "module": "Universal.Observation",
+      "file": "E289/Universal/Observation.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "U1-D3": {
+      "lean_name": "Erdos289.Packet.U1_D3",
+      "module": "Universal.Observation",
+      "file": "E289/Universal/Observation.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "U1-STATEIMAGE": {
+      "lean_name": "Erdos289.Packet.U1_STATEIMAGE",
+      "module": "Universal.Image",
+      "file": "E289/Universal/Image.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "U1-COVERCORE": {
+      "lean_name": "Erdos289.Packet.U1_COVERCORE",
+      "module": "Universal.Image",
+      "file": "E289/Universal/Image.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "U1-COVERCORE-EPI": {
+      "lean_name": "Erdos289.Packet.U1_COVERCORE_EPI",
+      "module": "Universal.Image",
+      "file": "E289/Universal/Image.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U1-FINSUBCARD": {
+      "lean_name": "Erdos289.Packet.U1_FINSUBCARD",
+      "module": "Universal.FiniteSubobject",
+      "file": "E289/Universal/FiniteSubobject.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "U1-FINSUBCARD-EPI": {
+      "lean_name": "Erdos289.Packet.U1_FINSUBCARD_EPI",
+      "module": "Universal.FiniteSubobject",
+      "file": "E289/Universal/FiniteSubobject.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-CORR": {
+      "lean_name": "Erdos289.Packet.U2_CORR",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "base_object",
+      "authority_layer": "semantic"
+    },
+    "U2-REQUIRED": {
+      "lean_name": "Erdos289.Packet.U2_REQUIRED",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "U2-REALIZER": {
+      "lean_name": "Erdos289.Packet.U2_REALIZER",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "U2-COVER": {
+      "lean_name": "Erdos289.Packet.U2_COVER",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "incidence_relation",
+      "authority_layer": "semantic"
+    },
+    "U2-NORMCOVER": {
+      "lean_name": "Erdos289.Packet.U2_NORMCOVER",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "U2-PARAMCOVER": {
+      "lean_name": "Erdos289.Packet.U2_PARAMCOVER",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "parameterized_cover",
+      "authority_layer": "semantic"
+    },
+    "U2-PARAMNORMCOVER": {
+      "lean_name": "Erdos289.Packet.U2_PARAMNORMCOVER",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "parameterized_cover",
+      "authority_layer": "semantic"
+    },
+    "U2-OBSNORMCOVER": {
+      "lean_name": "Erdos289.Packet.U2_OBSNORMCOVER",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "U2-PARAMBASECHANGE": {
+      "lean_name": "Erdos289.Packet.U2_PARAMBASECHANGE",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-PARAMCOMP": {
+      "lean_name": "Erdos289.Packet.U2_PARAMCOMP",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-ABSORBER": {
+      "lean_name": "Erdos289.Packet.U2_ABSORBER",
+      "module": "Universal.Target.Core",
+      "file": "E289/Universal/Target/Core.lean",
+      "kind": "least_object",
+      "authority_layer": "semantic"
+    },
+    "U2-LITERAL": {
+      "lean_name": "Erdos289.Packet.U2_LITERAL",
+      "module": "Universal.Target.Core",
+      "file": "E289/Universal/Target/Core.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-TARGETIMAGE": {
+      "lean_name": "Erdos289.Packet.U2_TARGETIMAGE",
+      "module": "Universal.Target.Core",
+      "file": "E289/Universal/Target/Core.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "U2-FACTOR-IFF": {
+      "lean_name": "Erdos289.Packet.U2_FACTOR_IFF",
+      "module": "Universal.Target.Transfer",
+      "file": "E289/Universal/Target/Transfer.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "R0-COMPACT": {
+      "lean_name": "Erdos289.Packet.R0_COMPACT",
+      "module": "Reciprocal.Compact",
+      "file": "E289/Reciprocal/Compact.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "R0-CURRENT": {
+      "lean_name": "Erdos289.Packet.R0_CURRENT",
+      "module": "Reciprocal.Current",
+      "file": "E289/Reciprocal/Current.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "R0-TRANSVERSE": {
+      "lean_name": "Erdos289.Packet.R0_TRANSVERSE",
+      "module": "Reciprocal.Transverse",
+      "file": "E289/Reciprocal/Transverse.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "R0-SIMPLEVALUE": {
+      "lean_name": "Erdos289.Packet.R0_SIMPLEVALUE",
+      "module": "Reciprocal.Transverse",
+      "file": "E289/Reciprocal/Transverse.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "R1-OCCMAP": {
+      "lean_name": "Erdos289.Packet.R1_OCCMAP",
+      "module": "Reciprocal.RawRow",
+      "file": "E289/Reciprocal/RawRow.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "PI-SCALE": {
+      "lean_name": "Erdos289.Packet.PI_SCALE",
+      "module": "PrimeGrowth",
+      "file": "E289/PrimeGrowth.lean",
+      "kind": "asymptotic_relation",
+      "authority_layer": "semantic"
+    },
+    "PI-EPI": {
+      "lean_name": "Erdos289.Packet.PI_EPI",
+      "module": "PrimeGrowth",
+      "file": "E289/PrimeGrowth.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "R1-RAWBASE": {
+      "lean_name": "Erdos289.Packet.R1_RAWBASE",
+      "module": "Reciprocal.RawRow",
+      "file": "E289/Reciprocal/RawRow.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "R1-RAW": {
+      "lean_name": "Erdos289.Packet.R1_RAW",
+      "module": "Reciprocal.RawRow",
+      "file": "E289/Reciprocal/RawRow.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "R1-CAP": {
+      "lean_name": "Erdos289.Packet.R1_CAP",
+      "module": "Reciprocal.RawRow",
+      "file": "E289/Reciprocal/RawRow.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "R1-RAW-EPI": {
+      "lean_name": "Erdos289.Packet.R1_RAW_EPI",
+      "module": "Reciprocal.RawRow",
+      "file": "E289/Reciprocal/RawRow.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "N-MODULI": {
+      "lean_name": "Erdos289.Packet.N_MODULI",
+      "module": "Neutral",
+      "file": "E289/Neutral.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "N-RESPONSE": {
+      "lean_name": "Erdos289.Packet.N_RESPONSE",
+      "module": "Neutral",
+      "file": "E289/Neutral.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "N-GOODSCALE": {
+      "lean_name": "Erdos289.Packet.N_GOODSCALE",
+      "module": "Neutral",
+      "file": "E289/Neutral.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "N-EPI": {
+      "lean_name": "Erdos289.Packet.N_EPI",
+      "module": "Neutral",
+      "file": "E289/Neutral.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "P-HAXELL": {
+      "lean_name": "Erdos289.Packet.P_HAXELL",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "P-AMALGAMATION": {
+      "lean_name": "Erdos289.Packet.P_AMALGAMATION",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "retained_library"
+    },
+    "P-SHARP-OBSTRUCTION": {
+      "lean_name": "Erdos289.Packet.P_SHARP_OBSTRUCTION",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "retained_library"
+    },
+    "P-LOWER": {
+      "lean_name": "Erdos289.Packet.P_LOWER",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "retained_library"
+    },
+    "P-QUOTASCALE": {
+      "lean_name": "Erdos289.Packet.P_QUOTASCALE",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "P-EPI": {
+      "lean_name": "Erdos289.Packet.P_EPI",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "retained_library"
+    },
+    "P-LSTAR": {
+      "lean_name": "Erdos289.Packet.P_LSTAR",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "least_object",
+      "authority_layer": "retained_library"
+    },
+    "P-CHUNKDEC": {
+      "lean_name": "Erdos289.Packet.P_CHUNKDEC",
+      "module": "Packing.Replay",
+      "file": "E289/Packing/Replay.lean",
+      "kind": "certificate_cover",
+      "authority_layer": "replay"
+    },
+    "D-THRESHOLD": {
+      "lean_name": "Erdos289.Packet.D_THRESHOLD",
+      "module": "RestrictedFold",
+      "file": "E289/RestrictedFold.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "D-EPI": {
+      "lean_name": "Erdos289.Packet.D_EPI",
+      "module": "RestrictedFold",
+      "file": "E289/RestrictedFold.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "B-BOUNDARY": {
+      "lean_name": "Erdos289.Packet.B_BOUNDARY",
+      "module": "E289.Base",
+      "file": "E289/Base.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "B-BOUNDARY-ESCAPE": {
+      "lean_name": "Erdos289.Packet.B_BOUNDARY_ESCAPE",
+      "module": "E289.Base",
+      "file": "E289/Base.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "B-ENDPOINT": {
+      "lean_name": "Erdos289.Packet.B_ENDPOINT",
+      "module": "E289.Base",
+      "file": "E289/Base.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "B-COMPACTREQ": {
+      "lean_name": "Erdos289.Packet.B_COMPACTREQ",
+      "module": "E289.Base",
+      "file": "E289/Base.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "B-TRANSP": {
+      "lean_name": "Erdos289.Packet.B_TRANSP",
+      "module": "E289.Base",
+      "file": "E289/Base.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "PFX-LOCALCOVER": {
+      "lean_name": "Erdos289.Packet.PFX_LOCALCOVER",
+      "module": "Prefix",
+      "file": "E289/Prefix.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "PFX-MODULI": {
+      "lean_name": "Erdos289.Packet.PFX_MODULI",
+      "module": "Prefix",
+      "file": "E289/Prefix.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "PFX-TRANSP-SCALE": {
+      "lean_name": "Erdos289.Packet.PFX_TRANSP_SCALE",
+      "module": "Prefix",
+      "file": "E289/Prefix.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "PFX-MARGIN-SCALE": {
+      "lean_name": "Erdos289.Packet.PFX_MARGIN_SCALE",
+      "module": "Prefix",
+      "file": "E289/Prefix.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "PFX-GOOD": {
+      "lean_name": "Erdos289.Packet.PFX_GOOD",
+      "module": "Prefix",
+      "file": "E289/Prefix.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "PFX-EPI": {
+      "lean_name": "Erdos289.Packet.PFX_EPI",
+      "module": "Prefix",
+      "file": "E289/Prefix.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "C-TAILEPS": {
+      "lean_name": "Erdos289.Packet.C_TAILEPS",
+      "module": "Exact.Replay",
+      "file": "E289/Exact/Replay.lean",
+      "kind": "certificate_cover",
+      "authority_layer": "replay"
+    },
+    "C-BUDGETSIMPLEX": {
+      "lean_name": "Erdos289.Packet.C_BUDGETSIMPLEX",
+      "module": "Defect.Replay",
+      "file": "E289/Defect/Replay.lean",
+      "kind": "certificate_cover",
+      "authority_layer": "replay"
+    },
+    "C-WINDOWSPARSE": {
+      "lean_name": "Erdos289.Packet.C_WINDOWSPARSE",
+      "module": "Defect.Replay",
+      "file": "E289/Defect/Replay.lean",
+      "kind": "certificate_cover",
+      "authority_layer": "replay"
+    },
+    "C-ROLEDATA": {
+      "lean_name": "Erdos289.Packet.C_ROLEDATA",
+      "module": "Tail.Replay",
+      "file": "E289/Tail/Replay.lean",
+      "kind": "certificate_cover",
+      "authority_layer": "replay"
+    },
+    "C-LOCALSUPPORT": {
+      "lean_name": "Erdos289.Packet.C_LOCALSUPPORT",
+      "module": "Tail.Replay",
+      "file": "E289/Tail/Replay.lean",
+      "kind": "moduli_object",
+      "authority_layer": "replay"
+    },
+    "C-EXACTTUPLE": {
+      "lean_name": "Erdos289.Packet.C_EXACTTUPLE",
+      "module": "Tail.Replay",
+      "file": "E289/Tail/Replay.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "replay"
+    },
+    "T-MODULI": {
+      "lean_name": "Erdos289.Packet.T_MODULI",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "T-END": {
+      "lean_name": "Erdos289.Packet.T_END",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "T-GRADE": {
+      "lean_name": "Erdos289.Packet.T_GRADE",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "T-RESOURCE": {
+      "lean_name": "Erdos289.Packet.T_RESOURCE",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "T-COMP": {
+      "lean_name": "Erdos289.Packet.T_COMP",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "incidence_relation",
+      "authority_layer": "semantic"
+    },
+    "T-REAL": {
+      "lean_name": "Erdos289.Packet.T_REAL",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "T-RESP": {
+      "lean_name": "Erdos289.Packet.T_RESP",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "T-RESP-THM": {
+      "lean_name": "Erdos289.Packet.T_RESP_THM",
+      "module": "Tail",
+      "file": "E289/Tail.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "X-MODULI": {
+      "lean_name": "Erdos289.Packet.X_MODULI",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "X-END": {
+      "lean_name": "Erdos289.Packet.X_END",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "X-GRADE": {
+      "lean_name": "Erdos289.Packet.X_GRADE",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "X-REAL": {
+      "lean_name": "Erdos289.Packet.X_REAL",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "X-RESP": {
+      "lean_name": "Erdos289.Packet.X_RESP",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "X-COFINAL": {
+      "lean_name": "Erdos289.Packet.X_COFINAL",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "X-ORDINARY": {
+      "lean_name": "Erdos289.Packet.X_ORDINARY",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "X-ORDINARY-THM": {
+      "lean_name": "Erdos289.Packet.X_ORDINARY_THM",
+      "module": "Exact",
+      "file": "E289/Exact.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "DF-PREFIXSUP": {
+      "lean_name": "Erdos289.Packet.DF_PREFIXSUP",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "derived_term",
+      "authority_layer": "semantic"
+    },
+    "DF-INTERVAL": {
+      "lean_name": "Erdos289.Packet.DF_INTERVAL",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "DF-SLAB": {
+      "lean_name": "Erdos289.Packet.DF_SLAB",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "DF-SLAB-TRANSP": {
+      "lean_name": "Erdos289.Packet.DF_SLAB_TRANSP",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "DF-SLAB-MARGIN": {
+      "lean_name": "Erdos289.Packet.DF_SLAB_MARGIN",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "DF-SCALE": {
+      "lean_name": "Erdos289.Packet.DF_SCALE",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "DF-SCALE-EPI": {
+      "lean_name": "Erdos289.Packet.DF_SCALE_EPI",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "DF-ONETAIL": {
+      "lean_name": "Erdos289.Packet.DF_ONETAIL",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "DF-DSAT": {
+      "lean_name": "Erdos289.Packet.DF_DSAT",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "DF-DSAT-EPI": {
+      "lean_name": "Erdos289.Packet.DF_DSAT_EPI",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "DF-DSTAR": {
+      "lean_name": "Erdos289.Packet.DF_DSTAR",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "least_object",
+      "authority_layer": "semantic"
+    },
+    "DF-KSET": {
+      "lean_name": "Erdos289.Packet.DF_KSET",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "filtration",
+      "authority_layer": "semantic"
+    },
+    "DF-K-EPI": {
+      "lean_name": "Erdos289.Packet.DF_K_EPI",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "DF-KSTAR": {
+      "lean_name": "Erdos289.Packet.DF_KSTAR",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "least_object",
+      "authority_layer": "semantic"
+    },
+    "DF-FINAL": {
+      "lean_name": "Erdos289.Packet.DF_FINAL",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-EXACTSTATE": {
+      "lean_name": "Erdos289.Packet.U2_EXACTSTATE",
+      "module": "Universal.Target.Core",
+      "file": "E289/Universal/Target/Core.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "U2-EXACTTRANSFER": {
+      "lean_name": "Erdos289.Packet.U2_EXACTTRANSFER",
+      "module": "Universal.Target.Transfer",
+      "file": "E289/Universal/Target/Transfer.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-PARAMEXACTTRANSFER": {
+      "lean_name": "Erdos289.Packet.U2_PARAMEXACTTRANSFER",
+      "module": "Universal.Target.Transfer",
+      "file": "E289/Universal/Target/Transfer.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-OBSEXACTTRANSFER": {
+      "lean_name": "Erdos289.Packet.U2_OBSEXACTTRANSFER",
+      "module": "Universal.Target.Transfer",
+      "file": "E289/Universal/Target/Transfer.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "X-EXACTSTATE": {
+      "lean_name": "Erdos289.Packet.X_EXACTSTATE",
+      "module": "Exact.State",
+      "file": "E289/Exact/State.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "X-STATE-GRADE": {
+      "lean_name": "Erdos289.Packet.X_STATE_GRADE",
+      "module": "Exact.State",
+      "file": "E289/Exact/State.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "X-STATE-DEFECT": {
+      "lean_name": "Erdos289.Packet.X_STATE_DEFECT",
+      "module": "Exact.State",
+      "file": "E289/Exact/State.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "X-JOINTSPECTRUM": {
+      "lean_name": "Erdos289.Packet.X_JOINTSPECTRUM",
+      "module": "Exact.State",
+      "file": "E289/Exact/State.lean",
+      "kind": "response_image",
+      "authority_layer": "semantic"
+    },
+    "DF-SLABLENGTH": {
+      "lean_name": "Erdos289.Packet.DF_SLABLENGTH",
+      "module": "Defect",
+      "file": "E289/Defect.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "B-ENDPOINT-COFINAL": {
+      "lean_name": "Erdos289.Packet.B_ENDPOINT_COFINAL",
+      "module": "E289.Base",
+      "file": "E289/Base.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U0-GRADEFILTER-TRANSLATE": {
+      "lean_name": "Erdos289.Packet.U0_GRADEFILTER_TRANSLATE",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U0-EV-COVER-IMAGE": {
+      "lean_name": "Erdos289.Packet.U0_EV_COVER_IMAGE",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U0-EV-TENDSTO": {
+      "lean_name": "Erdos289.Packet.U0_EV_TENDSTO",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U0-LARGE-COVER": {
+      "lean_name": "Erdos289.Packet.U0_LARGE_COVER",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U1-OBS-ADD": {
+      "lean_name": "Erdos289.Packet.U1_OBS_ADD",
+      "module": "Universal.Observation",
+      "file": "E289/Universal/Observation.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-PARAM-IMAGE-NORM": {
+      "lean_name": "Erdos289.Packet.U2_PARAM_IMAGE_NORM",
+      "module": "Universal.Image",
+      "file": "E289/Universal/Image.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U2-OBS-IMAGE-NORM": {
+      "lean_name": "Erdos289.Packet.U2_OBS_IMAGE_NORM",
+      "module": "Universal.Image",
+      "file": "E289/Universal/Image.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "U0-ATTOP-BASIS": {
+      "lean_name": "Erdos289.Packet.U0_ATTOP_BASIS",
+      "module": "Universal.Filter",
+      "file": "E289/Universal/Filter.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "P-UPPER": {
+      "lean_name": "Erdos289.Packet.P_UPPER",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "semantic"
+    },
+    "P-LSTAR-FORMULA": {
+      "lean_name": "Erdos289.Packet.P_LSTAR_FORMULA",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "theorem",
+      "authority_layer": "retained_library"
+    },
+    "U1-FINCONSTRAINT": {
+      "lean_name": "Erdos289.Packet.U1_FINCONSTRAINT",
+      "module": "Universal.Physical.Core",
+      "file": "E289/Universal/Physical/Core.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "U1-CONSTRAINT-COMP": {
+      "lean_name": "Erdos289.Packet.U1_CONSTRAINT_COMP",
+      "module": "Universal.Physical.Core",
+      "file": "E289/Universal/Physical/Core.lean",
+      "kind": "incidence_relation",
+      "authority_layer": "semantic"
+    },
+    "P-ROWEDGRAPH": {
+      "lean_name": "Erdos289.Packet.P_ROWEDGRAPH",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "P-INDEPTRANS": {
+      "lean_name": "Erdos289.Packet.P_INDEPTRANS",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "P-QUOTAPACK": {
+      "lean_name": "Erdos289.Packet.P_QUOTAPACK",
+      "module": "Packing",
+      "file": "E289/Packing.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "D-SIMPLEFACTOR": {
+      "lean_name": "Erdos289.Packet.D_SIMPLEFACTOR",
+      "module": "RestrictedFold",
+      "file": "E289/RestrictedFold.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "U2-LABEL": {
+      "lean_name": "Erdos289.Packet.U2_LABEL",
+      "module": "Universal.Correction",
+      "file": "E289/Universal/Correction.lean",
+      "kind": "base_fibration",
+      "authority_layer": "semantic"
+    },
+    "U1-BINARYATOM": {
+      "lean_name": "Erdos289.Packet.U1_BINARYATOM",
+      "module": "Universal.Physical.Derived",
+      "file": "E289/Universal/Physical/Derived.lean",
+      "kind": "derived_fibre",
+      "authority_layer": "semantic"
+    },
+    "U1-RESIDUE": {
+      "lean_name": "Erdos289.Packet.U1_RESIDUE",
+      "module": "Universal.Observation",
+      "file": "E289/Universal/Observation.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    },
+    "U1-ENVELOPE": {
+      "lean_name": "Erdos289.Packet.U1_ENVELOPE",
+      "module": "Universal.Physical.Core",
+      "file": "E289/Universal/Physical/Core.lean",
+      "kind": "moduli_object",
+      "authority_layer": "semantic"
+    },
+    "U1-COMPLETEENVELOPE": {
+      "lean_name": "Erdos289.Packet.U1_COMPLETEENVELOPE",
+      "module": "Universal.Image",
+      "file": "E289/Universal/Image.lean",
+      "kind": "natural_observation",
+      "authority_layer": "semantic"
+    }
+  }
+}
