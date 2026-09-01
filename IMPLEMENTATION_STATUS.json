@@ -1,0 +1,67 @@
+{
+  "schema_version": "E289-packet-v1-implementation-status-v1.0",
+  "phase": "L1_IMPLEMENTATION_OPEN__SPEC_FROZEN",
+  "authority": {
+    "packet_manifest_sha": "256ceb967a1dcfe30eb7e6dc73792895c3ba369d",
+    "binding_registry_sha": "0e833f3410b6f08ce08b2c0f9ec3c8c145505e13",
+    "b0_ledger_sha": "53355670248c64fb85dae7b0ec049c9c84286fb8"
+  },
+  "bootstrap": {
+    "commit": "972573c02859696635db4765553d2ef5d7029764",
+    "module_files": "28/28",
+    "import_contracts": "28/28 exact",
+    "legacy_direct_imports": 0,
+    "status": "STRUCTURAL_PASS"
+  },
+  "implemented_unverified": [
+    {
+      "module": "Universal.Regular",
+      "nodes": [
+        "U0-DESCENT",
+        "U0-COVER-FACTOR"
+      ],
+      "commit": "8964f4fe8768c1f8bf37f9752300617f52591baa",
+      "lean_build": "NOT_RUN"
+    },
+    {
+      "module": "Universal.FiniteSubobject",
+      "nodes": [
+        "U1-FINSUBCARD",
+        "U1-FINSUBCARD-EPI"
+      ],
+      "commit": "906f70e8f24667ff3b5977bbdf94074f44e2330d",
+      "lean_build": "NOT_RUN"
+    }
+  ],
+  "b0_remaining": [
+    {
+      "module": "Exact.Replay",
+      "nodes": [
+        "C-TAILEPS"
+      ]
+    },
+    {
+      "module": "Reciprocal.Compact",
+      "nodes": [
+        "R0-COMPACT"
+      ]
+    },
+    {
+      "module": "Universal.Physical.Core",
+      "nodes": [
+        "U1-PHYS",
+        "U1-COMP",
+        "U1-FLAG",
+        "U1-FINCONSTRAINT",
+        "U1-CONSTRAINT-COMP",
+        "U1-ENVELOPE"
+      ]
+    }
+  ],
+  "next_gate": "Run Lean 4.33 / Mathlib 4.33 elaboration of the two implemented modules and their audit modules before adding representation-sensitive B0 declarations.",
+  "no_claims": [
+    "No Lean build claim is made for commits after frozen L0.",
+    "No packet theorem is considered implemented merely because source text was committed."
+  ],
+  "rule": "Specification remains frozen. Any mathematical/type conflict discovered by Lean stops construction and is reported against the packet rather than repaired on-site."
+}
