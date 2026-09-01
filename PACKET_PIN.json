@@ -1,0 +1,9 @@
+{
+  "schema_version": "E289-packet-pin-v1.0",
+  "status": "NORMATIVE_SOURCE_PIN",
+  "specification_repository": "Yuren-Tang/research-workbench",
+  "packet_directory": "intake/e289-implementation-packet-v1-20260901",
+  "packet_manifest_sha": "256ceb967a1dcfe30eb7e6dc73792895c3ba369d",
+  "packet_freeze_commit": "be302dfff41e1a9d3c110f532147efd1e3f1a92e",
+  "rule": "Only the pinned history-free packet is mathematical/engineering authority."
+}

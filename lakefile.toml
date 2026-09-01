@@ -1,6 +1,6 @@
 name = "erdos289"
 version = "0.1.0"
-defaultTargets = ["Erdos289"]
+defaultTargets = ["Erdos289", "E289"]
 
 [[require]]
 name = "mathlib"
@@ -23,6 +23,7 @@ roots = [
   "Tail",
   "Exact",
   "Defect",
+  "E289",
 ]
 globs = [
   "Erdos289",
@@ -33,5 +34,6 @@ globs = [
   "PrimeGrowth.+",
   "Packing.+",
   "RestrictedFold.+",
+  "E289.+",
 ]
 

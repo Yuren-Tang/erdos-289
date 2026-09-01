@@ -1,0 +1,11 @@
+{
+  "schema_version": "E289-L0-source-pin-v1.0",
+  "status": "READ_ONLY_IMPLEMENTATION_SOURCE",
+  "source_commit": "76509879c80b203e94377519ffb43d40cd3c6909",
+  "migration_ledger": {
+    "repository": "Yuren-Tang/research-workbench",
+    "path": "intake/e289-cleanroom-v2-20260831/40_L0_TO_PACKET_MIGRATION_LEDGER.json",
+    "sha": "10ceda6bbbea7b5baf21b1e3768f70b6b27008ef"
+  },
+  "rule": "Legacy modules may be read as proof/code source but are forbidden as direct imports of E289 packet modules. Old public declarations have no semantic authority."
+}
