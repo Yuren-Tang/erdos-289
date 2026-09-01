@@ -1,5 +1,5 @@
 {
-  "schema_version": "E289-packet-v1-B0-static-review-v1.0",
+  "schema_version": "E289-packet-v1-B0-static-review-v1.1",
   "status": "STATIC_PACKET_MATCH_PASS__LEAN_BUILD_PENDING",
   "branch": "formalization/lean-4.33-packet-v1",
   "packet_manifest_sha": "256ceb967a1dcfe30eb7e6dc73792895c3ba369d",
@@ -41,6 +41,24 @@
         "D0_static": "PASS"
       },
       "deferred_api_note": "If a later consumer needs the packet's pullback-selector corollary as a named API, add it as a theorem derived from U1_FINSUBCARD_EPI; do not export a selector section."
+    },
+    "Exact.Replay": {
+      "source_sha": "f44be2d9810222f97e85bf785e6a6ccb5e4d318a",
+      "audit_sha": "9eedc1c43347642a4729c2e8a2f39bc4da246ef1",
+      "nodes": [
+        "C-TAILEPS"
+      ],
+      "checks": {
+        "binding_registry_match": true,
+        "direct_import_contract_match": true,
+        "packet_binder_match": "eta realized as subtype {q : Rat // 0 < q}",
+        "certificate_family_match": "C_TAILEPS eta = {epsilon>0 | epsilon<eta}",
+        "cover_shape_match": "surjective display to Unit",
+        "no_exported_section": true,
+        "proof_local_witness": "eta/2 is used only to prove inhabitation and is not exported",
+        "placeholder_scan": "source contains no sorry/admit/project axiom/native_decide",
+        "D0_static": "PASS"
+      }
     }
   },
   "runtime_gate": {
@@ -51,7 +69,9 @@
       "lake build E289.Universal.Regular",
       "lake build E289.Audit.Universal.Regular",
       "lake build E289.Universal.FiniteSubobject",
-      "lake build E289.Audit.Universal.FiniteSubobject"
+      "lake build E289.Audit.Universal.FiniteSubobject",
+      "lake build E289.Exact.Replay",
+      "lake build E289.Audit.Exact.Replay"
     ]
   },
   "decision": "Do not mark these nodes VERIFIED until the runtime gate passes. Representation-sensitive B0 construction should not be treated as validated merely because these source files look correct."

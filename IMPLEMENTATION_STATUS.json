@@ -1,5 +1,5 @@
 {
-  "schema_version": "E289-packet-v1-implementation-status-v1.1",
+  "schema_version": "E289-packet-v1-implementation-status-v1.2",
   "phase": "L1_IMPLEMENTATION_OPEN__SPEC_FROZEN",
   "authority": {
     "packet_manifest_sha": "256ceb967a1dcfe30eb7e6dc73792895c3ba369d",
@@ -32,15 +32,17 @@
       ],
       "commit": "906f70e8f24667ff3b5977bbdf94074f44e2330d",
       "lean_build": "NOT_RUN"
-    }
-  ],
-  "b0_remaining": [
+    },
     {
       "module": "Exact.Replay",
       "nodes": [
         "C-TAILEPS"
-      ]
-    },
+      ],
+      "commit": "f332013d4f7ae81cf663946a50221351ec83bb24",
+      "lean_build": "NOT_RUN"
+    }
+  ],
+  "b0_remaining": [
     {
       "module": "Reciprocal.Compact",
       "nodes": [
@@ -59,7 +61,7 @@
       ]
     }
   ],
-  "next_gate": "Run Lean 4.33 / Mathlib 4.33 elaboration of Universal.Regular and Universal.FiniteSubobject plus their audit modules. Until then do not mark them VERIFIED or treat representation-sensitive B0 work as validated.",
+  "next_gate": "Obtain Lean 4.33 / Mathlib 4.33 runtime and elaborate the three static-ready modules plus audits before treating B0 as validated; do not implement representation-sensitive Reciprocal.Compact or Universal.Physical.Core blindly.",
   "no_claims": [
     "No Lean build claim is made for commits after frozen L0.",
     "No packet theorem is considered implemented merely because source text was committed."
