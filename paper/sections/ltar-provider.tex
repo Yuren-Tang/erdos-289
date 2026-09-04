@@ -77,7 +77,7 @@ The dependency is
 \text{prime-order restricted fold} \arrow[dr]
 && \text{equal-value resolver slots} \arrow[dl]\\
 & \text{full local simple-factor covers} \arrow[d] &\\
-& \text{filtered torsor lifting} \arrow[d] &\\
+& \text{filtered source-saturation lifting} \arrow[d] &\\
 & \text{same-witness grade/resource aggregation} \arrow[d] &\\
 & \text{BinaryTail} \arrow[d] &\\
 & \mathrm{LTAR}_{289}. &
@@ -453,7 +453,7 @@ cover, although only at one resolver grade.
 The construction is made inside one global packed witness. Consequently all
 local covers selected later are simultaneously physically compatible.
 
-\subsection{Filtered torsor lifting}
+\subsection{Filtered source-saturation lifting}
 
 Associated-graded values alone do not determine lower residue shadows. For
 example, in
@@ -464,7 +464,9 @@ the points $1/p^2$ and $(1+p)/p^2$ have the same image modulo $H_p$ but differ
 by $1/p$ in the lower stage. There is no canonical splitting of the
 filtration.
 
-\begin{lemma}[Filtered torsor lifting]\label{lem:torsor-lifting}
+The needed lifting statement is only a saturation identity.
+
+\begin{lemma}[Filtered source-saturation lifting]\label{lem:torsor-lifting}
 Let
 \[
 H_0\le H_1\le\cdots\le H_m
@@ -474,37 +476,49 @@ be a finite chain in an abelian group. Suppose $I_i\subseteq H_i$ satisfies
 I_i+H_{i-1}=H_i
 \tag{T11}\label{eq:torsor-local-cover}
 \]
-for every $i$. If $T_0$ is an $H_0$-torsor, then
+for every $i$. Put
 \[
-T_0+I_1+\cdots+I_m
+J_0=\{0\},
+\qquad
+J_i=I_1+\cdots+I_i.
 \]
-is an $H_m$-torsor.
+Then
+\[
+J_i+H_0=H_i
+\qquad(0\le i\le m).
+\]
+In particular $J_m\to H_m/H_0$ is surjective.
 \end{lemma}
 
 \begin{proof}
-Write $T=t+H_{i-1}$ at one induction step. Then
+The base case is $J_0+H_0=H_0$. If $J_{i-1}+H_0=H_{i-1}$, then
 \[
-T+I_i
-=t+(H_{i-1}+I_i)
-=t+H_i
+J_i+H_0
+=I_i+(J_{i-1}+H_0)
+=I_i+H_{i-1}
+=H_i
 \]
-by \eqref{eq:torsor-local-cover}. Thus adding the local image changes an
-$H_{i-1}$-torsor into an $H_i$-torsor. Induction proves the claim.
+by \eqref{eq:torsor-local-cover}. This proves the induction.
 \end{proof}
 
-For the centered BinaryTail construction, start from the zero source torsor
-$T_0=H_{\rm src}\subseteq A$. Order the finitely many simple compact jumps
-between the source and endpoint to obtain
+For the centered BinaryTail construction, $J_i$ is the actual residue image of
+the physical sum of the first $i$ local families. Thus the proof never asserts
+that the physical image itself contains the whole source subgroup. The term
+$+H_0$ records exactly the ambiguity invisible modulo the source.
+
+Order the finitely many simple compact jumps between the source and endpoint:
 \[
 H_{\rm src}=H_0\le H_1\le\cdots\le H_m=H_{\rm end}.
 \]
 At each jump the local regular-epimorphic correction cover says precisely that
-its image $I_i$ maps onto $H_i/H_{i-1}$, equivalently
-$I_i+H_{i-1}=H_i$. Lemma~\ref{lem:torsor-lifting} therefore gives the full
-endpoint torsor $H_{\rm end}$. Modulo $H_{\rm src}$ this is exactly the entire
-required zero-correction fibre $H_{\rm end}/H_{\rm src}$. Literal
-matched-realizer composition simultaneously keeps the actual lower correction
-forced by each later realizer, so no section $H_i/H_{i-1}\to H_i$ is used.
+its actual residue image $I_i$ maps onto $H_i/H_{i-1}$, equivalently
+$I_i+H_{i-1}=H_i$. Lemma~\ref{lem:torsor-lifting} therefore gives
+\[
+J_m+H_{\rm src}=H_{\rm end},
+\]
+which is exactly surjectivity of the actual composite residue image onto the
+required zero-correction fibre $H_{\rm end}/H_{\rm src}$. No section of any
+simple quotient and no upper-triangular coefficient matrix is used.
 
 \subsection{Grade and resource aggregation}
 
@@ -550,11 +564,12 @@ cover for every chosen $h_J$. All local physical states are therefore
 compatible.
 
 Compose this literal tuple physically first. Additivity gives total component
-profile $(h,0)$ and the branchwise resource bound above. Filtered torsor
-lifting and the local simple-factor epimorphisms show that the composite covers
-the full centered correction from the source stage to the chosen endpoint.
-Only after this physical union do we take the regular image/CoverCore and
-forget packing, roles, local grade choices, and endpoint presentation.
+profile $(h,0)$ and the branchwise resource bound above. The actual residue
+image is $J_m$ of Lemma~\ref{lem:torsor-lifting}, so its source saturation is
+the whole endpoint group. Hence the composite covers the full centered
+correction from the source stage to the chosen endpoint. Only after this
+physical union do we take the regular image/CoverCore and forget packing,
+roles, local grade choices, and endpoint presentation.
 
 \begin{theorem}[BinaryTail]\label{thm:binary-tail}
 For every positive tolerance and transparency parameter, eventually in the
