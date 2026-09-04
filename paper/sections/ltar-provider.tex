@@ -28,9 +28,23 @@ and its simple factor
 \[
 S_Q:=F_Q/F_{<Q}.
 \]
-The group $S_Q$ has prime order $p$. We call $Q$ a \emph{current}. A binary
-physical atom is \emph{filtered-transverse at $Q$} if its centered residue lies
-in $F_Q$ and has nonzero image in $S_Q$.
+The $p$-primary part of $F_{<Q}$ already contains $J_{p^{e-1}}$ and no higher
+$p$-power subgroup, while all other primary parts are unchanged when $J_Q$ is
+adjoined. Hence $S_Q$ has order $p$.
+
+Equivalently, for every real $X\ge1$,
+\[
+\bigvee_{\substack{R\le X\\R\text{ a prime power}}}J_R
+=
+H_{\operatorname{lcm}(1,\ldots,\lfloor X\rfloor)}.
+\tag{T0}\label{eq:lcm-filtration}
+\]
+Thus the lcm coordinates used by the finite affine provider and the
+prime-power filtration used here describe the same compact subgroup chain.
+
+We call $Q$ a \emph{current}. A binary physical atom is
+\emph{filtered-transverse at $Q$} if its centered residue lies in $F_Q$ and
+has nonzero image in $S_Q$.
 
 A \emph{raw reciprocal row system} $R$ is a family of finite binary rows
 $(R_Q)_Q$ on a cofinal set of currents, with the filtered-transversality,
@@ -156,12 +170,9 @@ Proposition~\ref{prop:prime-band}, applied at $X=Q/B$, gives
 \]
 
 Every sufficiently late carrier is coprime to $Q$. Indeed, if $e=1$, then
-$b<Q=p$, so $b\ne p$. If $e\ge2$, then eventually
-\[
-\frac QB>p
-\]
-because $p^{e-1}>B$, hence $b>p$ and again the prime $b$ is different from
-$p$. Thus $b$ has an inverse modulo $Q$.
+$b<Q=p$, so $b\ne p$. If $e\ge2$, then eventually $Q/B>p$ because
+$p^{e-1}>B$, hence $b>p$ and again the prime $b$ is different from $p$.
+Thus $b$ has an inverse modulo $Q$.
 
 For one carrier, let $c_+\in(0,Q)$ be the inverse of $b$ modulo $Q$ and set
 \[
@@ -182,22 +193,20 @@ k_++k_-=b,
 \tag{T6}\label{eq:complementary-k}
 \]
 At least one of $k_+,k_-$ is a $p$-unit: otherwise $p$ would divide their sum
-$b$. Choose such an orientation. The two integers
-\[
-Qk_\sigma,\qquad bc_\sigma=Qk_\sigma+\sigma1
-\]
-are consecutive; their two-point support is our binary atom.
+$b$.
 
 \begin{lemma}[Bounded downwardness deletion]\label{lem:downward}
-Apart from $O_B(1)$ carriers, the chosen atom has current $Q$ as the unique
-largest maximal prime-power factor of its distinguished denominator, and every
-other maximal prime-power factor in either denominator is strictly smaller
-than $Q$.
+For each sign $\sigma\in\{+,-\}$, only $O_B(1)$ carriers have a companion
+whose maximal prime-power support is not strictly below $Q$. Consequently,
+after deleting the union of the two exceptional sets, every admissible
+$p$-unit orientation is filtered downward: its distinguished denominator has
+current $Q$, while every other maximal prime-power factor in either denominator
+is strictly smaller than $Q$.
 \end{lemma}
 
 \begin{proof}
-The only possible failure is $b\mid c_\sigma$. Since $b>Q/B$ and
-$0<c_\sigma<Q$, this forces
+For a fixed sign, the only possible failure is $b\mid c_\sigma$. Since
+$b>Q/B$ and $0<c_\sigma<Q$, this forces
 \[
 c_\sigma=\lambda b,
 \qquad1\le\lambda<B.
@@ -209,8 +218,20 @@ Equation~\eqref{eq:signed-inverse} gives
 For fixed $(\lambda,\sigma)$ this unit quadratic congruence has uniformly
 boundedly many roots modulo $p^e$; the carrier interval has length $<Q$, so
 each residue root contributes at most one carrier integer. There are only
-finitely many $(\lambda,\sigma)$.
+finitely many $(\lambda,\sigma)$ and two signs.
+
+For a surviving carrier and a $p$-unit coefficient $k_\sigma$, the denominator
+$Qk_\sigma$ has exact $p$-primary height $Q$, while every prime-power factor
+coming from $k_\sigma<Q$ is smaller than $Q$. The same is true of the companion
+by the deletion just proved.
 \end{proof}
+
+After this simultaneous deletion, choose any $p$-unit orientation for a generic
+current. The two integers
+\[
+Qk_\sigma,\qquad bc_\sigma=Qk_\sigma+\sigma1
+\]
+are consecutive; their two-point support is our binary atom.
 
 \begin{lemma}[Bounded coefficient multiplicity]\label{lem:coeff-mult}
 A fixed coefficient $k$ arises from only $O_B(1)$ carrier/orientation pairs.
@@ -222,24 +243,31 @@ minus-carrier divides $Qk-1<Q^2$. All carriers exceed $Q/B$. A product of more
 than a fixed number of distinct such primes exceeds $Q^2+1$.
 \end{proof}
 
-After Lemmas~\ref{lem:downward} and \ref{lem:coeff-mult} we retain
+Lemmas~\ref{lem:downward} and \ref{lem:coeff-mult} leave
 \[
 N_Q\gg Q/\log Q
 \]
-distinct $p$-unit coefficients. Arrange them increasingly and keep their upper
-half. Then
+distinct usable $p$-unit coefficients. Arrange them increasingly and keep
+their upper half. Then
 \[
 k\gg Q/\log Q,
 \qquad
 Qk\gg Q^2/\log Q,
 \]
-and every retained atom has mass
+and every retained generic atom has mass
 \[
 W_+(a)=O(\log Q/Q^2).
 \tag{T7}\label{eq:generic-atom-mass}
 \]
-For $Q=p$ prime, choose the larger of $k_+,k_-$. Since their sum is
-$b\asymp p$, one obtains
+
+At a prime current $Q=p$, both $k_+$ and $k_-$ are automatically $p$-units
+because $1\le k_\pm<p$. On the already surviving carrier set choose instead
+\[
+k^*=\max(k_+,k_-).
+\]
+Since $k_++k_-=b\asymp p$, we have $k^*\ge b/2\asymp p$; bounded coefficient
+multiplicity again leaves $\gg p/\log p$ distinct such coefficients. Thus every
+retained prime-current atom satisfies
 \[
 k\asymp p,
 \qquad
@@ -379,9 +407,14 @@ and $p/\log p$ eventually dominates $\sqrt{Cp}$. At $Q=p^2$, every
 simple-value fibre has size $O(p)$; after reserving $p-1$ export points,
 bounded-fibre counting leaves an image of size $\gg p/\log p$, again enough
 for a representative block of size $\asymp\sqrt{Cp}$. At $Q=p^e$, $e\ge3$,
-the raw capacity is eventually much larger than $(p-1)^2$; after reserving
-$p-1$ export points, pigeonhole over the $p-1$ nonzero simple values gives a
-fibre containing $p-1$ own points.
+the raw capacity is eventually much larger than $(p-1)^2$; uniformly in
+$e\ge3$ this follows from
+\[
+\frac{p^{e-2}}{e\log p}\longrightarrow\infty
+\qquad(Q=p^e\to\infty).
+\]
+After reserving $p-1$ export points, pigeonhole over the $p-1$ nonzero simple
+values gives a fibre containing $p-1$ own points.
 
 The resource assertion follows from \eqref{eq:generic-atom-mass} and
 \eqref{eq:prime-atom-mass}; the resulting role costs are dominated by the
@@ -475,11 +508,13 @@ forced by each later realizer, so no section $H_i/H_{i-1}\to H_i$ is used.
 
 \subsection{Grade and resource aggregation}
 
-Fix a sufficiently late source and a finite endpoint. For one common packed
-witness, each current has an intrinsic supported-grade set: an interval for
-the width-producing currents, a nonempty restricted-fold interval for the
-first resolver layer, and a singleton resolver grade for deeper layers. Their
-finite Minkowski sum is an integer interval
+Fix a sufficiently late source and a finite compact request $K$. Start a
+geometric sequence of numerical endpoints above a stage containing $K$. For
+one common packed witness at each finite endpoint, each current has an
+intrinsic supported-grade set: an interval for the width-producing currents, a
+nonempty restricted-fold interval for the first resolver layer, and a
+singleton resolver grade for deeper layers. Their finite Minkowski sum is an
+integer interval
 \[
 [A(X),B(X)]\cap\N.
 \]
@@ -496,14 +531,15 @@ The quantitative comparison is written out in Section~\ref{subsec:grade-overlap}
 a fixed-ratio band of atomic currents supplies width of order
 $Y^{3/2}/\log Y$, while the next lower-endpoint displacement has a strictly
 smaller leading coefficient after the canonical supercritical trimming, and
-the first- and deep-successor displacements are lower-order. Hence the endpoint
-intervals eventually overlap or are adjacent, and their union is a final
-subset of $\N$.
+the first- and deep-successor displacements are lower-order. Hence, along the
+endpoint sequence chosen above $K$, the intervals eventually overlap or are
+adjacent and their union is a final subset of $\N$.
 
 For one exact grade tuple, use the actual local covers belonging to that same
 tuple and same global packing. Their branchwise mass majorants add.
 Section~\ref{subsec:resource-sum} proves that the resulting nonnegative current
-series converges and therefore that its tail tends to zero with the source.
+series converges and therefore that its tail tends to zero with the source,
+uniformly in the later compact request and finite endpoint.
 
 \subsection{Same-witness physical composition}
 
