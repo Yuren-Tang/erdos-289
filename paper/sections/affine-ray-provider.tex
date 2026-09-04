@@ -17,6 +17,11 @@ table. The proof has three layers:
 The first layer is supplied by the remote finite-mobility theorem of
 Appendix~\ref{app:finite-mobility}; the second is a canonical cyclic
 subset-sum construction; the third is one exact component-profile translation.
+Write
+\[
+e_2=(1,0),\qquad e_3=(0,1)
+\]
+for the generators of the component-profile monoid $\N^2$.
 
 Write
 \[
@@ -83,7 +88,9 @@ Choose once and for all a sufficiently large fixed lcm stage $B_0$ and put
 \[
 D_0=L_{B_0}.
 \]
-No special arithmetic property of $D_0$ will be used.
+Take $B_0$ beyond the finite regime in which bridge strictness or separation
+needs exceptional treatment. No other special arithmetic property of $D_0$
+will be used.
 
 For a later finite handoff stage $B\ge B_0$, first form the finite bridge from
 $D_0$ through $L_B$. Its complete physical support is finite. Place the seed
@@ -92,14 +99,15 @@ physically compatible by construction.
 
 Choose positive integers $c_1,\ldots,c_m<D_0$ whose subset sums contain every
 integer in $[0,D_0-1]$ and whose total is $D_0-1$; the standard binary complete
-sequence, with a final remainder, does this. Put
+sequence, with a final remainder when necessary, does this. Put
 \[
 q_i=\frac{c_i}{D_0}.
 \]
 For any $\beta>0$, Corollary~\ref{cor:finite-support-epi} gives a mutually
-separated homogeneous physical Boolean lift of these increments, beyond the
-complete bridge support, with common lower affine load $<\beta$. Its residue
-image is one complete affine $H_{D_0}$-torsor and every seed branch satisfies
+separated homogeneous physical Boolean lift of these positive increments,
+beyond the complete bridge support, with common lower affine load $<\beta$.
+Its residue image is one complete affine $H_{D_0}$-torsor and every seed branch
+satisfies
 \[
 0<W(\text{seed})<1-\frac1{D_0}+\beta.
 \tag{A4}\label{eq:generic-seed-load}
@@ -248,11 +256,11 @@ $O(1)$ additional envelopes to \eqref{eq:prefix-transparency}. The same fixed
 positive transparency constant survives.
 
 \begin{theorem}[MasterSlab provider]\label{thm:masterslab}
-There are uniform generalized certificates $c>0$ and $\eta>0$ such that,
-eventually in the Prefix base $b$, for every $L\ge d_0(b)$ there is a finite
-normalized physical family satisfying \eqref{eq:masterslab-cover}, with one
-common total grade, branchwise value in $(0,2-\eta)$, and row transparency at
-level $c$ for all later Tail rows.
+There are fixed certificates $c>0$ and $\eta>0$ such that, eventually in the
+Prefix base $b$, for every $L\ge d_0(b)$ there is a finite normalized physical
+family satisfying \eqref{eq:masterslab-cover}, with one common total grade,
+branchwise value in $(0,2-\eta)$, and row transparency at level $c$ for all
+later Tail rows.
 \end{theorem}
 
 Pulling Theorem~\ref{thm:masterslab} back to the fibre $L=d$ and then to the
