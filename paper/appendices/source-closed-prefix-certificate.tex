@@ -1,0 +1,225 @@
+\section{A source-closed finite-prefix certificate}
+\label{app:source-closed-prefix}
+
+This appendix proves the finite-prefix input used by
+Section~\ref{sec:affine-provider}.  The theorem-level datum is only a cofinal
+family of homogeneous affine covers with a uniform positive value margin and
+uniformly thin incidence against all late Tail windows.  The lcm coordinate,
+the fixed root identities and the first few bridge rows are certificate data.
+
+\subsection{A fixed finite root fibre}
+
+Put
+\[
+P(m)=\frac1m+\frac1{m+1}.
+\]
+The empty state together with the following five strict binary states gives a
+complete affine fibre of the subgroup of order six:
+\[
+\frac16=
+\sum_{m\in\{35,56,90,119,152,170,455,494,714\}}P(m),
+\]
+\[
+\frac13=
+\sum_{m\in\{17,35,44,84,104,119,132,170,272,285,455,494,560,714,935\}}P(m),
+\]
+\[
+\frac12=
+\sum_{m\in\{9,17,34,44,77,84,90\}}P(m),
+\]
+\[
+\frac23=
+\sum_{m\in\{7,16,34,44,51,65,77,119,132,153,170,272,285,455,494\}}P(m),
+\]
+\[
+\frac56=P(2).
+\tag{SC1}\label{eq:fixed-root-identities}
+\]
+Their grades are respectively
+\[
+0,9,15,7,15,1.
+\tag{SC2}\label{eq:fixed-root-grades}
+\]
+Each identity in \eqref{eq:fixed-root-identities} is an exact rational
+identity, and every displayed start set has gaps at least three.  Thus the six
+states are legal and their residue image is the full affine $H_6$-fibre.  The
+largest root mass is $5/6$.
+
+The only bridge starts requiring a finite compatibility check before the
+uniform scale estimate applies are
+\[
+12;\qquad 20,30,60;\qquad 140,210,420;\qquad 840.
+\tag{SC3}\label{eq:early-bridge-starts}
+\]
+Direct comparison with the finite root support shows that every one of these
+bridge envelopes is disjoint and non-adjacent to every root envelope.  The
+next nontrivial bridge has smallest start $1260$, while the root support ends
+at $936$; from that point onward compatibility follows from the general scale
+estimate below.  No exact sum of all finite masses is used.
+
+\subsection{Scale-proper simple bridges}
+
+Let
+\[
+L_n=\operatorname{lcm}(1,\ldots,n),
+\qquad
+E_n=H_{L_n}.
+\]
+At a nontrivial prime-power jump $n=p^e$ put
+\[
+D=L_{n-1},
+\qquad L_n=pD.
+\]
+The quotient $E_n/E_{n-1}$ has order $p$.
+
+For the finitely many jumps through $n=8$ use the coefficient rows encoded in
+\eqref{eq:early-bridge-starts}.  For every later jump let
+\[
+R_p=\{1,2,4,\ldots,2^{m-1}\},
+\qquad m=\lceil\log_2p\rceil.
+\]
+Every coefficient is $<p$, and the subset sums of $R_p$ contain every integer
+from $0$ through $p-1$.  Hence reduction modulo $p$ is surjective.  Moreover
+\[
+|R_p|=O(\log p),
+\qquad
+\sum_{r\in R_p}r=2^m-1<2p.
+\tag{SC4}\label{eq:binary-coefficient-row}
+\]
+
+For $r\in R_p$ set
+\[
+a_r=\frac{pD}{r}
+\]
+and use the endpoint switch
+\[
+[a_r+1,a_r+2]
+\longleftrightarrow
+[a_r,a_r+2].
+\tag{SC5}\label{eq:source-closed-bridge-switch}
+\]
+The alternatives both have grade one and their reciprocal-value difference is
+$r/(pD)$.  Thus the Boolean row is a homogeneous relative affine cover of the
+new simple quotient.
+
+If $r<s$ are powers of two, then $s\ge2r$, and therefore
+\[
+|a_r-a_s|
+=\frac{pD(s-r)}{rs}
+\ge\frac{pD}{s}
+>D.
+\]
+After the fixed early regime, every bridge row is therefore internally strict.
+Successive lower moduli increase, and the corresponding bridge scales are
+separated; together with the finite check \eqref{eq:early-bridge-starts}, all
+bridge rows are mutually compatible with the fixed root.
+
+Each state of one late row has mass
+\[
+W(\text{row})
+<\frac3{pD}\sum_{r\in R_p}r
+<\frac6D.
+\tag{SC6}\label{eq:source-closed-row-load}
+\]
+The nontrivial lower moduli grow by at least a factor two.  From the first
+fully uniform lower modulus $420$ onward, the entire future bridge load is
+therefore less than
+\[
+\frac{12}{420}=\frac1{35}.
+\tag{SC7}\label{eq:source-closed-tail-load}
+\]
+For the three earlier nontrivial rows one may use the direct bounds
+\[
+\frac14,\qquad \frac3{10},\qquad \frac1{20}.
+\]
+Combining these with the root bound $5/6$ and
+\eqref{eq:source-closed-tail-load} leaves a fixed positive distance from $2$.
+
+\subsection{Homogenization with fixed complexity}
+
+Let
+\[
+M=\max\{0,9,15,7,15,1\}.
+\]
+For each truncation $B$, first form the physical product of the fixed root with
+all bridge rows through $B$.  The bridge rows are homogeneous, so the six raw
+branch grades differ only by the fixed root grades.
+
+Use $M$ remote copies of the exact grade-neutral identity
+\[
+P(a)+P(a^2+3a+1)
+=
+P(a+2)+P\!\left(\frac{a(a+3)}2\right)+P(a(a+3)).
+\tag{SC8}\label{eq:source-closed-grade-neutral}
+\]
+For sufficiently large $a$ the two sides are legal, have equal reciprocal
+value and grades two and three.  Construct the $M$ coordinates successively
+beyond the complete raw prefix, making their total common mass less than
+$1/10$.  For a root branch of grade $g$, take the high alternative on exactly
+$M-g$ coordinates.  Every final branch then has one common grade, while all
+branches receive the same exact-value translation.
+
+Using the coarse bounds above,
+\[
+W
+<
+\frac56+rac14+rac3{10}+rac1{20}+rac1{35}+rac1{10}
+<\frac53.
+\tag{SC9}\label{eq:source-closed-slack}
+\]
+Hence the entire moving family has a uniform positive literalization margin;
+for example $W<2-1/3$.
+
+The number and component complexity of the grade-neutral coordinates are
+fixed independently of $B$.  Their numerical positions may move with $B$, but
+their contribution to every Tail-window envelope count is uniformly $O(1)$.
+
+\subsection{Uniform source closure}
+
+Let $I_Q(a,A)$ be a fixed enlargement of a Tail current window,
+\[
+I_Q(a,A)=
+\left[a\frac{Q^2}{\log Q},AQ^2\right]
+\qquad(0<a<A).
+\]
+Suppose a late bridge row at jump $n=p^e$, lower modulus $D=L_{n-1}$, meets
+$I_Q(a,A)$.  Since its bases lie between $D$ and $pD$, the upper edge gives
+\[
+D=O_{a,A}(Q^2).
+\]
+The primorial below $n$ divides $D$, so the Chebyshev lower bound from
+Appendix~\ref{app:prime-supply} gives
+\[
+n=O_{a,A}(\log Q),
+\qquad p=O_{a,A}(\log Q).
+\]
+The lower edge of the Tail window then gives
+\[
+D\gg_{a,A}\frac{Q^2}{(\log Q)^2}.
+\]
+Only $O_{a,A}(\log\log Q)$ nontrivial lower moduli can lie in this
+multiplicative window, and each bridge row has $O(\log p)=O(\log\log Q)$
+envelopes.  The fixed root and fixed-number neutral equalizers contribute only
+$O(1)$.  Consequently, uniformly over every truncation $B$,
+\[
+\sup_B N_Q(\operatorname{Prefix}_B)
+=O_{a,A}((\log\log(3Q))^2+1)
+=o(Q/\log Q).
+\tag{SC10}\label{eq:uniform-source-closure}
+\]
+
+This is the source-closed estimate.  Restrict the numerical endpoint indices
+to the proper cofinal object of eligible Tail bases.  For every sufficiently
+late eligible $B$, the same family covers a homogeneous affine correction
+\[
+0\longrightarrow E_B
+\]
+with the uniform margin \eqref{eq:source-closed-slack} and is a uniformly
+row-transparent obstacle at that very same source $E_B$, including the
+boundary-predecessor rows.  Thus the Prefix source map may be taken to be the
+identity on this cofinal eligible-base object, and is automatically
+$\operatorname{Tendsto}$ to the eligible-source filter.
+
+The explicit root identities have now reached their last consumer.  Above this
+appendix the Prefix is used only through its homogeneous affine cover, uniform
+positive margin and source-closed transparency.
