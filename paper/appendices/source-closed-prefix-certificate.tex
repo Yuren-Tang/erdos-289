@@ -273,15 +273,39 @@ $O(1)$.  Consequently, uniformly over every truncation $B$,
 \tag{SC13}\label{eq:uniform-source-closure}
 \]
 
-Choose once $a<c_1<C_1<A$, where $c_1,C_1$ are the current-window constants in
+Choose once
+\[
+a<c_{\rm win}<C_{\rm win}<A,
+\]
+where $c_{\rm win},C_{\rm win}$ are the current-window constants in
 \eqref{eq:tail-current-window}.  Then every Tail current window $I_Q$ lies
-inside $I_Q(a,A)$, so \eqref{eq:uniform-source-closure} implies exactly the
-hypothesis of Lemma~\ref{lem:sparse-survival}.  Therefore there are fixed
-$c_0>0$ and $B_0$ such that for every $B\ge B_0$ the Prefix $P_B$ is
-$c_0$-transparent at its own source $E_B$, both for all currents beyond $B$
-and for every boundary-predecessor row.
+inside $I_Q(a,A)$, so \eqref{eq:uniform-source-closure} implies the hypothesis
+of Lemma~\ref{lem:sparse-survival} for the singleton collection
+$\mathcal O_B=\{P_B\}$.  Therefore there are fixed $c_0>0$ and $B_0$ such
+that for every $B\ge B_0$ the Prefix $P_B$ is $c_0$-transparent at its own
+source $E_B$, both for all currents beyond $B$ and for every boundary-predecessor
+row.
 
-Combining \eqref{eq:prefix-literal-coset},
-\eqref{eq:source-closed-slack}, and this transparency conclusion proves the
-finite-prefix input used in Section~\ref{sec:affine-provider}.  The explicit
-root identities have now reached their last consumer.
+\begin{proposition}[Source-closed Prefix]\label{prop:source-closed-prefix}
+There are constants $c_0>0$, $\eta_0>0$, and $B_0$ such that for every
+$B\ge B_0$ there exist a finite homogeneous physical family $P_B$ and a point
+$a_B\in A/E_B$ for which
+\[
+\operatorname{res}:P_B\twoheadrightarrow q_{E_B}^{-1}(a_B)
+\]
+is a regular epimorphism, every branch satisfies
+\[
+0<W<2-\eta_0,
+\]
+and the complete family is $c_0$-transparent at the same source $E_B$.
+\end{proposition}
+
+\begin{proof}
+Take, for example, $\eta_0=1/3$.  The literal coset statement is
+\eqref{eq:prefix-literal-coset}, the value margin is
+\eqref{eq:source-closed-slack}, and the preceding application of
+Lemma~\ref{lem:sparse-survival} supplies one uniform $c_0$ after one source
+threshold.
+\end{proof}
+
+The explicit root identities have now reached their last consumer.
