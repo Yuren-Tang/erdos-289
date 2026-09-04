@@ -1,0 +1,253 @@
+% Detailed provider lemma: quantitative estimates are confined below LTAR.
+
+\subsection{Explicit grade overlap below the response boundary}
+\label{subsec:grade-overlap}
+
+We give one concrete verification of the grade-finality assertion used in
+Section~\ref{sec:ltar-provider}.  None of the quantities introduced here is
+part of the statement of BinaryTail or of the late-source targeted response.
+
+Let $p$ be a sufficiently large prime current after obstacle deletion and the
+one global quota packing.  The retained prime row has distinct simple values
+and cardinality
+\[
+r_p\asymp \frac{p}{\log p}.
+\tag{G1}
+\]
+Its supported grade set is
+\[
+I_p
+=\{0\le h\le r_p:h(r_p-h)+1\ge p\}.
+\]
+Write
+\[
+I_p=[a_p,r_p-a_p]\cap\N.
+\]
+
+\begin{lemma}[Prime local interval]\label{lem:prime-local-interval}
+For all sufficiently large primes,
+\[
+a_p=O(\log p),
+\qquad
+|I_p|\asymp\frac p{\log p}.
+\]
+\end{lemma}
+
+\begin{proof}
+Set
+\[
+h_p=\left\lceil\frac{2p}{r_p}\right\rceil.
+\]
+By (G1), $h_p=O(\log p)$ and $h_p\le r_p/2$ for large $p$.  Hence
+\[
+h_p(r_p-h_p)\ge h_pr_p/2\ge p,
+\]
+so $h_p\in I_p$ and $a_p\le h_p=O(\log p)$.  Symmetry of the defining
+quadratic inequality gives
+\[
+|I_p|=r_p-2a_p+1\asymp p/\log p.
+\]
+\end{proof}
+
+For a square current $Q=p^2$, the packed simple-value image has cardinality
+\[
+r_{p^2}\gg p/\log p.
+\]
+The same test shows that its D-threshold interval is nonempty and has lower
+endpoint
+\[
+a_{p^2}=O(\log p).
+\tag{G2}
+\]
+For $Q=p^e$, $e\ge3$, the resolver construction uses the single grade
+\[
+p-1.
+\tag{G3}
+\]
+
+Fix once and for all a dilation $\Lambda>1$ for which the comparable-prime
+estimate holds.  At an endpoint $X$, let
+\[
+J_X=[A_X,B_X]\cap\N
+\]
+be the Minkowski sum of all local supported-grade sets between the fixed source
+and $X$.  Since sums of integer intervals are intervals, and adding singleton
+resolver grades merely translates them, $J_X$ is an integer interval whenever
+all local supports are nonempty.
+
+\begin{lemma}[Prime-band width]\label{lem:prime-band-width}
+There is $c>0$ such that for all sufficiently large $Y$ the new prime currents
+in
+\[
+Y<p\le\Lambda Y
+\]
+add at least
+\[
+c\frac{Y^2}{(\log Y)^2}
+\]
+to the width $B_X-A_X$.
+\end{lemma}
+
+\begin{proof}
+The band contains
+\[
+\gg Y/\log Y
+\]
+primes.  For every such prime, Lemma~\ref{lem:prime-local-interval} gives local
+width
+\[
+\gg Y/\log Y.
+\]
+Widths add under Minkowski addition, which proves the claim.
+\end{proof}
+
+We next bound the lower endpoint introduced by all new currents up to the next
+endpoint $\Lambda Y$.
+
+For primes $p\le\Lambda Y$, Lemma~\ref{lem:prime-local-interval} gives a lower
+contribution $O(\log p)$.  The crude estimate that there are at most
+$\Lambda Y$ such integers gives
+\[
+\sum_{p\le\Lambda Y} a_p=O(Y\log Y).
+\tag{G4}
+\]
+For square currents $p^2\le\Lambda Y$, (G2) gives
+\[
+\sum_{p\le\sqrt{\Lambda Y}} a_{p^2}
+=O(\sqrt Y\log Y).
+\tag{G5}
+\]
+For higher prime powers, use (G3).  For every $e\ge3$, $p^e\le\Lambda Y$
+forces $p\le(\Lambda Y)^{1/e}$, whence
+\[
+\sum_{e\ge3}\sum_{p^e\le\Lambda Y}(p-1)
+=O(Y^{2/3}\log Y).
+\tag{G6}
+\]
+The deliberately crude logarithmic factor absorbs the finite sum over relevant
+exponents.
+
+Combining (G4)--(G6), the entire new lower displacement satisfies
+\[
+A_{\Lambda Y}-A_Y=O(Y\log Y).
+\tag{G7}
+\]
+
+\begin{proposition}[Eventual overlap]\label{prop:eventual-overlap}
+For all sufficiently large $Y$,
+\[
+A_{\Lambda Y}\le B_Y+1.
+\]
+Consequently the union of the endpoint grade intervals contains a final
+segment of $\N$.
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:prime-band-width}, the prime width already present by the
+next endpoint is
+\[
+\Omega\!\left(\frac{Y^2}{(\log Y)^2}\right),
+\]
+while (G7) is only $O(Y\log Y)$.  Since
+\[
+Y\log Y=o\!\left(\frac{Y^2}{(\log Y)^2}\right),
+\]
+the width of the preceding interval eventually exceeds the displacement to the
+next lower endpoint.  Thus successive intervals overlap or are adjacent.
+Their lower endpoints tend to infinity, because every new nontrivial current
+contributes positive minimum grade.  Iterating the fixed-ratio endpoint map
+therefore yields a final ray.
+\end{proof}
+
+\subsection{Explicit resource summability}
+\label{subsec:resource-sum}
+
+The exact same construction gives a summable branchwise mass majorant.
+
+At a prime current $Q=p$, a local state uses at most $r_p$ atoms, and every
+retained prime atom has mass $O(p^{-2})$.  Hence the local resource is
+\[
+O\!\left(\frac1{p\log p}\right).
+\tag{R1}
+\]
+
+At a square current $Q=p^2$, every relevant local grade is at most $p-1$, while
+one generic atom has mass $O(\log p/p^4)$.  Hence
+\[
+O\!\left(\frac{\log p}{p^3}\right).
+\tag{R2}
+\]
+
+At $Q=p^e$, $e\ge3$, the own/donor resolver uses $O(p)$ atoms from the current
+and predecessor roles.  The historical signed-inverse bounds give the
+convenient majorant
+\[
+O\!\left(\frac{e\log p}{p^{2e-3}}\right).
+\tag{R3}
+\]
+
+\begin{lemma}[Prime resource series]\label{lem:prime-resource-series}
+\[
+\sum_p\frac1{p\log p}<\infty.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $X_j=\Lambda^j$.  The upper comparable-prime estimate gives
+\[
+\#\{p:X_j<p\le X_{j+1}\}
+=O\!\left(\frac{X_j}{\log X_j}\right).
+\]
+For $p$ in this band,
+\[
+\frac1{p\log p}
+=O\!\left(\frac1{X_j\,j}\right).
+\]
+Thus the whole band contributes $O(j^{-2})$, and summing over $j$ converges.
+\end{proof}
+
+The square series
+\[
+\sum_p\frac{\log p}{p^3}
+\]
+is dominated by the corresponding integer series.  For higher powers,
+\[
+\sum_p\sum_{e\ge3}
+\frac{e\log p}{p^{2e-3}}
+\]
+converges because for each $p$ the inner sum is geometrically dominated and the
+resulting prime sum is again bounded by a convergent integer series.
+
+Any boundary-predecessor donor contribution is a subseries of the same
+convergent majorant, and its current indices escape every fixed finite set as
+the source advances.
+
+\begin{proposition}[Vanishing Tail resource]\label{prop:resource-tail}
+Let $\mathcal R(B)$ denote the total resource majorant from all currents beyond
+a source base $B$.  Then
+\[
+\mathcal R(B)\longrightarrow0
+\qquad(B\to\infty).
+\]
+Consequently, for every $\varepsilon>0$, every sufficiently late source admits
+the full grade-final BinaryTail construction with resource at most
+$\varepsilon$.
+\end{proposition}
+
+\begin{proof}
+Equations (R1)--(R3) define a convergent nonnegative series over the current
+filtration.  Tails of a convergent nonnegative series tend to zero.  The grade
+construction of Proposition~\ref{prop:eventual-overlap} uses only subfamilies
+of the same role reservoirs, so its branchwise resource is bounded by this
+common tail majorant.
+\end{proof}
+
+The proof of BinaryTail therefore separates cleanly into two independent
+consumer statements:
+\[
+\text{grade image is final},
+\qquad
+\text{resource tail tends to zero},
+\]
+which are imposed on the same exact-tuple witness before physical composition.
+They must not be proved using unrelated witness choices.
