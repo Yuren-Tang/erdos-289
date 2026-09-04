@@ -4,19 +4,21 @@
 \label{sec:affine-provider}
 
 We prove the historical Prefix/MasterSlab theorem only in the form needed by
-the projection of Proposition~\ref{prop:affine-ray-projection}.  The proof has
-three layers:
+Proposition~\ref{prop:affine-ray-projection}. The proof has three layers:
 \[
 \text{finite initial affine cover}
 \longrightarrow
 \text{simple compact-stage bridges}
 \longrightarrow
 \text{equal-value profile translations}.
-\tag{\ref{sec:affine-provider}.1}
+\tag{A1}\label{eq:affine-dag}
 \]
-The first layer contains only finitely many exceptional calculations.  The
-second is a canonical cyclic subset-sum construction.  The third is generated
+The first layer contains only finitely many exceptional calculations. The
+second is a canonical cyclic subset-sum construction. The third is generated
 by two exact reciprocal identities.
+
+Write $e_2=(1,0)$ and $e_3=(0,1)$ for the standard generators of the component
+profile monoid $P_{23}=\N^2$.
 
 \subsection{Equal-value translation fibres}
 
@@ -24,29 +26,30 @@ Put
 \[
 P(n)=\frac1n+\frac1{n+1}.
 \]
-The following two identities generate the profile adjustments required by the
-provider.
 
 \begin{lemma}[Remote grade translation]\label{lem:grade-neutral}
-For every positive integer $a$,
+For every positive integer $a$ the rational identity
 \[
 P(a)+P(a^2+3a+1)
 =
 P(a+2)
 +P\!\left(\frac{a(a+3)}2\right)
-+P(a(a+3)).
-\tag{\ref{sec:affine-provider}.2}
++P(a(a+3))
+\tag{A2}\label{eq:grade-translation}
 \]
-The two corresponding physical states have equal reciprocal value, component
-profiles $2e_2$ and $3e_2$, and hence grade difference $1$ and ternary-count
-difference $0$.
+holds. For every $a\ge3$, the displayed terms form two admissible physical
+states with equal reciprocal value and component profiles $2e_2$ and $3e_2$.
+Thus their grade difference is $1$ and their ternary-count difference is $0$.
 \end{lemma}
 
 \begin{proof}
 Subtract $P(a+2)$ from $P(a)$ and reduce to the common denominator
-$a(a+1)(a+2)(a+3)$.  The resulting rational function is exactly the sum of
-the other two terms on the right minus $P(a^2+3a+1)$.  The component-profile
-statement is immediate from the displayed binary blocks.
+$a(a+1)(a+2)(a+3)$. The resulting rational function is exactly the sum of the
+other two terms on the right minus $P(a^2+3a+1)$.
+
+For $a\ge3$, the starts occurring on either side are distinct and separated by
+at least one unused vertex, so the displayed $P$-terms are genuinely separate
+binary components. The component-profile assertion follows.
 \end{proof}
 
 \begin{lemma}[Remote defect translation]\label{lem:defect-neutral}
@@ -58,14 +61,14 @@ Then
 \[
 P(a)+P(b)
 =P(a+1)+P(b)+\frac1{b+2}.
-\tag{\ref{sec:affine-provider}.3}
+\tag{A3}\label{eq:defect-translation}
 \]
 Equivalently, the physical alternatives
 \[
 [a,a+1]\sqcup[b,b+1]
 \quad\longleftrightarrow\quad
 [a+1,a+2]\sqcup[b,b+2]
-\tag{\ref{sec:affine-provider}.4}
+\tag{A4}\label{eq:defect-switch}
 \]
 have equal reciprocal value and equal total grade $2$, while their component
 profiles are
@@ -74,10 +77,7 @@ profiles are
 \quad\text{and}\quad
 e_2+e_3.
 \]
-Thus the profile translation is exactly
-\[
-e_3-e_2.
-\]
+Thus the profile translation is exactly $e_3-e_2$.
 \end{lemma}
 
 \begin{proof}
@@ -88,23 +88,24 @@ P(a)-P(a+1)
 =\frac{2}{a(a+2)}
 =\frac1{b+2},
 \]
-we obtain \eqref{sec:affine-provider}.3.  The component profiles follow from
-the two displayed supports.
+we obtain \eqref{eq:defect-translation}. For even $a\ge4$ the two displayed
+components on either side are disjoint and non-adjacent, and the component
+profiles follow directly.
 \end{proof}
 
-As $a\to\infty$ in either lemma, the supports and their mutual gaps tend to
-infinity and their common mass tends to zero.  Therefore, after every finite
-physical constraint and below every positive mass budget, both translation
-fibres have remote physical points.  Finite collections can be built
-successively so that every selector is directly physically compatible.
+As $a\to\infty$ in either lemma, all supports and mutual gaps tend to infinity
+and the common reciprocal mass tends to zero. Therefore, after every finite
+physical constraint and below every positive mass budget, both equal-value
+translation fibres have remote physical points. Finite collections can be
+built successively so that every selector is directly physically compatible.
 
 Categorically these constructions are points of the pullback of the equal-value
 kernel pair
 \[
 C\times_W C
 \]
-along the corresponding component-profile translation.  The explicit
-polynomial formulas disappear after proving nonemptiness of those pullbacks.
+along the corresponding component-profile translation. The explicit formulas
+disappear after proving nonemptiness of those pullbacks.
 
 \subsection{A complete bridge at one simple compact jump}
 
@@ -112,8 +113,8 @@ Write
 \[
 L_n=\operatorname{lcm}(1,\ldots,n).
 \]
-This notation is used only as a coordinate on the compact subgroup lattice of
-$\Q/\Z$.  At a prime-power jump $n=p^e$ put
+This notation is only a coordinate on the compact subgroup lattice of
+$\Q/\Z$. At a prime-power jump $n=p^e$ put
 \[
 D=L_{n-1},
 \qquad
@@ -125,10 +126,7 @@ Let $k=k(p)$ be the least positive integer such that
 \[
 T_k=\frac{k(k+1)}2\ge p-1
 \]
-and put
-\[
-R_p=\{1,\ldots,k\}.
-\]
+and put $R_p=\{1,\ldots,k\}$.
 
 \begin{lemma}[Complete coefficient row]\label{lem:complete-bridge}
 The subset-sum map
@@ -138,18 +136,17 @@ The subset-sum map
 \qquad
 S\longmapsto\sum_{r\in S}r
 \]
-is surjective.  It has a strict physical lift by endpoint switches, all of the
+is surjective. It has a strict physical lift by endpoint switches, all of the
 same grade, covering the new simple compact quotient.
 \end{lemma}
 
 \begin{proof}
-The subset sums of $\{1,\ldots,j\}$ fill the whole interval $[0,T_j]$: when
-$j$ is adjoined, the old interval $[0,T_{j-1}]$ and its translate
-$[j,j+T_{j-1}]$ overlap or are adjacent.  Thus $R_p$ fills $[0,T_k]$, which
-contains $[0,p-1]$.
+The subset sums of $\{1,\ldots,j\}$ fill $[0,T_j]$: after adjoining $j$, the
+old interval $[0,T_{j-1}]$ and its translate $[j,j+T_{j-1}]$ overlap or are
+adjacent. Thus $R_p$ fills $[0,T_k]$, which contains $[0,p-1]$.
 
-Minimality gives $k\le p-1$.  Hence every $r\le k$ satisfies $r\mid D$.
-Set
+Minimality gives $k\le p-1$. Hence every $r\le k$ satisfies $r<n$ and so
+$r\mid D$. Set
 \[
 a_r=\frac{pD}{r}.
 \]
@@ -159,17 +156,16 @@ Use the endpoint switch
 \longleftrightarrow
 [a_r,a_r+2].
 \]
-The difference of reciprocal values is
+The reciprocal-value difference is
 \[
 \frac1{a_r}=\frac{r}{pD}.
 \]
 Every coordinate contributes one component in either state, so all selector
-branches have the same grade $k$.  Reduction modulo the previous lattice
-therefore realizes exactly the preceding subset-sum map onto the simple
-quotient.
+branches have the same grade $k$. Reduction modulo the previous compact stage
+therefore realizes exactly the subset-sum map onto the new simple quotient.
 \end{proof}
 
-The same proof gives two useful estimates.  Minimality of $k$ implies
+Minimality of $k$ also gives
 \[
 k^2=O(p),
 \qquad
@@ -178,7 +174,7 @@ T_k=O(p),
 so one bridge row has reciprocal mass
 \[
 O(D^{-1}).
-\tag{\ref{sec:affine-provider}.5}
+\tag{A5}\label{eq:bridge-mass}
 \]
 Moreover, if $r<s$, then
 \[
@@ -186,17 +182,14 @@ a_r-a_s
 =\frac{pD(s-r)}{rs}
 \gg D,
 \]
-so late bridge rows are internally and mutually strict.  All finite early
+so late bridge rows are internally and mutually strict. All finite early
 exceptions are absorbed into the initial seed.
 
 \subsection{Finite initial seed}
 
-Only a finite starting stage is not covered by the asymptotic bridge
-construction.
-
 \begin{lemma}[Finite affine seed]\label{lem:finite-seed}
 There exists a finite strict binary physical family $P_*$ at a finite compact
-stage with the following properties:
+stage such that
 \begin{enumerate}
 \item its residue image is one complete affine fibre;
 \item its branch grades have a finite maximum $M_*$;
@@ -207,18 +200,18 @@ remain below $2$ by a positive margin.
 \end{lemma}
 
 \begin{proof}
-A fully explicit finite certificate is given in
-Appendix~\ref{app:finite-seed}.  Its six residue states represent
+Appendix~\ref{app:finite-seed} gives a completely explicit finite certificate.
+Its six residue states represent
 \[
 0,\frac16,\frac13,\frac12,\frac23,\frac56
 \]
-and hence the complete initial cyclic fibre.  The same finite table checks the
-only non-asymptotic bridge interactions.
+and hence the complete initial cyclic fibre. The same finite table checks the
+non-asymptotic bridge interactions.
 
-For the value margin, the seed mass is at most $5/6$.  By
-\eqref{sec:affine-provider}.5 a bridge with lower modulus $D$ has mass less
-than $6/D$.  After the initial stage the successive nontrivial lower moduli at
-least double, so the whole future bridge tail is less than
+For the value margin, the seed mass is at most $5/6$. The explicit bridge
+estimate behind \eqref{eq:bridge-mass} gives mass $<6/D$ at lower modulus $D$.
+After the initial stage the successive nontrivial lower moduli at least double,
+so the whole future bridge tail is less than
 \[
 \frac6{60}\sum_{j\ge0}2^{-j}=\frac15.
 \]
@@ -226,120 +219,107 @@ Thus every future seed-plus-bridge branch has mass less than
 \[
 \frac56+\frac15=\frac{31}{30}<2.
 \]
-This proves existence of a positive open margin.  The displayed constants are
-finite verification data and do not survive the seed interface.
+The numerical constants are finite proof data and do not survive the seed
+interface.
 \end{proof}
 
 \subsection{The filtered Prefix cover}
 
 Starting from $P_*$, compose one complete bridge at each subsequent simple
-compact jump through a base $B$.  Since every bridge covers the next simple
+compact jump through a base $B$. Since every bridge covers the next simple
 quotient, finite induction gives a complete affine fibre at the stage
 corresponding to $B$.
 
 The bridge grades are fixed, but the finitely many seed branches need not have
-the same grade.  Let $M_*$ be their maximum.  For a seed branch of grade $g$,
+the same grade. Let $M_*$ be their maximum. For a seed branch of grade $g$,
 use the full cardinality fibre
 \[
 \operatorname{FinSub}_{M_*-g}(I)
 \]
-of an $M_*$-element collection of remote grade-translation coordinates from
-Lemma~\ref{lem:grade-neutral}.  Pullback stability gives all selectors at once;
-choosing the high alternative on exactly $M_*-g$ coordinates raises every seed
-branch to the same total grade without changing reciprocal value or residue.
-The neutral coordinates can be made arbitrarily light, so the positive margin
-of Lemma~\ref{lem:finite-seed} survives.
+of an $M_*$-element collection of mutually compatible remote grade-translation
+coordinates from Lemma~\ref{lem:grade-neutral}. Choosing the high alternative
+on exactly $M_*-g$ coordinates changes the grade by exactly $M_*-g$; the common
+low-state contribution is the same for every seed branch. Thus all branches
+have one common final grade, while reciprocal value, ternary count, and residue
+are unchanged. The neutral coordinates can be made arbitrarily light, so the
+positive margin of Lemma~\ref{lem:finite-seed} survives.
 
 The construction yields a proper filtered family of finite homogeneous affine
-covers.  Its source map to the eligible Tail-source filter satisfies
+covers. Its source map to the eligible Tail-source filter satisfies
 \[
 \operatorname{Tendsto}
 (\beta,\mathcal F_B,\mathcal F_R).
-\tag{\ref{sec:affine-provider}.6}
+\tag{A6}\label{eq:prefix-tendsto}
 \]
-We briefly recall why the physical obstacle remains transparent.
-
-Every signed-inverse atom has a globally injective distinguished centre and a
-uniformly bounded envelope.  Hence each fixed physical envelope deletes only
-$O(1)$ raw occurrences globally.  The fixed seed and grade-equalization
-families contribute only finitely many envelopes.  A bridge row which meets a
-current window must have lower modulus in a bounded multiplicative range; the
-linear growth of the Chebyshev function forces its prime-power index to be
-$O(\log Q)$.  Successive nontrivial lower moduli at least double, so only
-$O(\log\log Q)$ bridge rows meet the window, each with $O(\sqrt{\log Q})$
-envelopes.  Thus
+We recall the transparency estimate. Every signed-inverse atom has a globally
+injective distinguished centre and a uniformly bounded envelope, so each fixed
+physical envelope deletes only $O(1)$ raw occurrences globally. The fixed seed
+and grade-equalization families contribute finitely many envelopes. A bridge
+row meeting a current window has lower modulus in a bounded multiplicative
+range; the linear Chebyshev bounds proved in Appendix~\ref{app:prime-supply}
+force its prime-power index to be $O(\log Q)$. Successive nontrivial lower
+moduli at least double, so only $O(\log\log Q)$ bridge rows meet the window,
+each with $O(\sqrt{\log Q})$ envelopes. Hence
 \[
 N_Q(\text{Prefix})
 =O(\sqrt{\log Q}\log\log Q+1)
 =o(Q/\log Q).
-\tag{\ref{sec:affine-provider}.7}
+\tag{A7}\label{eq:prefix-window}
 \]
-Sparse deletion from the raw row therefore leaves a fixed positive relative
-fraction eventually.  The same argument, together with properness of the
-prime-power predecessor map at infinity, covers boundary predecessor rows.
-This proves the uniform transparency response and \eqref{sec:affine-provider}.6.
+Sparse deletion therefore leaves a fixed positive relative fraction eventually.
+The same argument, together with properness of the prime-power predecessor map
+at infinity, covers boundary predecessor rows. This proves the uniform
+transparency response and \eqref{eq:prefix-tendsto}.
 
 \subsection{Defect filling as a parameterized product cover}
 
-Fix one late Prefix base $b$.  Let $P_b$ be its finite normalized affine cover
+Fix one late Prefix base $b$. Let $P_b$ be its finite normalized affine cover
 and put
 \[
 d_0(b)=\max_{x\in P_b}b_3(x).
 \]
-Let $L\ge d_0(b)$.  Construct $L$ mutually compatible remote defect-translation
+Let $L\ge d_0(b)$. Construct $L$ mutually compatible remote defect-translation
 coordinates using Lemma~\ref{lem:defect-neutral}, with positive coordinate
 budgets whose total is smaller than the available Prefix margin.
 
-For a Prefix state $x$ and a requested defect
-\[
-d\in[d_0(b),L],
-\]
-we have
+For a Prefix state $x$ and a requested defect $d\in[d_0(b),L]$,
 \[
 0\le d-b_3(x)\le L.
 \]
-Take the canonical pullback of the full cardinality map
+Pull the full cardinality map
 \[
 \operatorname{card}:\operatorname{FinSub}(\{1,\ldots,L\})
 \longrightarrow\{0,\ldots,L\}
 \]
-along
-\[
-x\longmapsto d-b_3(x).
-\]
-Since the cardinality map is surjective, this selector pullback is regular epi.
+back along $(x,d)\mapsto d-b_3(x)$. Since the cardinality map is surjective,
+this selector pullback is regular epi.
 
 Every selected high alternative replaces one binary component by one ternary
-component while preserving reciprocal value and total grade.  Hence the
+component while preserving reciprocal value and total grade. Hence the
 resulting branch has ternary count exactly $d$, and the underlying affine
-correction and total grade are independent of the selector.
-
-Thus the whole branch object fits into a regular-epimorphic product cover
+correction and total grade are independent of the selector. Thus
 \[
 \begin{tikzcd}
 S_{b,L} \arrow[rr,two heads,"{(\operatorname{required},b_3)}"] &&
 \operatorname{Required}(\phi_{b,L})
 \times[d_0(b),L].
 \end{tikzcd}
-\tag{\ref{sec:affine-provider}.8}
+\tag{A8}\label{eq:masterslab-cover}
 \]
 
 Because every defect coordinate has arbitrarily small mass, the complete slab
-retains a positive uniform value margin.  The coordinates can be placed
-successively beyond the square of the preceding support maximum.  Consequently
-at most one such coordinate meets any fixed current-scale window eventually;
-the complete defect cube contributes only $O(1)$ envelopes to that window.
-Together with \eqref{sec:affine-provider}.7, the whole slab remains
-row-transparent with one positive uniform transparency constant.
-
-We have therefore proved the stronger historical provider needed by the R10
-projection.
+retains a positive uniform value margin. Place successive coordinates beyond
+the square of the preceding support maximum. Then at most one such coordinate
+meets any fixed current-scale window eventually, uniformly in $L$; the defect
+cube contributes only $O(1)$ envelopes to that window. Together with
+\eqref{eq:prefix-window}, the whole slab remains row-transparent with one
+positive uniform transparency constant.
 
 \begin{theorem}[MasterSlab provider]\label{thm:masterslab}
 Over a covering good-scale response $(c,\eta)$, eventually in the Prefix base
 $b$, for every $L\ge d_0(b)$ there is a finite normalized physical family
-$S_{b,L}$ satisfying \eqref{sec:affine-provider}.8, with one common total
-grade, branchwise value in $(0,2-\eta)$, and row transparency at level $c$.
+$S_{b,L}$ satisfying \eqref{eq:masterslab-cover}, with one common total grade,
+branchwise value in $(0,2-\eta)$, and row transparency at level $c$.
 \end{theorem}
 
 Applying Proposition~\ref{prop:affine-ray-projection} to
