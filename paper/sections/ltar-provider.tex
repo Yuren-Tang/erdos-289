@@ -168,39 +168,45 @@ conflict envelope by
 \[
 \operatorname{Env}(I)=[a-2,b+2]\cap\N_{>0}.
 \]
-For a finite obstacle family $O$, let $\operatorname{Env}(O)$ be the finite
-multiset of complete envelopes of all components of all states in $O$, and put
+For a finite obstacle family $O$, define $\operatorname{Env}(O)$ to be the
+\emph{finite image set} of all complete component envelopes occurring in at
+least one branch of $O$; repetitions of the same component or envelope in
+different branches are identified.  Put
 \[
 N_Q(O)=
 \#\{I\in\operatorname{Env}(O):I\cap I_Q\ne\varnothing\}.
 \]
-If a retained atom at current $Q$ conflicts with a component $I$, then its
-centre lies in $\operatorname{Env}(I)$.  Since every component has size at
-most three, each complete envelope contains only $O(1)$ integer centres; by
-Lemma~\ref{lem:centres-conflicts} it therefore kills only $O(1)$ retained
-atoms.
+This branch-insensitive image is exactly the complete footprint consumed by
+physical compatibility.  If a retained atom at current $Q$ conflicts with a
+component $I$, then its centre lies in $\operatorname{Env}(I)$.  Since every
+component has size at most three, each complete envelope contains only $O(1)$
+integer centres; by Lemma~\ref{lem:centres-conflicts} it therefore kills only
+$O(1)$ retained atoms.
 
-For a source cutoff $B$, define the boundary currents
+For a source cutoff $B$, recall the boundary currents
 \[
 \operatorname{Boundary}(B)
 =
 \{Q=p^e:e\ge3,\ p^{e-1}\le B<p^e\}.
 \]
 Their predecessor ranks $Q^-=p^{e-1}$ tend to infinity uniformly with $B$ by
-Section~\ref{sec:target-quotient}.
+\eqref{eq:boundary-escape}.
 
 \begin{lemma}[Uniform sparse survival]
 \label{lem:sparse-survival}
-Let $(O_B)$ be finite obstacle families such that
+For each $B$, let $\mathcal O_B$ be any collection of finite obstacle families.
+Assume
 \[
-\sup_B N_Q(O_B)=o(Q/\log Q)
+\sup_B\ \sup_{O\in\mathcal O_B} N_Q(O)
+=o(Q/\log Q)
 \qquad(Q\to\infty).
 \tag{T5}\label{eq:obstacle-little-o}
 \]
-Then there are $c>0$ and $B_0$ such that for every $B\ge B_0$:
+Then there are $c>0$ and $B_0$ such that for every $B\ge B_0$ and every
+$O\in\mathcal O_B$:
 \begin{enumerate}
-\item for every current $Q>B$, deleting all atoms conflicting with $O_B$
-leaves at least $cQ/\log Q$ atoms in $R_Q$;
+\item for every current $Q>B$, deleting all atoms conflicting with $O$ leaves
+at least $cQ/\log Q$ atoms in $R_Q$;
 \item for every $Q\in\operatorname{Boundary}(B)$, the same conclusion holds
 in the predecessor row $R_{Q^-}$ with $Q^-$ in place of $Q$.
 \end{enumerate}
@@ -209,12 +215,13 @@ in the predecessor row $R_{Q^-}$ with $Q^-$ in place of $Q$.
 \begin{proof}
 By \eqref{eq:raw-row-size}, on a current suffix there is $\kappa>0$ with
 $|R_Q|\ge\kappa Q/\log Q$.  The preceding envelope argument shows that the
-number deleted by $O_B$ is $O(N_Q(O_B))$, uniformly in $B$.  By
-\eqref{eq:obstacle-little-o} this is eventually at most
-$(\kappa/2)Q/\log Q$.  Thus one may take any fixed $c<\kappa/2$.
+number deleted by any $O\in\mathcal O_B$ is $O(N_Q(O))$, with one absolute
+implied constant.  By \eqref{eq:obstacle-little-o} this is eventually at most
+$(\kappa/2)Q/\log Q$, simultaneously in $B$ and $O$.  Thus one may take any
+fixed $c<\kappa/2$.
 For boundary predecessors, their ranks escape to infinity uniformly as
-$B\to\infty$, so the same current-suffix estimate applies; the uniform
-supremum in \eqref{eq:obstacle-little-o} permits $O_B$ even when the predecessor
+$B\to\infty$, so the same current-suffix estimate applies; the double supremum
+in \eqref{eq:obstacle-little-o} permits the obstacle even when the predecessor
 rank lies below the numerical source cutoff.
 \end{proof}
 
@@ -249,9 +256,13 @@ refinements are made inside the one global independent packing.
 \end{lemma}
 
 \begin{proof}
-The packed row has cardinality $\gg p^e/(e\log p)$, whereas $p-1$ is
-$o(p^e/(e\log p))$ for every fixed $e\ge2$, uniformly on a late prime-power
-suffix; for larger $e$ the domination is stronger.  Take the full
+The packed row has cardinality $\gg p^e/(e\log p)$, whereas
+\[
+\frac{p}{p^e/(e\log p)}
+=\frac{e\log p}{p^{e-1}}
+\longrightarrow0
+\]
+as the prime-power current $p^e\to\infty$ with $e\ge2$.  Take the full
 finite-cardinality fibre of $(p-1)$-subsets as the donor allocation and use its
 complement as the own pool.  Removing $p-1$ points changes neither the
 asymptotic row bound nor the inherited upper bound on simple-value fibres.
