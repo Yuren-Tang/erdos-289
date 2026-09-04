@@ -1,0 +1,214 @@
+\section{Finite convolution support at a prime simple factor}
+\label{app:atomic-convolution}
+
+This appendix proves the finite local theorem used at the width-bearing prime
+currents.  The theorem statement is about support in the semiring
+$\N[\mathbf F_p]$.  Matching coordinates and characters occur only inside the
+proof.
+
+\subsection{Fibre counts and convolution}
+
+For a finite map $f:B\to S$ to a finite abelian group, define
+\[
+\mathsf{Card}_S(f)
+:=\sum_{b\in B}[f(b)]
+=\sum_{s\in S}|f^{-1}(s)|[s]
+\in\N[S].
+\]
+Then
+\[
+\operatorname{supp}(\mathsf{Card}_S(f))=\operatorname{im}(f).
+\tag{AC1}\label{eq:card-support}
+\]
+If $f_i:B_i\to S$ are finite families and
+$\Sigma(b_i)=\sum_i f_i(b_i)$, finite Fubini gives
+\[
+\mathsf{Card}_S(\Sigma)=*_{i}\mathsf{Card}_S(f_i).
+\tag{AC2}\label{eq:fubini-convolution}
+\]
+Thus for two-point slots $B_i=\{x_i,y_i\}$ the branch-sum map is surjective
+exactly when every coefficient of
+\[
+*_{i}([x_i]+[y_i])
+\]
+is positive.
+
+\subsection{A simultaneous energetic matching}
+
+Let $X\subset\mathbf F_p$, $|X|=N$, and for $t\ne0$ put
+\[
+w_t(x,y)=\left\|\frac{t(x-y)}p\right\|^2,
+\]
+where $\|\cdot\|$ is circular distance to the nearest integer.
+
+\begin{lemma}[Difference-energy shell]\label{lem:difference-energy-shell}
+There is an absolute $c_0>0$ such that
+\[
+\sum_{x\ne y\in X}w_t(x,y)
+\ge c_0\frac{N^4}{p^2}
+\qquad(t\ne0).
+\]
+\end{lemma}
+
+\begin{proof}
+For one nonzero residue $d$, the ordered equation $t(x-y)=d$ has at most $N$
+solutions.  Hence one unsigned circular-distance level has multiplicity at
+most $2N$.  Among the $N(N-1)$ ordered pairs the smallest possible total
+square distance is therefore obtained by filling the lowest distance levels,
+with at most $2N$ pairs at each level.  Summing the first $\gg N$ squares
+$j^2/p^2$ gives the claimed $\gg N^4/p^2$ bound.
+\end{proof}
+
+Discard at most one point of $X$ and let $\Omega$ be the finite set of perfect
+matchings of what remains.  Every unordered pair occurs in the same number of
+matchings, so Lemma~\ref{lem:difference-energy-shell} gives
+\[
+\overline S_t
+:=\frac1{|\Omega|}\sum_{M\in\Omega}\sum_{e\in M}w_t(e)
+\ge c_1\frac{N^3}{p^2}
+\tag{AC3}\label{eq:matching-average}
+\]
+for an absolute $c_1>0$.
+
+\begin{lemma}[Finite matching concentration]\label{lem:matching-concentration}
+There is an absolute $c_2>0$ such that the fraction of $M\in\Omega$ with
+\[
+S_t(M):=\sum_{e\in M}w_t(e)<\overline S_t/2
+\]
+is at most
+\[
+\exp\!\left(-c_2\frac{N^5}{p^4}\right).
+\]
+\end{lemma}
+
+\begin{proof}
+Reveal a matching by repeatedly pairing the first remaining vertex.  At every
+node let $\mu$ be the arithmetic mean of the final energy over all leaves
+below it.  Two children which pair the current vertex $a$ with $y$ and $z$ are
+coupled by the switching bijection
+\[
+(a,y),(z,u)\longleftrightarrow(a,z),(y,u).
+\]
+Only two edge weights change.  Since $0\le w_t\le1/4$, the child conditional
+means lie in an interval of one absolute length $b$.
+
+The parent mean is the arithmetic average of its child means.  Hence the child
+deviations have mean zero and range length at most $b$.  The elementary finite
+Hoeffding inequality
+\[
+\frac1m\sum_{j=1}^m e^{\lambda z_j}
+\le e^{C\lambda^2b^2}
+\quad
+\left(\sum_jz_j=0,\ \max z_j-\min z_j\le b\right)
+\]
+follows from convexity of the exponential on a bounded interval.  Iterating
+this inequality through at most $N/2$ levels yields
+\[
+\frac1{|\Omega|}\sum_{M\in\Omega}
+ e^{\lambda(S_t(M)-\overline S_t)}
+\le e^{C'N\lambda^2}.
+\]
+Use $\lambda<0$ and optimize at
+$|\lambda|\asymp\overline S_t/N$.  Together with
+\eqref{eq:matching-average} this gives
+\[
+\frac{\#\{M:S_t(M)<\overline S_t/2\}}{|\Omega|}
+\le
+\exp\!\left(-c_2\frac{\overline S_t^2}{N}\right)
+\le
+\exp\!\left(-c_3\frac{N^5}{p^4}\right).
+\]
+\end{proof}
+
+If $N^5/p^4\gg\log p$, finite subadditivity over the $p-1$ nonzero $t$ shows
+that there is one matching $M_*$ for which
+\[
+S_t(M_*)\gg\frac{N^3}{p^2}
+\qquad(t\ne0)
+\tag{AC4}\label{eq:simultaneous-energy}
+\]
+simultaneously.
+
+\subsection{Exact-cardinality selection}
+
+Fix $1\le M\le|M_*|$.  Partition the edges of $M_*$ into exactly $M$ nonempty
+chunks, each of size at most a constant multiple of $N/M$.  Let $\mathcal S$
+be the finite Cartesian product choosing one edge from each chunk.  For
+$A\in\mathcal S$ put
+\[
+\Phi_A:=*_{\{x_e,y_e\}\in A}([x_e]+[y_e])
+\in\N[\mathbf F_p].
+\]
+Its augmentation is $2^M$.
+
+For the nontrivial additive character $\chi_t$,
+\[
+\frac{|\chi_t(\Phi_A)|}{2^M}
+=
+\prod_{e\in A}
+\left|\frac{\chi_t(x_e)+\chi_t(y_e)}2\right|.
+\]
+The elementary cosine estimate gives
+\[
+\left|\frac{\chi_t(x)+\chi_t(y)}2\right|
+\le e^{-c_4w_t(x,y)}.
+\]
+Since $w_t$ is bounded, averaging over one chunk and using the chord bound for
+$e^{-c_4u}$ gives
+\[
+\frac1{|C|}\sum_{e\in C}e^{-c_4w_t(e)}
+\le
+\exp\!\left(-c_5\frac{\sum_{e\in C}w_t(e)}{|C|}\right).
+\]
+Multiplying over chunks and applying \eqref{eq:simultaneous-energy} yields
+\[
+\frac1{|\mathcal S|}\sum_{A\in\mathcal S}
+\frac{|\chi_t(\Phi_A)|}{2^M}
+\le
+\exp\!\left(-c_6\frac{N^2M}{p^2}\right).
+\tag{AC5}\label{eq:chunk-character}
+\]
+
+If
+\[
+M\ge C\frac{p^2}{N^2}\log p
+\tag{AC6}\label{eq:atomic-threshold}
+\]
+for a sufficiently large absolute $C$, summing \eqref{eq:chunk-character} over
+$t\ne0$ shows that the finite arithmetic average of
+\[
+\frac1{2^M}\sum_{t\ne0}|\chi_t(\Phi_A)|
+\]
+is $<1$.  Hence some exact-$M$ selection satisfies
+\[
+\sum_{t\ne0}|\chi_t(\Phi_A)|<2^M.
+\tag{AC7}\label{eq:augmentation-dominance}
+\]
+
+Character orthogonality gives for every $s\in\mathbf F_p$
+\[
+p\,[s]\Phi_A
+=2^M+
+\sum_{t\ne0}\chi_t(-s)\chi_t(\Phi_A).
+\]
+By \eqref{eq:augmentation-dominance} the right-hand side is strictly positive.
+Thus every coefficient of $\Phi_A$ is positive, and
+\eqref{eq:card-support} gives a surjective branch-sum map.
+
+We have proved:
+
+\begin{theorem}[Dense convolution-support cover]\label{thm:atomic-convolution}
+Let $X\subset\mathbf F_p$, $|X|=N$.  If
+\[
+N^5/p^4\gg\log p,
+\]
+then every integer $M$ satisfying
+\[
+M\gg(p^2/N^2)\log p,
+\qquad M\le\lfloor N/2\rfloor
+\]
+admits $M$ disjoint two-point slots in $X$ whose branch-sum map onto
+$\mathbf F_p$ is surjective.
+\end{theorem}
+
+The matching, chunks and characters have no consumer after this theorem.
