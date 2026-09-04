@@ -1,0 +1,139 @@
+\section{Remote finite mobility and affine support}\label{app:finite-mobility}
+
+This appendix records the finite mobility theorem used by the affine provider.
+Its purpose is precisely to avoid any distinguished low modulus or finite table
+of reciprocal identities.
+
+\subsection{Remote separated Egyptian representations}
+
+\begin{lemma}[Remote separated Egyptian representation]\label{lem:remote-egyptian}
+Let $q\in\Q_{>0}$. For every cutoff $M$ and every fixed separation requirement
+$s$, there are distinct integers
+\[
+M<n_1<\cdots<n_N,
+\qquad n_{i+1}-n_i\ge s,
+\]
+such that
+\[
+q=\sum_{i=1}^N\frac1{n_i}.
+\]
+\end{lemma}
+
+\begin{proof}
+Choose $A>M$ sufficiently large that $1/A<q$ and
+$b(b-1)-b\ge s$ for every $b\ge A$. Along the arithmetic progression
+$a_j=A+js$ choose the least $J$ for which the partial reciprocal sum is at
+least $q$. If equality holds, stop. Otherwise the positive residual $\rho$ is
+smaller than $1/a_J$.
+
+Apply the ordinary greedy Egyptian algorithm to $\rho$. If the current
+residual is $r$ and $b=\lceil1/r\rceil$, then after subtracting $1/b$ the next
+positive residual satisfies
+\[
+0<r'<\frac1{b(b-1)},
+\]
+so its next denominator is $>b(b-1)$ and hence is separated from $b$ by at
+least $s$. For rational residuals the greedy numerator strictly decreases,
+so the process terminates. The arithmetic-progression prefix and greedy tail
+form the required representation.
+\end{proof}
+
+\subsection{Arbitrarily light equal-grade deformations}
+
+\begin{lemma}[Remote equal-grade deformation]\label{lem:equalgrade-deformation}
+For every $q\in\Q_{>0}$, finite physical constraint and fixed separation
+requirement there are two strict $\{2,3\}$-block configurations
+$C^-\leftrightarrow C^+$ beyond that constraint with
+\[
+g(C^-)=g(C^+),
+\qquad
+W(C^+)-W(C^-)=q.
+\]
+They may be chosen with
+\[
+W(C^-)<2q,
+\qquad
+W(C^+)<3q.
+\]
+\end{lemma}
+
+\begin{proof}
+Use Lemma~\ref{lem:remote-egyptian} to write $q=\sum_i1/n_i$ with the
+$n_i$ sufficiently remote and separated. For each $n_i$ use the endpoint
+switch
+\[
+[n_i+1,n_i+2]\longleftrightarrow[n_i,n_i+2].
+\]
+Both alternatives have one component and their reciprocal-value difference
+is $1/n_i$. Physical union over $i$ gives the claimed equal-grade deformation.
+The lower alternative has mass $<2\sum_i1/n_i=2q$.
+\end{proof}
+
+\begin{lemma}[Arbitrarily light equal-grade deformation]\label{lem:light-deformation}
+For every $q\in\Q_{>0}$ and every $\eta>0$, after any finite physical
+constraint there are equal-grade strict configurations
+\[
+C^-\leftrightarrow C^+
+\]
+with
+\[
+W(C^+)-W(C^-)=q,
+\qquad
+W(C^-)<\eta.
+\]
+\end{lemma}
+
+\begin{proof}
+Choose a remote separated representation $q=\sum_i1/n_i$ so far out that
+\[
+\rho:=\sum_i\frac1{2n_i(2n_i-1)}
+\]
+is arbitrarily small. The exact blockification identity
+\[
+\frac1{2n-1}+\frac1{2n}
+=
+\frac1n+\frac1{2n(2n-1)}
+\]
+turns the representation into a strict binary state $C$ of value $q+\rho$.
+Apply Lemma~\ref{lem:equalgrade-deformation} to the residual $\rho$ beyond the
+support of $C$, obtaining $D^-\leftrightarrow D^+$ with
+$W(D^+)-W(D^-)=\rho$ and $W(D^+)<3\rho$. Then
+\[
+W(C\sqcup D^-)-W(D^+)=q.
+\]
+The two sides differ in grade by the finite number $N$ of blocks of $C$.
+
+To equalize that grade, use $N$ mutually separated copies of the exact
+identity
+\[
+P(a)+P(a^2+3a+1)
+=
+P(a+2)+P\!\left(\frac{a(a+3)}2\right)+P(a(a+3)),
+\qquad
+P(m)=\frac1m+\frac1{m+1},
+\]
+whose two sides have equal reciprocal value and grades $2$ and $3$. Choose the
+parameters so remote that the sum of their common masses is arbitrarily small.
+Attach the grade-two sides to the higher-grade state and the grade-three sides
+to the lower-grade state. The final grades agree, the difference remains $q$,
+and by choosing the residual and neutral budgets sufficiently small the lower
+state has value $<\eta$.
+\end{proof}
+
+\begin{corollary}[Finite support epimorphism]\label{cor:finite-support-epi}
+Let $I$ be finite and let $\delta_i\in\Q$ be prescribed rational increments.
+For every $\eta>0$, the Boolean subset-sum family determined by the
+$\delta_i$ has a mutually separated homogeneous physical lift whose common
+lower affine load is $<\eta$. In particular, whenever the rational subset-sum
+map is surjective onto a finite cyclic quotient, the physical lift is a
+regular-epimorphic affine cover.
+\end{corollary}
+
+\begin{proof}
+Apply Lemma~\ref{lem:light-deformation} independently to the finitely many
+increments, reversing the two states for negative increments. Allocate
+positive lower-load budgets with total $<\eta$ and place the complete
+footprints mutually far apart. Every Boolean selector is then a physical union,
+all branches have the same grade, and regular-image support is exactly the
+subset-sum image.
+\end{proof}
