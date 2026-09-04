@@ -1,4 +1,4 @@
-% Source-closed affine provider.
+% Source-closed affine provider, R16 interface closure.
 
 \section{The source-closed affine-ray provider}
 \label{sec:affine-provider}
@@ -14,26 +14,28 @@ For a numerical endpoint index $B$, write
 E_B=\bigvee_{Q\le B}J_Q
 =H_{\operatorname{lcm}(1,\ldots,B)}.
 \]
-Restrict the endpoint indices to the proper cofinal object of eligible Tail
-bases.  Appendix~\ref{app:source-closed-prefix} gives fixed constants
+Appendix~\ref{app:source-closed-prefix} gives fixed constants
 \[
-c_0>0,
-\qquad
-\eta_0>0,
+\eta_0>0
 \]
-and, for every sufficiently late eligible $B$, a finite physical family
-$P_B$ satisfying:
-\begin{enumerate}
-\item $P_B$ is homogeneous;
-\item its residue map covers one complete affine correction from $0$ to $E_B$;
-\item every branch has reciprocal value in $(0,2-\eta_0)$;
-\item the complete family is a $c_0$-transparent obstacle for the Tail at the
-same source $E_B$, including boundary-predecessor rows;
-\item the source map is the identity on the cofinal eligible-base object and
-hence is $\operatorname{Tendsto}$ to the eligible-source filter.
-\end{enumerate}
+and, for every sufficiently large $B$, a finite homogeneous physical family
+$P_B$ together with a quotient point
+\[
+a_B\in A/E_B
+\]
+such that the residue map is a regular epimorphism
+\[
+\operatorname{res}:P_B\twoheadrightarrow q_{E_B}^{-1}(a_B),
+\tag{A0}\label{eq:prefix-coset-cover}
+\]
+every branch has reciprocal value in $(0,2-\eta_0)$, and the complete Prefix
+family satisfies the uniform envelope estimate required in
+Lemma~\ref{lem:sparse-survival}.  In particular, after increasing $B$ once,
+$P_B$ is a $c_0$-transparent obstacle at the same source $E_B$ for one fixed
+$c_0>0$, including all boundary-predecessor rows.
+
 The fixed finite root, lcm coordinates and bridge coefficients used to prove
-this theorem have no consumer above the appendix.
+\eqref{eq:prefix-coset-cover} have no consumer above the appendix.
 
 Write
 \[
@@ -85,15 +87,15 @@ finite physical constraint, with arbitrarily small total common mass.
 
 \subsection{Defect filling by a cardinality pullback}
 
-Fix one sufficiently late eligible source $B$ and its finite homogeneous
-Prefix family $P_B$.  Define
+Fix one sufficiently large source $B$ and its finite homogeneous Prefix family
+$P_B$.  Define
 \[
 d_0(B)=\max_{x\in P_B}b_3(x).
 \tag{A2}\label{eq:defect-floor}
 \]
 Let $L\ge d_0(B)$.  Construct $L$ mutually compatible remote copies of
-\eqref{eq:defect-switch}, choosing positive coordinate budgets whose total is
-smaller than a fixed part of the Prefix margin $\eta_0$.
+\eqref{eq:defect-switch}, choosing their positive common masses so that the
+total is smaller than $\eta_0/2$.
 
 For a Prefix state $x$ and a requested defect
 \[
@@ -119,34 +121,65 @@ epimorphically to the Prefix-state/request pair.  Selecting the high
 alternative on a subset of cardinality $d-b_3(x)$ raises the ternary count to
 exactly $d$ while preserving reciprocal value and total grade.
 
-Consequently there is a finite family $S_{B,L}$ for which
+Let $\omega_{B,L}$ be the sum of the common reciprocal values of the $L$
+defect coordinates.  It is independent of every selector choice.  Define
 \[
-(\operatorname{required},b_3):
-S_{B,L}	woheadrightarrow
-\operatorname{Required}(\phi_{B,L})
-\times[d_0(B),L]
+a_{B,L}=a_B+q_{E_B}([\omega_{B,L}])\in A/E_B.
+\]
+The selector construction then gives a literal map
+\[
+(\operatorname{res},b_3):
+S_{B,L}\longrightarrow
+q_{E_B}^{-1}(a_{B,L})\times[d_0(B),L].
+\]
+
+\begin{lemma}[Concrete MasterSlab coset coverage]
+\label{lem:masterslab-coset}
+The preceding map is a regular epimorphism:
+\[
+(\operatorname{res},b_3):
+S_{B,L}\twoheadrightarrow
+q_{E_B}^{-1}(a_{B,L})\times[d_0(B),L].
 \tag{A3}\label{eq:masterslab-cover}
 \]
-is regular epi.  All branches have one common total grade.  Shrinking the
-original margin once, all branch values lie in
+All branches of $S_{B,L}$ have one common total grade.
+\end{lemma}
+
+\begin{proof}
+Take a target pair $(y,d)$ on the right.  Since
+$y-[\omega_{B,L}]$ lies in $q_{E_B}^{-1}(a_B)$,
+\eqref{eq:prefix-coset-cover} has a Prefix realizer $x$ with that residue.
+Now $0\le d-b_3(x)\le L$.  Pullback-surjectivity of the cardinality map gives
+the full nonempty fibre of subsets of cardinality $d-b_3(x)$.  For every such
+selector, exactly one alternative is taken in each defect coordinate, so the
+added reciprocal value is the common quantity $\omega_{B,L}$; hence the final
+residue is $y$ and the final ternary count is $d$.  This proves surjectivity.
+
+Every Prefix branch has one common grade, and each defect coordinate has grade
+two on both alternatives.  Thus every final branch receives the same grade
+increment $2L$.
+\end{proof}
+
+Since the defect coordinates add total reciprocal mass less than $\eta_0/2$,
+all slab branches lie in
 \[
-(0,2-\eta)
+(0,2-\eta),
+\qquad
+\eta:=\eta_0/2>0,
+\tag{A4}\label{eq:slab-margin}
 \]
-for one fixed $\eta>0$ independent of $B$ and $L$.
+uniformly in $B$ and $L$.
 
 \subsection{Uniform transparency of the defect cube}
 
-The Prefix itself is source-closed uniformly in $B$ by
+The Prefix itself has the uniform moving-window estimate of
 Appendix~\ref{app:source-closed-prefix}.  It remains to ensure that the number
-of defect coordinates does not destroy that uniformity.
+of defect coordinates does not destroy that estimate.
 
 Construct the defect coordinates so that the first vertex of each new complete
 envelope lies beyond the square of the maximum vertex used previously.  A late
-Tail current $Q$ has physical window contained in
-\[
-\left[c\frac{Q^2}{\log Q},CQ^2\right]
-\]
-for fixed positive constants.  If two different defect coordinates met the
+Tail current $Q$ has the fixed current window $I_Q$ of
+\eqref{eq:tail-current-window}.  If two different defect coordinates met the
 same sufficiently late window, the later one would begin beyond the square of
 a quantity $\gg Q^2/\log Q$ while simultaneously lying $O(Q^2)$, which is
 impossible.  Hence at most one defect coordinate meets any sufficiently late
@@ -154,21 +187,19 @@ Tail window, uniformly in $L$.
 
 Each coordinate has a fixed finite number of component envelopes.  Thus the
 whole defect cube adds only $O(1)$ to the Prefix-window incidence bound,
-uniformly in both $B$ and $L$.  After shrinking $c_0$ once, one fixed
-transparency constant $c>0$ survives.
+uniformly in both $B$ and $L$.  Lemma~\ref{lem:sparse-survival} therefore gives
+one fixed $c>0$ such that every sufficiently late MasterSlab is
+$c$-transparent at its own source $E_B$, including boundary predecessors.
 
 \begin{theorem}[Source-closed MasterSlab]\label{thm:masterslab}
-There exist fixed constants $c>0$ and $\eta>0$ such that, eventually in the
-cofinal eligible source $B$, for every $L\ge d_0(B)$ there is a finite
-homogeneous family satisfying \eqref{eq:masterslab-cover}, with branchwise
-value in $(0,2-\eta)$ and $c$-transparency for the Tail at the same source
-$E_B$.  The source map
-\[
-B\longmapsto B
-\]
-from the Prefix base to the eligible Tail-source object is
-$\operatorname{Tendsto}$.
+There exist fixed constants $c>0$ and $\eta>0$ and an index $B_0$ such that
+for every $B\ge B_0$ and every $L\ge d_0(B)$ there is a finite homogeneous
+family $S_{B,L}$ for which \eqref{eq:masterslab-cover} is regular epi, every
+branch has reciprocal value in $(0,2-\eta)$, and the complete family is
+$c$-transparent for the Tail at the same source $E_B$.
 \end{theorem}
 
-The filtered affine ray used in Section~\ref{sec:germs} is obtained from this
-theorem by setting $L=d$ and pulling back to the single defect fibre $d$.
+The filtered affine ray used in Section~\ref{sec:germs} is obtained by setting
+$L=d$ and pulling \eqref{eq:masterslab-cover} back along the point
+$\{d\}\hookrightarrow[d_0(B),d]$.  No abstract correction-requirement object
+is consumed above this section.
