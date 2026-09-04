@@ -86,6 +86,7 @@ from $0$ through $p-1$.  Hence reduction modulo $p$ is surjective.  Moreover
 \sum_{r\in R_p}r=2^m-1<2p.
 \tag{SC4}\label{eq:binary-coefficient-row}
 \]
+Since every $r\in R_p$ satisfies $r<p\le n$, it divides $D=L_{n-1}$.
 
 For $r\in R_p$ set
 \[
@@ -109,10 +110,29 @@ If $r<s$ are powers of two, then $s\ge2r$, and therefore
 \ge\frac{pD}{s}
 >D.
 \]
-After the fixed early regime, every bridge row is therefore internally strict.
-Successive lower moduli increase, and the corresponding bridge scales are
-separated; together with the finite check \eqref{eq:early-bridge-starts}, all
-bridge rows are mutually compatible with the fixed root.
+Thus every later bridge row is internally strict.
+
+Successive rows are separated just as directly.  Let $D'=L_n$ be the upper
+modulus of one bridge and hence the lower modulus of the next nontrivial jump
+$n'=q^f$.  The first row lies below $D'+2$.  If $s<q$ is a coefficient in the
+next row, then
+\[
+\frac{qD'}s-D'
+=\frac{D'(q-s)}s
+\ge\frac{D'}{q-1}.
+\]
+If $f=1$, then $q\ge11$ outside the finite regime and the coprime integers
+$q-1,q-2$ both divide $D'$, so $D'/(q-1)\ge q-2\ge9$.  If $f\ge2$, then
+$q^f-1\mid D'$ and
+\[
+\frac{D'}{q-1}
+\ge\frac{q^f-1}{q-1}
+=1+q+\cdots+q^{f-1}\ge4
+\]
+for $q^f\ge9$.  Hence the next complete envelope starts at least two integers
+after the preceding complete envelope ends.  Together with the finite check
+\eqref{eq:early-bridge-starts}, all bridge rows are mutually compatible with
+one another and with the fixed root.
 
 Each state of one late row has mass
 \[
@@ -163,7 +183,7 @@ Using the coarse bounds above,
 \[
 W
 <
-\frac56+rac14+rac3{10}+rac1{20}+rac1{35}+rac1{10}
+\frac56+\frac14+\frac3{10}+\frac1{20}+\frac1{35}+\frac1{10}
 <\frac53.
 \tag{SC9}\label{eq:source-closed-slack}
 \]
