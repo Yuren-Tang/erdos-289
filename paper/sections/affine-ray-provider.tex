@@ -1,268 +1,174 @@
-% Denumeralized affine provider: generic finite seed + scale-proper bridge.
+% Source-closed affine provider.
 
-\section{The finite affine-ray provider}
+\section{The source-closed affine-ray provider}
 \label{sec:affine-provider}
 
-Fix the reciprocal row system used by the Tail provider. We construct the
-filtered affine ray without any distinguished low modulus or finite reciprocal
-table. The proof has three layers:
+The root needs an affine family and the later Tail response at the \emph{same}
+compact source.  Finiteness of an affine footprint at each fixed stage is not
+enough: the footprint must be uniformly negligible as the source itself moves.
+We therefore use the source-closed Prefix certificate of
+Appendix~\ref{app:source-closed-prefix}.
+
+For a numerical endpoint index $B$, write
 \[
-\text{generic finite affine seed}
-\longrightarrow
-\text{scale-proper simple bridges}
-\longrightarrow
-\text{equal-value defect translation}.
-\tag{A1}\label{eq:affine-dag}
+E_B=\bigvee_{Q\le B}J_Q
+=H_{\operatorname{lcm}(1,\ldots,B)}.
 \]
-The first layer is supplied by the remote finite-mobility theorem of
-Appendix~\ref{app:finite-mobility}; the second is a canonical cyclic
-subset-sum construction; the third is one exact component-profile translation.
+Restrict the endpoint indices to the proper cofinal object of eligible Tail
+bases.  Appendix~\ref{app:source-closed-prefix} gives fixed constants
+\[
+c_0>0,
+\qquad
+\eta_0>0,
+\]
+and, for every sufficiently late eligible $B$, a finite physical family
+$P_B$ satisfying:
+\begin{enumerate}
+\item $P_B$ is homogeneous;
+\item its residue map covers one complete affine correction from $0$ to $E_B$;
+\item every branch has reciprocal value in $(0,2-\eta_0)$;
+\item the complete family is a $c_0$-transparent obstacle for the Tail at the
+same source $E_B$, including boundary-predecessor rows;
+\item the source map is the identity on the cofinal eligible-base object and
+hence is $\operatorname{Tendsto}$ to the eligible-source filter.
+\end{enumerate}
+The fixed finite root, lcm coordinates and bridge coefficients used to prove
+this theorem have no consumer above the appendix.
+
 Write
 \[
-e_2=(1,0),\qquad e_3=(0,1)
+e_2=(1,0),
+\qquad
+e_3=(0,1)
 \]
 for the generators of the component-profile monoid $\N^2$.
 
-Write
-\[
-L_n=\operatorname{lcm}(1,\ldots,n).
-\]
-This is only a coordinate on the compact-subgroup filtration of $\Q/\Z$.
-
-\subsection{One homogeneous simple bridge}
-
-At a nontrivial lcm jump
-\[
-D\longrightarrow pD
-\]
-let $k=k(p)$ be the least positive integer with
-\[
-T_k:=\frac{k(k+1)}2\ge p-1.
-\]
-The subset sums of $\{1,\ldots,k\}$ fill $[0,T_k]$ and therefore surject onto
-$\Z/p\Z$.
-
-For $1\le r\le k$ put
-\[
-a_r=\frac{pD}{r}.
-\]
-Since $r$ is below the current prime-power index, $r\mid D$. Use the endpoint
-switch
-\[
-[a_r+1,a_r+2]
-\longleftrightarrow
-[a_r,a_r+2].
-\tag{A2}\label{eq:bridge-switch}
-\]
-Its two states have the same grade and reciprocal-value difference
-\[
-\frac1{a_r}=\frac r{pD}.
-\]
-Thus the Boolean row is a homogeneous relative affine cover of the new simple
-quotient.
-
-No small-prime case split is needed for the load estimate. Either state of a
-slot has mass $<3/a_r$, whence every row state has
-\[
-W(\text{row})
-<\frac3{pD}\sum_{r=1}^{k}r
-=\frac{3T_k}{pD}.
-\]
-Minimality gives $T_k<p+k\le2p$, so
-\[
-\boxed{W(\text{row})<\frac6D.}
-\tag{A3}\label{eq:bridge-load}
-\]
-Also $k^2=O(p)$ and
-\[
-a_r-a_s
-=\frac{pD(s-r)}{rs}
-\gg D
-\qquad(r<s),
-\]
-so all sufficiently late bridge rows are internally strict and scale-local.
-
-\subsection{Generic finite seed and uniform slack}
-
-Choose once and for all a sufficiently large fixed lcm stage $B_0$ and put
-\[
-D_0=L_{B_0}.
-\]
-Take $B_0$ beyond the finite regime in which bridge strictness or separation
-needs exceptional treatment. No other special arithmetic property of $D_0$
-will be used.
-
-For a later finite handoff stage $B\ge B_0$, first form the finite bridge from
-$D_0$ through $L_B$. Its complete physical support is finite. Place the seed
-constructed below beyond that complete support, so seed and bridge are
-physically compatible by construction.
-
-Choose positive integers $c_1,\ldots,c_m<D_0$ whose subset sums contain every
-integer in $[0,D_0-1]$ and whose total is $D_0-1$; the standard binary complete
-sequence, with a final remainder when necessary, does this. Put
-\[
-q_i=\frac{c_i}{D_0}.
-\]
-For any $\beta>0$, Corollary~\ref{cor:finite-support-epi} gives a mutually
-separated homogeneous physical Boolean lift of these positive increments,
-beyond the complete bridge support, with common lower affine load $<\beta$.
-Its residue image is one complete affine $H_{D_0}$-torsor and every seed branch
-satisfies
-\[
-0<W(\text{seed})<1-\frac1{D_0}+\beta.
-\tag{A4}\label{eq:generic-seed-load}
-\]
-
-Enumerate the nontrivial lcm jumps after $D_0$ by lower moduli
-\[
-D_0<D_1<D_2<\cdots .
-\]
-Each jump multiplies the lower modulus by a prime at least $2$, so
-$D_j\ge2^jD_0$. By \eqref{eq:bridge-load}, the complete future bridge load is
-bounded by
-\[
-\sum_{j\ge0}\frac6{D_j}
-\le
-\frac{12}{D_0}.
-\tag{A5}\label{eq:bridge-tail}
-\]
-Hence every seed-plus-bridge branch has
-\[
-W<1+\frac{11}{D_0}+\beta.
-\]
-Choose the fixed $D_0$ sufficiently large and then $\beta>0$ sufficiently
-small that
-\[
-1+\frac{11}{D_0}+\beta<2-\eta
-\tag{A6}\label{eq:uniform-margin}
-\]
-for some fixed $\eta>0$. This gives one uniform literalization margin for all
-later handoff stages. No distinguished denominator or explicit finite
-reciprocal certificate survives.
-
-Every seed and bridge slot is homogeneous, so the entire affine family has one
-common grade automatically.
-
-\subsection{Transparency and the filtered source germ}
-
-Only the bridge geometry interacts asymptotically with the Tail rows. At a
-large Tail current $Q$, retained signed-inverse centres lie in a window
-\[
-c_0\frac{Q^2}{\log Q}
-\le z\le C_0Q^2.
-\tag{A7}\label{eq:raw-window}
-\]
-A bridge with lower modulus $D$ has bases in $(D,pD]$. If its physical
-envelope meets \eqref{eq:raw-window}, then $D=O(Q^2)$. The primorial below the
-bridge index divides $D$; the elementary Chebyshev bounds of
-Appendix~\ref{app:prime-supply} therefore give $p=O(\log Q)$. The lower edge
-of \eqref{eq:raw-window} then implies
-\[
-D\gg\frac{Q^2}{(\log Q)^2}.
-\]
-Since successive nontrivial $D$'s at least double, only
-$O(\log\log Q)$ bridge rows meet the current window, and each contains only
-$O(\sqrt{\log Q})$ endpoint envelopes. Thus
-\[
-\operatorname{obs}_{\rm bridge}(Q)
-=O(\sqrt{\log Q}\log\log Q)
-=o(Q/\log Q).
-\tag{A8}\label{eq:bridge-transparency}
-\]
-
-For each fixed handoff $B$, the generic seed has a finite complete footprint.
-Global injectivity of Tail centres and uniformly bounded atom span imply that
-this fixed footprint conflicts with only finitely many raw atoms in total; in
-particular its rowwise contribution is $O_B(1)$. Consequently
-\[
-\operatorname{obs}_{P_B}(Q)
-=O(\sqrt{\log Q}\log\log Q)+O_B(1)
-=o(Q/\log Q).
-\tag{A9}\label{eq:prefix-transparency}
-\]
-Choose a Tail-source handoff $\beta(B)$ beyond the threshold at which the
-surviving relative row density is bounded below by one fixed positive constant,
-and require also $\beta(B)\ge B$. This defines a proper filtered source map
-with
-\[
-\operatorname{Tendsto}
-(\beta,\mathcal F_B,\mathcal F_R).
-\tag{A10}\label{eq:prefix-tendsto}
-\]
-Boundary-predecessor rows obey the same eventual estimate: if
-$Q=p^e$ crosses a base $B$ while $Q^-=p^{e-1}$ is below it, then
-\[
-B<Q=pQ^-\le(Q^-)^2,
-\]
-so $Q^->\sqrt B\to\infty$.
-
-\subsection{Defect filling as a regular-epimorphic fibre}
+\subsection{Equal-value defect translation}
 
 Put
 \[
 P(n)=\frac1n+\frac1{n+1}.
 \]
-For every even $a\ge4$, let
+For every even $a\ge4$, define
 \[
 b=\frac{a(a+2)}2-2.
 \]
 Then
 \[
-[a,a+1]\sqcup[b,b+1]
-\longleftrightarrow
-[a+1,a+2]\sqcup[b,b+2]
-\tag{A11}\label{eq:defect-switch}
-\]
-has equal reciprocal value and equal total grade on the two sides, while its
-component profile changes from $2e_2$ to $e_2+e_3$. Indeed
-\[
 P(a)-P(a+1)
-=\frac1a-\frac1{a+2}
-=\frac1{b+2}.
+=
+\frac1a-\frac1{a+2}
+=
+\frac1{b+2}.
 \]
-These defect-translation coordinates may be placed mutually remote with
-arbitrarily small common masses.
+Therefore the two physical states
+\[
+[a,a+1]\sqcup[b,b+1]
+\quad\longleftrightarrow\quad
+[a+1,a+2]\sqcup[b,b+2]
+\tag{A1}\label{eq:defect-switch}
+\]
+have equal reciprocal value and equal total grade two, while their component
+profiles are
+\[
+2e_2
+\quad\text{and}\quad
+e_2+e_3.
+\]
+Thus one high alternative translates the profile by $e_3-e_2$ without
+changing exact value or total grade.
 
-Fix one late Prefix base $b$ and let $P_b$ be its finite homogeneous affine
-cover. Define
+As $a\to\infty$, the complete two-state footprint moves arbitrarily far out
+and its common reciprocal mass tends to zero.  Finite collections of these
+coordinates may therefore be constructed successively against any prescribed
+finite physical constraint, with arbitrarily small total common mass.
+
+\subsection{Defect filling by a cardinality pullback}
+
+Fix one sufficiently late eligible source $B$ and its finite homogeneous
+Prefix family $P_B$.  Define
 \[
-d_0(b)=\max_{x\in P_b}b_3(x).
+d_0(B)=\max_{x\in P_B}b_3(x).
+\tag{A2}\label{eq:defect-floor}
 \]
-For $L\ge d_0(b)$ construct $L$ mutually compatible remote copies of
-\eqref{eq:defect-switch}, with total common mass smaller than a fixed part of
-the margin \eqref{eq:uniform-margin}. For a Prefix state $x$ and a requested
-$d\in[d_0(b),L]$, pull the cardinality map
+Let $L\ge d_0(B)$.  Construct $L$ mutually compatible remote copies of
+\eqref{eq:defect-switch}, choosing positive coordinate budgets whose total is
+smaller than a fixed part of the Prefix margin $\eta_0$.
+
+For a Prefix state $x$ and a requested defect
 \[
+d\in[d_0(B),L],
+\]
+we have
+\[
+0\le d-b_3(x)\le L.
+\]
+Pull the cardinality map
+\[
+\operatorname{card}:
 \operatorname{FinSub}(\{1,\ldots,L\})
-\xrightarrow{\operatorname{card}}
+\longrightarrow
 \{0,\ldots,L\}
 \]
-back along $(x,d)\mapsto d-b_3(x)$. Surjectivity of cardinality makes this
-selector pullback regular epi. Every selected high alternative replaces one
-binary component by one ternary component without changing value or total
-grade. Hence
+back along
 \[
-S_{b,L}\twoheadrightarrow
-\operatorname{Required}(\phi_{b,L})\times[d_0(b),L]
-\tag{A12}\label{eq:masterslab-cover}
+(x,d)\longmapsto d-b_3(x).
 \]
-under $(\operatorname{required},b_3)$, with one common total grade and the
-uniform value margin.
+The cardinality map is surjective, so this selector object projects regularly
+epimorphically to the Prefix-state/request pair.  Selecting the high
+alternative on a subset of cardinality $d-b_3(x)$ raises the ternary count to
+exactly $d$ while preserving reciprocal value and total grade.
 
-Place successive defect coordinates beyond the square of the preceding
-support maximum. Then at most one such coordinate meets any sufficiently late
-Tail window, uniformly in $L$, so the entire defect cube contributes only
-$O(1)$ additional envelopes to \eqref{eq:prefix-transparency}. The same fixed
-positive transparency constant survives.
+Consequently there is a finite family $S_{B,L}$ for which
+\[
+(\operatorname{required},b_3):
+S_{B,L}	woheadrightarrow
+\operatorname{Required}(\phi_{B,L})
+\times[d_0(B),L]
+\tag{A3}\label{eq:masterslab-cover}
+\]
+is regular epi.  All branches have one common total grade.  Shrinking the
+original margin once, all branch values lie in
+\[
+(0,2-\eta)
+\]
+for one fixed $\eta>0$ independent of $B$ and $L$.
 
-\begin{theorem}[MasterSlab provider]\label{thm:masterslab}
-There are fixed certificates $c>0$ and $\eta>0$ such that, eventually in the
-Prefix base $b$, for every $L\ge d_0(b)$ there is a finite normalized physical
-family satisfying \eqref{eq:masterslab-cover}, with one common total grade,
-branchwise value in $(0,2-\eta)$, and row transparency at level $c$ for all
-later Tail rows.
+\subsection{Uniform transparency of the defect cube}
+
+The Prefix itself is source-closed uniformly in $B$ by
+Appendix~\ref{app:source-closed-prefix}.  It remains to ensure that the number
+of defect coordinates does not destroy that uniformity.
+
+Construct the defect coordinates so that the first vertex of each new complete
+envelope lies beyond the square of the maximum vertex used previously.  A late
+Tail current $Q$ has physical window contained in
+\[
+\left[c\frac{Q^2}{\log Q},CQ^2\right]
+\]
+for fixed positive constants.  If two different defect coordinates met the
+same sufficiently late window, the later one would begin beyond the square of
+a quantity $\gg Q^2/\log Q$ while simultaneously lying $O(Q^2)$, which is
+impossible.  Hence at most one defect coordinate meets any sufficiently late
+Tail window, uniformly in $L$.
+
+Each coordinate has a fixed finite number of component envelopes.  Thus the
+whole defect cube adds only $O(1)$ to the Prefix-window incidence bound,
+uniformly in both $B$ and $L$.  After shrinking $c_0$ once, one fixed
+transparency constant $c>0$ survives.
+
+\begin{theorem}[Source-closed MasterSlab]\label{thm:masterslab}
+There exist fixed constants $c>0$ and $\eta>0$ such that, eventually in the
+cofinal eligible source $B$, for every $L\ge d_0(B)$ there is a finite
+homogeneous family satisfying \eqref{eq:masterslab-cover}, with branchwise
+value in $(0,2-\eta)$ and $c$-transparency for the Tail at the same source
+$E_B$.  The source map
+\[
+B\longmapsto B
+\]
+from the Prefix base to the eligible Tail-source object is
+$\operatorname{Tendsto}$.
 \end{theorem}
 
-Pulling Theorem~\ref{thm:masterslab} back to the fibre $L=d$ and then to the
-terminal defect coordinate gives Proposition~\ref{prop:affine-ray-projection}
-and hence the filtered affine ray used in Section~\ref{sec:germs}.
+The filtered affine ray used in Section~\ref{sec:germs} is obtained from this
+theorem by setting $L=d$ and pulling back to the single defect fibre $d$.
