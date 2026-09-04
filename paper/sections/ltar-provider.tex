@@ -1,12 +1,14 @@
-% R14 direct targeted Tail provider.
+% R16 direct targeted Tail provider.
 
 \section{The direct source-filtered Tail provider}
 \label{sec:ltar-provider}
 
 The Tail root consumes one object only: a finite binary physical family of
 prescribed grade whose residue hits one prescribed endpoint-source coset and
-whose branchwise reciprocal resource is small.  We construct it directly from
-local homogeneous simple covers.
+whose branchwise reciprocal mass is small.  We construct it directly from
+local homogeneous simple covers.  All eventual statements in this section are
+with respect to the ordinary filter $B\to\infty$ on $\N$; there is no separate
+eligible-base predicate.
 
 \subsection{Filtration and transverse raw rows}
 
@@ -30,11 +32,13 @@ The new $p$-primary height is one step, so $S_Q$ has order $p$.  We call $Q$ a
 \emph{current}.  A binary atom is filtered-transverse at $Q$ when its centered
 residue lies in $F_Q$ and has nonzero image in $S_Q$.
 
-The signed-inverse construction supplies the physical raw rows.  Fix constants
-$1<B_0<B_1$ and let the carrier prime $b$ range in a fixed comparable interval
+Let $\Lambda>1$ be the fixed dilation supplied by
+Appendix~\ref{app:prime-supply}.  Choose once $B_0>1$ and put
+$B_1=\Lambda B_0$.  The signed-inverse construction uses carrier primes in
 \[
 Q/B_1<b<Q/B_0.
 \]
+Thus comparable-prime supply applies with $X=Q/B_1$.
 For a sufficiently large current $Q=p^e$ these carriers are different from
 $p$.  Let $c_+$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and write
 \[
@@ -65,7 +69,7 @@ and the inverse relation gives
 \]
 For each fixed $(\lambda,\sigma)$ this unit quadratic congruence has uniformly
 boundedly many roots modulo the prime power $Q$, and the carrier interval has
-length $<Q$.  Deleting the two finite exceptional sets leaves every admissible
+length $<Q$.  Deleting these finite exceptional sets leaves every admissible
 $p$-unit orientation filtered downward.  The consecutive pair
 \[
 \{Qk_\sigma,Qk_\sigma+\sigma1\}
@@ -90,23 +94,46 @@ such a pair the carrier prime divides one of
 Qk-1,\qquad Qk+1,
 \]
 which are $<Q^2+1$.  Since every carrier is $>Q/B_1$, the product of more than
-a fixed number of distinct carriers would exceed $Q^2+1$.  This proves bounded
-coefficient multiplicity.
-
-Comparable-prime supply from Appendix~\ref{app:prime-supply}, followed by the
-finite deletions and bounded-multiplicity thinning, gives
+a fixed number of distinct carriers would exceed $Q^2+1$.  Thin to one
+occurrence for each retained coefficient.  Comparable-prime supply, the
+finite downwardness deletion and this bounded-multiplicity thinning give
 \[
 |R_Q|\gg Q/\log Q.
 \tag{T2}\label{eq:raw-row-size}
 \]
-The physical envelopes have uniformly bounded span and globally injective
-distinguished centres.
 
-For a generic proper current retain the upper half of the distinct usable
-coefficients.  Then $k\gg Q/\log Q$, so the atom has branchwise reciprocal
-mass
+\begin{lemma}[Distinguished centres and bounded conflicts]
+\label{lem:centres-conflicts}
+For every retained signed-inverse atom at current $Q=p^e$, put
 \[
-O(\log Q/Q^2).
+\operatorname{ctr}(x)=Qk.
+\]
+The centre map is injective on the union of all retained rows.  Every atom has
+support contained in
+\[
+[\operatorname{ctr}(x)-1,\operatorname{ctr}(x)+1],
+\]
+and the conflict graph of retained atoms has uniformly bounded maximum degree.
+\end{lemma}
+
+\begin{proof}
+Because $k<Q$ and $p\nmid k$, the prime power $Q=p^e$ is the unique largest
+prime-power divisor of $Qk$: every prime-power divisor coming from $k$ is
+strictly smaller than $Q$, while the $p$-height of $Qk$ is exactly $e$.
+Hence the centre determines $Q$.  Inside one current the retained $k$ are
+distinct, so the centre map is globally injective.
+
+The atom is either $\{Qk,Qk+1\}$ or $\{Qk-1,Qk\}$, hence lies in the displayed
+three-point interval.  If two such binary atoms overlap or are adjacent, their
+centres differ by at most three.  Injectivity of the integer centres therefore
+gives an absolute bound on the number of neighbours of any atom.
+\end{proof}
+
+For every proper current retain the upper half, by numerical value, of the
+distinct usable coefficients.  Since there are $\gg Q/\log Q$ distinct
+positive integers, the retained coefficients satisfy
+\[
+k\gg Q/\log Q.
 \]
 At a prime current $Q=p$, both $k_+$ and $k_-$ are $p$-units.  After the
 simultaneous downwardness deletion take
@@ -114,29 +141,128 @@ simultaneous downwardness deletion take
 k^*=\max(k_+,k_-).
 \]
 Since $k_++k_-=b\asymp p$, bounded coefficient multiplicity leaves
-$\gg p/\log p$ distinct coefficients with $k^*\asymp p$, and their atoms have
-mass $O(p^{-2})$.  Thus
+$\gg p/\log p$ distinct coefficients with $k^*\asymp p$.
+Consequently there are fixed constants $0<c_1<C_1$ such that every retained
+centre at every sufficiently large current lies in the \emph{current window}
+\[
+I_Q=
+\left[c_1\frac{Q^2}{\log Q},\ C_1Q^2\right].
+\tag{T3}\label{eq:tail-current-window}
+\]
+The corresponding branchwise reciprocal-mass bounds are
 \[
 O(p^{-2})\quad(Q=p),
 \qquad
-O(\log Q/Q^2)\quad(Q=p^e,\ e\ge2)
-\tag{T3}\label{eq:raw-resource}
+O(\log Q/Q^2)\quad(Q=p^e,\ e\ge2).
+\tag{T4}\label{eq:raw-resource}
 \]
-are valid proof-local resource bounds.  At a prime current the retained simple
-values are distinct.  At $Q=p^2$, a fixed simple value fixes $k$ modulo $p$;
-there are at most $p$ such integers $1\le k<p^2$, and bounded coefficient
-multiplicity therefore gives a simple-value fibre of size $O(p)$.
+At a prime current the retained simple values are distinct.  At $Q=p^2$, a
+fixed simple value fixes $k$ modulo $p$; there are at most $p$ such integers
+$1\le k<p^2$, and bounded coefficient multiplicity therefore gives a
+simple-value fibre of size $O(p)$.
 
-Call a finite obstacle $c$-transparent at an eligible endpoint source $E_B$
-when, for every active current beyond that source and every boundary
-predecessor required by the first higher current, deleting all raw atoms
-conflicting with the obstacle leaves at least a fixed fraction $c>0$ of the
-row.  After this deletion the conflict graph has uniformly bounded maximum
-degree.  Apply the quota-packing consequence of Haxell's theorem from
-Appendix~\ref{app:packing} once to the finite rows below a chosen endpoint.
-The resulting local pools are disjoint subsets of one globally independent
-set.  Hence all later matched unions are physical, and packing loses only
-another fixed positive fraction of every sufficiently large row.
+\subsection{Complete envelopes and sparse survival}
+
+For a component interval $I=[a,b]$ of a physical state define its complete
+conflict envelope by
+\[
+\operatorname{Env}(I)=[a-2,b+2]\cap\N_{>0}.
+\]
+For a finite obstacle family $O$, let $\operatorname{Env}(O)$ be the finite
+multiset of complete envelopes of all components of all states in $O$, and put
+\[
+N_Q(O)=
+\#\{I\in\operatorname{Env}(O):I\cap I_Q\ne\varnothing\}.
+\]
+If a retained atom at current $Q$ conflicts with a component $I$, then its
+centre lies in $\operatorname{Env}(I)$.  Since every component has size at
+most three, each complete envelope contains only $O(1)$ integer centres; by
+Lemma~\ref{lem:centres-conflicts} it therefore kills only $O(1)$ retained
+atoms.
+
+For a source cutoff $B$, define the boundary currents
+\[
+\operatorname{Boundary}(B)
+=
+\{Q=p^e:e\ge3,\ p^{e-1}\le B<p^e\}.
+\]
+Their predecessor ranks $Q^-=p^{e-1}$ tend to infinity uniformly with $B$ by
+Section~\ref{sec:target-quotient}.
+
+\begin{lemma}[Uniform sparse survival]
+\label{lem:sparse-survival}
+Let $(O_B)$ be finite obstacle families such that
+\[
+\sup_B N_Q(O_B)=o(Q/\log Q)
+\qquad(Q\to\infty).
+\tag{T5}\label{eq:obstacle-little-o}
+\]
+Then there are $c>0$ and $B_0$ such that for every $B\ge B_0$:
+\begin{enumerate}
+\item for every current $Q>B$, deleting all atoms conflicting with $O_B$
+leaves at least $cQ/\log Q$ atoms in $R_Q$;
+\item for every $Q\in\operatorname{Boundary}(B)$, the same conclusion holds
+in the predecessor row $R_{Q^-}$ with $Q^-$ in place of $Q$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By \eqref{eq:raw-row-size}, on a current suffix there is $\kappa>0$ with
+$|R_Q|\ge\kappa Q/\log Q$.  The preceding envelope argument shows that the
+number deleted by $O_B$ is $O(N_Q(O_B))$, uniformly in $B$.  By
+\eqref{eq:obstacle-little-o} this is eventually at most
+$(\kappa/2)Q/\log Q$.  Thus one may take any fixed $c<\kappa/2$.
+For boundary predecessors, their ranks escape to infinity uniformly as
+$B\to\infty$, so the same current-suffix estimate applies; the uniform
+supremum in \eqref{eq:obstacle-little-o} permits $O_B$ even when the predecessor
+rank lies below the numerical source cutoff.
+\end{proof}
+
+A finite obstacle is called $c$-transparent at source $E_B$ when the two
+survival conclusions of Lemma~\ref{lem:sparse-survival} hold.  Thus
+transparency is an explicit row-survival property, not additional structure
+stored on the obstacle.
+
+After obstacle deletion, form one conflict graph on all surviving occurrences
+in the finitely many current rows up to a proof-local endpoint, together with
+any boundary-predecessor row needed at the source.  By
+Lemma~\ref{lem:centres-conflicts} its maximum degree is bounded absolutely.
+Apply the quota-packing consequence of Haxell's theorem from
+Appendix~\ref{app:packing} once.  The resulting packed rows are disjoint
+subsets of one globally independent set and each retain a fixed positive
+fraction of the surviving row.  Hence every finite subset selected later from
+the packed universe is a physical binary state.
+
+\subsection{Disjoint local allocations inside one packing}
+
+The same packed row can have two simultaneous consumers: its own simple cover
+and, for exponent at least two, a predecessor role for the next $p$-power.
+These consumers are allocated before local families are formed.
+
+\begin{lemma}[Disjoint allocation]
+\label{lem:disjoint-allocation}
+After increasing the source cutoff once, the packed rows may be refined so
+that, for every $p^e$ with $e\ge2$, a successor-donor subpool of cardinality
+$p-1$ is disjoint from an own-cover pool that still has cardinality
+$\gg p^e/(e\log p)$ and inherits the simple-value-fibre bounds.  All such
+refinements are made inside the one global independent packing.
+\end{lemma}
+
+\begin{proof}
+The packed row has cardinality $\gg p^e/(e\log p)$, whereas $p-1$ is
+$o(p^e/(e\log p))$ for every fixed $e\ge2$, uniformly on a late prime-power
+suffix; for larger $e$ the domination is stronger.  Take the full
+finite-cardinality fibre of $(p-1)$-subsets as the donor allocation and use its
+complement as the own pool.  Removing $p-1$ points changes neither the
+asymptotic row bound nor the inherited upper bound on simple-value fibres.
+Doing this dependently in each finite row up to the endpoint produces mutually
+disjoint role subpools without selecting a section.  Since all subpools lie in
+the already independent packing, cross-row and cross-role physical
+compatibility is automatic.
+\end{proof}
+
+At a boundary predecessor only the donor subpool is consumed above the source.
+Prime rows need no successor-donor role in the R14 construction.
 
 \subsection{The common local interface}
 
@@ -146,13 +272,16 @@ F^-\le F,
 \qquad S=F/F^-
 \]
 be one prime-order simple step.  A \emph{homogeneous simple cover} of grade
-$m$ and resource $\rho$ is a finite binary physical family $X$ such that every
-branch is obstacle-compatible, has grade exactly $m$ and resource at most
-$\rho$, its observation lies in $F$, and
+$m$ and reciprocal resource $\rho$ is a finite binary physical family $X$
+such that every branch is obstacle-compatible, has grade exactly $m$, its
+ordinary reciprocal mass $W$ is at most $\rho$, its observation lies in $F$,
+and
 \[
 X\longrightarrow S
 \]
-is surjective.  No construction coordinate survives this interface.
+is surjective.  For a finite positive binary family, the resource used in this
+paper is therefore simply the branchwise maximum of $W$; no second resource
+observable is present.
 
 \subsection{Width-bearing prime currents}
 
@@ -169,7 +298,7 @@ constant $C$ beyond its threshold and define
 \[
 \boxed{
 m_p:=\left\lceil C(\log p)^3\right\rceil.}
-\tag{T4}\label{eq:mp-definition}
+\tag{T6}\label{eq:mp-definition}
 \]
 For every fixed $L>1$, eventually
 \[
@@ -178,15 +307,15 @@ Lm_p\le N_p/2,
 and every
 \[
 M\in[m_p,Lm_p]
-\tag{T5}\label{eq:atomic-grade-interval}
+\tag{T7}\label{eq:atomic-grade-interval}
 \]
 has a homogeneous simple cover.  Pulling the $M$ disjoint two-point slots from
 the convolution theorem back to packed physical atoms gives a family every
 branch of which contains exactly one atom from each slot and therefore has
-grade $M$.  Uniformly on this interval its resource is
+grade $M$.  Uniformly on this interval its reciprocal resource is
 \[
 O((\log p)^4/p^2).
-\tag{T6}\label{eq:atomic-resource}
+\tag{T8}\label{eq:atomic-resource}
 \]
 
 \subsection{Proper prime powers}
@@ -202,27 +331,30 @@ least one until it is all of $\mathbf F_p$.  Thus $p-1$ mutually compatible
 same-grade two-point slots with nonzero simple difference form a homogeneous
 simple cover.
 
-At $Q=p^2$, the packed row has $\gg p^2/\log p$ atoms and every simple-value
-fibre has size $O(p)$.  After finitely many exceptions one can therefore choose
-$p-1$ disjoint pairs with unequal simple values.  They form a cover of common
-grade $p-1$ and resource
+At $Q=p^2$, first remove the successor-donor quota supplied by
+Lemma~\ref{lem:disjoint-allocation}.  The remaining own pool still has
+$\gg p^2/\log p$ atoms and every simple-value fibre has size $O(p)$.  In
+particular no one value class contains half of the pool for sufficiently large
+$p$; pairing atoms of different value therefore yields at least $p-1$
+disjoint unequal-value pairs.  They form a cover of common grade $p-1$ and
+reciprocal resource
 \[
 O(\log p/p^3).
-\tag{T7}\label{eq:square-resource}
+\tag{T9}\label{eq:square-resource}
 \]
 
-For $Q=p^e$, $e\ge3$, choose $p-1$ unused current atoms and $p-1$ unused atoms
-from the immediate predecessor row $p^{e-1}$.  Predecessor observations lie in
-the source of the new simple quotient and are current-neutral, whereas every
-current atom has nonzero simple value.  Pairing them gives $p-1$ same-grade
-slots and hence a full simple cover of grade $p-1$.  The demand is only
-$O(p)$ against row size $\gg p^e/(e\log p)$.  If the predecessor straddles the
-source boundary, source-closed transparency includes exactly this boundary
-row, whose index escapes to infinity with the source.  A summable majorant is
+For $Q=p^e$, $e\ge3$, choose $p-1$ atoms from the own pool at the current and
+use the already reserved $p-1$ successor-donor atoms from the immediate
+predecessor row $p^{e-1}$.  Predecessor observations lie in the source of the
+new simple quotient and are current-neutral, whereas every current atom has
+nonzero simple value.  Pairing them gives $p-1$ same-grade slots and hence a
+full simple cover of grade $p-1$.  If the predecessor straddles the source
+boundary, it is exactly one of the boundary rows covered by
+Lemma~\ref{lem:sparse-survival}.  A summable reciprocal-mass majorant is
 \[
 O\!\left(\frac{e\log p}{p^{2e-3}}\right)
 \qquad(e\ge3).
-\tag{T8}\label{eq:deep-resource}
+\tag{T10}\label{eq:deep-resource}
 \]
 
 Above this subsection every proper prime power is represented only by a
@@ -249,7 +381,7 @@ r:T\to G_n/G_0,
 the object of tuples $(x_n,\ldots,x_1)$ satisfying
 \[
 \sum_{i=1}^n v_i(x_i)=r\pmod{G_0}
-\tag{T9}\label{eq:targeted-match}
+\tag{T11}\label{eq:targeted-match}
 \]
 projects surjectively to $T$.
 \end{lemma}
@@ -263,14 +395,14 @@ finite composite is surjective; at the bottom the residual lies in $G_0$.
 No splitting or representative section is chosen.
 \end{proof}
 
-Because all $X_i$ lie in one globally packed universe, a matched tuple maps by
-literal physical union to a binary family.  Local grades and branchwise
-resource bounds add.
+Because all local families are formed inside disjoint subpools of one global
+independent packing, a matched tuple maps by literal physical union to a binary
+family.  Local grades and branchwise reciprocal masses add.
 
 \subsection{Grade finality}
 
-Fix a sufficiently late eligible source index $B$ and a finite numerical
-endpoint $X>B$.  For each prime current choose independently
+Fix a sufficiently large source index $B$ and a finite numerical endpoint
+$X>B$.  For each prime current choose independently
 \[
 M_p\in[m_p,Lm_p],
 \]
@@ -278,7 +410,7 @@ while every proper prime power contributes its fixed resolver grade $p-1$.
 The exact image of the local-grade addition map is one integer interval
 \[
 [A_B(X),B_{B,L}(X)]\cap\N.
-\tag{T10}\label{eq:r14-grade-interval}
+\tag{T12}\label{eq:r14-grade-interval}
 \]
 No grade tuple is selected: for a requested total grade we retain the whole
 addition fibre.
@@ -286,7 +418,7 @@ addition fibre.
 Comparable-prime supply gives
 \[
 \sum_{B<p\le X}m_p\asymp X(\log X)^2
-\tag{T11}\label{eq:mp-sum}
+\tag{T13}\label{eq:mp-sum}
 \]
 for $X$ sufficiently beyond the fixed source.  Proper prime powers add only a
 lower-order shift: squares contribute $O(X)$, and exponents $e\ge3$ contribute
@@ -307,7 +439,7 @@ B_{B,L}(X)-A_B(X)
 Choose $L$ once with $c_1(L-1)>C_1$.  Then
 \[
 A_B(\Lambda X)\le B_{B,L}(X)+1
-\tag{T12}\label{eq:r14-overlap}
+\tag{T14}\label{eq:r14-overlap}
 \]
 eventually.  Consecutive endpoint intervals overlap or are adjacent and their
 lower endpoints tend to infinity; their union is final in $\N$.
@@ -320,37 +452,39 @@ The prime-current majorant has convergent sum
 \]
 The square and higher-power majorants are dominated by convergent
 integer/geometric series.  Boundary-predecessor terms form a subseries whose
-indices escape every fixed finite set as the eligible source advances.  Hence
-the total branchwise resource beyond source $E_B$ is the tail of one convergent
-positive series and tends to zero along the eligible-source filter.
+indices escape every fixed finite set as $B\to\infty$.  Hence the total
+branchwise reciprocal mass beyond source $E_B$ is the tail of one convergent
+positive series and tends to zero as $B\to\infty$.
 
 \subsection{Direct late-source targeted residue response}
 
-Let $E_B$ be a sufficiently late eligible source, let $O$ be a
-$c$-transparent finite obstacle there, and let
+Let $E_B$ be a sufficiently late source, let $O$ be a $c$-transparent finite
+obstacle there, and let
 \[
 r\in A/E_B.
 \]
-Since $A/E_B$ is torsion, choose a proof-local finite endpoint $E_X\ge E_B$
-whose relative quotient contains $r$, and start the geometric endpoint
-sequence beyond $X$.  For each total grade in the final interval, retain the
-full local-grade-tuple fibre and then apply
+Since $A/E_B$ is torsion and the endpoint system is cofinal, the point $r$ is
+represented in $E_X/E_B$ for some proof-local finite endpoint $E_X\ge E_B$.
+Start the geometric endpoint sequence beyond $X$.  For each total grade in the
+final interval, retain the full local-grade-tuple fibre and then apply
 Lemma~\ref{lem:targeted-filtered-lifting} to the same local physical families.
 The resulting matched family has source residue exactly $r$ and carries the
-same branchwise resource bound.
+same branchwise reciprocal-mass bound.
 
 \begin{theorem}[Direct late-source targeted saturation]\label{thm:ltar-closed}
-Fix $c>0$ and $\varepsilon>0$.  Eventually in the eligible endpoint index $B$,
-for every $c$-transparent finite obstacle $O$, every residue
+Fix $c>0$ and $\varepsilon>0$.  There exists $B_0$ such that for every
+$B\ge B_0$, every $c$-transparent finite obstacle $O$ at source $E_B$, and
+every residue
 \[
 r\in A/E_B,
 \]
-and every sufficiently large grade $h$, there is a finite obstacle-compatible
-binary physical family of component profile $(h,0)$, source residue $r$, and
-branchwise reciprocal resource $<\varepsilon$.
+there is a grade threshold $h_0(B,O,r)$ such that every $h\ge h_0(B,O,r)$ is
+realized by a finite obstacle-compatible binary physical family of component
+profile $(h,0)$, source residue $r$, and branchwise reciprocal mass
+$<\varepsilon$.
 \end{theorem}
 
-The source-valid locus is uniform in $O$ and $r$.  After $B$ is fixed, the
+The source threshold $B_0$ is uniform in $O$ and $r$; after $B$ is fixed the
 grade threshold may depend on $O$ and $r$ through the proof-local endpoint and
 finite packing problem.  This is exactly the quantifier order forced by the
 fixed-source mesh obstruction.
