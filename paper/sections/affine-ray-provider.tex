@@ -3,8 +3,15 @@
 \section{The finite affine-ray provider}
 \label{sec:affine-provider}
 
-We prove the historical Prefix/MasterSlab theorem only in the form needed by
-Proposition~\ref{prop:affine-ray-projection}. The proof has three layers:
+Fix the raw reciprocal row system $R$ supplied by
+Section~\ref{sec:ltar-provider}. We prove the historical Prefix/MasterSlab
+construction only in the form needed by
+Proposition~\ref{prop:affine-ray-projection}. The finite affine construction
+itself is independent of the raw-row coordinates; $R$ is consumed only by the
+transparency statement which makes the affine family a legal obstacle for the
+Tail provider.
+
+The proof has three layers:
 \[
 \text{finite initial affine cover}
 \longrightarrow
@@ -114,7 +121,8 @@ Write
 L_n=\operatorname{lcm}(1,\ldots,n).
 \]
 This notation is only a coordinate on the compact subgroup lattice of
-$\Q/\Z$. At a prime-power jump $n=p^e$ put
+$\Q/\Z$; equation~\eqref{eq:lcm-filtration} identifies it with the filtration
+used by the Tail provider. At a prime-power jump $n=p^e$ put
 \[
 D=L_{n-1},
 \qquad
@@ -180,6 +188,7 @@ Moreover, if $r<s$, then
 \[
 a_r-a_s
 =\frac{pD(s-r)}{rs}
+\ge\frac{pD}{k^2}
 \gg D,
 \]
 so late bridge rows are internally and mutually strict. All finite early
@@ -238,15 +247,20 @@ use the full cardinality fibre
 \]
 of an $M_*$-element collection of mutually compatible remote grade-translation
 coordinates from Lemma~\ref{lem:grade-neutral}. Choosing the high alternative
-on exactly $M_*-g$ coordinates changes the grade by exactly $M_*-g$. Every
-branch contains one alternative from every neutral coordinate, and the two
-alternatives of a coordinate have equal reciprocal value. Hence the entire
-neutral cube adds one common exact value and one common residue translation to
-all seed branches. It also adds no ternary components. The old affine fibre is
-therefore translated as a whole, rather than changed in width or coverage, and
-all branches acquire one common final grade. The neutral coordinates can be
-made arbitrarily light, so the positive margin of Lemma~\ref{lem:finite-seed}
-survives.
+on exactly $M_*-g$ coordinates changes the grade by exactly $M_*-g$. Since
+every one of the $M_*$ coordinates contributes grade $2$ in its low
+alternative, the final grade is explicitly
+\[
+g+2M_*+(M_*-g)=3M_*,
+\]
+independent of the seed branch.
+
+The two alternatives of each coordinate have equal reciprocal value. Hence the
+entire neutral cube adds one common exact value and one common residue
+translation to all seed branches, while adding no ternary components. The old
+affine fibre is therefore translated as a whole, rather than changed in width
+or coverage. The neutral coordinates can be made arbitrarily light, so the
+positive margin of Lemma~\ref{lem:finite-seed} survives.
 
 The construction yields a proper filtered family of finite homogeneous affine
 covers. Its source map to the eligible Tail-source filter satisfies
@@ -255,25 +269,80 @@ covers. Its source map to the eligible Tail-source filter satisfies
 (\beta,\mathcal F_B,\mathcal F_R).
 \tag{A6}\label{eq:prefix-tendsto}
 \]
-We recall the transparency estimate. Every signed-inverse atom has a globally
-injective distinguished centre and a uniformly bounded envelope, so each fixed
-physical envelope deletes only $O(1)$ raw occurrences globally. The fixed seed
-and grade-equalization families contribute finitely many envelopes. A bridge
-row meeting a current window has lower modulus in a bounded multiplicative
-range; the linear Chebyshev bounds proved in Appendix~\ref{app:prime-supply}
-force its prime-power index to be $O(\log Q)$. Successive nontrivial lower
-moduli at least double, so only $O(\log\log Q)$ bridge rows meet the window,
-each with $O(\sqrt{\log Q})$ envelopes. Hence
+
+\subsection{Uniform transparency of the Prefix}
+
+We spell out the scale comparison because this is the only place where the
+finite affine object interacts with the asymptotic Tail rows.
+
+From the signed-inverse proof in Section~\ref{sec:ltar-provider}, all retained
+raw atoms at current $Q$ have their distinguished centres in a window
+\[
+c_0\frac{Q^2}{\log Q}
+\le z\le C_0Q^2
+\tag{A7}\label{eq:raw-window}
+\]
+for fixed positive constants $c_0,C_0$ once $Q$ is sufficiently large. Their
+physical envelopes have uniformly bounded diameter, so only Prefix envelopes
+meeting a fixed enlargement of this window can delete raw occurrences.
+
+Consider a bridge at jump $n=p^e$ with lower modulus $D=L_{n-1}$. Its bases
+$a_r=pD/r$ satisfy
+\[
+D<a_r\le pD.
+\tag{A8}\label{eq:bridge-base-range}
+\]
+If such a bridge meets \eqref{eq:raw-window}, then the upper edge gives
+\[
+D=O(Q^2).
+\tag{A9}\label{eq:D-upper}
+\]
+The primorial through $n-1$ divides $D$. The lower linear Chebyshev bound from
+Appendix~\ref{app:prime-supply} therefore gives
+\[
+n=O(\log D)=O(\log Q),
+\qquad
+p=O(\log Q).
+\tag{A10}\label{eq:bridge-index-log}
+\]
+Using the lower edge of \eqref{eq:raw-window} together with
+$a_r\le pD$ now yields
+\[
+D\gg\frac{Q^2}{(\log Q)^2}.
+\tag{A11}\label{eq:D-lower}
+\]
+Successive nontrivial lower moduli multiply by at least $2$. Hence only
+\[
+O(\!\log\log Q)
+\]
+bridge rows can satisfy \eqref{eq:D-upper}--\eqref{eq:D-lower}. By
+$k^2=O(p)$ and \eqref{eq:bridge-index-log}, each of those rows has only
+$O(\sqrt{\log Q})$ endpoint-switch envelopes. The fixed seed and the fixed
+$M_*$ grade-equalization coordinates add only $O(1)$ further envelopes.
+Consequently
 \[
 N_Q(\text{Prefix})
 =O(\sqrt{\log Q}\log\log Q+1)
 =o(Q/\log Q).
-\tag{A7}\label{eq:prefix-window}
+\tag{A12}\label{eq:prefix-window}
 \]
-Sparse deletion therefore leaves a fixed positive relative fraction eventually.
-The same argument, together with properness of the prime-power predecessor map
-at infinity, covers boundary predecessor rows. This proves the uniform
-transparency response and \eqref{eq:prefix-tendsto}.
+Since the raw row has $\gg Q/\log Q$ occurrences, deleting all Prefix
+conflicts leaves a fixed positive relative fraction eventually.
+
+Boundary predecessors obey the same eventual estimate. If a deep current
+$Q=p^e$ crosses a numerical base $B$ while its primary predecessor
+$Q^-=p^{e-1}$ lies below the base, then
+\[
+B<Q=pQ^-\le (Q^-)^2,
+\]
+because $p\le Q^-$. Thus
+\[
+Q^->\sqrt B\longrightarrow\infty.
+\tag{A13}\label{eq:boundary-escape}
+\]
+So every boundary predecessor also enters the uniform late-row regime as the
+Prefix base tends to infinity. This proves both the transparency response and
+\eqref{eq:prefix-tendsto}.
 
 \subsection{Defect filling as a parameterized product cover}
 
@@ -308,16 +377,21 @@ S_{b,L} \arrow[rr,two heads,"{(\operatorname{required},b_3)}"] &&
 \operatorname{Required}(\phi_{b,L})
 \times[d_0(b),L].
 \end{tikzcd}
-\tag{A8}\label{eq:masterslab-cover}
+\tag{A14}\label{eq:masterslab-cover}
 \]
 
-Because every defect coordinate has arbitrarily small mass, the complete slab
-retains a positive uniform value margin. Place successive coordinates beyond
-the square of the preceding support maximum. Then at most one such coordinate
-meets any fixed current-scale window eventually, uniformly in $L$; the defect
-cube contributes only $O(1)$ envelopes to that window. Together with
-\eqref{eq:prefix-window}, the whole slab remains row-transparent with one
-positive uniform transparency constant.
+Because every defect coordinate has arbitrarily small mass, choose their
+positive budgets with total smaller than one fixed part of the Prefix margin.
+Place successive coordinates so that the next complete envelope starts beyond
+the square of the preceding support maximum. If two different defect
+coordinates both met the raw window \eqref{eq:raw-window}, the later support
+would be larger than the square of a quantity
+$\gg Q^2/\log Q$, while at the same time being $O(Q^2)$, which is impossible
+for large $Q$. Hence at most one defect coordinate meets any late current
+window, uniformly in $L$. Since one coordinate has only a fixed finite number
+of envelopes, the whole defect cube adds only $O(1)$ to
+\eqref{eq:prefix-window} and retains one positive uniform transparency
+constant.
 
 \begin{theorem}[MasterSlab provider]\label{thm:masterslab}
 Over a covering good-scale response $(c,\eta)$, eventually in the Prefix base
