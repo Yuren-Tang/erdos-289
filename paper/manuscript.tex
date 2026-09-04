@@ -17,7 +17,6 @@
 \newcommand{\Q}{\mathbb Q}
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\im}{\operatorname{im}}
-\newcommand{\Spec}{\operatorname{Spec}}
 \newcommand{\Supp}{\operatorname{Supp}}
 \newcommand{\Real}{\operatorname{Real}}
 \newcommand{\Req}{\operatorname{Req}}
@@ -32,9 +31,24 @@
 \maketitle
 
 \begin{abstract}
-We prove Erd\H{o}s Problem 289. We work in the stronger subsystem in which every connected component has size $2$ or $3$. If $b_2$ and $b_3$ denote the numbers of binary and ternary components, respectively, then there exists $d_*$ such that for every fixed $d\ge d_*$, all sufficiently large binary counts $b$ occur in an exact reciprocal representation of $1$ with component profile $(b,d)$. Consequently every sufficiently large total component count occurs.
+We prove Erd\H{o}s Problem 289 in the stronger subsystem in which every
+connected component has size $2$ or $3$.  If $b_2$ and $b_3$ denote the
+numbers of binary and ternary components, then there exists $d_*$ such that,
+for every fixed $d\ge d_*$, all sufficiently large binary counts $b$ occur in
+an exact reciprocal representation of $1$ with component profile $(b,d)$.
+Consequently every sufficiently large total component count occurs.
 
-The proof is organized around a regular-categorical exactification mechanism. Correction requirements are pullbacks, physical coverage is expressed by regular epimorphisms from realizer pullbacks, and physical composition is performed on literal matched-realizer objects before passage to regular-image support. The target $1$ is centered by the universal quotient $\Q\to\Q/\Z$. The application-specific root consists of two filtered responses: a filtered affine ray and a late-source targeted binary-residue response. Their source filters are matched by a $\operatorname{Tendsto}$ pullback, after which exactification is the direct cancellation of opposite cosets in $\Q/\Z$. The small-resource quantifier necessarily precedes the eventual source quantifier; fixed-source arbitrarily-small positive saturation is false.
+The proof is organized around regular images, pullbacks and a target quotient.
+The target $1$ is centered by the universal quotient $\Q\to\Q/\Z$.  The
+application-specific root consists of two source-filtered responses: a finite
+affine ray and a direct late-source targeted binary-residue response.  Their
+source filters are intersected, one source is frozen before defect and final
+grade are quantified, and exactification is the pullback of opposite literal
+cosets in $\Q/\Z$.  The affine provider uses remote finite rational mobility
+and scale-proper simple bridges; the Tail provider uses finite convolution
+support at prime simple factors and target-specific filtered lifting.  The
+small-resource quantifier necessarily precedes the eventual source quantifier:
+fixed-source arbitrarily-small positive saturation is false.
 \end{abstract}
 
 \section{Introduction}
@@ -43,11 +57,17 @@ For a finite set $S\subset\N_{>0}$ write
 \[
 W(S)=\sum_{n\in S}\frac1n.
 \]
-Erd\H{o}s Problem 289 asks whether, for every sufficiently large integer $k$, one can find exactly $k$ pairwise disjoint and non-adjacent finite intervals of positive integers, each of length at least $2$, whose reciprocal weights sum to $1$.
+Erd\H{o}s Problem 289 asks whether, for every sufficiently large integer $k$,
+one can find exactly $k$ pairwise disjoint and non-adjacent finite intervals of
+positive integers, each of length at least $2$, whose reciprocal weights sum
+to $1$.
 
-Rather than treating an interval decomposition as primitive data, we regard a finite subset of the path graph on $\N_{>0}$ as the physical state and obtain its blocks from the connected-component quotient. We restrict to the subsystem in which every component has cardinality $2$ or $3$.
+Rather than treating an interval decomposition as primitive data, we regard a
+finite subset of the path graph on $\N_{>0}$ as the physical state and obtain
+its blocks from connected components.  We restrict to the subsystem in which
+every component has cardinality $2$ or $3$.
 
-For such a state let
+For such a state put
 \[
 b_2(S)=\#\{\text{components of size }2\},
 \qquad
@@ -55,15 +75,17 @@ b_3(S)=\#\{\text{components of size }3\}.
 \]
 The intrinsic additive exact label is the component profile
 \[
-\pi(S)=(b_2(S),b_3(S))\in\N^2.
+\pi(S)=(b_2(S),b_3(S))\in\N^2,
 \]
-The usual number of intervals is only the consumer
+while the usual number of intervals is the consumer
 \[
 g(S)=b_2(S)+b_3(S).
 \]
 
 \begin{theorem}[Fibrewise profile saturation]\label{thm:fibrewise}
-There exists $d_*\in\N$ such that for every $d\ge d_*$ there is $b_0(d)$ with the following property. For every $b\ge b_0(d)$ there exists a finite support $S\subset\N_{>0}$ such that
+There exists $d_*\in\N$ such that for every $d\ge d_*$ there is $b_0(d)$ with
+the following property.  For every $b\ge b_0(d)$ there exists a finite support
+$S\subset\N_{>0}$ such that
 \begin{enumerate}
 \item every connected component of $S$ has size $2$ or $3$;
 \item distinct components are non-adjacent;
@@ -73,32 +95,39 @@ There exists $d_*\in\N$ such that for every $d\ge d_*$ there is $b_0(d)$ with th
 \end{theorem}
 
 \begin{corollary}[Erd\H{o}s Problem 289]\label{cor:erdos289}
-For every sufficiently large integer $k$, there exist exactly $k$ pairwise disjoint and non-adjacent finite intervals of positive integers, each of length at least $2$, whose reciprocal weights sum to $1$.
+For every sufficiently large integer $k$, there exist exactly $k$ pairwise
+disjoint and non-adjacent finite intervals of positive integers, each of
+length at least $2$, whose reciprocal weights sum to $1$.
 \end{corollary}
 
 \begin{proof}
-Fix any $d\ge d_*$. By Theorem~\ref{thm:fibrewise}, every sufficiently large $b$ occurs with profile $(b,d)$. The total number of components is $b+d$, hence every sufficiently large total component count occurs. The components already have sizes $2$ or $3$.
+Fix one $d\ge d_*$.  Theorem~\ref{thm:fibrewise} realizes every sufficiently
+large $b$ with profile $(b,d)$.  Hence every sufficiently large total component
+count $b+d$ occurs.  The components already have sizes $2$ or $3$.
 \end{proof}
 
-For every finite $D\ge d_*$, Theorem~\ref{thm:fibrewise} also gives a simultaneous finite-defect strengthening: all sufficiently large total grades can be realized at every prescribed ternary count $d\in[d_*,D]$, with the configuration allowed to depend on $d$.
+For every finite $D\ge d_*$, the theorem also gives the stronger finite-defect
+uniformity statement: all sufficiently large total grades are realizable at
+every prescribed ternary count $d\in[d_*,D]$, with the configuration allowed
+to depend on $d$.
 
-\subsection{The proof architecture}
+\subsection{The active proof architecture}
 
-The shortest active dependency graph is
+The shortest dependency graph is
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
-& \text{regular correction / target-quotient calculus} \arrow[d] & \\
-& \text{reciprocal component-profile specialization} \arrow[dl] \arrow[dr] & \\
+& \text{regular images / target quotient} \arrow[d] & \\
+& \text{component-profile specialization} \arrow[dl] \arrow[dr] & \\
 \text{filtered affine ray} \arrow[dr]
-&& \text{late-source targeted residue response} \arrow[dl] \\
-& \text{source-filter pullback and intersection} \arrow[d] & \\
-& \text{defectwise coset cancellation} \arrow[d] & \\
-& \{b:(b,d)\text{ is exact}\}\text{ is final} \arrow[d] & \\
+&& \text{direct late-source targeted Tail} \arrow[dl] \\
+& \text{source-filter intersection and source freeze} \arrow[d] & \\
+& \text{opposite-coset pullback} \arrow[d] & \\
+& W=1,\ (b_2,b_3)=(b,d) \arrow[d] & \\
 & \text{projection to total component count.} &
 \end{tikzcd}
 \]
-
-The root retains neither a common tail across different defects nor a common affine correction, affine grade, or endpoint. What it does retain is one cofinal affine source germ, because arbitrarily small positive tail mass is obtained by moving the source late.
+The proof retains neither a common Tail across distinct defects nor an
+independent ordinary exact-grade construction.
 
 \subsection{Why the source must move}
 
@@ -106,40 +135,33 @@ Let
 \[
 H_n=n^{-1}\Z/\Z\le\Q/\Z.
 \]
-If $0<W<1$ and the source residue of $W$ modulo $H_n$ is zero, then $[W]\in H_n$ and therefore
+If $0<W<1$ and the source residue of $W$ modulo $H_n$ is zero, then
+$[W]\in H_n$ and therefore
 \[
 W\in\left\{\frac1n,\frac2n,\ldots,\frac{n-1}{n}\right\}.
 \]
-Hence $W\ge1/n$. Thus no positive-grade response from a fixed source $H_n$ can have zero source residue and arbitrarily small positive mass. The correct saturation theorem consequently has the quantifier order
+Thus $W\ge1/n$.  No positive-grade response from one fixed source can have
+zero source residue and arbitrarily small positive mass.  Consequently the
+Tail theorem must quantify
 \[
 \varepsilon>0
 \quad\text{before}\quad
 \forall^\infty\text{ source}.
 \]
 
-\subsection{Compose before reflect}
-
-Physical compatibility belongs to actual witnesses, not to aggregate labels. We retain literal witness tuples until physical composition has been certified and only afterwards pass to regular-image support:
-\[
-\boxed{
-\text{witness tuples}
-\longrightarrow
-\text{physical composition}
-\longrightarrow
-\text{regular-image support}
-\longrightarrow
-\text{profile calculus}.}
-\]
-
 \section{Physical states and component profiles}
 
-Let $P$ be the path graph on $\N_{>0}$. For a finite support $S$, let $E(S)$ be the edge object of the induced subgraph. Its connected-component object is the coequalizer
+Let $P$ be the path graph on $\N_{>0}$.  For a finite support $S$, its block
+object is the connected-component quotient
 \[
-E(S)\rightrightarrows S\longrightarrow\pi_0(S).
+E(S)\rightrightarrows S\longrightarrow\pi_0(S)
 \]
-Admissibility requires every component to have cardinality in $\{2,3\}$ and distinct components to be separated by at least one unused vertex.
+of the induced graph.  Admissibility requires every component to have
+cardinality in $\{2,3\}$ and distinct components to be separated by at least
+one unused vertex.
 
-The reciprocal weight and component profile are additive on physically compatible unions:
+The reciprocal weight and component profile are additive on physically
+compatible unions:
 \[
 W(S)=\sum_{n\in S}\frac1n,
 \qquad
@@ -151,29 +173,25 @@ Write $C^{23}$ for this partial physical state system and
 =
 \im\bigl(C^{23}_{W=1}\xrightarrow{\pi}\N^2\bigr)
 \]
-for its exact component-profile spectrum.
-
-The ordinary grade map factors through the consumer triangle
+for its exact component-profile spectrum.  The ordinary grade map factors
+through
 \[
 \begin{tikzcd}
 C^{23}_{W=1} \arrow[r,"{(b_2,b_3)}"] \arrow[dr,"g"']
 & \N^2 \arrow[d,"+"]\\
-& \N.
+& \N,
 \end{tikzcd}
 \]
-Consequently the ordinary exact-grade spectrum is the regular-image projection of $\Sigma^{23}_{1}$.
+so the ordinary exact-grade spectrum is a regular-image projection of the
+joint spectrum.
 
-\section{The regular correction engine}
+\section{A regular correction calculus}
 \label{sec:correction-engine}
 
-The categorical language below is bookkeeping for finite fibres and images. In
-$\mathbf{Set}$, which is enough for the reciprocal application, ``regular
-epimorphism'' simply means surjection and every displayed pullback is an
-ordinary fibre product. We use the regular-categorical formulation because it
-makes the witness lifetime and the permitted forgetting operations explicit.
-
-Let $V$ be an exact-value carrier, $C$ a physical-state object and $L$ an
-internal additive monoid of exact auxiliary labels, with
+Fix a regular category $\mathcal E$.  In the application $\mathcal E=\mathbf{Set}$,
+so regular epimorphisms are simply surjections.  Let $V$ be an exact-value
+object, $C$ a physical-state object and $L$ an internal additive monoid of
+exact auxiliary labels, with
 \[
 W:C\to V,
 \qquad
@@ -183,24 +201,23 @@ Let
 \[
 Q_0\xrightarrow{u}Q_1\xrightarrow{v}Q_2
 \]
-be a finite chain of internal abelian groups and let
+be internal abelian groups with compatible observations
 \[
-\rho_i:V\to Q_i
-\]
-be compatible observations:
-\[
+\rho_i:V\to Q_i,
+\qquad
 u\rho_0=\rho_1,
 \qquad
 v\rho_1=\rho_2.
 \]
-Put
+Here and below the first displayed compatibility means $u\rho_0=\rho_1$; the
+letter $u$ is the morphism $Q_0\to Q_1$.  Put
 \[
 \omega_i=(\rho_iW,\lambda):C\to Q_i\times L.
 \]
 
-\subsection{Required objects and physical covers}
+\subsection{Requirements and covers}
 
-Over a parameter base $S$, a correction over $u$ is a triple
+Over a parameter base $S$, a correction over $u$ is
 \[
 \phi=(u;d,\ell),
 \qquad
@@ -218,20 +235,14 @@ S \arrow[r,"{(d,\ell)}"']
 \end{tikzcd}
 \tag{C1}\label{eq:required-pb}
 \]
-Thus a point of $T_S(\phi)$ is literally a source observation whose image is
-the prescribed correction requirement and whose exact auxiliary label is
-$\ell$.
-
-For a physical family $F\to S$, define the realizer object by pulling the
-physical observation back to the required object. Its projection to the
-requirement is
+For a physical family $F\to S$, its realizer object is the pullback of the
+physical observation along $T_S(\phi)$.  We say that $F$ covers $\phi$ when
 \[
-\Real_F(\phi)\longrightarrow T_S(\phi).
+\Real_F(\phi)\twoheadrightarrow T_S(\phi)
 \]
-We say that $F$ \emph{covers} $\phi$ exactly when this map is regular epi.
-No chosen realizer is part of the definition.
+is regular epi.  No chosen realizer belongs to the definition.
 
-\subsection{Literal matching}
+\subsection{Literal matching and physical completion}
 
 Let
 \[
@@ -239,28 +250,20 @@ Let
 \qquad
 \psi=(v;e,k)
 \]
-be composable. Their correction composite is
+be composable.  Their correction composite is
 \[
 \boxed{
-\psi\circ\phi
-=(vu;\,v(d)+e,\,\ell+k).}
+\psi\circ\phi=(vu;\,v(d)+e,\,\ell+k).}
 \tag{C2}\label{eq:correction-composition}
 \]
-Write $\theta=\psi\circ\phi$.
-
-A literal point of $T_S(\theta)$ has a source group coordinate $z\in Q_0$ with
-\[
-vu(z)=v(d)+e.
-\]
-It therefore forces the second requirement
+Write $\theta=\psi\circ\phi$.  A point of $T_S(\theta)$ with source coordinate
+$z\in Q_0$ forces the second requirement
 \[
 \delta(z)=u(z)-d\in Q_1,
 \qquad
 v(\delta(z))=e.
 \]
-This gives a canonical map from the composite requirement to the required
-object of $\psi$. If a family $R$ covers $\psi$, pull its realizer cover back
-along this map:
+If $R$ covers $\psi$, pull its realizer cover back along this forced map:
 \[
 \begin{tikzcd}
 P_R \arrow[r] \arrow[d,two heads]
@@ -270,19 +273,18 @@ T_S(\theta) \arrow[r,"\delta"']
 \end{tikzcd}
 \tag{C3}\label{eq:second-pullback}
 \]
-A point of $P_R$ contains an \emph{actual} second physical state $r$. Let
+A point of $P_R$ contains an actual second physical state $r$.  Let
 \[
 y=\rho_0W(r)\in Q_0.
 \]
-Because $u(y)=\delta(z)$, the same literal composite requirement now forces the
-first source coordinate
+Since $u(y)=\delta(z)$, the same literal composite requirement forces
 \[
 x=z-y,
 \qquad
-u(x)=d.
+u(x)=d,
 \]
-If $F$ covers $\phi$, pulling its realizer cover back along this forced first
-requirement gives
+where again the second formula means $u(x)=d$.  If $F$ covers $\phi$, pull its
+realizer cover back along this first requirement:
 \[
 \begin{tikzcd}
 \operatorname{Cmp}(F,R;\phi,\psi)
@@ -293,55 +295,46 @@ P_R \arrow[r] & T_S(\phi).
 \end{tikzcd}
 \tag{C4}\label{eq:first-pullback}
 \]
-The composite left projection
+Thus
 \[
 \operatorname{Cmp}(F,R;\phi,\psi)
 \twoheadrightarrow T_S(\theta)
 \tag{C5}\label{eq:literal-match-cover}
 \]
-is therefore regular epi. Nothing has been selected: all possible literal
-matched realizers remain in the fibre.
+is regular epi.  All literal matched realizers remain in the fibre.
 
-\subsection{Physical completion}
-
-The object in \eqref{eq:literal-match-cover} remembers actual local physical
-states, but literal matching alone does not imply that those states may be
-united physically. Let
+Literal matching does not by itself imply physical compatibility.  Let
 \[
-\operatorname{Cmp}_{\rm phys}(F,R;\phi,\psi)
+\operatorname{Cmp}_{\rm phys}
 \hookrightarrow
 \operatorname{Cmp}(F,R;\phi,\psi)
 \]
-be the subobject of physically compatible matched pairs. The only additional
-hypothesis required by the generic composition theorem is
+be the compatible subobject.  The additional physical hypothesis is precisely
 \[
-\operatorname{Cmp}_{\rm phys}(F,R;\phi,\psi)
-\twoheadrightarrow T_S(\theta).
+\operatorname{Cmp}_{\rm phys}\twoheadrightarrow T_S(\theta).
 \tag{C6}\label{eq:physical-match-cover}
 \]
-If compatible union sends a matched pair $(f,r)$ to $f\sqcup r$, additivity of
-$W$ and $\lambda$ makes the square
+Compatible union then gives the commuting square
 \[
 \begin{tikzcd}
-\operatorname{Cmp}_{\rm phys}(F,R;\phi,\psi)
-\arrow[r,"\sqcup"] \arrow[d]
+\operatorname{Cmp}_{\rm phys} \arrow[r,"\sqcup"] \arrow[d]
 & C \arrow[d,"\omega_0"]\\
-T_S(\theta) \arrow[r] & Q_0\times L
+T_S(\theta) \arrow[r] & Q_0\times L,
 \end{tikzcd}
 \tag{C7}\label{eq:physical-completion}
 \]
-commute. Hence the image family of actual unions covers the composite
-correction.
+so the image family of physical unions covers the composite correction.
 
-In the reciprocal provider we use a stronger certificate: all local
-occurrences are chosen inside one global independent conflict-graph packing.
-Consequently every literal matched tuple built from disjoint role subsets is
-already physically compatible, so condition \eqref{eq:physical-match-cover}
-is automatic.
+This is the generic form of the rule
+\[
+\boxed{\text{compose literal witnesses before passing to their image}.}
+\]
+In the reciprocal Tail the local occurrences are chosen from one globally
+independent packed pool, which supplies the physical hypothesis.
 
 \subsection{Exact transfer}
 
-Let $\tau:S\to V$ be a target. Exact states form the pullback
+For a target $\tau:S\to V$, exact states are the pullback
 \[
 \begin{tikzcd}
 C_\tau \arrow[r] \arrow[d]
@@ -351,20 +344,16 @@ S \arrow[r,"\tau"']
 \end{tikzcd}
 \tag{C8}\label{eq:exact-state-pb}
 \]
-Their exact auxiliary-label spectrum is the regular image
+Their exact label spectrum is the regular image
 \[
 C_\tau\twoheadrightarrow\Sigma_\tau\hookrightarrow S\times L.
 \]
-
-For a target correction
-\[
-(u;\rho_1\tau,\ell),
-\]
-naturality gives the canonical required-source section
+For a target correction $(u;\rho_1\tau,\ell)$, naturality gives the canonical
+required-source section
 \[
 \sigma_\tau=(\rho_0\tau,\ell):S\to T_S(u;\rho_1\tau,\ell).
 \]
-Pull a realizer cover back along this section:
+Pulling a realizer cover back along this section gives
 \[
 \begin{tikzcd}
 \operatorname{TarReal}_F \arrow[r] \arrow[d,two heads]
@@ -374,90 +363,101 @@ S \arrow[r,"\sigma_\tau"']
 \end{tikzcd}
 \tag{C9}\label{eq:target-realizer-pb}
 \]
-Whenever the resulting physical state map factors through the exact-state
-pullback \eqref{eq:exact-state-pb}, regular-image uniqueness forces the target
-label graph $(1_S,\ell)$ to factor through $\Sigma_\tau$. This is the exact
-transfer theorem. In the final reciprocal root we use an even thinner
-specialization: opposite cosets are matched directly and the interval
-$0<W<2$ literalizes the centered target to the integer $1$.
+If the resulting state map factors through $C_\tau$, regular-image uniqueness
+forces the target label graph to factor through $\Sigma_\tau$.  The final
+reciprocal root uses the still thinner special case in which opposite literal
+cosets are matched directly and $0<W<2$ literalizes the centered class to the
+integer $1$.
 
-\section{Witness semantics and support enrichment}
+\section{Support reflection and finite convolution}
 \label{sec:support-enrichment}
 
-The exact component-profile label used by exact transfer is not identified with the ordered resource bound used inside the saturation proof. For Erd\H{o}s Problem 289, the exact auxiliary label is
-\[
-L=P_{23}=\N^2.
-\]
-The centered saturation proof may use a larger realization monoid carrying binary count and a positive mass bound; its resource coordinate is forgotten after smallness has been consumed.
-
-For a realization-label monoid $R$, labelled witness families lie in $\mathcal E/R$. Their support is the regular image
+For a realization-label monoid $R$, a finite witness family is a map $X\to R$.
+Its observable realizability support is the regular image
 \[
 X\twoheadrightarrow\Supp(X)\hookrightarrow R.
 \]
-Witness convolution is formed before reflection, and subobject convolution is the regular image of label addition. For a path $\pi$, a physical composition certificate is a span
-\[
-\begin{tikzcd}
-& C_\pi \arrow[dl,two heads] \arrow[dr] &\\
-T_\pi && W_{\operatorname{comp}\pi}
-\end{tikzcd}
-\]
-over the realization label. Therefore
-\[
-\Supp(T_\pi)\le\Supp(W_{\operatorname{comp}\pi}).
-\]
-Joining over paths gives the free enriched realization inequality used below the late-source Tail response. The rule is always the same: compose literal witnesses first, then pass to the regular image seen by downstream consumers.
+For two witness families, form the literal product family first and then take
+the regular image of label addition.  In $\mathbf{Set}$, when $R$ is finite,
+this same operation has a cardinality refinement in the semiring $\N[R]$:
+product families become convolution, and ordinary regular-image support is the
+support of the resulting coefficient function.  Appendix
+\ref{app:atomic-convolution} uses exactly this finite decategorification to
+prove local prime-order coverage; characters appear only inside the proof that
+all convolution coefficients are positive.
+
+The distinction is important: physical compatibility is consumed before
+support reflection, while coefficient multiplicities may be retained below a
+provider boundary when they are useful for proving surjectivity.
 
 \section{Target quotient and compact resolution}
 \label{sec:target-quotient}
 
-For reciprocal target $1$, the marked map
+The marked target is the morphism
 \[
-\Z\xrightarrow{1\mapsto1}\Q
+\Z\xrightarrow{1\mapsto1}\Q.
 \]
-has universal target-annihilating quotient
+Its universal target-annihilating quotient is its cokernel
 \[
 A:=\Q/\Z.
 \]
-The compact observation stages are the finitely generated subgroups of $A$, equivalently
-\[
-H_n=\ker([n]:A\to A).
-\]
-Their order is divisibility; gcd and lcm are coordinate descriptions of meet and join.
+Thus $\Q/\Z$ is forced by the target rather than chosen as an auxiliary
+coordinate.
 
-For $H\le A$ write $q_H:A\to A/H$. If $r\in A/H$, the least compact extension killing $r$ is the pullback
+The finitely generated subgroups of $A$ form a filtered compact observation
+diagram.  Every such subgroup is
 \[
-H[r]=q_H^{-1}(\langle r\rangle).
+H_n=\ker([n]:A\to A)
+=n^{-1}\Z/\Z,
 \]
-This least absorber is used only to project the stronger BinaryTail theorem to a targeted residue response; it is not required in the final coset-cancellation diagram.
-
-Simple compact-stage factors are finite additive groups of prime order. The local restricted-fold theorem therefore needs no chosen $\mathbf F_p$ basis.
+and
+\[
+H_n\le H_m\iff n\mid m.
+\]
+Hence gcd and lcm are merely coordinates for meet and join in the compact
+subgroup lattice.  A cover in one $p$-primary height has prime-order quotient;
+no basis or splitting of that quotient is canonically chosen.
 
 \input{sections/germ-projections-and-exactification}
 \input{sections/affine-ray-provider}
 \input{sections/ltar-provider}
-\input{sections/grade-resource-aggregation}
 
-\section{Further categorical compression}
+\section{A non-used generic weakening}
 \label{sec:further-compression}
 
-For one specified target section, full correction-fibre coverage is generically stronger than necessary. A sectionwise matched-image theorem requires only the forced requirements to land in the corresponding realizable-requirement images, together with a physical completion certificate. This generic theorem is valid and conceptually useful.
-
-The present reciprocal provider is deliberately used through its already established stronger full simple-fibre coverage. No claim that the restricted-fold theorem can be removed is required for the proof. Likewise, no source-varying fixed-defect affine theorem is assumed: the present proof freezes one sufficiently late source and accepts the resulting finite defect threshold.
+For one specified target section, full correction-fibre coverage is generically
+stronger than necessary: it is enough for the forced requirements to lie in
+the corresponding realizable-requirement images and for the matched physical
+completion to cover the target section.  This sectionwise matched-image
+weakening is conceptually useful but is not needed for the proof above.  The
+active Tail is already target-specific, and the manuscript does not pursue a
+further provider compression.
 
 \section{Provenance and formalization status}
 \label{sec:provenance}
 
-The mathematical route developed independently before the proof claim posted on 4 September 2026. A standalone concrete proof manuscript had been completed in mid-August, followed by categorical reorganization and an ongoing Lean formalization programme. The present manuscript uses the later categorical reorganization rather than reproducing the older concrete proof architecture.
+The mathematical route developed independently before the proof claim posted
+on 4 September 2026.  A standalone concrete proof manuscript had been
+completed in mid-August, followed by categorical reorganization and an ongoing
+Lean formalization programme.  The present manuscript uses the later
+categorical reorganization rather than reproducing the older concrete proof
+architecture.
 
-The Lean formalization is incomplete and is not claimed here as a formal verification of the final theorem. Its role has nevertheless been useful in exposing witness-lifetime, compatibility, quantifier-order, and dependency issues that motivated several categorical normalizations and the late-source correctness repair used above.
+The Lean formalization is incomplete and is not claimed here as a formal
+verification of the final theorem.  Its development has nevertheless exposed
+witness-lifetime, compatibility, quantifier-order and dependency issues that
+motivated several of the categorical normalizations used above.
 
-The proof development used substantial assistance from large language models. All mathematical claims in the public manuscript are intended to be presented in a self-contained human-checkable form.
+The proof development used substantial assistance from large language models.
+All claims in the public manuscript are intended to be presented in a
+self-contained human-checkable form except for the explicitly cited
+independent-transversal theorem.
 
 \bibliographystyle{alpha}
 \bibliography{references}
 
 \appendix
-\input{appendices/finite-seed}
+\input{appendices/finite-mobility}
 \input{appendices/packing}
 \input{appendices/prime-supply-and-restricted-fold}
 
