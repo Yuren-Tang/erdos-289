@@ -112,8 +112,8 @@ I_D(p,r)
 \]
 
 \begin{lemma}[Supercritical interval]\label{lem:supercritical}
-Fix $0<\theta<1/2$. For all sufficiently large fixed $C$ and all sufficiently
-large $r$, the implication
+Fix $0<\theta<1/2$. For all sufficiently large fixed $C$ and all
+sufficiently large $r$, the implication
 \[
 Cp\le r^2
 \]
@@ -155,6 +155,14 @@ Proposition~\ref{prop:prime-band}, applied at $X=Q/B$, gives
 \tag{T4}\label{eq:carrier-count}
 \]
 
+Every sufficiently late carrier is coprime to $Q$. Indeed, if $e=1$, then
+$b<Q=p$, so $b\ne p$. If $e\ge2$, then eventually
+\[
+\frac QB>p
+\]
+because $p^{e-1}>B$, hence $b>p$ and again the prime $b$ is different from
+$p$. Thus $b$ has an inverse modulo $Q$.
+
 For one carrier, let $c_+\in(0,Q)$ be the inverse of $b$ modulo $Q$ and set
 \[
 c_-=Q-c_+.
@@ -173,8 +181,8 @@ k_++k_-=b,
 1\le k_\pm<b<Q.
 \tag{T6}\label{eq:complementary-k}
 \]
-At least one of $k_+,k_-$ is a $p$-unit. Choose such an orientation. The two
-integers
+At least one of $k_+,k_-$ is a $p$-unit: otherwise $p$ would divide their sum
+$b$. Choose such an orientation. The two integers
 \[
 Qk_\sigma,\qquad bc_\sigma=Qk_\sigma+\sigma1
 \]
@@ -239,10 +247,50 @@ W_+(a)=O(p^{-2}).
 \tag{T8}\label{eq:prime-atom-mass}
 \]
 
-The intrinsic simple-factor value of the atom is nonzero in $S_Q$. In the
-coordinates above it is $k^{-1}\pmod p$, but that formula is discarded after
-transversality has been proved. One simple value has at most $O(Q/p)$
-preimages among the raw occurrences.
+\begin{lemma}[Simple-factor value]\label{lem:simple-factor-value}
+Let $k$ be the selected $p$-unit coefficient, and choose an integer $u$ with
+\[
+uk\equiv1\pmod p.
+\]
+The image of the corresponding binary atom in $S_Q=F_Q/F_{<Q}$ is
+\[
+u[1/Q].
+\]
+In particular it is nonzero. After identifying the prime-order quotient with
+$\mathbf Z/p\mathbf Z$ by the generator $[1/Q]$, its coordinate is
+$k^{-1}\pmod p$.
+\end{lemma}
+
+\begin{proof}
+For the distinguished reciprocal term,
+\[
+\frac1{Qk}-\frac uQ
+=\frac{1-uk}{Qk}.
+\tag{T9}\label{eq:simple-factor-reduction}
+\]
+Because $p\mid(1-uk)$, the reduced denominator of the right-hand side divides
+$p^{e-1}k$. Every maximal prime-power factor of $k$ is strictly smaller than
+$Q$ because $k<Q$, and the $p$-primary factor has height at most $p^{e-1}$.
+Hence the right-hand side represents a point of $F_{<Q}$. Therefore
+\[
+[1/(Qk)]=u[1/Q]\quad\text{in }S_Q.
+\]
+
+By Lemma~\ref{lem:downward}, every maximal prime-power factor of the companion
+denominator $bc_\sigma=Qk+\sigma1$ is also strictly smaller than $Q$. Thus
+$[1/(bc_\sigma)]\in F_{<Q}$ and contributes zero in $S_Q$. The whole binary
+atom consequently has image $u[1/Q]$.
+
+The class $[1/Q]$ generates the new order-$p$ quotient, and $p\nmid u$ because
+$uk\equiv1\pmod p$. Hence $u[1/Q]\ne0$.
+\end{proof}
+
+A fixed simple-factor value determines $k$ modulo $p$ by
+Lemma~\ref{lem:simple-factor-value}. Among integers $1\le k<Q$, one residue
+class modulo $p$ contains at most $\lceil Q/p\rceil$ values. Combining this
+with Lemma~\ref{lem:coeff-mult} gives the required $O(Q/p)$ bound on each
+simple-value fibre of raw occurrences. At a prime current $Q=p$, distinct
+retained coefficients therefore have distinct simple values.
 
 Finally the distinguished centre $Qk$ is globally injective over all retained
 current rows: its unique largest maximal prime-power factor recovers $Q$ and
@@ -337,8 +385,7 @@ fibre containing $p-1$ own points.
 
 The resource assertion follows from \eqref{eq:generic-atom-mass} and
 \eqref{eq:prime-atom-mass}; the resulting role costs are dominated by the
-convergent positive series verified in
-Section~\ref{subsec:resource-sum}.
+convergent positive series verified in Section~\ref{subsec:resource-sum}.
 \end{proof}
 
 \subsection{Local covers}
@@ -348,18 +395,26 @@ Theorem~\ref{thm:restricted-fold} to the injective representative image.
 Lemma~\ref{lem:supercritical} gives a nonempty interval of supported grades and
 a regular-epimorphic cover of the entire simple quotient at every such grade.
 
-For a deeper current let $c\ne0$ be the common simple value of the own block
-and let $N$ be a predecessor block of $p-1$ current-neutral atoms supplied by
-the preceding export. At grade $p-1$ use the family
+For a deeper current $Q=p^e$ let $c\ne0$ be the common simple value of the own
+block. If the primary predecessor $p^{e-1}$ lies above the chosen source, take
+$N$ to be the $p-1$ predecessor occurrences reserved by its preceding export.
+If the current is the first deep current crossing the source boundary, include
+the predecessor row $p^{e-1}$ as an auxiliary boundary row in the one global
+packing and take $N$ from that row. The definition of a transparent obstacle
+includes exactly this boundary-predecessor requirement. In either case $N$ is
+disjoint from the current roles, has cardinality $p-1$, and is current-neutral
+because its residue factors through $F_{<Q}$.
+
+At grade $p-1$ use the family
 \[
 \coprod_{j=0}^{p-1}
 \operatorname{FinSub}_j(\mathrm{Own})
 \times
 \operatorname{FinSub}_{p-1-j}(N).
-\tag{T9}\label{eq:deep-resolver}
+\tag{T10}\label{eq:deep-resolver}
 \]
 Its simple value is $jc$. As $j$ runs from $0$ to $p-1$, these values exhaust
-the prime-order simple factor. Thus every later current also has a full local
+the prime-order simple factor. Thus every deeper current has a full local
 cover, although only at one resolver grade.
 
 The construction is made inside one global packed witness. Consequently all
@@ -384,7 +439,7 @@ H_0\le H_1\le\cdots\le H_m
 be a finite chain in an abelian group. Suppose $I_i\subseteq H_i$ satisfies
 \[
 I_i+H_{i-1}=H_i
-\tag{T10}\label{eq:torsor-local-cover}
+\tag{T11}\label{eq:torsor-local-cover}
 \]
 for every $i$. If $T_0$ is an $H_0$-torsor, then
 \[
@@ -404,10 +459,19 @@ by \eqref{eq:torsor-local-cover}. Thus adding the local image changes an
 $H_{i-1}$-torsor into an $H_i$-torsor. Induction proves the claim.
 \end{proof}
 
-In the physical construction, \eqref{eq:torsor-local-cover} is supplied by the
-local regular-epimorphic correction cover. Literal matched-realizer composition
-uses the lower correction forced by the actual later realizer. No section
-$H_i/H_{i-1}\to H_i$ and no upper-triangular coefficient matrix is required.
+For the centered BinaryTail construction, start from the zero source torsor
+$T_0=H_{\rm src}\subseteq A$. Order the finitely many simple compact jumps
+between the source and endpoint to obtain
+\[
+H_{\rm src}=H_0\le H_1\le\cdots\le H_m=H_{\rm end}.
+\]
+At each jump the local regular-epimorphic correction cover says precisely that
+its image $I_i$ maps onto $H_i/H_{i-1}$, equivalently
+$I_i+H_{i-1}=H_i$. Lemma~\ref{lem:torsor-lifting} therefore gives the full
+endpoint torsor $H_{\rm end}$. Modulo $H_{\rm src}$ this is exactly the entire
+required zero-correction fibre $H_{\rm end}/H_{\rm src}$. Literal
+matched-realizer composition simultaneously keeps the actual lower correction
+forced by each later realizer, so no section $H_i/H_{i-1}\to H_i$ is used.
 
 \subsection{Grade and resource aggregation}
 
@@ -424,31 +488,22 @@ The exact grade-tuple object is the full fibre
 \left\{(h_J)_J:
  h_J\in I_J,\quad\sum_Jh_J=h\right\}
 \longrightarrow [A(X),B(X)]\cap\N,
-\tag{T11}\label{eq:exact-grade-tuple}
+\tag{T12}\label{eq:exact-grade-tuple}
 \]
 and is regular epi by definition of the Minkowski sum. No tuple is chosen.
 
-The quantitative comparison is written out in
-Section~\ref{subsec:grade-overlap}: prime bands give
-\[
-B_Y-A_Y\gg \frac{Y^2}{(\log Y)^2},
-\]
-whereas the next lower-endpoint displacement is only $O(Y\log Y)$. Hence the
-endpoint intervals eventually overlap or are adjacent, and their union is a
-final subset of $\N$.
+The quantitative comparison is written out in Section~\ref{subsec:grade-overlap}:
+a fixed-ratio band of atomic currents supplies width of order
+$Y^{3/2}/\log Y$, while the next lower-endpoint displacement has a strictly
+smaller leading coefficient after the canonical supercritical trimming, and
+the first- and deep-successor displacements are lower-order. Hence the endpoint
+intervals eventually overlap or are adjacent, and their union is a final
+subset of $\N$.
 
 For one exact grade tuple, use the actual local covers belonging to that same
-tuple and same global packing. Their branchwise mass majorants add. The three
-resulting current classes are bounded respectively by
-\[
-O\!\left(\frac1{p\log p}\right),
-\qquad
-O\!\left(\frac{\log p}{p^3}\right),
-\qquad
-O\!\left(\frac{e\log p}{p^{2e-3}}\right).
-\]
-Section~\ref{subsec:resource-sum} proves that the combined nonnegative series
-converges and therefore that its tail tends to zero with the source.
+tuple and same global packing. Their branchwise mass majorants add.
+Section~\ref{subsec:resource-sum} proves that the resulting nonnegative current
+series converges and therefore that its tail tends to zero with the source.
 
 \subsection{Same-witness physical composition}
 
@@ -459,11 +514,11 @@ cover for every chosen $h_J$. All local physical states are therefore
 compatible.
 
 Compose this literal tuple physically first. Additivity gives total component
-profile $(h,0)$ and the resource bound above. Filtered torsor lifting and the
-local simple-factor epimorphisms show that the composite covers the full
-centered correction from the source stage to the chosen endpoint. Only after
-this physical union do we take the regular image/CoverCore and forget packing,
-roles, local grade choices, and endpoint presentation.
+profile $(h,0)$ and the branchwise resource bound above. Filtered torsor
+lifting and the local simple-factor epimorphisms show that the composite covers
+the full centered correction from the source stage to the chosen endpoint.
+Only after this physical union do we take the regular image/CoverCore and
+forget packing, roles, local grade choices, and endpoint presentation.
 
 \begin{theorem}[BinaryTail]\label{thm:binary-tail}
 For every positive tolerance and transparency parameter, eventually in the
