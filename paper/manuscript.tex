@@ -39,7 +39,7 @@ The target $1$ is centered by the universal quotient $\Q\to\Q/\Z$.  A
 source-closed finite Prefix supplies a cofinal affine residue cover with
 uniform physical transparency, while a direct late-source Tail uses finite
 convolution support at prime simple factors and target-specific filtered
-lifting.  Their eventual source loci are intersected, one endpoint source is
+lifting.  Their eventual source tails are intersected, one endpoint source is
 frozen before defect and final grade are quantified, and exact value $1$
 follows from a pullback of opposite literal cosets in $\Q/\Z$ together with
 $0<W<2$.
@@ -138,16 +138,17 @@ C^{23}_{W=1}\arrow[r,"{(b_2,b_3)}"]\arrow[dr,"g"']
 &\N,
 \end{tikzcd}
 \]
-so the ordinary exact-grade spectrum is the regular-image projection of the
+so the ordinary exact-grade spectrum is a regular-image projection of the
 joint spectrum.
 
 Only three general categorical operations are used in the active proof.
 
 \paragraph{Pullback of covers.}
-Every correction or target requirement is represented by a fibre product.
-Surjections in $\mathbf{Set}$, equivalently regular epimorphisms, remain
-surjective after pullback.  Thus a family covering a larger requirement may be
-restricted to a literal target fibre without selecting a section.
+Every target or selector requirement that appears in the active proof is
+represented by a fibre product.  Surjections in $\mathbf{Set}$, equivalently
+regular epimorphisms, remain surjective after pullback.  Thus a family covering
+a larger requirement may be restricted to a literal target fibre without
+selecting a section.
 
 \paragraph{Compose before reflect.}
 Physical compatibility is a property of actual states, not merely of their
@@ -195,14 +196,39 @@ E_B:=H_{L_B}.
 \tag{E1}\label{eq:endpoint-subgroup}
 \]
 Equivalently, $E_B$ is the join of all prime-power current subgroups whose rank
-is at most $B$.  The endpoint system is cofinal in the finite-subgroup lattice.
-An eligible Tail source is such an endpoint subject to the boundary-row
-condition used in Section~\ref{sec:ltar-provider}.
+is at most $B$.  The source-index object is simply $\N$ with its ordinary
+$B\to\infty$ filter; no further eligibility predicate is used.
+
+The only extra source phenomenon is a boundary predecessor.  Define
+\[
+\operatorname{Boundary}(B)
+=
+\{Q=p^e:e\ge3,\ p^{e-1}\le B<p^e\}.
+\tag{E2}\label{eq:boundary-definition}
+\]
+For $Q=p^e\in\operatorname{Boundary}(B)$ put $Q^-=p^{e-1}$.  Then
+\[
+B<Q=pQ^-\le(Q^-)^2,
+\tag{E3}\label{eq:boundary-rank}
+\]
+because $p\le Q^-$.  Hence boundary predecessors escape uniformly:
+for every $q_0$ there is $B_0$ such that
+\[
+B\ge B_0,\quad Q\in\operatorname{Boundary}(B)
+\quad\Longrightarrow\quad
+Q^-\ge q_0.
+\tag{E4}\label{eq:boundary-escape}
+\]
+Thus every property holding for all sufficiently large currents also holds,
+for all sufficiently large source cutoffs $B$, simultaneously on every
+boundary-predecessor row required at that source.  In particular the
+$B\to\infty$ filter is proper and finite intersections of eventual source
+tails are again eventual and nonempty.
 
 The fixed-source smallness obstruction is already visible here.  For fixed
-$H_n$, a positive value $0<W<1$ with zero residue modulo $H_n$ satisfies
-$W\ge1/n$.  Hence the resource tolerance must be fixed before the eventual
-endpoint source is chosen.
+$H_n$, a positive value $0<W<1$ with zero residue in $A/H_n$ has
+$[W]\in H_n$ and therefore satisfies $W\ge1/n$.  Hence the resource tolerance
+must be fixed before the eventual endpoint source is chosen.
 
 \input{sections/ltar-provider}
 \input{sections/affine-ray-provider}
