@@ -227,53 +227,40 @@ The family of Proposition~\ref{prop:affine-ray-projection}, together with
 (F1), is the \emph{filtered affine ray}. The root uses no common affine
 correction or common affine grade across different defects.
 
-\subsection{Meeting the two source germs without a chosen source}
+\subsection{Meeting the source germs and freezing one proof-local source}
 
 The generalized margin coordinate $\eta$ supplies the Tail tolerance
 \[
 \varepsilon=\eta/2.
 \]
 For fixed $(c,\eta)$, Theorem~\ref{thm:ltar-closed} gives a
-$\mathcal F_R$-large set of good Tail sources. Its inverse image under $\beta$
-is $\mathcal F_B$-large by (F1). Intersecting with the affine-ray large locus
-gives another $\mathcal F_B$-large subobject
+$\mathcal F_R$-large set $U_{\rm tail}$ of good Tail sources. Its inverse image
+under $\beta$ is $\mathcal F_B$-large by (F1). Intersecting with the eventual
+affine-ray locus gives
 \[
-U_{\mathrm{meet}}
-=U_{\mathrm{aff}}
-\cap
-\beta^{-1}(U_{\mathrm{tail}}).
+U_{\rm meet}
+=U_{\rm aff}\cap\beta^{-1}(U_{\rm tail})
+\in\mathcal F_B.
 \tag{F3}
 \]
-Properness makes $U_{\mathrm{meet}}$ nonempty.
+Properness of $\mathcal F_B$ implies $U_{\rm meet}\ne\varnothing$.
 
-Factor the defect-floor map through its regular image:
+At this point the order of quantifiers matters. Choose one
 \[
-\begin{tikzcd}
-U_{\mathrm{meet}} \arrow[rr,two heads,"e"]
-\arrow[drr,"d_0"']
-&& D_0 \arrow[d,hook]\\
-&& \N.
-\end{tikzcd}
+b\in U_{\rm meet}
+\]
+inside the proof and keep this same source fixed for the rest of the
+exactification. Put
+\[
+H:=H_{\beta(b)},
+\qquad
+ d_*:=d_0(b).
 \tag{F4}
 \]
-The subobject $D_0\subseteq\N$ is nonempty, so it has a least element
-$d_*:=\min D_0$. Pull $e$ back along the corresponding point
-$\{d_*\}\to D_0$:
-\[
-\begin{tikzcd}
-U_* \arrow[r] \arrow[d,two heads]
-& U_{\mathrm{meet}} \arrow[d,two heads,"e"]\\
-\{d_*\} \arrow[r] & D_0.
-\end{tikzcd}
-\tag{F5}
-\]
-Thus $U_*\to1$ is covering by pullback stability. We henceforth work over this
-covering parameter base. Every source in $U_*$ has defect floor exactly $d_*$;
-no preferred source or section is selected.
-
-The source is now held fixed over $U_*$. This is essential for the present
-provider: the Prefix defect floor rises as the source moves later, while the
-available Tail resource improves.
+This is only existential elimination of one inhabited source fibre, not a
+choice of a section depending on the final grade or defect; no source is part
+of the theorem statement. In particular, every Tail threshold used below is
+the threshold belonging to this one fixed source.
 
 \begin{proposition}[Source--defect tradeoff]
 \label{prop:source-defect-tradeoff}
@@ -281,9 +268,8 @@ For the current Prefix provider,
 \[
 d_0(b)=\delta_b^{\sup}\longrightarrow\infty
 \]
-along the moving source filter. Consequently the source may not be
-existentially reselected with the final grade after a fixed defect $d$ has
-been chosen.
+along the moving source filter. Consequently the source may not be reselected
+as a function of the final grade after a fixed defect $d$ has been chosen.
 \end{proposition}
 
 \begin{proof}
@@ -305,24 +291,28 @@ thus eventually push a fixed defect below the available affine ray.
 
 \subsection{Coset cancellation}
 
-Work over the covering base $U_*$. Fix $d\ge d_*$ and write $H$ for the
-corresponding source subgroup. The affine response gives a finite family
+Fix any $d\ge d_*$ at the source $H$ of (F4). The affine response gives a
+finite family
 \[
 p_F:F_d\twoheadrightarrow q_H^{-1}(a_d)
 \]
 with component profile $(m_d,d)$, where $p_F(f)=[W(f)]$. Its complete physical
 footprint is used as the finite row-transparent obstacle for the Tail theorem.
 
-Apply Theorem~\ref{thm:ltar-closed} at the same source $H$, the opposite
-residue $-a_d\in A/H$, and tolerance $\eta/2$. For all sufficiently large $h$
-obtain a compatible binary Tail family $T_h$ of profile $(h,0)$ with
-$W_+(T_h)\le\eta/2$ and a centered-value map
+Apply Theorem~\ref{thm:ltar-closed} at this same source $H$, the opposite
+residue $-a_d\in A/H$, and tolerance $\eta/2$. There is a natural number
+$h_0(d)$ such that for every $h\ge h_0(d)$ we obtain a compatible binary Tail
+family $T_h$ of profile $(h,0)$ with $W_+(T_h)\le\eta/2$ and a centered-value
+map
 \[
 \tau:T_h\longrightarrow A,
 \qquad
 q_H\tau=-a_d.
 \]
-Hence inversion factors canonically through the affine coset:
+The threshold may depend on the fixed defect through its affine obstacle and
+residue; this is allowed. It does not depend on $h$ itself.
+
+Inversion factors canonically through the affine coset:
 \[
 -\tau:T_h\longrightarrow q_H^{-1}(a_d).
 \]
@@ -334,7 +324,7 @@ M_{d,h} \arrow[r] \arrow[d,two heads]
 T_h \arrow[r,"-\tau"']
 & q_H^{-1}(a_d).
 \end{tikzcd}
-\tag{F6}
+\tag{F5}
 \]
 The left vertical map is regular epi. Every matched pair $(f,t)$ satisfies
 \[
@@ -343,7 +333,7 @@ The left vertical map is regular epi. Every matched pair $(f,t)$ satisfies
 and therefore
 \[
 [W(f)+W(t)]=0\quad\text{in }\Q/\Z.
-\tag{F7}
+\tag{F6}
 \]
 Because the Tail was constructed against the complete affine obstacle, every
 matched pair is physically compatible, so its union $f\sqcup t$ is an actual
@@ -359,7 +349,7 @@ so
 \[
 0<W(f\sqcup t)<2.
 \]
-Together with (F7), this gives
+Together with (F6), this gives
 \[
 W(f\sqcup t)\in\Z\cap(0,2)=\{1\}.
 \]
@@ -368,23 +358,26 @@ Thus the reciprocal value is exactly $1$.
 Component profiles add:
 \[
 (m_d,d)+(h,0)=(m_d+h,d).
-\tag{F8}
+\tag{F7}
 \]
-Hence the realizable binary counts at defect $d$ contain a translate of a
-final subset of $\N$ and are themselves final.
+Therefore every binary count
+\[
+b\ge b_0(d):=m_d+h_0(d)
+\]
+is realized: take $h=b-m_d\ge h_0(d)$. Thus the exact binary-count fibre at
+ternary count $d$ is final.
 
 \begin{proof}[Proof of Theorem~\ref{thm:fibrewise}]
-The construction above is performed after base change along the regular
-epimorphism $U_*\to1$. For every $d\ge d_*$, equation (F8) gives all
-sufficiently large binary counts in the exact component-profile spectrum over
-that cover. Existence of such a physical state is a subterminal statement in
-the external parameters $(d,b)$; inverse image on subobjects is conservative
-along a regular epimorphism. Hence the existence statement descends from
-$U_*$ to the terminal base. This proves Theorem~\ref{thm:fibrewise} without
-choosing a source section.
+The common source $b\in U_{\rm meet}$ was fixed once, before $d$ and the final
+binary count were quantified, and $d_*=d_0(b)$ is therefore one finite natural
+number. For every $d\ge d_*$ the preceding argument produces the finite
+threshold $b_0(d)$ and realizes every $b\ge b_0(d)$ with reciprocal value
+exactly $1$ and component profile $(b,d)$. This is precisely
+Theorem~\ref{thm:fibrewise}. The proof-local source and all provider coordinates
+are discarded after the existential theorem has been established.
 \end{proof}
 
 For Erdős Problem 289 itself no finite meet is required: fix one
 $d\ge d_*$; adding this fixed $d$ to the final binary-count set gives a final
-set of total component counts. Finite intersections over $d\in[d_*,D]$ give
-the stronger finite-defect rectangle as a corollary.
+set of total component counts. Finite intersections over
+$d\in[d_*,D]$ give the stronger finite-defect rectangle as a corollary.
