@@ -199,6 +199,23 @@ Equivalently, $E_B$ is the join of all prime-power current subgroups whose rank
 is at most $B$.  The source-index object is simply $\N$ with its ordinary
 $B\to\infty$ filter; no further eligibility predicate is used.
 
+\begin{lemma}[Cofinality of endpoint sources]\label{lem:endpoint-cofinal}
+Every finite subgroup of $A$ is contained in $E_B$ for all sufficiently large
+$B$.  More concretely,
+\[
+B\ge n\quad\Longrightarrow\quad H_n\le E_B.
+\]
+Consequently every class in every quotient $A/E_B$ is represented in
+$E_X/E_B$ for some finite $X\ge B$.
+\end{lemma}
+
+\begin{proof}
+If $B\ge n$, then $n\mid L_B$, hence $H_n\le H_{L_B}=E_B$.  Every element of
+$A=\Q/\Z$ has finite order, so a representative of a class in $A/E_B$ lies in
+some finite cyclic subgroup $H_n$; taking $X\ge\max\{B,n\}$ gives the final
+claim.
+\end{proof}
+
 The only extra source phenomenon is a boundary predecessor.  Define
 \[
 \operatorname{Boundary}(B)
