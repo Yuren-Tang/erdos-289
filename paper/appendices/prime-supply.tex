@@ -1,0 +1,75 @@
+\section{Comparable prime supply}
+\label{app:prime-supply}
+
+The proof needs only one fixed-ratio prime band with two-sided order of
+magnitude $X/\log X$.  We record an elementary Chebyshev proof.
+
+Put
+\[
+\theta(x)=\sum_{p\le x}\log p,
+\qquad
+\psi(x)=\sum_{p^m\le x}\log p
+=\log\operatorname{lcm}(1,\ldots,\lfloor x\rfloor).
+\]
+The central binomial coefficient satisfies
+\[
+\binom{2n}{n}\mid\operatorname{lcm}(1,\ldots,2n+1).
+\]
+Indeed, for each prime $p$, Legendre's formula gives
+\[
+v_p\binom{2n}{n}
+=\sum_{j\ge1}
+\left(\left\lfloor\frac{2n}{p^j}\right\rfloor
+-2\left\lfloor\frac n{p^j}\right\rfloor\right),
+\]
+and every summand is $0$ or $1$; if the sum is $e$, then some nonzero summand
+has index at least $e$, so $p^e\le2n$.
+
+Since the central binomial coefficient is maximal in its row,
+\[
+4^n\le(2n+1)\binom{2n}{n},
+\]
+hence
+\[
+\psi(x)\ge c_\psi x
+\]
+eventually.  On the other hand, every prime $n<p\le2n$ divides
+$\binom{2n}{n}$, so dyadic telescoping gives
+\[
+\theta(x)\le C_\theta x.
+\]
+Because
+\[
+\psi(x)=\sum_{m\ge1}\theta(x^{1/m}),
+\]
+the higher-power contribution is $O(\sqrt x\log x)=o(x)$, and therefore
+\[
+c_\theta x\le\theta(x)\le C_\theta x
+\tag{P1}\label{eq:chebyshev-linear}
+\]
+eventually.
+
+Choose one fixed $\Lambda>1$ with
+$C_\theta<c_\theta\Lambda$.  Then
+\[
+\theta(\Lambda X)-\theta(X)
+\ge(c_\theta\Lambda-C_\theta)X,
+\]
+while every prime in $(X,\Lambda X]$ contributes between
+$\log X$ and $\log(\Lambda X)$.  Thus:
+
+\begin{proposition}[Comparable prime band]\label{prop:prime-band}
+For some fixed $\Lambda>1$ and constants $c,C>0$,
+\[
+c\frac X{\log X}
+\le
+\#\{p:X<p\le\Lambda X\}
+\le
+C\frac X{\log X}
+\]
+for every sufficiently large $X$.
+\end{proposition}
+
+No numerical value of $\Lambda,c,C$ survives the provider boundary.
+
+\input{appendices/atomic-convolution}
