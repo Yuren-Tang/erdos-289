@@ -166,64 +166,220 @@ Consequently the ordinary exact-grade spectrum is the regular-image projection o
 \section{The regular correction engine}
 \label{sec:correction-engine}
 
-We record only the generic structure subsequently used by the local-to-global provider proof.
+The categorical language below is bookkeeping for finite fibres and images. In
+$\mathbf{Set}$, which is enough for the reciprocal application, ``regular
+epimorphism'' simply means surjection and every displayed pullback is an
+ordinary fibre product. We use the regular-categorical formulation because it
+makes the witness lifetime and the permitted forgetting operations explicit.
 
-\subsection{Required objects and physical covers}
-
-Work in a regular category $\mathcal E$. Let $V$ be an exact-value carrier, $L$ an internal monoid of exact auxiliary labels, and
+Let $V$ be an exact-value carrier, $C$ a physical-state object and $L$ an
+internal additive monoid of exact auxiliary labels, with
 \[
 W:C\to V,
 \qquad
-\lambda:C\to L
+\lambda:C\to L.
 \]
-be physical observations.
-
-For one internal group homomorphism $u:Q_0\to Q_1$, a parameterized correction over a base $S$ consists of maps
+Let
 \[
-d:S\to UQ_1,
+Q_0\xrightarrow{u}Q_1\xrightarrow{v}Q_2
+\]
+be a finite chain of internal abelian groups and let
+\[
+\rho_i:V\to Q_i
+\]
+be compatible observations:
+\[
+u\rho_0=\rho_1,
 \qquad
+v\rho_1=\rho_2.
+\]
+Put
+\[
+\omega_i=(\rho_iW,\lambda):C\to Q_i\times L.
+\]
+
+\subsection{Required objects and physical covers}
+
+Over a parameter base $S$, a correction over $u$ is a triple
+\[
+\phi=(u;d,\ell),
+\qquad
+d:S\to Q_1,
+\quad
 \ell:S\to L.
 \]
-Put $\widetilde Q_i=UQ_i\times L$. Its required source object is the pullback
+Its required source object is the pullback
 \[
 \begin{tikzcd}
 T_S(\phi) \arrow[r] \arrow[d]
-& \widetilde Q_0 \arrow[d,"Uu\times\mathrm{id}"]\\
+& Q_0\times L \arrow[d,"u\times\mathrm{id}"]\\
 S \arrow[r,"{(d,\ell)}"']
-& \widetilde Q_1.
+& Q_1\times L.
 \end{tikzcd}
+\tag{C1}\label{eq:required-pb}
 \]
+Thus a point of $T_S(\phi)$ is literally a source observation whose image is
+the prescribed correction requirement and whose exact auxiliary label is
+$\ell$.
 
-For a physical family $F\to S$, its realizer object is the corresponding pullback against the physical observation. Coverage is exactly
+For a physical family $F\to S$, define the realizer object by pulling the
+physical observation back to the required object. Its projection to the
+requirement is
 \[
-\Real_F(\phi)\twoheadrightarrow T_S(\phi)
+\Real_F(\phi)\longrightarrow T_S(\phi).
 \]
-regular epimorphic.
+We say that $F$ \emph{covers} $\phi$ exactly when this map is regular epi.
+No chosen realizer is part of the definition.
 
-\subsection{Literal matching and physical completion}
+\subsection{Literal matching}
 
-For composable corrections $\phi,\psi$ with composite $\theta$, a point of $T_S(\theta)$ canonically forces the second requirement. Pull a second realizer back along this forced map; the resulting actual second state then canonically forces the first requirement. Pulling the first realizer cover back along that map yields
+Let
+\[
+\phi=(u;d,\ell),
+\qquad
+\psi=(v;e,k)
+\]
+be composable. Their correction composite is
+\[
+\boxed{
+\psi\circ\phi
+=(vu;\,v(d)+e,\,\ell+k).}
+\tag{C2}\label{eq:correction-composition}
+\]
+Write $\theta=\psi\circ\phi$.
+
+A literal point of $T_S(\theta)$ has a source group coordinate $z\in Q_0$ with
+\[
+vu(z)=v(d)+e.
+\]
+It therefore forces the second requirement
+\[
+\delta(z)=u(z)-d\in Q_1,
+\qquad
+v(\delta(z))=e.
+\]
+This gives a canonical map from the composite requirement to the required
+object of $\psi$. If a family $R$ covers $\psi$, pull its realizer cover back
+along this map:
+\[
+\begin{tikzcd}
+P_R \arrow[r] \arrow[d,two heads]
+& \Real_R(\psi) \arrow[d,two heads]\\
+T_S(\theta) \arrow[r,"\delta"']
+& T_S(\psi).
+\end{tikzcd}
+\tag{C3}\label{eq:second-pullback}
+\]
+A point of $P_R$ contains an \emph{actual} second physical state $r$. Let
+\[
+y=\rho_0W(r)\in Q_0.
+\]
+Because $u(y)=\delta(z)$, the same literal composite requirement now forces the
+first source coordinate
+\[
+x=z-y,
+\qquad
+u(x)=d.
+\]
+If $F$ covers $\phi$, pulling its realizer cover back along this forced first
+requirement gives
+\[
+\begin{tikzcd}
+\operatorname{Cmp}(F,R;\phi,\psi)
+\arrow[r]
+\arrow[d,two heads]
+& \Real_F(\phi) \arrow[d,two heads]\\
+P_R \arrow[r] & T_S(\phi).
+\end{tikzcd}
+\tag{C4}\label{eq:first-pullback}
+\]
+The composite left projection
 \[
 \operatorname{Cmp}(F,R;\phi,\psi)
-\twoheadrightarrow T_S(\theta).
+\twoheadrightarrow T_S(\theta)
+\tag{C5}\label{eq:literal-match-cover}
 \]
+is therefore regular epi. Nothing has been selected: all possible literal
+matched realizers remain in the fibre.
 
-The generic theorem does not assume a globally defined multiplication on $C$. A physical completion certificate is a requirement-preserving relation over the literal match object whose projection to $T_S(\theta)$ is regular epi and whose state map has the composite observation. Compatible union in the reciprocal application supplies such certificates.
+\subsection{Physical completion}
+
+The object in \eqref{eq:literal-match-cover} remembers actual local physical
+states, but literal matching alone does not imply that those states may be
+united physically. Let
+\[
+\operatorname{Cmp}_{\rm phys}(F,R;\phi,\psi)
+\hookrightarrow
+\operatorname{Cmp}(F,R;\phi,\psi)
+\]
+be the subobject of physically compatible matched pairs. The only additional
+hypothesis required by the generic composition theorem is
+\[
+\operatorname{Cmp}_{\rm phys}(F,R;\phi,\psi)
+\twoheadrightarrow T_S(\theta).
+\tag{C6}\label{eq:physical-match-cover}
+\]
+If compatible union sends a matched pair $(f,r)$ to $f\sqcup r$, additivity of
+$W$ and $\lambda$ makes the square
+\[
+\begin{tikzcd}
+\operatorname{Cmp}_{\rm phys}(F,R;\phi,\psi)
+\arrow[r,"\sqcup"] \arrow[d]
+& C \arrow[d,"\omega_0"]\\
+T_S(\theta) \arrow[r] & Q_0\times L
+\end{tikzcd}
+\tag{C7}\label{eq:physical-completion}
+\]
+commute. Hence the image family of actual unions covers the composite
+correction.
+
+In the reciprocal provider we use a stronger certificate: all local
+occurrences are chosen inside one global independent conflict-graph packing.
+Consequently every literal matched tuple built from disjoint role subsets is
+already physically compatible, so condition \eqref{eq:physical-match-cover}
+is automatic.
 
 \subsection{Exact transfer}
 
-For a target $\tau:S\to V$, exact states are the pullback
+Let $\tau:S\to V$ be a target. Exact states form the pullback
 \[
 \begin{tikzcd}
-C_\tau \arrow[r] \arrow[d] & C \arrow[d,"W"]\\
-S \arrow[r,"\tau"'] & V.
+C_\tau \arrow[r] \arrow[d]
+& C \arrow[d,"W"]\\
+S \arrow[r,"\tau"']
+& V.
 \end{tikzcd}
+\tag{C8}\label{eq:exact-state-pb}
 \]
-The exact auxiliary-label spectrum is the regular image
+Their exact auxiliary-label spectrum is the regular image
 \[
-\Sigma_\tau=\im(C_\tau\to S\times L).
+C_\tau\twoheadrightarrow\Sigma_\tau\hookrightarrow S\times L.
 \]
-A target correction has a canonical target section of its required object. Pulling a correction cover back along this section and factoring the physical state map through $C_\tau$ forces the target label graph to factor through $\Sigma_\tau$.
+
+For a target correction
+\[
+(u;\rho_1\tau,\ell),
+\]
+naturality gives the canonical required-source section
+\[
+\sigma_\tau=(\rho_0\tau,\ell):S\to T_S(u;\rho_1\tau,\ell).
+\]
+Pull a realizer cover back along this section:
+\[
+\begin{tikzcd}
+\operatorname{TarReal}_F \arrow[r] \arrow[d,two heads]
+& \Real_F(u;\rho_1\tau,\ell) \arrow[d,two heads]\\
+S \arrow[r,"\sigma_\tau"']
+& T_S(u;\rho_1\tau,\ell).
+\end{tikzcd}
+\tag{C9}\label{eq:target-realizer-pb}
+\]
+Whenever the resulting physical state map factors through the exact-state
+pullback \eqref{eq:exact-state-pb}, regular-image uniqueness forces the target
+label graph $(1_S,\ell)$ to factor through $\Sigma_\tau$. This is the exact
+transfer theorem. In the final reciprocal root we use an even thinner
+specialization: opposite cosets are matched directly and the interval
+$0<W<2$ literalizes the centered target to the integer $1$.
 
 \section{Witness semantics and support enrichment}
 \label{sec:support-enrichment}
@@ -249,7 +405,7 @@ over the realization label. Therefore
 \[
 \Supp(T_\pi)\le\Supp(W_{\operatorname{comp}\pi}).
 \]
-Joining over paths gives the free enriched realization inequality used below the late-source Tail response.
+Joining over paths gives the free enriched realization inequality used below the late-source Tail response. The rule is always the same: compose literal witnesses first, then pass to the regular image seen by downstream consumers.
 
 \section{Target quotient and compact resolution}
 \label{sec:target-quotient}
