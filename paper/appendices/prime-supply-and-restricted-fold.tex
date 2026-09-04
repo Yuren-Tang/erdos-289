@@ -1,0 +1,325 @@
+\section{Comparable prime supply}
+\label{app:prime-supply}
+
+The reciprocal provider needs only one fixed-ratio prime band with two-sided
+order of magnitude $X/\log X$.  We record an elementary proof.
+
+Define
+\[
+\theta(x)=\sum_{p\le x}\log p,
+\qquad
+\psi(x)=\sum_{p^m\le x}\log p
+=\log\operatorname{lcm}(1,\ldots,\lfloor x\rfloor).
+\]
+
+\begin{lemma}[Central binomial coefficient and the lcm]
+For every $n\ge1$,
+\[
+\binom{2n}{n}
+\mid
+\operatorname{lcm}(1,\ldots,2n+1).
+\]
+\end{lemma}
+
+\begin{proof}
+Fix a prime $p$.  Legendre's elementary double count gives
+\[
+v_p(N!)=\sum_{j\ge1}\left\lfloor\frac{N}{p^j}\right\rfloor.
+\]
+Hence
+\[
+v_p\binom{2n}{n}
+=
+\sum_{j\ge1}
+\left(
+\left\lfloor\frac{2n}{p^j}\right\rfloor
+-2\left\lfloor\frac n{p^j}\right\rfloor
+\right).
+\]
+Each summand is $0$ or $1$.  If the sum is $e$, there are $e$ distinct
+positive exponents with nonzero summand; the largest is at least $e$ and
+satisfies $p^j\le2n$.  Thus $p^e\le2n<2n+1$, so the $p$-adic valuation of the
+binomial coefficient is at most that of the displayed lcm.  This holds for
+every $p$.
+\end{proof}
+
+The central binomial coefficient is maximal in its row, so
+\[
+4^n
+=\sum_{k=0}^{2n}\binom{2n}{k}
+\le(2n+1)\binom{2n}{n}.
+\]
+The preceding lemma therefore yields
+\[
+\psi(2n+1)
+\ge2n\log2-\log(2n+1),
+\]
+and hence
+\[
+\psi(x)\ge c_\psi x
+\tag{P1}
+\]
+eventually for some $c_\psi>0$.
+
+Every prime $n<p\le2n$ divides $\binom{2n}{n}$, so
+\[
+\theta(2n)-\theta(n)
+\le\log\binom{2n}{n}
+\le2n\log2.
+\]
+Dyadic telescoping gives
+\[
+\theta(x)\le C_\theta x
+\tag{P2}
+\]
+for an absolute $C_\theta$; for example $C_\theta=4\log2$ works.
+
+Since
+\[
+\psi(x)=\sum_{m\ge1}\theta(x^{1/m}),
+\]
+(P2) gives
+\[
+0\le\psi(x)-\theta(x)
+\le
+C_\theta
+\sum_{2\le m\le\log_2x}x^{1/m}
+=O(\sqrt x\log x)
+=o(x).
+\]
+Combining with (P1), there are constants $c_\theta,C_\theta>0$ such that
+\[
+c_\theta x\le\theta(x)\le C_\theta x
+\tag{P3}
+\]
+eventually.
+
+Choose an integer $\Lambda>1$ with
+\[
+C_\theta<c_\theta\Lambda.
+\]
+Then for large $X$,
+\[
+\theta(\Lambda X)-\theta(X)
+\ge(c_\theta\Lambda-C_\theta)X.
+\]
+Since every prime in $(X,\Lambda X]$ contributes at most
+$\log(\Lambda X)$, this gives the lower bound
+\[
+\#\{p:X<p\le\Lambda X\}
+\gg\frac X{\log X}.
+\]
+For the upper bound, every such prime contributes at least $\log X$, while
+\[
+\theta(\Lambda X)\le C_\theta\Lambda X.
+\]
+Thus:
+
+\begin{proposition}[Comparable prime band]\label{prop:prime-band}
+For some fixed $\Lambda>1$ and constants $c,C>0$,
+\[
+c\frac X{\log X}
+\le
+\#\{p:X<p\le\Lambda X\}
+\le
+C\frac X{\log X}
+\]
+for every sufficiently large $X$.
+\end{proposition}
+
+No numerical choice of $\Lambda,c,C$ survives the provider boundary.
+
+
+\section{The prime-order restricted-fold theorem}
+\label{app:restricted-fold}
+
+We prove the additive theorem used in Theorem~\ref{thm:restricted-fold}.
+Let $S$ be an additive group of prime order $p$, let
+\[
+A\hookrightarrow S,
+\qquad |A|=r,
+\]
+and let
+\[
+\Sigma_h:\operatorname{FinSub}_h(A)\to S
+\]
+be the $h$-element sum map.  We prove the stronger bound
+\[
+|\im\Sigma_h|
+\ge
+\min\{p,h(r-h)+1\}.
+\tag{D1}
+\]
+
+Choose a coordinate $S\cong\mathbf F_p$ only inside this proof.
+
+\subsection{A finite-grid coefficient detector}
+
+\begin{lemma}\label{lem:grid-detector}
+Let $F$ be a field. Suppose
+\[
+P\in F[x_1,\ldots,x_h]
+\]
+has total degree at most $d_1+\cdots+d_h$ and the coefficient of
+\[
+x_1^{d_1}\cdots x_h^{d_h}
+\]
+is nonzero. If finite sets $A_i\subset F$ satisfy $|A_i|>d_i$, then $P$ is
+nonzero at some point of $A_1\times\cdots\times A_h$.
+\end{lemma}
+
+\begin{proof}
+Choose $B_i\subseteq A_i$ of cardinality $d_i+1$. For $a\in B_i$ put
+\[
+\ell_{i,a}(t)
+=
+\prod_{\substack{b\in B_i\\b\ne a}}
+\frac{t-b}{a-b}.
+\]
+Lagrange interpolation implies that the linear functional
+\[
+L_i(f)
+=
+\sum_{a\in B_i}
+\frac{f(a)}{\prod_{b\in B_i,\ b\ne a}(a-b)}
+\]
+satisfies
+\[
+L_i(t^j)=0\quad(j<d_i),
+\qquad
+L_i(t^{d_i})=1.
+\]
+Because the total degree of $P$ is at most $\sum_i d_i$, the tensor
+$L_1\otimes\cdots\otimes L_h$ kills every monomial of $P$ except the target
+monomial and returns precisely its coefficient. If $P$ vanished on the whole
+grid, the same tensor, being a linear combination of grid evaluations, would
+return zero, a contradiction.
+\end{proof}
+
+\subsection{The Vandermonde coefficient}
+
+Let
+\[
+\operatorname{Vdm}(x)
+=
+\prod_{i<j}(x_j-x_i).
+\]
+For distinct nonnegative integers $k_1,\ldots,k_h$, set
+\[
+m=\sum_i k_i-\frac{h(h-1)}2.
+\]
+Then
+\[
+[x_1^{k_1}\cdots x_h^{k_h}]
+(x_1+\cdots+x_h)^m\operatorname{Vdm}(x)
+=
+m!\,
+\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
+\tag{D2}
+\]
+Indeed, expand
+\[
+\operatorname{Vdm}(x)
+=
+\det(x_i^{j-1})
+=
+\sum_{\sigma\in S_h}
+\operatorname{sgn}(\sigma)
+\prod_i x_i^{\sigma(i)-1}.
+\]
+The multinomial theorem transforms the desired coefficient into
+\[
+\frac{m!}{\prod_i k_i!}
+\det\bigl((k_i)_{j-1}\bigr),
+\]
+where $(k)_j$ is the falling factorial. Since $(t)_{j-1}$ is monic of degree
+$j-1$, its evaluation determinant equals the ordinary Vandermonde determinant,
+which is $\prod_{i<j}(k_j-k_i)$. This proves (D2).
+
+\subsection{All admissible exponent sums}
+
+For every
+\[
+0\le m\le h(r-h)
+\]
+there are distinct integers
+\[
+0\le k_1<\cdots<k_h\le r-1
+\]
+with
+\[
+\sum_i k_i
+=m+\frac{h(h-1)}2.
+\tag{D3}
+\]
+To see this, put $R=r-h$ and write $m=qh+s$ with $0\le s<h$. If $q<R$, take
+$h-s$ of the numbers $\lambda_i$ equal to $q$ and the remaining $s$ equal to
+$q+1$; if $q=R$, necessarily $s=0$ and take them all equal to $R$. Then
+\[
+0\le\lambda_1\le\cdots\le\lambda_h\le R,
+\qquad
+\sum_i\lambda_i=m,
+\]
+and
+\[
+k_i=(i-1)+\lambda_i
+\]
+have the required properties.
+
+\subsection{Image growth}
+
+Put
+\[
+M=\min\{p-1,h(r-h)\}.
+\]
+Suppose for contradiction that
+\[
+|\im\Sigma_h|\le M.
+\]
+Enlarge the image to a set $C\subset\mathbf F_p$ of cardinality $M$ and set
+\[
+P(x_1,\ldots,x_h)
+=
+\prod_{c\in C}
+\left(\sum_i x_i-c\right)
+\operatorname{Vdm}(x).
+\]
+This polynomial vanishes on $A^h$: if two coordinates coincide, the
+Vandermonde vanishes; if they are distinct, their sum lies in $\im\Sigma_h\subseteq C$.
+
+Use (D3) with $m=M$ to choose distinct
+\[
+0\le k_1<\cdots<k_h\le r-1
+\]
+whose sum has the required degree. The top homogeneous part of $P$ is
+\[
+(\sum_i x_i)^M\operatorname{Vdm}(x),
+\]
+so (D2) says that the coefficient of
+$x_1^{k_1}\cdots x_h^{k_h}$ equals
+\[
+M!\,
+\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
+\]
+Here $M\le p-1$ and $k_i\le r-1\le p-1$, so all factorials are nonzero in
+$\mathbf F_p$; the $k_i$ are distinct, so every difference is nonzero as well.
+Thus the coefficient is nonzero. Lemma~\ref{lem:grid-detector} contradicts the
+grid vanishing. Therefore (D1) holds.
+
+Finally, the statement is coordinate independent. An isomorphism between two
+prime-order additive groups induces a bijection of their $h$-element finite
+subobjects and commutes with the sum map:
+\[
+\begin{tikzcd}
+\operatorname{FinSub}_h(A) \arrow[r,"\Sigma_h"] \arrow[d,"\operatorname{FinSub}_h(u)"']
+& S \arrow[d,"u"]\\
+\operatorname{FinSub}_h(uA) \arrow[r,"\Sigma_h"']
+& S'.
+\end{tikzcd}
+\]
+Hence image cardinality is intrinsic. In particular, if
+\[
+h(r-h)+1\ge p,
+\]
+then (D1) gives $|\im\Sigma_h|=p$, so $\Sigma_h$ is surjective. This proves
+Theorem~\ref{thm:restricted-fold}.
