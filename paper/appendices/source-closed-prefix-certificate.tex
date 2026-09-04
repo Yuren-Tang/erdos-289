@@ -2,10 +2,11 @@
 \label{app:source-closed-prefix}
 
 This appendix proves the finite-prefix input used by
-Section~\ref{sec:affine-provider}.  The theorem-level datum is only a cofinal
-family of homogeneous affine covers with a uniform positive value margin and
-uniformly thin incidence against all late Tail windows.  The lcm coordinate,
-the fixed root identities and the first few bridge rows are certificate data.
+Section~\ref{sec:affine-provider}.  The theorem-level datum is only a family of
+homogeneous literal affine-coset covers with a uniform positive value margin
+and uniformly thin incidence against all late Tail windows.  The lcm
+coordinate, the fixed root identities and the first few bridge rows are
+certificate data.
 
 \subsection{A fixed finite root fibre}
 
@@ -42,8 +43,11 @@ Their grades are respectively
 \]
 Each identity in \eqref{eq:fixed-root-identities} is an exact rational
 identity, and every displayed start set has gaps at least three.  Thus the six
-states are legal and their residue image is the full affine $H_6$-fibre.  The
-largest root mass is $5/6$.
+states are legal and their residue image is exactly
+\[
+H_6=q_{H_6}^{-1}(0)\subset A.
+\]
+The largest root mass is $5/6$.
 
 The only bridge starts requiring a finite compatibility check before the
 uniform scale estimate applies are
@@ -100,8 +104,8 @@ and use the endpoint switch
 \tag{SC5}\label{eq:source-closed-bridge-switch}
 \]
 The alternatives both have grade one and their reciprocal-value difference is
-$r/(pD)$.  Thus the Boolean row is a homogeneous relative affine cover of the
-new simple quotient.
+$r/(pD)$.  Thus the Boolean row has relative residue image all of
+$E_n/E_{n-1}$.
 
 If $r<s$ are powers of two, then $s\ge2r$, and therefore
 \[
@@ -112,10 +116,11 @@ If $r<s$ are powers of two, then $s\ge2r$, and therefore
 \]
 Thus every later bridge row is internally strict.
 
-Successive rows are separated just as directly.  Let $D'=L_n$ be the upper
-modulus of one bridge and hence the lower modulus of the next nontrivial jump
-$n'=q^f$.  The first row lies below $D'+2$.  If $s<q$ is a coefficient in the
-next row, then
+Successive rows are separated just as directly.  Let $D'$ be the lower modulus
+of the next nontrivial jump $n'=q^f$; because the lcm changes only at
+prime-power jumps, $D'$ is the upper modulus of the preceding bridge.  The
+preceding row lies below $D'+2$.  If $s<q$ is a coefficient in the next row,
+then
 \[
 \frac{qD'}s-D'
 =\frac{D'(q-s)}s
@@ -155,29 +160,69 @@ For the three earlier nontrivial rows one may use the direct bounds
 Combining these with the root bound $5/6$ and
 \eqref{eq:source-closed-tail-load} leaves a fixed positive distance from $2$.
 
+\subsection{Literal affine-coset accumulation}
+
+We record explicitly what the bridge induction proves.  Suppose at one stage
+$H\le K\le A$ a physical family has residue image $x+H$, and a compatible
+relative bridge family $Y$ satisfies
+\[
+\operatorname{res}(Y)+H=y+K.
+\]
+Then the product family has image
+\[
+\operatorname{res}(X\sqcup Y)=x+y+K.
+\tag{SC8}\label{eq:affine-extension}
+\]
+Indeed one inclusion is immediate.  Conversely, for
+$z\in x+y+K$, choose a bridge residue whose image modulo $H$ is
+$z-x+H$; the remaining difference lies in $H$ and is absorbed by the complete
+$x+H$ fibre.  No quotient representative is retained after this argument.
+
+Starting from the root image $H_6$ and applying
+\eqref{eq:affine-extension} at every prime-power jump through $B$, the raw
+Prefix residue image is therefore one literal coset
+\[
+a_B^{\rm raw}+E_B
+=q_{E_B}^{-1}(a_B^{\rm raw})
+\tag{SC9}\label{eq:raw-prefix-coset}
+\]
+for some quotient point $a_B^{\rm raw}\in A/E_B$.
+
 \subsection{Homogenization with fixed complexity}
 
 Let
 \[
 M=\max\{0,9,15,7,15,1\}.
 \]
-For each truncation $B$, first form the physical product of the fixed root with
-all bridge rows through $B$.  The bridge rows are homogeneous, so the six raw
-branch grades differ only by the fixed root grades.
+The bridge rows are homogeneous, so before equalization the six raw branch
+grades differ only by the fixed root grades.
 
 Use $M$ remote copies of the exact grade-neutral identity
 \[
 P(a)+P(a^2+3a+1)
 =
 P(a+2)+P\!\left(\frac{a(a+3)}2\right)+P(a(a+3)).
-\tag{SC8}\label{eq:source-closed-grade-neutral}
+\tag{SC10}\label{eq:source-closed-grade-neutral}
 \]
 For sufficiently large $a$ the two sides are legal, have equal reciprocal
 value and grades two and three.  Construct the $M$ coordinates successively
 beyond the complete raw prefix, making their total common mass less than
-$1/10$.  For a root branch of grade $g$, take the high alternative on exactly
-$M-g$ coordinates.  Every final branch then has one common grade, while all
-branches receive the same exact-value translation.
+$1/10$.  For a root branch of grade $g$, retain the full fibre of selectors
+which take the high alternative on exactly $M-g$ coordinates.  Every final
+branch then has one common grade.
+
+Each coordinate has exactly equal reciprocal value on its two alternatives.
+Hence every branch, regardless of selector, receives the same exact rational
+increment $\omega_B^{\rm gr}$.  Define
+\[
+a_B=a_B^{\rm raw}+q_{E_B}([\omega_B^{\rm gr}])\in A/E_B.
+\]
+Equation~\eqref{eq:raw-prefix-coset} therefore becomes the literal regular-epi
+Prefix cover
+\[
+\operatorname{res}:P_B\twoheadrightarrow q_{E_B}^{-1}(a_B).
+\tag{SC11}\label{eq:prefix-literal-coset}
+\]
 
 Using the coarse bounds above,
 \[
@@ -185,7 +230,7 @@ W
 <
 \frac56+\frac14+\frac3{10}+\frac1{20}+\frac1{35}+\frac1{10}
 <\frac53.
-\tag{SC9}\label{eq:source-closed-slack}
+\tag{SC12}\label{eq:source-closed-slack}
 \]
 Hence the entire moving family has a uniform positive literalization margin;
 for example $W<2-1/3$.
@@ -194,9 +239,9 @@ The number and component complexity of the grade-neutral coordinates are
 fixed independently of $B$.  Their numerical positions may move with $B$, but
 their contribution to every Tail-window envelope count is uniformly $O(1)$.
 
-\subsection{Uniform source closure}
+\subsection{Uniform source closure and transparency}
 
-Let $I_Q(a,A)$ be a fixed enlargement of a Tail current window,
+Let
 \[
 I_Q(a,A)=
 \left[a\frac{Q^2}{\log Q},AQ^2\right]
@@ -225,21 +270,18 @@ $O(1)$.  Consequently, uniformly over every truncation $B$,
 \sup_B N_Q(\operatorname{Prefix}_B)
 =O_{a,A}((\log\log(3Q))^2+1)
 =o(Q/\log Q).
-\tag{SC10}\label{eq:uniform-source-closure}
+\tag{SC13}\label{eq:uniform-source-closure}
 \]
 
-This is the source-closed estimate.  Restrict the numerical endpoint indices
-to the proper cofinal object of eligible Tail bases.  For every sufficiently
-late eligible $B$, the same family covers a homogeneous affine correction
-\[
-0\longrightarrow E_B
-\]
-with the uniform margin \eqref{eq:source-closed-slack} and is a uniformly
-row-transparent obstacle at that very same source $E_B$, including the
-boundary-predecessor rows.  Thus the Prefix source map may be taken to be the
-identity on this cofinal eligible-base object, and is automatically
-$\operatorname{Tendsto}$ to the eligible-source filter.
+Choose once $a<c_1<C_1<A$, where $c_1,C_1$ are the current-window constants in
+\eqref{eq:tail-current-window}.  Then every Tail current window $I_Q$ lies
+inside $I_Q(a,A)$, so \eqref{eq:uniform-source-closure} implies exactly the
+hypothesis of Lemma~\ref{lem:sparse-survival}.  Therefore there are fixed
+$c_0>0$ and $B_0$ such that for every $B\ge B_0$ the Prefix $P_B$ is
+$c_0$-transparent at its own source $E_B$, both for all currents beyond $B$
+and for every boundary-predecessor row.
 
-The explicit root identities have now reached their last consumer.  Above this
-appendix the Prefix is used only through its homogeneous affine cover, uniform
-positive margin and source-closed transparency.
+Combining \eqref{eq:prefix-literal-coset},
+\eqref{eq:source-closed-slack}, and this transparency conclusion proves the
+finite-prefix input used in Section~\ref{sec:affine-provider}.  The explicit
+root identities have now reached their last consumer.
