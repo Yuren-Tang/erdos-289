@@ -1,187 +1,42 @@
 \section{Independent transversals and quota packing}
 \label{app:packing}
 
-We give a finite self-contained proof of the graph-theoretic packing theorem
-used in Section~\ref{sec:ltar-provider}.
+The only graph-theoretic input used by the reciprocal provider is the classical
+independent-transversal theorem of Haxell~\cite{Haxell1995}.
 
-Let $G=(V,E)$ be a finite simple graph of maximum degree $\Delta$, and let
-$\mathcal U$ be a finite partition of $V$ into nonempty blocks.  A
-\emph{partial independent transversal} is an independent set $S\subseteq V$
-meeting each block in at most one point.
-
-For such an $S$, let $\mathcal U_{\rm uncov}(S)$ be the uncovered blocks.  If
-$X\subseteq S$, write $\mathcal U(X)$ for the blocks meeting $X$.  Since $S$
-meets each block at most once,
-\[
-|\mathcal U(X)|=|X|.
-\tag{H1}
-\]
-
-\subsection{Augmenting sequences}
-
-For a sequence $\mathbf v=(v_1,\ldots,v_m)$ define
-\[
-\mathcal B_0=\mathcal U_{\rm uncov}(S),
-\]
-\[
-\mathcal B_k
-=\mathcal B_{k-1}\cup\mathcal U(N(v_k)\cap S),
-\]
-and
-\[
-C_0=\varnothing,
-\qquad
-C_k=C_{k-1}\cup(N(v_k)\cap S)\cup\{v_k\}.
-\]
-Put
-\[
-d_k=|N(v_k)\cap S|.
-\]
-We call $\mathbf v$ augmenting if
-\begin{enumerate}
-\item $v_k$ lies in a block of $\mathcal B_{k-1}$;
-\item $N(v_k)\cap C_{k-1}=\varnothing$;
-\item $d_k>0$ whenever $k<m$.
-\end{enumerate}
-The empty sequence is augmenting.
-
-If $i<j$, then
-\[
-(N(v_i)\cap S)\cap(N(v_j)\cap S)=\varnothing,
-\tag{H2}
-\]
-because the first set lies in $C_{j-1}$ while the second is disjoint from
-$C_{j-1}$.  In particular the vertices $v_i$ are distinct.  Using (H1) and
-(H2),
-\[
-|\mathcal B_m|
-=|\mathcal U_{\rm uncov}(S)|+
-\sum_{i=1}^m d_i,
-\tag{H3}
-\]
-while
-\[
-|C_m|\le m+\sum_{i=1}^m d_i.
-\tag{H4}
-\]
-
-\subsection{Extension while all current degrees are positive}
-
-Assume some block is uncovered and $d_i>0$ for every $i\le m$.  Put
-\[
-D_m=\sum_{i=1}^m d_i.
-\]
-Then $m\le D_m$, so by (H3)--(H4),
-\[
-|C_m|\le2D_m<2|\mathcal B_m|.
-\tag{H5}
-\]
-Suppose every partition block has at least $2\Delta$ vertices.  If
-$V_{\mathcal B_m}$ is the union of the blocks in $\mathcal B_m$, then
-\[
-|V_{\mathcal B_m}|
-\ge2\Delta|\mathcal B_m|.
-\]
-On the other hand
-\[
-|N(C_m)\cap V_{\mathcal B_m}|
-\le\Delta|C_m|
-<2\Delta|\mathcal B_m|.
-\]
-Hence there is
-\[
-w\in V_{\mathcal B_m}\setminus N(C_m).
-\]
-Appending $w$ preserves the augmenting conditions.  Thus an augmenting sequence
-can be extended whenever uncovered blocks remain and all its current degrees
-are positive.  The case $\Delta=0$ is immediate.
-
-\subsection{Improvement when the last degree vanishes}
-
-Suppose $\mathbf v$ is nonempty and $d_m=0$.  Let $U$ be the partition block
-containing $v_m$.  Since
-\[
-N(v_m)\cap S=\varnothing,
-\]
-there are two cases.
-
-If $U$ is uncovered, then
-\[
-S'=S\cup\{v_m\}
-\]
-is a partial independent transversal with $|S'|=|S|+1$.
-
-If $U$ is already covered, let $s$ be the unique point of $S\cap U$.  Since
-$U\in\mathcal B_{m-1}$, there is a first $k<m$ with
-\[
-s\in N(v_k)\cap S.
-\]
-Replace $s$ by $v_m$:
-\[
-S'=(S\setminus\{s\})\cup\{v_m\}.
-\]
-Then $S'$ is again a partial independent transversal, with the same cardinality
-and the same covered blocks.  For $j<k$ the quantities
-$|N(v_j)\cap S|$ are unchanged, while at $k$ the degree drops by one.  The
-prefix $(v_1,\ldots,v_k)$ remains augmenting for $S'$.
-
-Thus a zero last degree yields either a larger partial transversal or, at the
-same size, an augmenting sequence whose degree vector decreases at its first
-changed coordinate.
-
-\subsection{Well-founded minimization}
-
-Let $M=|V|$.  For a feasible pair
-\[
-t=(S,(v_1,\ldots,v_m)),
-\]
-pad the degree vector $(d_1,\ldots,d_m)$ to length $M$ with the sentinel
-$M+1$, and order feasible pairs lexicographically by
-\[
-\mu(t)=
-\bigl(M-|S|,\widehat D(t)\bigr).
-\]
-The range of $\mu$ is finite, so a minimal feasible pair exists.
-
-If its partial transversal were not full, then:
-\begin{itemize}
-\item if the augmenting sequence is empty, the extension argument applies;
-\item if its last degree is zero, the preceding improvement applies;
-\item if its last degree is positive, all its degrees are positive by the
-  definition of augmenting sequence, so again the extension argument applies.
-\end{itemize}
-Every case strictly decreases $\mu$, a contradiction.
-
-We have proved the following theorem.
-
-\begin{theorem}[Independent transversal]\label{thm:haxell-internal}
-Let a finite graph of maximum degree $\Delta$ be partitioned into nonempty
-blocks, each of cardinality at least $2\Delta$.  Then it has an independent
-transversal.
+\begin{theorem}[Haxell]\label{thm:haxell}
+Let a finite graph have maximum degree at most $\Delta$, and let its vertex set
+be partitioned into nonempty blocks, each of cardinality at least $2\Delta$.
+Then the graph has an independent transversal: an independent set containing
+one vertex from every block.
 \end{theorem}
 
-\subsection{Quota packing}
+We use it only through the following immediate quota consequence.
 
-Let a finite graph of maximum degree at most $d>0$ be partitioned into rows
-$R_i$.  In every row split off
-\[
-\left\lfloor\frac{|R_i|}{2d}\right\rfloor
-\]
-disjoint chunks of cardinality $2d$, discarding fewer than $2d$ residual
-vertices.  Restrict the graph to the union of these chunks; its maximum degree
-is still at most $d$.  Theorem~\ref{thm:haxell-internal} supplies one independent
-representative from every chunk.  Their union is an independent set meeting
-each row in exactly
+\begin{proposition}[Quota packing]\label{thm:quota-packing}
+Let a finite graph of maximum degree at most $d$ be partitioned into rows
+$R_i$.  If $d>0$, there is an independent set meeting every row $R_i$ in
+exactly
 \[
 \left\lfloor\frac{|R_i|}{2d}\right\rfloor
 \]
 vertices.  For $d=0$, the whole vertex set is independent.
+\end{proposition}
 
-Thus Theorem~\ref{thm:quota-packing} holds with
+\begin{proof}
+Assume $d>0$.  In every row split off
 \[
-L(0)=1,
-\qquad
-L(d)=2d\quad(d>0).
+\left\lfloor\frac{|R_i|}{2d}\right\rfloor
 \]
-The sharpness of this denominator is not used in the proof of Erdős Problem
-289.
+disjoint chunks of cardinality $2d$, discarding fewer than $2d$ residual
+vertices.  Restrict the conflict graph to the union of these chunks.  Its
+maximum degree is still at most $d$, and the chunks form a vertex partition
+whose blocks all have size $2d$.  Theorem~\ref{thm:haxell} gives one independent
+representative from every chunk.  Their union is independent and has exactly
+the displayed quota in each original row.  The case $d=0$ is immediate.
+\end{proof}
+
+The factor $2d$ is proof technology only.  In the application the conflict
+degree is bounded uniformly after the finite obstacle has been absorbed into
+the thinning constant, so quota packing preserves a fixed positive fraction of
+every sufficiently large row.
