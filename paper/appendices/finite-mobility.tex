@@ -120,20 +120,24 @@ and by choosing the residual and neutral budgets sufficiently small the lower
 state has value $<\eta$.
 \end{proof}
 
-\begin{corollary}[Finite support epimorphism]\label{cor:finite-support-epi}
-Let $I$ be finite and let $\delta_i\in\Q$ be prescribed rational increments.
-For every $\eta>0$, the Boolean subset-sum family determined by the
-$\delta_i$ has a mutually separated homogeneous physical lift whose common
-lower affine load is $<\eta$. In particular, whenever the rational subset-sum
-map is surjective onto a finite cyclic quotient, the physical lift is a
-regular-epimorphic affine cover.
+Reversing the two states gives a remote equal-grade deformation of a negative
+increment as well.  The arbitrarily-small \emph{lower} baseline, however, is
+an oriented statement and is used below only for positive increments.
+
+\begin{corollary}[Positive finite support epimorphism]\label{cor:finite-support-epi}
+Let $I$ be finite and let $\delta_i\in\Q_{>0}$ be prescribed positive rational
+increments. For every $\eta>0$, the Boolean subset-sum family determined by
+the $\delta_i$ has a mutually separated homogeneous physical lift whose common
+lower affine load is $<\eta$. In particular, whenever the positive rational
+subset-sum map is surjective onto a finite cyclic quotient, the physical lift
+is a regular-epimorphic affine cover.
 \end{corollary}
 
 \begin{proof}
-Apply Lemma~\ref{lem:light-deformation} independently to the finitely many
-increments, reversing the two states for negative increments. Allocate
-positive lower-load budgets with total $<\eta$ and place the complete
-footprints mutually far apart. Every Boolean selector is then a physical union,
-all branches have the same grade, and regular-image support is exactly the
-subset-sum image.
+Choose positive budgets $\eta_i$ with $\sum_i\eta_i<\eta$ and apply
+Lemma~\ref{lem:light-deformation} independently to each positive increment,
+placing the complete two-state footprints successively beyond all earlier
+ones. Every Boolean selector is then a physical union, all branches have the
+same grade, and the common lower branch has value $<\sum_i\eta_i<\eta$.
+Regular-image support is exactly the subset-sum image.
 \end{proof}
