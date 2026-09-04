@@ -18,7 +18,6 @@
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\im}{\operatorname{im}}
 \newcommand{\Supp}{\operatorname{Supp}}
-\newcommand{\Real}{\operatorname{Real}}
 
 \title{Fibrewise Exactification and Reciprocal Interval Profiles\\
 \large A categorical proof of Erd\H{o}s Problem 289}
@@ -35,15 +34,15 @@ every fixed $d\ge d_*$, all sufficiently large binary component counts $b$
 occur in an exact reciprocal representation of $1$ with component profile
 $(b_2,b_3)=(b,d)$.
 
-The proof separates a regular-categorical exactification layer from two
-reciprocal providers.  The target $1$ is centered by the universal quotient
-$\Q\to\Q/\Z$.  A source-closed finite Prefix supplies a cofinal affine residue
-cover with uniform physical transparency, while a direct late-source Tail
-uses finite convolution support at prime simple factors and target-specific
-filtered lifting.  The two eventual source loci are intersected, one endpoint
-source is frozen before defect and final grade are quantified, and exact value
-$1$ follows from a pullback of opposite literal cosets in $\Q/\Z$ together
-with the interval $0<W<2$.
+The proof separates categorical exactification from two reciprocal providers.
+The target $1$ is centered by the universal quotient $\Q\to\Q/\Z$.  A
+source-closed finite Prefix supplies a cofinal affine residue cover with
+uniform physical transparency, while a direct late-source Tail uses finite
+convolution support at prime simple factors and target-specific filtered
+lifting.  Their eventual source loci are intersected, one endpoint source is
+frozen before defect and final grade are quantified, and exact value $1$
+follows from a pullback of opposite literal cosets in $\Q/\Z$ together with
+$0<W<2$.
 \end{abstract}
 
 \section{Introduction}
@@ -70,7 +69,7 @@ The intrinsic additive label is
 \[
 \pi(S)=(b_2(S),b_3(S))\in\N^2,
 \]
-while the ordinary number of intervals is the consumer
+while the ordinary number of intervals is only the consumer
 \[
 g(S)=b_2(S)+b_3(S).
 \]
@@ -101,7 +100,7 @@ count $b+d$ occurs.
 The active proof graph is
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
-& \text{target quotient / regular-image calculus} \arrow[d] & \\
+& \text{target quotient / regular images} \arrow[d] & \\
 & \text{component-profile specialization} \arrow[dl] \arrow[dr] & \\
 \text{source-closed affine ray} \arrow[dr]
 && \text{direct targeted Tail} \arrow[dl] \\
@@ -112,7 +111,8 @@ The active proof graph is
 \end{tikzcd}
 \]
 
-\section{Physical states and exact labels}
+\section{Physical states and categorical bookkeeping}
+\label{sec:categorical-bookkeeping}
 
 For a finite support $S$, let
 \[
@@ -129,7 +129,8 @@ Write $C^{23}$ for this partial physical state system and
 =
 \im\bigl(C^{23}_{W=1}\xrightarrow{(b_2,b_3)}\N^2\bigr)
 \]
-for its exact profile spectrum.  The ordinary grade factors through
+for its exact profile spectrum.  The ordinary grade factors through the strict
+triangle
 \[
 \begin{tikzcd}
 C^{23}_{W=1}\arrow[r,"{(b_2,b_3)}"]\arrow[dr,"g"']
@@ -137,141 +138,43 @@ C^{23}_{W=1}\arrow[r,"{(b_2,b_3)}"]\arrow[dr,"g"']
 &\N,
 \end{tikzcd}
 \]
-so the ordinary exact-grade spectrum is a regular-image projection of the
+so the ordinary exact-grade spectrum is the regular-image projection of the
 joint spectrum.
 
-\section{A regular correction calculus}
-\label{sec:correction-engine}
+Only three general categorical operations are used in the active proof.
 
-We record the generic bookkeeping in a regular category $\mathcal E$; the
-application is in $\mathbf{Set}$, where regular epimorphisms are surjections.
-Let
-\[
-W:C\to V,
-\qquad
-\lambda:C\to L
-\]
-be the exact-value map and an additive auxiliary-label map.  Let
-\[
-Q_0\xrightarrow{u}Q_1\xrightarrow{v}Q_2
-\]
-be internal abelian groups with observations
-\[
-\rho_i:V\to Q_i,
-\qquad
-u\rho_0=\rho_1,
-\qquad
-v\rho_1=\rho_2.
-\]
-In the first compatibility the symbol is the morphism $u:Q_0\to Q_1$; explicitly,
-\[
-u\rho_0=\rho_1.
-\tag{C0}\label{eq:obs-compat}
-\]
-Put $\omega_i=(\rho_iW,\lambda)$.
+\paragraph{Pullback of covers.}
+Every correction or target requirement is represented by a fibre product.
+Surjections in $\mathbf{Set}$, equivalently regular epimorphisms, remain
+surjective after pullback.  Thus a family covering a larger requirement may be
+restricted to a literal target fibre without selecting a section.
 
-Over a parameter base $S$, a correction over $u$ is
-\[
-\phi=(u;d,\ell),
-\qquad
-d:S\to Q_1,
-\quad
-\ell:S\to L.
-\]
-Its required source object is the pullback
-\[
-\begin{tikzcd}
-T_S(\phi)\arrow[r]\arrow[d]
-&Q_0\times L\arrow[d,"u\times\mathrm{id}"]\\
-S\arrow[r,"{(d,\ell)}"']
-&Q_1\times L.
-\end{tikzcd}
-\tag{C1}\label{eq:required-pb}
-\]
-A physical family covers $\phi$ when its realizer pullback maps regularly
-epimorphically to $T_S(\phi)$; no chosen realizer is part of the definition.
+\paragraph{Compose before reflect.}
+Physical compatibility is a property of actual states, not merely of their
+aggregate labels.  Literal witness tuples are therefore retained until their
+physical union is certified.  Only afterwards do we pass to the regular image
+seen by the next consumer.
 
-For composable corrections
-\[
-\phi=(u;d,\ell),
-\qquad
-\psi=(v;e,k),
-\]
-the composite is
-\[
-\psi\circ\phi=(vu;v(d)+e,\ell+k).
-\tag{C2}\label{eq:correction-composition}
-\]
-A literal point of the composite requirement with source coordinate $z\in Q_0$
-forces the second requirement
-\[
-\delta(z)=u(z)-d,
-\qquad
-v(\delta(z))=e.
-\]
-Pulling the second realizer cover back along this map gives
-\[
-\begin{tikzcd}
-P_R\arrow[r]\arrow[d,two heads]
-&\Real_R(\psi)\arrow[d,two heads]\\
-T_S(\psi\circ\phi)\arrow[r,"\delta"']
-&T_S(\psi).
-\end{tikzcd}
-\tag{C3}\label{eq:second-pullback}
-\]
-A point of $P_R$ contains an actual second physical state $r$.  If
-$y=\rho_0W(r)$, the first source coordinate is forced to be
-\[
-x=z-y,
-\qquad
-u(x)=d.
-\]
-Equivalently, the last equation is $u(x)=d$.  Pulling the first realizer cover
-back along this requirement gives a regular-epimorphic literal
-matched-realizer object over the composite requirement.  Restricting to
-physically compatible matched pairs and taking physical union gives the
-composite cover.  Thus literal witnesses are composed before their
-regular-image support is taken.
-
-For a target $\tau:S\to V$, exact states form
-\[
-\begin{tikzcd}
-C_\tau\arrow[r]\arrow[d]
-&C\arrow[d,"W"]\\
-S\arrow[r,"\tau"']
-&V.
-\end{tikzcd}
-\]
-Pulling a target correction cover back along the canonical target section and
-then factoring through $C_\tau$ sends its label graph into the regular image of
-the exact-label map.  The final reciprocal proof uses an even thinner instance:
-opposite literal cosets are matched directly, and integrality together with
-$0<W<2$ forces the value $1$.
-
-\section{Support reflection and finite convolution}
-\label{sec:support-enrichment}
-
+\paragraph{Support and cardinality.}
 For a finite witness family $X\to R$, its observable realizability support is
-the regular image
 \[
 X\twoheadrightarrow\Supp(X)\hookrightarrow R.
 \]
-Literal product families are formed before this reflection.  When $R$ is a
-finite additive group, the same construction has a cardinality refinement in
-$\N[R]$: product families become convolution and ordinary image support is the
-support of the coefficient function.  Appendix~\ref{app:atomic-convolution}
-uses this finite decategorification to prove prime-order local coverage.
-Characters occur only inside the proof that all convolution coefficients are
-positive; they do not survive the provider boundary.
+When $R$ is a finite additive group, the same construction admits a cardinality
+refinement in $\N[R]$: product families become convolution and the ordinary
+regular image is the support of the resulting coefficient function.  Appendix
+\ref{app:atomic-convolution} uses this refinement to prove prime-order local
+coverage.  Character sums appear only inside the proof of coefficient
+positivity and disappear after support is taken.
 
 \section{Target quotient and compact endpoints}
 \label{sec:target-quotient}
 
-The target $1$ is the marking
+The target $1$ is the marked morphism
 \[
 \Z\xrightarrow{1\mapsto1}\Q.
 \]
-Its universal target-annihilating quotient is
+Its universal target-annihilating quotient is the cokernel
 \[
 A:=\Q/\Z.
 \]
@@ -291,15 +194,15 @@ L_B=\operatorname{lcm}(1,\ldots,B),
 E_B:=H_{L_B}.
 \tag{E1}\label{eq:endpoint-subgroup}
 \]
-Equivalently, $E_B$ is the join of all prime-power current subgroups of rank at
-most $B$.  The endpoint system is cofinal in the finite-subgroup lattice.  An
-eligible Tail source is such an endpoint $E_B$ subject to the boundary-row
-condition used below.
+Equivalently, $E_B$ is the join of all prime-power current subgroups whose rank
+is at most $B$.  The endpoint system is cofinal in the finite-subgroup lattice.
+An eligible Tail source is such an endpoint subject to the boundary-row
+condition used in Section~\ref{sec:ltar-provider}.
 
-The fixed-source smallness obstruction is already visible here.  For a fixed
-$H_n$, a positive $0<W<1$ with zero residue modulo $H_n$ satisfies $W\ge1/n$.
-Thus the Tail tolerance must be fixed before the eventual endpoint source is
-chosen.
+The fixed-source smallness obstruction is already visible here.  For fixed
+$H_n$, a positive value $0<W<1$ with zero residue modulo $H_n$ satisfies
+$W\ge1/n$.  Hence the resource tolerance must be fixed before the eventual
+endpoint source is chosen.
 
 \input{sections/ltar-provider}
 \input{sections/affine-ray-provider}
