@@ -185,11 +185,26 @@ a quantity $\gg Q^2/\log Q$ while simultaneously lying $O(Q^2)$, which is
 impossible.  Hence at most one defect coordinate meets any sufficiently late
 Tail window, uniformly in $L$.
 
-Each coordinate has a fixed finite number of component envelopes.  Thus the
-whole defect cube adds only $O(1)$ to the Prefix-window incidence bound,
-uniformly in both $B$ and $L$.  Lemma~\ref{lem:sparse-survival} therefore gives
-one fixed $c>0$ such that every sufficiently late MasterSlab is
-$c$-transparent at its own source $E_B$, including boundary predecessors.
+Each coordinate has a fixed finite number of component envelopes.  Therefore
+for one absolute constant $C$,
+\[
+N_Q(S_{B,L})
+\le N_Q(P_B)+C
+\]
+for every sufficiently late current, uniformly in $B$ and
+$L\ge d_0(B)$.  Combining this with the Prefix estimate gives
+\[
+\sup_B\ \sup_{L\ge d_0(B)}N_Q(S_{B,L})
+=o(Q/\log Q).
+\tag{A5}\label{eq:slab-uniform-incidence}
+\]
+Apply Lemma~\ref{lem:sparse-survival} to the obstacle collection
+\[
+\mathcal O_B=\{S_{B,L}:L\ge d_0(B)\}.
+\]
+It gives fixed $c>0$ and $B_0$ such that every $B\ge B_0$ and every
+$L\ge d_0(B)$ is $c$-transparent at the same source $E_B$, including boundary
+predecessors.
 
 \begin{theorem}[Source-closed MasterSlab]\label{thm:masterslab}
 There exist fixed constants $c>0$ and $\eta>0$ and an index $B_0$ such that
