@@ -1,179 +1,47 @@
-% R10-closed manuscript section: germ projections and root exactification
+% Source-filtered root exactification.
 
 \section{Filtered response germs and exactification}
 \label{sec:germs}
 
-The final exactification argument does not consume the full historical Prefix,
-MasterSlab, or BinaryTail objects. This section records the two regular-image
-projections which reduce those stronger providers to the source-filtered germs
-actually used by the root.
+The shortest root consumes two source-filtered responses:
 
-\subsection{Target restriction of a zero-correction cover}
+\begin{itemize}
+\item the filtered affine ray, obtained by restricting the stronger
+MasterSlab provider to one defect fibre;
+\item the direct late-source targeted Tail response of
+Theorem~\ref{thm:ltar-closed}.
+\end{itemize}
 
-Let
-\[
-A=\Q/\Z
-\]
-and let
-\[
-H\le G\le A
-\]
-be finite subgroups. Write
-\[
-q_{H,G}:A/H\longrightarrow A/G.
-\]
-The required residue object for the zero correction from $H$ to $G$ is
-canonically
-\[
-\Req_0(H,G):=\ker q_{H,G}\cong G/H.
-\]
-No choice of representatives is involved.
-
-\begin{lemma}[Target restriction]\label{lem:target-restriction}
-Suppose a normalized physical family $T$ covers the zero correction from $H$
-to $G$. Thus its realizer projection is a regular epimorphism
-\[
-p_T:\Real_T(H,G;0)\twoheadrightarrow\Req_0(H,G).
-\]
-Let $S$ be a parameter object and let
-\[
-r:S\to A/H
-\]
-be a generalized residue such that
-\[
-q_{H,G}r=0.
-\]
-Then there is a canonical pullback response
-\[
-\begin{tikzcd}
-\Real_{T,r} \arrow[r] \arrow[d,two heads]
-& \Real_T(H,G;0) \arrow[d,two heads,"p_T"]\\
-S \arrow[r,"r"'] & \Req_0(H,G)
-\end{tikzcd}
-\]
-whose left vertical map is regular epi. Binaryity, component profile,
-resource upper bounds, and compatibility with a fixed obstacle are inherited
-by restriction.
-\end{lemma}
-
-\begin{proof}
-The condition $q_{H,G}r=0$ is exactly the universal property which factors
-$r$ through $\ker q_{H,G}$. The displayed square is therefore canonical.
-Regular epimorphisms are stable under pullback. The remaining properties are
-predicates or observables inherited by the restricted physical family.
-\end{proof}
-
-For $r\in A/H$, let
-\[
-H[r]=q_H^{-1}(\langle r\rangle)
-\]
-be the least finite extension of $H$ killing $r$. If $G\ge H[r]$, then
-$r\in\ker q_{H,G}$ and Lemma~\ref{lem:target-restriction} applies.
-
-\subsection{The late-source targeted Tail germ}
-
-Fix a raw reciprocal row system $R$ of the kind constructed in
-Section~\ref{sec:ltar-provider}. Its eligible source object carries a proper
-filter $\mathcal F_R$, and every eligible source $\beta$ determines a finite
-subgroup
-\[
-H_\beta\le A.
-\]
-
-For a row-transparent finite obstacle $O$, a residue $r\in A/H_\beta$, a
-tolerance $\varepsilon>0$, and $h\in\N$, let
-\[
-\LTar_R(\varepsilon,c,\beta,O,r,h)
-\]
-denote the normalized solution object of binary physical responses with
-\[
-(b_2,b_3)=(h,0),
-\qquad
-W_+\le\varepsilon,
-\qquad
-q_{H_\beta}([W])=r,
-\]
-compatible with $O$. The branchwise mass notation $W_+$ and transparency
-parameter $c$ are defined explicitly in Section~\ref{sec:ltar-provider}.
-
-\begin{theorem}[Late-source targeted residue saturation]
-\label{thm:ltar-closed}
-For every $R$, every $c>0$, and every $\varepsilon>0$,
-\[
-\forall^\infty\beta\,[\mathcal F_R],
-\quad
-\forall O,
-\quad
-\forall r\in A/H_\beta,
-\quad
-\forall^\infty h,
-\]
-the projection
-\[
-\LTar_R(\varepsilon,c,\beta,O,r,h)\longrightarrow1
-\]
-is regular epi.
-\end{theorem}
-
-\begin{proof}
-Use the stronger BinaryTail theorem at the same tolerance and source. Once a
-good source $\beta$ and a residue $r\in A/H_\beta$ have been fixed, form the
-canonical least absorber
-\[
-K_r=H_\beta[r].
-\]
-Instantiate BinaryTail at the compact request $K_r$. Its eventual endpoint
-$G\ge K_r$ supplies a full zero-correction cover from $H_\beta$ to $G$.
-Since $G$ kills $r$, Lemma~\ref{lem:target-restriction} restricts this cover to
-the required residue $r$.
-
-No quantifier is interchanged: the good-source locus of BinaryTail is already
-uniform in the obstacle and compact request; after fixing $\beta$, the residue
-$r$ determines $K_r$, and the eventual grade threshold is allowed to depend
-on $r$. The endpoint, compact request, least absorber, and unused parts of the
-zero-correction fibre disappear after this pullback.
-\end{proof}
-
-\begin{remark}[Fixed-source smallness is impossible]
-The source eventuality in Theorem~\ref{thm:ltar-closed} is essential. If
-\[
-H_n=n^{-1}\Z/\Z,
-\]
-then a positive value $0<W<1$ with zero residue modulo $H_n$ has $W\ge1/n$.
-Hence a fixed source cannot support positive zero-residue states of arbitrarily
-small mass. The tolerance quantifier must precede the eventual source
-quantifier.
-\end{remark}
+The Tail response is already target-specific.  The historical full BinaryTail
+cover, compact request and least absorber are therefore library mathematics,
+not nodes of the active exactification.
 
 \subsection{Projection of MasterSlab to a filtered affine ray}
 
-Let $(B,\mathcal F_B)$ be a Prefix base and let
+Let $(B,\mathcal F_B)$ be the Prefix base and
 \[
 \beta:B\to S_R
 \]
-be its source map. The Prefix theorem supplies
+its Tail-source map.  The affine provider proves
 \[
 \operatorname{Tendsto}(\beta,\mathcal F_B,\mathcal F_R).
-\tag{F1}
+\tag{F1}\label{eq:affine-tendsto-root}
 \]
-
-Over a generalized good-scale point $(c,\eta)$, the stronger MasterSlab
-theorem gives, for all sufficiently late $b$ and every
+Over uniform generalized certificates $(c,\eta)$, eventually in $b$ and for
+every
 \[
-L\ge d_0(b),
-\qquad d_0(b)=\delta_b^{\sup},
+L\ge d_0(b)
 \]
-a normalized finite family $S_{b,L}$ for which
+there is a normalized finite family $S_{b,L}$ for which
 \[
-(\operatorname{required},\delta_3):
+(\operatorname{required},b_3):
 S_{b,L}\twoheadrightarrow
-\operatorname{Required}(\phi_{b,L})
-\times[d_0(b),L]
-\tag{F2}
+\operatorname{Required}(\phi_{b,L})\times[d_0(b),L]
+\tag{F2}\label{eq:slab-root}
 \]
-is regular epi. All branches have one common total grade, reciprocal value in
-$(0,2-\eta)$, and the whole family is row-transparent with parameter $c$ at
-the source $\beta(b)$.
+is regular epi, all branches have one common total grade, branch value lies in
+$(0,2-\eta)$, and the complete family is $c$-transparent for the later Tail
+rows.
 
 \begin{proposition}[Affine-ray fibre projection]
 \label{prop:affine-ray-projection}
@@ -182,141 +50,129 @@ normalized physical family
 \[
 F_{b,d}\twoheadrightarrow q_{H_b}^{-1}(a_{b,d})
 \]
-covering one affine coset in $A$, with constant component profile
+covering one literal affine coset in $A=\Q/\Z$, with constant component profile
 \[
-(m_{b,d},d)
+(m_{b,d},d),
 \]
-for a derived $m_{b,d}\in\N$, reciprocal value in $(0,2-\eta)$, and the same
-row-transparency lower bound $c$.
+branch value in $(0,2-\eta)$, and the same transparency lower bound $c$.
 \end{proposition}
 
 \begin{proof}
-In the MasterSlab theorem substitute $L=d$. Pull (F2) back along the terminal
-defect fibre
+In \eqref{eq:slab-root} substitute $L=d$ and pull back along the terminal defect
+fibre
 \[
 \operatorname{Required}(\phi_{b,d})\times\{d\}
 \hookrightarrow
 \operatorname{Required}(\phi_{b,d})\times[d_0(b),d].
 \]
-Pullback stability gives
+Pullback stability of regular epimorphisms gives a cover of
+$\operatorname{Required}(\phi_{b,d})$.  Since the affine correction starts at
+the zero compact stage and ends at $H_b$, this required object is the literal
+coset
 \[
-S^{\mathrm{fib}}_{b,d}\twoheadrightarrow
-\operatorname{Required}(\phi_{b,d}).
+q_{H_b}^{-1}(a_{b,d})\subseteq A.
 \]
-Because the correction starts at the zero compact stage and ends at $H_b$,
-its required object is canonically the literal affine coset
-\[
-\operatorname{Required}(\phi_{b,d})
-=q_{H_b}^{-1}(a_{b,d})\subseteq A.
-\]
-Thus the covering map records the actual centered value class $[W(f)]\in A$,
-not merely its residue in $A/H_b$.
-
 The fibre has exact ternary count $d$ and inherits the common total grade
 $K_{b,d}$, hence its component profile is
 \[
-(b_2,b_3)=(K_{b,d}-d,d).
+(K_{b,d}-d,d).
 \]
-The value margin is branchwise and therefore restricts to the fibre.
-Transparency is hereditary in the required direction. All other defect
-fibres, selector data, neutral coordinates, and cross-defect commonality are
-forgotten after this pullback by regular-image factorization.
+The branchwise margin and transparency restrict to the fibre.  Every datum
+belonging only to the other defect fibres has reached its last consumer and is
+forgotten by regular image.
 \end{proof}
 
 The family of Proposition~\ref{prop:affine-ray-projection}, together with
-(F1), is the \emph{filtered affine ray}. The root uses no common affine
-correction or common affine grade across different defects.
+\eqref{eq:affine-tendsto-root}, is the filtered affine ray.
 
-\subsection{Meeting the source germs and freezing one proof-local source}
+\subsection{Meeting the source germs and freezing one source}
 
-The generalized margin coordinate $\eta$ supplies the Tail tolerance
+Use the affine margin to set the canonical Tail tolerance
 \[
 \varepsilon=\eta/2.
 \]
-For fixed $(c,\eta)$, Theorem~\ref{thm:ltar-closed} gives a
-$\mathcal F_R$-large set $U_{\rm tail}$ of good Tail sources. Its inverse image
-under $\beta$ is $\mathcal F_B$-large by (F1). Intersecting with the eventual
-affine-ray locus gives
+Theorem~\ref{thm:ltar-closed} supplies a $\mathcal F_R$-large locus
+$U_{\rm tail}$ on which this tolerance works uniformly for transparent finite
+obstacles and target residues.  By \eqref{eq:affine-tendsto-root}, its inverse
+image is $\mathcal F_B$-large.  Intersect it with the eventual affine-valid
+locus:
 \[
 U_{\rm meet}
-=U_{\rm aff}\cap\beta^{-1}(U_{\rm tail})
+=
+U_{\rm aff}\cap\beta^{-1}(U_{\rm tail})
 \in\mathcal F_B.
-\tag{F3}
+\tag{F3}\label{eq:source-meet}
 \]
-Properness of $\mathcal F_B$ implies $U_{\rm meet}\ne\varnothing$.
+Properness gives $U_{\rm meet}\ne\varnothing$.
 
-At this point the order of quantifiers matters. Choose one
+Now fix one
 \[
 b\in U_{\rm meet}
 \]
-inside the proof and keep this same source fixed for the rest of the
-exactification. Put
+inside the proof and keep it fixed before the defect and final grade are
+quantified.  Put
 \[
-H:=H_{\beta(b)},
+H=H_{\beta(b)},
 \qquad
- d_*:=d_0(b).
-\tag{F4}
+d_*=d_0(b).
+\tag{F4}\label{eq:source-freeze}
 \]
-This is only existential elimination of one inhabited source fibre, not a
-choice of a section depending on the final grade or defect; no source is part
-of the theorem statement. In particular, every Tail threshold used below is
-the threshold belonging to this one fixed source.
+This is ordinary existential elimination of one inhabited source fibre, not a
+section depending on the final grade.  Every Tail threshold below belongs to
+this same fixed source.
 
 \begin{proposition}[Source--defect tradeoff]
 \label{prop:source-defect-tradeoff}
-For the current Prefix provider,
-\[
-d_0(b)=\delta_b^{\sup}\longrightarrow\infty
-\]
-along the moving source filter. Consequently the source may not be reselected
-as a function of the final grade after a fixed defect $d$ has been chosen.
+For the present affine provider, the available defect floor tends to infinity
+along the moving source filter.  Hence the source cannot be reselected as a
+function of the final grade after a fixed defect has been chosen.
 \end{proposition}
 
 \begin{proof}
-For a finite full product family $F$, write
-\[
-\Delta(F)=\max_{x\in F}\delta_3(x).
-\]
-Additivity of $\delta_3$ and the presence of every product branch give
-\[
-\Delta(F\star G)=\Delta(F)+\Delta(G).
-\]
-Every nontrivial universal bridge contains a Boolean endpoint switch with a
-length-three alternative, so its defect supremum is at least one. The moving
-Prefix crosses infinitely many such bridge stages. Its defect supremum is
-therefore the seed supremum plus an unbounded sum of positive bridge costs.
-The MasterSlab affine ray begins at this supremum. Moving the source later can
-thus eventually push a fixed defect below the available affine ray.
+Every nontrivial bridge is a Boolean endpoint-switch family containing a
+length-three alternative, so its defect supremum is positive.  The Prefix
+passes through infinitely many nontrivial bridge stages and defect supremum is
+additive under full compatible products.  Hence the floor from which the
+subsequent defect-filling cube starts grows without bound.  The generic finite
+seed contributes only a finite additional defect at each fixed handoff.
 \end{proof}
 
-\subsection{Coset cancellation}
+\subsection{Same-source opposite-coset cancellation}
 
-Fix any $d\ge d_*$ at the source $H$ of (F4). The affine response gives a
-finite family
+Fix $d\ge d_*$ at the source \eqref{eq:source-freeze}.  Proposition
+\ref{prop:affine-ray-projection} gives
 \[
 p_F:F_d\twoheadrightarrow q_H^{-1}(a_d)
 \]
-with component profile $(m_d,d)$, where $p_F(f)=[W(f)]$. Its complete physical
-footprint is used as the finite row-transparent obstacle for the Tail theorem.
+with constant profile $(m_d,d)$ and branch value in $(0,2-\eta)$.  Use its
+complete finite footprint as the transparent obstacle for
+Theorem~\ref{thm:ltar-closed}.
 
-Apply Theorem~\ref{thm:ltar-closed} at this same source $H$, the opposite
-residue $-a_d\in A/H$, and tolerance $\eta/2$. There is a natural number
-$h_0(d)$ such that for every $h\ge h_0(d)$ we obtain a compatible binary Tail
-family $T_h$ of profile $(h,0)$ with $W_+(T_h)\le\eta/2$ and a centered-value
-map
+Apply that theorem at the same source $H$, target residue
 \[
-\tau:T_h\longrightarrow A,
+-a_d\in A/H,
+\]
+and tolerance $\eta/2$.  There is $h_0(d)$ such that for every
+$h\ge h_0(d)$ it gives a compatible binary Tail family $T_h$ of profile
+$(h,0)$ whose centered-value map
+\[
+\tau:T_h\to A
+\]
+satisfies
+\[
+q_H\tau=-a_d,
 \qquad
-q_H\tau=-a_d.
+0\le W(t)<\eta/2
+\quad(t\in T_h).
 \]
-The threshold may depend on the fixed defect through its affine obstacle and
-residue; this is allowed. It does not depend on $h$ itself.
+The threshold may depend on the fixed residue and affine obstacle, hence on
+$d$, but not on $h$.
 
-Inversion factors canonically through the affine coset:
+Negation factors through the affine coset,
 \[
--\tau:T_h\longrightarrow q_H^{-1}(a_d).
+-\tau:T_h\to q_H^{-1}(a_d).
 \]
-Form the literal matching pullback
+Form the pullback
 \[
 \begin{tikzcd}
 M_{d,h} \arrow[r] \arrow[d,two heads]
@@ -324,60 +180,52 @@ M_{d,h} \arrow[r] \arrow[d,two heads]
 T_h \arrow[r,"-\tau"']
 & q_H^{-1}(a_d).
 \end{tikzcd}
-\tag{F5}
+\tag{F5}\label{eq:coset-cancellation-pb}
 \]
-The left vertical map is regular epi. Every matched pair $(f,t)$ satisfies
+Every matched pair $(f,t)$ satisfies
 \[
 [W(f)]=-[W(t)]\quad\text{in }A,
 \]
-and therefore
-\[
-[W(f)+W(t)]=0\quad\text{in }\Q/\Z.
-\tag{F6}
-\]
-Because the Tail was constructed against the complete affine obstacle, every
-matched pair is physically compatible, so its union $f\sqcup t$ is an actual
-physical state.
-
-Moreover
-\[
-0<W(f)<2-\eta,
-\qquad
-0\le W(t)\le W_+(T_h)\le\eta/2,
-\]
 so
 \[
-0<W(f\sqcup t)<2.
+[W(f)+W(t)]=0\quad\text{in }\Q/\Z.
+\tag{F6}\label{eq:integer-total}
 \]
-Together with (F6), this gives
+The Tail was constructed against the complete affine footprint, so every
+matched pair is physically compatible and $f\sqcup t$ is an actual state.
+Moreover
+\[
+0<W(f\sqcup t)
+<2-\eta+\eta/2
+<2.
+\]
+Together with \eqref{eq:integer-total},
 \[
 W(f\sqcup t)\in\Z\cap(0,2)=\{1\}.
 \]
-Thus the reciprocal value is exactly $1$.
+Thus the value is exactly one.
 
 Component profiles add:
 \[
 (m_d,d)+(h,0)=(m_d+h,d).
-\tag{F7}
+\tag{F7}\label{eq:profile-addition-root}
 \]
-Therefore every binary count
+Therefore every
 \[
 b\ge b_0(d):=m_d+h_0(d)
 \]
-is realized: take $h=b-m_d\ge h_0(d)$. Thus the exact binary-count fibre at
-ternary count $d$ is final.
+is realized by taking $h=b-m_d$.
 
 \begin{proof}[Proof of Theorem~\ref{thm:fibrewise}]
-The common source $b\in U_{\rm meet}$ was fixed once, before $d$ and the final
-binary count were quantified, and $d_*=d_0(b)$ is therefore one finite natural
-number. For every $d\ge d_*$ the preceding argument produces the finite
-threshold $b_0(d)$ and realizes every $b\ge b_0(d)$ with reciprocal value
-exactly $1$ and component profile $(b,d)$. This is precisely
-Theorem~\ref{thm:fibrewise}. The proof-local source and all provider coordinates
-are discarded after the existential theorem has been established.
+The source $b\in U_{\rm meet}$ was fixed once, before $d$ and the final binary
+count were quantified, so $d_*=d_0(b)$ is one finite natural number.  For each
+$d\ge d_*$ the preceding construction supplies $b_0(d)$ and realizes every
+$b\ge b_0(d)$ with exact value $1$ and component profile $(b,d)$.  This is
+Theorem~\ref{thm:fibrewise}.  The proof-local source and all construction
+coordinates are forgotten after the existential statement is established.
 \end{proof}
 
-For Erdős Problem 289 itself no finite meet is required: fix one
-$d\ge d_*$; adding this fixed $d$ to the final binary-count set gives a final
-set of total component counts. Finite intersections over
-$d\in[d_*,D]$ give the stronger finite-defect rectangle as a corollary.
+For Erdős Problem 289 itself no finite meet is needed: fix one $d\ge d_*$ and
+translate the final binary-count ray by $d$.  For every finite
+$D\ge d_*$, the finite intersection of the corresponding final total-grade
+sets gives the stronger finite-defect uniformity statement.
