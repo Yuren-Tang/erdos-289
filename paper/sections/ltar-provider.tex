@@ -33,12 +33,13 @@ The new $p$-primary height is one step, so $S_Q$ has order $p$.  We call $Q$ a
 residue lies in $F_Q$ and has nonzero image in $S_Q$.
 
 Let $\Lambda>1$ be the fixed dilation supplied by
-Appendix~\ref{app:prime-supply}.  Choose once $B_0>1$ and put
-$B_1=\Lambda B_0$.  The signed-inverse construction uses carrier primes in
+Appendix~\ref{app:prime-supply}.  Choose once $\kappa_0>1$ and put
+$\kappa_1=\Lambda\kappa_0$.  The signed-inverse construction uses carrier
+primes in
 \[
-Q/B_1<b<Q/B_0.
+Q/\kappa_1<b<Q/\kappa_0.
 \]
-Thus comparable-prime supply applies with $X=Q/B_1$.
+Thus comparable-prime supply applies with $X=Q/\kappa_1$.
 For a sufficiently large current $Q=p^e$ these carriers are different from
 $p$.  Let $c_+$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and write
 \[
@@ -61,7 +62,7 @@ prime-power factor not below $Q$ is that the carrier prime $b$ divides
 $c_\sigma$.  Then
 \[
 c_\sigma=\lambda b,
-\qquad 1\le\lambda<B_1,
+\qquad 1\le\lambda<\kappa_1,
 \]
 and the inverse relation gives
 \[
@@ -93,8 +94,8 @@ such a pair the carrier prime divides one of
 \[
 Qk-1,\qquad Qk+1,
 \]
-which are $<Q^2+1$.  Since every carrier is $>Q/B_1$, the product of more than
-a fixed number of distinct carriers would exceed $Q^2+1$.  Thin to one
+which are $<Q^2+1$.  Since every carrier is $>Q/\kappa_1$, the product of more
+than a fixed number of distinct carriers would exceed $Q^2+1$.  Thin to one
 occurrence for each retained coefficient.  Comparable-prime supply, the
 finite downwardness deletion and this bounded-multiplicity thinning give
 \[
@@ -142,11 +143,12 @@ k^*=\max(k_+,k_-).
 \]
 Since $k_++k_-=b\asymp p$, bounded coefficient multiplicity leaves
 $\gg p/\log p$ distinct coefficients with $k^*\asymp p$.
-Consequently there are fixed constants $0<c_1<C_1$ such that every retained
-centre at every sufficiently large current lies in the \emph{current window}
+Consequently there are fixed constants $0<c_{\rm win}<C_{\rm win}$ such that
+every retained centre at every sufficiently large current lies in the
+\emph{current window}
 \[
 I_Q=
-\left[c_1\frac{Q^2}{\log Q},\ C_1Q^2\right].
+\left[c_{\rm win}\frac{Q^2}{\log Q},\ C_{\rm win}Q^2\right].
 \tag{T3}\label{eq:tail-current-window}
 \]
 The corresponding branchwise reciprocal-mass bounds are
@@ -163,8 +165,12 @@ simple-value fibre of size $O(p)$.
 
 \subsection{Complete envelopes and sparse survival}
 
-For a component interval $I=[a,b]$ of a physical state define its complete
-conflict envelope by
+A physical state $x$ is \emph{compatible with a finite obstacle family $O$}
+if every component of $x$ is disjoint and non-adjacent to every component that
+occurs in any branch of $O$.  A family is obstacle-compatible when each of its
+branches is.  This condition depends only on the complete footprint of $O$.
+
+For a component interval $I=[a,b]$ define its complete conflict envelope by
 \[
 \operatorname{Env}(I)=[a-2,b+2]\cap\N_{>0}.
 \]
@@ -202,8 +208,8 @@ Assume
 \qquad(Q\to\infty).
 \tag{T5}\label{eq:obstacle-little-o}
 \]
-Then there are $c>0$ and $B_0$ such that for every $B\ge B_0$ and every
-$O\in\mathcal O_B$:
+Then there are $c>0$ and $B_{\rm surv}$ such that for every
+$B\ge B_{\rm surv}$ and every $O\in\mathcal O_B$:
 \begin{enumerate}
 \item for every current $Q>B$, deleting all atoms conflicting with $O$ leaves
 at least $cQ/\log Q$ atoms in $R_Q$;
@@ -436,18 +442,19 @@ lower-order shift: squares contribute $O(X)$, and exponents $e\ge3$ contribute
 $O(X^{2/3}\log X)$.
 
 Let $\Lambda>1$ be the fixed endpoint dilation from comparable-prime supply.
-For one constant $C_1$,
+For one constant $C_{\rm step}>0$,
 \[
 A_B(\Lambda X)-A_B(X)
-\le C_1X(\log X)^2
+\le C_{\rm step}X(\log X)^2
 \]
-eventually, whereas
+eventually, whereas for one constant $c_{\rm width}>0$,
 \[
 B_{B,L}(X)-A_B(X)
 =(L-1)\sum_{B<p\le X}m_p
-\ge c_1(L-1)X(\log X)^2.
+\ge c_{\rm width}(L-1)X(\log X)^2.
 \]
-Choose $L$ once with $c_1(L-1)>C_1$.  Then
+Choose $L$ once with
+$c_{\rm width}(L-1)>C_{\rm step}$.  Then
 \[
 A_B(\Lambda X)\le B_{B,L}(X)+1
 \tag{T14}\label{eq:r14-overlap}
@@ -474,28 +481,32 @@ obstacle there, and let
 \[
 r\in A/E_B.
 \]
-Since $A/E_B$ is torsion and the endpoint system is cofinal, the point $r$ is
-represented in $E_X/E_B$ for some proof-local finite endpoint $E_X\ge E_B$.
-Start the geometric endpoint sequence beyond $X$.  For each total grade in the
-final interval, retain the full local-grade-tuple fibre and then apply
+By Lemma~\ref{lem:endpoint-cofinal}, the point $r$ is represented in
+$E_X/E_B$ for some proof-local finite endpoint $E_X\ge E_B$.  Start the
+geometric endpoint sequence beyond $X$.  For each total grade in the final
+interval, retain the full local-grade-tuple fibre and then apply
 Lemma~\ref{lem:targeted-filtered-lifting} to the same local physical families.
-The resulting matched family has source residue exactly $r$ and carries the
-same branchwise reciprocal-mass bound.
+The resulting matched family satisfies
+\[
+q_{E_B}(\operatorname{res}(t))=r
+\]
+for every branch $t$ and carries the same branchwise reciprocal-mass bound.
 
 \begin{theorem}[Direct late-source targeted saturation]\label{thm:ltar-closed}
-Fix $c>0$ and $\varepsilon>0$.  There exists $B_0$ such that for every
-$B\ge B_0$, every $c$-transparent finite obstacle $O$ at source $E_B$, and
-every residue
+Fix $c>0$ and $\varepsilon>0$.  There exists $B_{\rm tail}$ such that for
+every $B\ge B_{\rm tail}$, every $c$-transparent finite obstacle $O$ at source
+$E_B$, and every $r\in A/E_B$, there is a grade threshold $h_0(B,O,r)$ such
+that every $h\ge h_0(B,O,r)$ is realized by a finite obstacle-compatible
+binary physical family of component profile $(h,0)$ satisfying
 \[
-r\in A/E_B,
+q_{E_B}(\operatorname{res}(t))=r,
+\qquad
+W(t)<\varepsilon
 \]
-there is a grade threshold $h_0(B,O,r)$ such that every $h\ge h_0(B,O,r)$ is
-realized by a finite obstacle-compatible binary physical family of component
-profile $(h,0)$, source residue $r$, and branchwise reciprocal mass
-$<\varepsilon$.
+for every branch $t$.
 \end{theorem}
 
-The source threshold $B_0$ is uniform in $O$ and $r$; after $B$ is fixed the
-grade threshold may depend on $O$ and $r$ through the proof-local endpoint and
-finite packing problem.  This is exactly the quantifier order forced by the
-fixed-source mesh obstruction.
+The source threshold $B_{\rm tail}$ is uniform in $O$ and $r$; after $B$ is
+fixed the grade threshold may depend on $O$ and $r$ through the proof-local
+endpoint and finite packing problem.  This is exactly the quantifier order
+forced by the fixed-source mesh obstruction.
