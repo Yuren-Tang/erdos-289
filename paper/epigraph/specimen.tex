@@ -1,18 +1,10 @@
 \documentclass[11pt,a4paper]{article}
 
-\usepackage[british]{babel}
-\usepackage[no-math]{fontspec}
-\setmainfont{ETbb-Regular.otf}[
-  BoldFont=ETbb-Bold.otf,
-  ItalicFont=ETbb-Italic.otf,
-  BoldItalicFont=ETbb-BoldItalic.otf,
-  Ligatures=TeX
-]
-\usepackage{microtype}
-\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{fontspec}
 \pagestyle{empty}
+\setlength{\parindent}{0pt}
 
-% This proof file deliberately references the licensed desktop font by name.
+% This proof file deliberately references licensed desktop fonts by name.
 % Never commit or package the Trajan font software itself.
 \IfFontExistsTF{Trajan Pro 3}{%
   \newfontfamily\trajanregular{Trajan Pro 3}[
@@ -25,7 +17,7 @@
   ]
 }{%
   \PackageError{e289-epigraph}{Trajan Pro 3 is not active on this machine}%
-    {Activate Trajan in Adobe Fonts, then rerun XeLaTeX.}%
+    {Activate the Trajan family in Adobe Fonts, then rerun XeLaTeX.}%
 }
 
 \newcommand{\plainline}{CARPE DIEM QVAM MINIMVM CREDVLA POSTERO}
@@ -43,8 +35,8 @@
 {\Large Epigraph specimen}\par
 \vspace{2mm}
 {\small
-Erd\H{o}s 289 front-matter line.  All four specimens use 10.5/16 and
-\texttt{fontspec} \texttt{LetterSpace=8}.  OpenType kerning is left at its
+Erd\H{o}s 289 front-matter line. All four specimens use 10.5/16 and
+\texttt{fontspec} \texttt{LetterSpace=8}. OpenType kerning is left at its
 normal setting; there is no synthetic bolding and no manual kerning.
 }
 
@@ -52,11 +44,5 @@ normal setting; there is no synthetic bolding and no manual kerning.
 \sample{B. Trajan Pro 3 Regular --- inscriptional interpuncts}{\trajanregular}{\dotline}
 \sample{C. Trajan Pro 3 Semibold --- no punctuation}{\trajansemibold}{\plainline}
 \sample{D. Trajan Pro 3 Semibold --- inscriptional interpuncts}{\trajansemibold}{\dotline}
-
-\vfill
-{\footnotesize
-The final manuscript will use only the selected line.  This comparison sheet is
-not publication material.
-}
 
 \end{document}
