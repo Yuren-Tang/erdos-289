@@ -1,86 +1,115 @@
-\section{Physical states, response relations, and the torsion filtration}
+\section{Interval configurations, labelled correspondences, and torsion}
 \label{sec:states-filtration}
 
-We work on the path graph on $\mathbf N_{>0}$.  A \emph{physical state} is a finite support whose connected components all have cardinality $2$ or $3$ and are separated by at least one unused vertex.  Let
-\[
-\operatorname{Phys}
-=
-\{S\subset\mathbf N_{>0}:S\text{ is a physical state}\}.
-\]
-If $S$ is a physical state, put
+Let $\mathcal C$ be the set of finite subsets $S\subset\mathbf N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$ and are pairwise nonadjacent.  Put
 \[
 W(S)=\sum_{n\in S}\frac1n,
 \qquad
-g(S)=|\pi_0(S)|,
+\nu(S)=|\pi_0(S)|,
 \qquad
-\operatorname{res}(S)=[W(S)]\in \mathbf Q/\mathbf Z.
+\overline W(S)=[W(S)]\in A:=\mathbf Q/\mathbf Z.
+\tag{2.1}\label{eq:observations}
 \]
-For $n\ge1$, define the genuine $n$-ary multiplication domain
+For $n\ge1$, let
 \[
-D_n\subseteq\operatorname{Phys}^n
+D_n\subseteq\mathcal C^n
 \]
-to consist of tuples $(S_1,\ldots,S_n)$ with pairwise disjoint supports whose literal union $S_1\cup\cdots\cup S_n$ is again a physical state.  Equivalently, no component belonging to one label overlaps or is adjacent to a component belonging to another.  On $D_n$ the partial product is literal union.
+be the joint-compatibility domain: $(S_1,\ldots,S_n)\in D_n$ when the supports are pairwise disjoint and their literal union is again an element of $\mathcal C$.  On $D_n$ the partial product is simply union.  Hence
+\[
+W\!\left(\bigcup_iS_i\right)=\sum_iW(S_i),
+\quad
+\nu\!\left(\bigcup_iS_i\right)=\sum_i\nu(S_i),
+\quad
+\overline W\!\left(\bigcup_iS_i\right)=\sum_i\overline W(S_i).
+\tag{2.2}\label{eq:additive-observations}
+\]
+Equivalently, for binary compatible unions the diagram
+\[
+\begin{CD}
+D_2 @>{\cup}>> \mathcal C\\
+@V{(\Omega\pi_1,\Omega\pi_2)}VV @VV{\Omega}V\\
+(A\times\mathbf N)^2 @>{+}>> A\times\mathbf N,
+\end{CD}
+\qquad
+\Omega=(\overline W,\nu),
+\tag{2.3}\label{eq:observation-square}
+\]
+commutes.  This is the basic structural square of the proof.
 
-Whenever two finite states are physically compatible, their literal union is again a state and
-\[
-W(S\sqcup T)=W(S)+W(T),\qquad
-g(S\sqcup T)=g(S)+g(T),\qquad
-\operatorname{res}(S\sqcup T)=\operatorname{res}(S)+\operatorname{res}(T).
-\]
-Thus physical union is a partial commutative multiplication equipped with additive observations.
+\subsection{Labelled finite correspondences and the relation 2-cell}
 
-\subsection{Finite decorated relations}
+We use the standard locally posetal bicategory $\mathbf{Rel}$: its objects are sets, its $1$-morphisms are relations, and a $2$-cell is inclusion of relations.  No higher-categorical structure beyond this convention is needed.
 
-The proof uses finite relations whose edges carry literal physical labels.  If $X$ and $Y$ are finite target sets, a decorated response from $X$ to $Y$ is a finite relation
+Let $X$ and $Y$ be finite sets.  A \emph{labelled correspondence} from $X$ to $Y$ is a finite subset
 \[
-R\subseteq X\times \operatorname{Phys}\times Y
+R\subseteq X\times\mathcal C\times Y
 \]
-whose projection to $Y$ is surjective.  Its reciprocal filtration norm is
+whose projection to $Y$ is surjective.  Its underlying relation is
 \[
-\|R\|_W
+U(R)=\{(x,y):\exists S\in\mathcal C,\ (x,S,y)\in R\}\subseteq X\times Y,
+\tag{2.4}\label{eq:underlying-relation}
+\]
+and its reciprocal-mass bound is
+\[
+\omega(R)=\max\{W(S):(x,S,y)\in R\},
+\tag{2.5}\label{eq:response-mass}
+\]
+with $\omega(\varnothing)=0$.
+
+Suppose $R_1,\ldots,R_n$ form a finite composable string.  Let $P_n$ be the ordinary fibre product of their edge sets over the intermediate target sets.  In general, forgetting labels before composition permits witnesses whose labels are not jointly compatible, so there is only a canonical inclusion
+\[
+U(R_n\odot\cdots\odot R_1)
+\subseteq
+U(R_n)\circ\cdots\circ U(R_1).
+\tag{2.6}\label{eq:oplax-inclusion}
+\]
+In $\mathbf{Rel}$ this inclusion is precisely the comparison $2$-cell
+\[
+\begin{tikzcd}[column sep=huge]
+X_0
+  \arrow[r,bend left=22,"U(R_n\odot\cdots\odot R_1)"{name=U,below}]
+  \arrow[r,bend right=22,swap,"U(R_n)\circ\cdots\circ U(R_1)"{name=D,above}]
+& X_n
+  \arrow[Rightarrow,from=U,to=D,"\vartheta" description]
+\end{tikzcd}
+\tag{2.7}\label{eq:oplax-2cell}
+\]
+(the $2$-cell means inclusion, not a newly defined kind of arrow).
+
+The comparison becomes an identity exactly in the situation used later: if the label map
+\[
+P_n\longrightarrow\mathcal C^n
+\]
+factors through $D_n$, then every relationally composable witness is jointly compatible, and
+\[
+U(R_n\odot\cdots\odot R_1)
 =
-\max\{W(S):(x,S,y)\in R\},
+U(R_n)\circ\cdots\circ U(R_1).
+\tag{2.8}\label{eq:rel-strictification}
 \]
-with the convention $\|\varnothing\|_W=0$.  We retain the physical edge label until all compatibility conditions have been checked.  Only afterwards do we pass to the regular image seen by the next consumer.
-
-We do \emph{not} assert that arbitrary right-total decorated relations are closed under unrestricted composition.  The only compositions used below occur on finite diagrams for which two additional facts have been proved:
-\begin{enumerate}
-\item the ordinary pullback of composable relation edges still covers the intended target; and
-\item the resulting finite tuple of physical labels factors through the genuine $n$-ary multiplication domain $D_n$ of the partial physical monoid.
-\end{enumerate}
-On such a diagram we take the ordinary pullback, form the literal compatible union of the labels, and then take the regular image.  This is the partial/composable response calculus used throughout the paper.
-
-Let $P_n$ denote the ordinary pullback of an $n$-step composable string.  Forgetting labels to the observable pair $(\operatorname{res},g)$ is in general only oplax: composing observable relations may allow tuples that are not physically composable.  If the label map
+We shall use \eqref{eq:rel-strictification} only after the factorization through $D_n$ has been proved.  The reciprocal mass is then subadditive:
 \[
-P_n\longrightarrow \operatorname{Phys}^n
+\omega(R_n\odot\cdots\odot R_1)
+\le\sum_{i=1}^n\omega(R_i).
+\tag{2.9}\label{eq:mass-subadditive}
 \]
-factors through $D_n$, then the oplax comparison is an equality on that finite diagram.  We refer to this as \emph{$n$-ary strictification}.  The reciprocal value is a subadditive filtration under every such composition:
-\[
-\|R_n\circ\cdots\circ R_1\|_W
-\le \sum_{i=1}^n\|R_i\|_W.
-\]
-All later physical pasting is performed only after the required $P_n\to D_n$ factorization has been established.
+Thus the structural calculus consists of ordinary fibre products and images, together with the single oplax comparison \eqref{eq:oplax-inclusion}; joint compatibility turns the latter into strict composition.
 
 \subsection{Finite torsion in \texorpdfstring{$\mathbf Q/\mathbf Z$}{Q/Z}}
 
-Put
+For $n\ge1$ put
 \[
-A=\mathbf Q/\mathbf Z,
-\qquad
-H_n=\{x\in A:nx=0\}
-\quad(n\ge1).
+H_n=\{x\in A:nx=0\}.
 \]
-For any subgroup $H\le A$, let
+For a subgroup $H\le A$, let
 \[
 q_H:A\longrightarrow A/H
 \]
-be the quotient map.  For $\alpha\in A/H$ write
+be the quotient map, and for $\alpha\in A/H$ write
 \[
-\operatorname{Tor}_H(\alpha)=q_H^{-1}(\alpha)\subseteq A
+\operatorname{Tor}_H(\alpha)=q_H^{-1}(\alpha)
 \]
 for the corresponding affine torsor fibre.
-
-The following elementary description is the only structure of the torsion filtration that we need.
 
 \begin{lemma}\label{lem:torsion-filtration}
 For $m,n\ge1$,
@@ -93,37 +122,39 @@ H_m\le H_n\iff m\mid n,
 \qquad
 H_m\vee H_n=H_{\operatorname{lcm}(m,n)}.
 \]
-Consequently the nonzero join-irreducible stages are exactly $H_{p^e}$, where $p$ is prime and $e\ge1$.
+Consequently the nonzero join-irreducible stages are exactly $H_{p^e}$, with $p$ prime and $e\ge1$.
 \end{lemma}
 
 \begin{proof}
-If $[q]\in H_n$, then $nq\in\mathbf Z$, so $[q]=[j/n]$ for some $j\in\mathbf Z$; hence $H_n=\langle[1/n]\rangle$ and has order $n$.  The inclusion criterion follows by testing the generator $[1/m]$.  Let $L=\operatorname{lcm}(m,n)$.  We have $H_m,H_n\le H_L$.  Since $\gcd(L/m,L/n)=1$, there exist $a,b\in\mathbf Z$ with
+If $[q]\in H_n$, then $nq\in\mathbf Z$, so $[q]=[j/n]$ for some $j\in\mathbf Z$; hence $H_n=\langle[1/n]\rangle$ and has order $n$.  The inclusion criterion follows by testing $[1/m]$.  Put $L=\operatorname{lcm}(m,n)$.  Since $\gcd(L/m,L/n)=1$, there exist $a,b\in\mathbf Z$ with
 \[
 aL/m+bL/n=1.
 \]
-Dividing by $L$ shows $[1/L]\in H_m+H_n$, hence $H_m\vee H_n=H_L$.  The join-irreducibles of the divisibility lattice are precisely the prime powers.
+Dividing by $L$ gives $[1/L]\in H_m+H_n$, whence $H_m\vee H_n=H_L$.  The join-irreducibles of the divisibility lattice are precisely the prime powers.
 \end{proof}
 
-A \emph{current} is therefore indexed by a prime power
+Accordingly we index the nontrivial steps by prime powers
 \[
 Q=p^e.
 \]
-Let $F_Q$ be the join of current stages of rank at most $Q$, and let $F_{<Q}$ be the join of current stages of smaller rank.  Then the associated simple factor
+Let $F_Q$ be the join of all prime-power stages of rank at most $Q$, and $F_{<Q}$ the join of those of smaller rank.  The simple quotient
 \[
 S_Q=F_Q/F_{<Q}
+\tag{2.10}\label{eq:simple-quotient}
 \]
-has order $p$: the $p$-adic valuation of the lower lcm is $e-1$, while adjoining $p^e$ raises it by exactly one.  In particular $S_Q$ is canonically a one-dimensional $\mathbf F_p$-object.
+has order $p$: the $p$-adic valuation of the lower least common multiple is $e-1$, and adjoining $p^e$ raises it by one.  Thus $S_Q$ is canonically a one-dimensional $\mathbf F_p$-object.
 
-For a real cutoff $X\ge1$, define the endpoint stage
+For $X\ge1$ define the endpoint stage
 \[
 E_X=H_{\operatorname{lcm}(1,\ldots,\lfloor X\rfloor)}.
+\tag{2.11}\label{eq:endpoint-stage}
 \]
-Every element $[a/b]\in A$ belongs to $H_b$, so $(E_X)$ is cofinal in the finite subgroups of $A$ and every fixed class of $A$ dies in $A/E_X$ for all sufficiently large $X$.
+Every class $[a/b]\in A$ belongs to $H_b$, so the filtration $(E_X)$ is cofinal and every fixed class of $A$ becomes zero in $A/E_X$ for all sufficiently large $X$.
 
-We shall also use the literal identification of a current step with the corresponding endpoint step.  If $J$ has rank $Q_J$, then
+Finally, if $Q$ is a prime-power step, then
 \begin{equation}\label{eq:endpoint-current-step}
-E_{Q_J-1}=F_{<J},
+E_{Q-1}=F_{<Q},
 \qquad
-E_{Q_J}=F_J.
+E_Q=F_Q.
 \end{equation}
-Indeed $Q_R<Q_J$ is equivalent to $Q_R\le Q_J-1$, while current ranks are injective.  Thus the associated-graded local response $F_{<J}\to F_J$ is literally the step of the global endpoint filtration at $Q_J$.
+Indeed a prime-power rank is $<Q$ exactly when it is at most $Q-1$.  Thus the local simple quotient \eqref{eq:simple-quotient} is literally the associated quotient of the global endpoint filtration at $Q$.
