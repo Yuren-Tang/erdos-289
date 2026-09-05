@@ -31,69 +31,96 @@ P_X(Q):=P_X\cap\mathcal A_Q(B)
 \]
 for every step through $X$.
 
-\subsection{From the simple quotient to the affine fibre}
+\subsection{From the simple quotient to observable translation}
 
 The local theorem concerns $S_Q=F_Q/F_{<Q}$, while the global induction concerns affine fibres in $A=\Q/\Z$.  The connection is the pullback square
 \begin{equation}\label{eq:simple-factor-pullback}
 \begin{CD}
 F_Q @>>> A\\
 @V{q}VV @VV{q_{F_{<Q}}}V\\
-S_Q=F_Q/F_{<Q} @>>> A/F_{<Q}
+S_Q=F_Q/F_{<Q} @>>> A/F_{<Q},
 \end{CD}
 \end{equation}
 where the bottom arrow is the natural inclusion.
 
 \begin{lemma}[Affine lifting across one prime-power step]\label{lem:affine-current-lift}
-Let $Q$ be a prime power, and let
+Let $Q$ be a prime power, let
 \[
-R:X_0\rightsquigarrow
-\operatorname{Tor}_{F_{<Q}}(\alpha)\times I
+T^-=\operatorname{Tor}_{F_{<Q}}(\alpha)\times I,
+\qquad
+T^+=\operatorname{Tor}_{F_Q}(\bar\alpha)\times I',
 \]
-be a covering labelled relation, with $\alpha\in A/F_{<Q}$.  Let $\bar\alpha\in A/F_Q$ be the image of $\alpha$.  Suppose a finite local labelled relation has residues in $F_Q$ and, for every $s\in S_Q$ and $k'\in I'$, contains an edge labelled by $L$ together with some $i\in I$ satisfying
+where $\bar\alpha$ is the image of $\alpha$ in $A/F_Q$.  Let $\mathscr L\subseteq\mathcal C$ be finite, with $\overline W(L)\in F_Q$ for every $L\in\mathscr L$.  Suppose that for every $s\in S_Q$ and $k'\in I'$ there are $L\in\mathscr L$ and $i\in I$ such that
 \[
 [\overline W(L)]_{S_Q}=s,
-\qquad i+\nu(L)=k'.
+\qquad
+i+\nu(L)=k'.
 \]
-If the incoming and local labels are jointly compatible, their composite is covering onto
-\[
-\operatorname{Tor}_{F_Q}(\bar\alpha)\times I'.
-\]
+Then the translation relation
+\begin{equation}\label{eq:local-translation}
+\operatorname{Tr}_{\mathscr L}(T^-,T^+)
+=
+\left\{
+((x,i),L,(x+\overline W(L),i+\nu(L))):
+(x,i)\in T^-,\ L\in\mathscr L,\
+(x+\overline W(L),i+\nu(L))\in T^+
+\right\}
+\end{equation}
+is a covering observable labelled relation $T^-\rightsquigarrow T^+$.
 \end{lemma}
 
 \begin{proof}
-Fix $(y,k')$ in the target fibre and choose $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, their difference belongs to $F_Q$.  Let $s$ be its class in $S_Q$, and choose $L$ and $i$ with simple class $s$ and $i+\nu(L)=k'$.  The pullback property \eqref{eq:simple-factor-pullback} gives
+The conservation law \eqref{eq:edge-conservation} holds by definition.  Fix $(y,k')\in T^+$ and choose $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, the difference $y-x_0$ belongs to $F_Q$; let $s$ be its class in $S_Q$.  Choose $L\in\mathscr L$ and $i\in I$ with simple class $s$ and $i+\nu(L)=k'$.  By the pullback property \eqref{eq:simple-factor-pullback},
 \[
 y-\overline W(L)-x_0\in F_{<Q}.
 \]
-Thus $y-\overline W(L)$ lies in the incoming affine fibre.  An incoming edge ending there, composed with the chosen local edge, ends at $(y,k')$.
+Thus $x:=y-\overline W(L)$ belongs to $\operatorname{Tor}_{F_{<Q}}(\alpha)$, and
+\[
+((x,i),L,(y,k'))
+\in\operatorname{Tr}_{\mathscr L}(T^-,T^+).
+\]
+Hence the target projection is surjective.
 \end{proof}
+
+For each step $Q=p^e\le X$, define
+\begin{equation}\label{eq:physical-local-labels}
+\mathscr L_X(Q)
+=
+\left\{
+\bigcup_{I\in O}I:
+O\subseteq P_X(Q),\ |O|\le p
+\right\}.
+\end{equation}
+Because $P_X$ is independent, every displayed union belongs to $\mathcal C$.  Its residue lies in $F_Q$, and its image in $S_Q\times\N$ is exactly the corresponding point of
+\[
+\Gamma_{\phi_Q|_{P_X(Q)}}.
+\]
+Therefore Theorem~\ref{thm:uniform-profile} gives, at every step of the scalar process through $X$, a covering translation relation of the form \eqref{eq:local-translation} between the corresponding incoming and outgoing affine fibres.
 
 \subsection{Joint compatibility and exact composition}
 
-The local relations in Theorem~\ref{thm:uniform-profile} use finite subsets of the dense restriction $P_X(Q)$.
-
 \begin{lemma}[Joint compatibility]\label{lem:joint-compatibility}
-Let $S_0$ be a label of the affine initial cover.  Let $Q_1,\ldots,Q_m\le X$ be distinct later prime-power steps, and for each $i$ let $L_i$ be the union of a finite subset of $P_X(Q_i)$.  Then
+Let $S_0$ be a label of the affine initial cover.  Let $Q_1,\ldots,Q_m\le X$ be distinct later prime-power steps, and choose $L_i\in\mathscr L_X(Q_i)$ for each $i$.  Then
 \[
 (S_0,L_1,\ldots,L_m)\in D_{m+1}.
 \]
 \end{lemma}
 
 \begin{proof}
-All interval components selected from the sets $P_X(Q_i)$ belong to the single independent set $P_X$, so they are pairwise disjoint and nonadjacent.  Each lies in $\mathcal A_{Q_i}(B)$ and is therefore compatible with every initial-cover label, in particular with $S_0$.  Their literal union with $S_0$ is consequently an element of $\mathcal C$.
+All interval components occurring in the $L_i$ belong to the single independent set $P_X$, so they are pairwise disjoint and nonadjacent.  Each lies in some $\mathcal A_{Q_i}(B)$ and is therefore compatible with every initial-cover label, in particular with $S_0$.  Their literal union with $S_0$ is consequently an element of $\mathcal C$.
 \end{proof}
 
-Let $P_n$ be the fibre product of the edge sets in the finite chain through $X$.  Every local edge label is a union of a finite subset of one $P_X(Q)$, so Lemma~\ref{lem:joint-compatibility} gives the factorization
+Let $P_n$ be the fibre product of the edge sets in the finite chain consisting of the initial relation $R_B$ and the successive translation relations through $X$.  Lemma~\ref{lem:joint-compatibility} gives the factorization
 \begin{equation}\label{eq:realization-factorization}
 \begin{CD}
 P_n @>{\ell}>> \mathcal C^n\\
 @V{\widetilde\ell}VV @AA{\iota}A\\
-D_n @= D_n
+D_n @= D_n.
 \end{CD}
 \end{equation}
-Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  At each prime-power step, Theorem~\ref{thm:uniform-profile} gives the simple-quotient rectangle and Lemma~\ref{lem:affine-current-lift} lifts it to the next endpoint fibre.  Finite induction therefore produces a finite set $X_0(X)$ and a covering labelled relation
+Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  The initial relation is covering, and every local translation relation is covering by Lemma~\ref{lem:affine-current-lift}; therefore their ordinary relational composite is covering.  Exactness of the comparison now shows that the labelled composite is a covering observable relation
 \[
-R_X:X_0(X)\rightsquigarrow T_X,
+R_X:\{0_M\}\rightsquigarrow T_X,
 \]
 where
 \begin{equation}\label{eq:finite-response}
@@ -103,7 +130,7 @@ and $\gamma_X$ is the image of $\gamma_B$ under the endpoint quotient map.
 
 \subsection{Reciprocal-mass control}
 
-If $S_0$ is a label in the affine initial cover, Proposition~\ref{prop:wide-start} gives $W(S_0)<2-\eta$.  Each later prime-power step contributes reciprocal mass at most $\omega_Q$.  By \eqref{eq:mass-subadditive} and \eqref{eq:resource-tail}, every interval configuration $S$ labelling an edge of $R_X$ satisfies
+If $S_0$ is a label in the affine initial cover, Proposition~\ref{prop:wide-start} gives $W(S_0)<2-\eta$.  Every local label at step $Q=p^e$ is a compatible union of at most $p$ members of $\mathcal A_Q$, so Proposition~\ref{prop:signed-inverse-capabilities} bounds its reciprocal mass by $\omega_Q$.  By \eqref{eq:mass-subadditive} and \eqref{eq:resource-tail}, every interval configuration $S$ labelling an edge of $R_X$ satisfies
 \begin{equation}\label{eq:physical-W-less-2}
 W(S)
 \le W(S_0)+\sum_{B<Q\le X}\omega_Q
@@ -111,9 +138,9 @@ W(S)
 \end{equation}
 
 \begin{proposition}[Finite realization through a cutoff]\label{prop:finite-realization}
-For every $X\in\mathcal H_B$ there are a finite set $X_0(X)$ and a labelled relation
+For every $X\in\mathcal H_B$ there is a covering observable labelled relation
 \[
-R_X:X_0(X)\rightsquigarrow T_X
+R_X:\{0_M\}\rightsquigarrow T_X
 \]
-whose target projection is surjective, where $T_X$ is given by \eqref{eq:finite-response}.  Every edge label $S$ of $R_X$ satisfies $W(S)<2$.
+with $T_X$ given by \eqref{eq:finite-response}.  Every edge label $S$ of $R_X$ satisfies $W(S)<2$.
 \end{proposition}
