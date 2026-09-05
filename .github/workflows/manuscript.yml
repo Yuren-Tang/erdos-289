@@ -123,8 +123,8 @@ jobs:
             grep "Missing character:" manuscript.log
             exit 1
           fi
-          if grep -Fq 'Overfull \\hbox' manuscript.log; then
-            grep -F 'Overfull \\hbox' manuscript.log
+          if grep -Fq 'Overfull \hbox' manuscript.log; then
+            grep -F 'Overfull \hbox' manuscript.log
             exit 1
           fi
           if grep -E "(^|[[:space:]])(WARN|ERROR) -" manuscript.blg; then
