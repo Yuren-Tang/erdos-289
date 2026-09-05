@@ -75,11 +75,23 @@ For an atomic current keep all coefficients.  Write $A_Q$ for the resulting fini
 
 \subsection{Simple values}
 
-Modulo the lower endpoint stage $F_{<Q}$, the companion reciprocal vanishes and the distinguished term gives the nonzero simple value
+Modulo the lower endpoint stage $F_{<Q}$, the companion reciprocal has only lower currents, so the current-step class of the atom is the class of the distinguished term $1/(Qk)$.  To compute it, choose $u\in\mathbf Z$ with
 \[
-sv_Q(a)=k^{-1}\pmod p
+uk\equiv1\pmod p,
+\qquad uk=1+pt.
+\]
+Then
+\[
+\frac{u}{Q}-\frac1{Qk}
+=\frac{uk-1}{Qk}
+=\frac{t}{p^{e-1}k}.
+\tag{3.9}\label{eq:simple-coordinate-calculation}
+\]
+Every prime-power factor of the denominator on the right has rank strictly below $Q=p^e$: its $p$-part is at most $p^{e-1}$ and every prime-power factor coming from $k$ is $<Q$ because $k<Q$.  Thus the difference lies in $F_{<Q}$.  Relative to the canonical generator represented by $1/Q$, the simple-factor coordinate is therefore
+\[
+sv_Q(a)=u=k^{-1}\pmod p
 \quad\in S_Q^\times.
-\tag{3.9}\label{eq:simple-value}
+\tag{3.10}\label{eq:simple-value}
 \]
 The atom itself recovers $Q$ and $k$: exactly one support denominator has maximal current $Q$, namely $Qk$.  Hence the map from retained atoms to distinguished centres $Qk$ is globally injective.
 
@@ -89,24 +101,24 @@ There is a late-current threshold beyond which the families $A_Q$ satisfy the fo
 \item There is $\kappa>0$ such that
 \[
 |A_Q|\ge \kappa\frac Q{\log Q}.
-\tag{3.10}
+\tag{3.11}
 \]
 \item Every simple value is nonzero, and for every $s\in S_Q^\times$,
 \[
 |sv_Q^{-1}(s)|\le Q/p.
-\tag{3.11}\label{eq:fibre-bound}
+\tag{3.12}\label{eq:fibre-bound}
 \]
 \item The conflict graph on the union of all late rows has uniformly bounded degree.
 \item Every support vertex $z$ of a retained atom satisfies
 \[
 c\frac{Q^2}{\log Q}\le z\le2Q^2
-\tag{3.12}\label{eq:support-window}
+\tag{3.13}\label{eq:support-window}
 \]
 for a fixed $c>0$.  At prime currents one has the stronger lower scale $z\gg Q^2$.
 \item There is a nonnegative row majorant $\operatorname{roleMass}(Q)$ such that every local current response uses reciprocal value at most $\operatorname{roleMass}(Q)$ and
 \[
 \sum_Q\operatorname{roleMass}(Q)<\infty.
-\tag{3.13}\label{eq:role-summable}
+\tag{3.14}\label{eq:role-summable}
 \]
 \end{enumerate}
 \end{proposition}
