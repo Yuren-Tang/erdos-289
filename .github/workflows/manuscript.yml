@@ -13,34 +13,52 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Guard manuscript source
+      - name: Guard active manuscript source
         working-directory: paper
         run: |
           python3 - <<'PY'
           import re
           from pathlib import Path
 
-          main_files = [Path("manuscript.tex"), *sorted(Path("sections").glob("*.tex"))]
-          corpus = "\n".join(p.read_text(encoding="utf-8") for p in main_files)
+          root = Path("manuscript.tex")
+          root_text = root.read_text(encoding="utf-8")
+          active_section_paths = [
+              Path(name + ".tex")
+              for name in re.findall(r"\\input\{(sections/[^}]+)\}", root_text)
+          ]
+          files = [root, *active_section_paths]
+          corpus = "\n".join(p.read_text(encoding="utf-8") for p in files)
 
           numeric_tags = re.findall(r"\\tag\{\d+\.\d+\}", corpus)
           if numeric_tags:
-              raise SystemExit("Manual numeric equation tags are forbidden in the main text: " + repr(numeric_tags))
+              raise SystemExit("Manual numeric equation tags are forbidden in the active main text: " + repr(numeric_tags))
 
           labels = re.findall(r"\\label\{([^}]+)\}", corpus)
           duplicates = sorted({x for x in labels if labels.count(x) > 1})
           if duplicates:
-              raise SystemExit("Duplicate LaTeX labels: " + repr(duplicates))
+              raise SystemExit("Duplicate active-source LaTeX labels: " + repr(duplicates))
 
           refs = re.findall(r"\\(?:eqref|ref)\{([^}]+)\}", corpus)
           missing = sorted(set(refs) - set(labels))
-          # Appendix labels are not in the main-text corpus; allow those explicitly.
-          appendix_prefixes = ("app:", "thm:restricted-fold", "lem:finite-prefix-initialization", "eq:finite-seed-bound", "eq:future-bridge-total")
-          missing = [x for x in missing if not x.startswith(appendix_prefixes)]
+          # These targets live in the three active appendices, which are checked
+          # by the full XeLaTeX/Biber build below.
+          appendix_targets = {
+              "app:prime-supply",
+              "app:restricted-fold",
+              "app:prefix-seed",
+              "thm:restricted-fold",
+              "lem:finite-prefix-initialization",
+              "eq:finite-seed-bound",
+              "eq:future-bridge-total",
+          }
+          missing = [x for x in missing if x not in appendix_targets]
           if missing:
-              raise SystemExit("References without main-text targets: " + repr(missing))
+              raise SystemExit("References without active-source targets: " + repr(missing))
 
-          print(f"Source guard PASS: {len(labels)} unique main-text labels; no manual numeric tags.")
+          print(
+              f"Active-source guard PASS: {len(active_section_paths)} sections, "
+              f"{len(labels)} unique labels, no manual numeric tags."
+          )
           PY
 
       - name: Replay finite initialization
