@@ -11,7 +11,11 @@ Then the image $\gamma_X$ of the affine centre is zero in $A/E_X$ and $k\in I_X$
 =\operatorname{Tor}_{E_X}(\gamma_X)\times I_X.
 \]
 
-By Proposition~\ref{prop:finite-realization}, choose a finite covering labelled relation $R_X$ with target $T_X$, all of whose edge labels have reciprocal value below $2$.  Let
+By Proposition~\ref{prop:finite-realization}, choose a covering observable labelled relation
+\[
+R_X:\{0_M\}\rightsquigarrow T_X
+\]
+all of whose edge labels have reciprocal value below $2$.  Let
 \[
 \tau_X:R_X\longrightarrow T_X
 \]
@@ -20,10 +24,18 @@ be the target projection.  Pull it back along the point $(0,k):\{*\}\to T_X$:
 \begin{CD}
 E_{X,k} @>>> R_X\\
 @VVV @VV{\tau_X}V\\
-\{*\} @>{(0,k)}>> T_X .
+\{*\} @>{(0,k)}>> T_X.
 \end{CD}
 \end{equation}
-Since $\tau_X$ is surjective, the left vertical map is surjective.  Thus $E_{X,k}$ is nonempty.  An element of $E_{X,k}$ has an interval-configuration label $S\in\mathcal C$ satisfying
+Since $\tau_X$ is surjective, the left vertical map is surjective, so $E_{X,k}$ is nonempty.  Choose an edge
+\[
+(0_M,S,(0,k))\in R_X
+\]
+lying over the point $(0,k)$.  The conservation law \eqref{eq:edge-conservation} gives
+\[
+(0,k)=0_M+\Omega(S)=\bigl(\overline W(S),\nu(S)\bigr).
+\]
+Together with the reciprocal-mass bound on $R_X$,
 \begin{equation}\label{eq:terminal-state}
 \overline W(S)=0,
 \qquad
