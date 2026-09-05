@@ -22,6 +22,14 @@ jobs:
         working-directory: paper
         run: latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
 
+      - name: Reject unresolved references
+        working-directory: paper
+        run: |
+          if grep -E "LaTeX Warning: (There were undefined references|Reference .* undefined|Citation .* undefined)" manuscript.log; then
+            echo "Unresolved manuscript references remain."
+            exit 1
+          fi
+
       - name: Upload manuscript PDF
         uses: actions/upload-artifact@v4
         with:
