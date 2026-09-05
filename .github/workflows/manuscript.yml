@@ -1,0 +1,29 @@
+name: manuscript
+
+on:
+  push:
+    branches:
+      - paper/post-pass-rewrite
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-pictures texlive-fonts-recommended
+
+      - name: Build manuscript
+        working-directory: paper
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
+
+      - name: Upload manuscript PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: e289-manuscript
+          path: paper/manuscript.pdf
