@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  ARXIV_TEX_IMAGE: gcr.io/arxiv-development/arxiv-texlive/arxiv-texlive-base-2025-2025-08-03
+  ARXIV_TEX_IMAGE: texlive/texlive:TL2025-2025-08-03
 
 jobs:
   build:
@@ -68,10 +68,10 @@ jobs:
         working-directory: paper
         run: python3 tools/verify_prefix_seed.py
 
-      - name: Pull exact arXiv TeX Live 2025 image
+      - name: Pull TeX Live snapshot matching arXiv 2025-08-03
         run: docker pull "$ARXIV_TEX_IMAGE"
 
-      - name: Verify arXiv TeX identity and typography dependencies
+      - name: Verify TeX identity and arXiv-visible typography dependencies
         run: |
           docker run --rm "$ARXIV_TEX_IMAGE" bash -lc '
             set -euo pipefail
@@ -90,7 +90,7 @@ jobs:
             kpsewhich binhex.tex
           '
 
-      - name: Build manuscript in exact arXiv TeX Live 2025 image
+      - name: Build manuscript in TeX Live 2025-08-03 snapshot
         run: |
           docker run --rm \
             --user "$(id -u):$(id -g)" \
