@@ -40,7 +40,7 @@ a(Q,b)=
 In the atomic case $Q=p$, this rule gives
 \[
 k\ge b/2\gg p.
-\tag{3.5}
+\tag{3.5}\label{eq:atomic-k-lower}
 \]
 
 \subsection{Transversality and deterministic deduplication}
@@ -116,7 +116,7 @@ The cardinality statement follows from the carrier count, bounded exceptional se
 
 For the conflict bound, each atom occupies two adjacent vertices around its globally injective centre $Qk$.  An interval envelope of bounded length can conflict only with centres in a fixed bounded enlargement of that envelope, so it conflicts with only $O(1)$ retained atoms across all currents.
 
-The support window follows from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:carrier-band} and \eqref{eq:3.5}.  Finally, prime rows have $O(p/\log p)$ atoms of individual mass $O(p^{-2})$, so
+The support window follows from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:carrier-band} and \eqref{eq:atomic-k-lower}.  Finally, prime rows have $O(p/\log p)$ atoms of individual mass $O(p^{-2})$, so
 \[
 \operatorname{roleMass}(p)=O\!\left(\frac1{p\log p}\right).
 \]
