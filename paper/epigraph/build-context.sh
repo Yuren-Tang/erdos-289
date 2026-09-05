@@ -9,12 +9,9 @@ TEXMFHOME=${TEXMFHOME:-/tmp/e289-empty-texmf}
 export TEXMFHOME
 mkdir -p "$TEXMFHOME"
 
-# BasicTeX is intentionally small.  Before starting a six-proof build, detect
-# all TeX Live components used by the real E289 first-page environment so a
-# missing manuscript dependency is reported once rather than one package at a
-# time during XeLaTeX.  The context proof deliberately does not use soul: the
-# Trajan control is tracked with microtype because current soul reconstruction
-# is fragile around XeTeX font switches.
+# BasicTeX is intentionally small. Before starting a six-proof build, detect
+# all TeX Live components used by the real E289 first-page environment and by
+# the isolated legacy Trajan control asset.
 missing=""
 need_tex() {
   file=$1
@@ -27,6 +24,8 @@ need_tex() {
 need_tex newtxmath.sty newtx
 need_tex ETbb-Regular.otf etbb
 need_tex trajan.sty trajan
+need_tex soul.sty soul
+need_tex standalone.cls standalone
 need_tex microtype.sty microtype
 need_tex enumitem.sty enumitem
 need_tex csquotes.sty csquotes
@@ -36,6 +35,14 @@ need_tex cinzel.sty cinzel
 need_tex marcellus.sty marcellus
 need_tex CormorantGaramond.sty cormorantgaramond
 
+if ! command -v pdflatex >/dev/null 2>&1; then
+  printf '%s\n' 'E289 context proof: pdflatex is not available in this TeX installation.' >&2
+  exit 2
+fi
+if ! command -v xelatex >/dev/null 2>&1; then
+  printf '%s\n' 'E289 context proof: xelatex is not available in this TeX installation.' >&2
+  exit 2
+fi
 if ! command -v biber >/dev/null 2>&1; then
   missing="$missing biber"
 fi
@@ -48,6 +55,14 @@ if [ -n "$missing" ]; then
   printf '  sudo tlmgr install%s\n' "$missing"
   exit 2
 fi
+
+# The TeX-Live Trajan family is legacy Type 1/METAFONT. XeTeX/x­dvipdfmx is
+# not a reliable route for this control, so render the exact historical
+# Trajan+soul line with pdfLaTeX first and embed that tiny PDF at natural size
+# into variant 0. Candidates remain live OpenType text under XeLaTeX.
+rm -f trajan-control-line.pdf context-*.pdf
+pdflatex -interaction=nonstopmode -halt-on-error \
+  -jobname=trajan-control-line trajan-control-asset.tex
 
 build_one() {
   variant=$1
