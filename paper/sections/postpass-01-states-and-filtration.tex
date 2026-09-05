@@ -1,0 +1,101 @@
+\section{Physical states, response relations, and the torsion filtration}
+\label{sec:states-filtration}
+
+We work on the path graph on $\mathbf N_{>0}$.  A \emph{physical state} is a finite support whose connected components all have cardinality $2$ or $3$ and are separated by at least one unused vertex.  If $S$ is a physical state, put
+\[
+W(S)=\sum_{n\in S}\frac1n,
+\qquad
+g(S)=|\pi_0(S)|,
+\qquad
+\operatorname{res}(S)=[W(S)]\in \mathbf Q/\mathbf Z.
+\]
+Whenever two finite states are physically compatible, their literal union is again a state and
+\[
+W(S\sqcup T)=W(S)+W(T),\qquad
+g(S\sqcup T)=g(S)+g(T),\qquad
+\operatorname{res}(S\sqcup T)=\operatorname{res}(S)+\operatorname{res}(T).
+\]
+Thus physical union is a partial commutative multiplication equipped with additive observations.
+
+\subsection{Finite decorated relations}
+
+The proof uses finite relations whose edges carry literal physical labels.  If $X$ and $Y$ are finite target sets, a decorated response from $X$ to $Y$ is a finite relation
+\[
+R\subseteq X\times \operatorname{Phys}\times Y
+\]
+whose projection to $Y$ is surjective.  We retain the physical edge label until all compatibility conditions have been checked.  Only afterwards do we pass to the regular image seen by the next consumer.
+
+We do \emph{not} assert that arbitrary right-total decorated relations are closed under unrestricted composition.  The only compositions used below occur on finite diagrams for which two additional facts have been proved:
+\begin{enumerate}
+\item the ordinary pullback of composable relation edges still covers the intended target; and
+\item the resulting finite tuple of physical labels factors through the genuine $n$-ary multiplication domain $D_n$ of the partial physical monoid.
+\end{enumerate}
+On such a diagram we take the ordinary pullback, form the literal compatible union of the labels, and then take the regular image.  This is the partial/composable response calculus used throughout the paper.
+
+Let $P_n$ denote the ordinary pullback of an $n$-step composable string.  Forgetting labels to the observable pair $(\operatorname{res},g)$ is in general only oplax: composing observable relations may allow tuples that are not physically composable.  If the label map
+\[
+P_n\longrightarrow \operatorname{Phys}^n
+\]
+factors through $D_n$, then the oplax comparison is an equality on that finite diagram.  We refer to this as \emph{$n$-ary strictification}.  The reciprocal value is a subadditive filtration under every such composition:
+\[
+\|R_n\circ\cdots\circ R_1\|_W
+\le \sum_{i=1}^n\|R_i\|_W.
+\]
+All later physical pasting is performed only after the required $P_n\to D_n$ factorization has been established.
+
+\subsection{Finite torsion in $\mathbf Q/\mathbf Z$}
+
+Put
+\[
+A=\mathbf Q/\mathbf Z,
+\qquad
+H_n=\{x\in A:nx=0\}
+\quad(n\ge1).
+\]
+The following elementary description is the only structure of the torsion filtration that we need.
+
+\begin{lemma}\label{lem:torsion-filtration}
+For $m,n\ge1$,
+\[
+H_n=\langle[1/n]\rangle,
+\qquad |H_n|=n,
+\]
+\[
+H_m\le H_n\iff m\mid n,
+\qquad
+H_m\vee H_n=H_{\operatorname{lcm}(m,n)}.
+\]
+Consequently the nonzero join-irreducible stages are exactly $H_{p^e}$, where $p$ is prime and $e\ge1$.
+\end{lemma}
+
+\begin{proof}
+If $[q]\in H_n$, then $nq\in\mathbf Z$, so $[q]=[j/n]$ for some $j\in\mathbf Z$; hence $H_n=\langle[1/n]\rangle$ and has order $n$.  The inclusion criterion follows by testing the generator $[1/m]$.  Let $L=\operatorname{lcm}(m,n)$.  We have $H_m,H_n\le H_L$.  Since $\gcd(L/m,L/n)=1$, there exist $a,b\in\mathbf Z$ with
+\[
+aL/m+bL/n=1.
+\]
+Dividing by $L$ shows $[1/L]\in H_m+H_n$, hence $H_m\vee H_n=H_L$.  The join-irreducibles of the divisibility lattice are precisely the prime powers.
+\end{proof}
+
+A \emph{current} is therefore indexed by a prime power
+\[
+Q=p^e.
+\]
+Let $F_Q$ be the join of current stages of rank at most $Q$, and let $F_{<Q}$ be the join of current stages of smaller rank.  Then the associated simple factor
+\[
+S_Q=F_Q/F_{<Q}
+\]
+has order $p$: the $p$-adic valuation of the lower lcm is $e-1$, while adjoining $p^e$ raises it by exactly one.  In particular $S_Q$ is canonically a one-dimensional $\mathbf F_p$-object.
+
+For a real cutoff $X\ge1$, define the endpoint stage
+\[
+E_X=H_{\operatorname{lcm}(1,\ldots,\lfloor X\rfloor)}.
+\]
+Every element $[a/b]\in A$ belongs to $H_b$, so $(E_X)$ is cofinal in the finite subgroups of $A$ and every fixed class of $A$ dies in $A/E_X$ for all sufficiently large $X$.
+
+We shall also use the literal identification of a current step with the corresponding endpoint step.  If $J$ has rank $Q_J$, then
+\begin{equation}\label{eq:endpoint-current-step}
+E_{Q_J-1}=F_{<J},
+\qquad
+E_{Q_J}=F_J.
+\end{equation}
+Indeed $Q_R<Q_J$ is equivalent to $Q_R\le Q_J-1$, while current ranks are injective.  Thus the associated-graded local response $F_{<J}\to F_J$ is literally the step of the global endpoint filtration at $Q_J$.
