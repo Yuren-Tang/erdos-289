@@ -115,7 +115,15 @@ By Proposition~\ref{prop:signed-inverse-capabilities}, the envelopes in Lemma~\r
 
 \subsection{The neutral Hamming pullback}
 
-Let $L(B)$ be any nonnegative integer-valued function satisfying
+Let
+\begin{equation}\label{eq:startup-function-class}
+\mathfrak L=
+\left\{
+L:\N_{>0}\to\N:
+\lim_{B\to\infty}\frac{L(B)\log B}{B}=0
+\right\}.
+\end{equation}
+Fix $L\in\mathfrak L$.  Equivalently,
 \begin{equation}\label{eq:startup-subscale}
 L(B)=o(B/\log B).
 \end{equation}
@@ -174,7 +182,7 @@ For each prepared label $S$, take the edge $(0_M,S,\Omega(S))$.  The residue and
 and \eqref{eq:edge-conservation} holds by construction.
 
 \begin{proposition}[Wide affine initial cover]\label{prop:wide-start}
-There exist $\eta,\sigma>0$ such that, for every integer-valued $L$ satisfying $L(B)=o(B/\log B)$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a covering observable labelled relation
+There exist $\eta,\sigma>0$ such that, for every $L\in\mathfrak L$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a covering observable labelled relation
 \[
 R_B:\{0_M\}\rightsquigarrow
 \operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
@@ -188,7 +196,7 @@ where $I_B$ is the interval in \eqref{eq:common-count-interval} and every edge l
 The quantifier order is
 \begin{equation}\label{eq:wide-start-quantifiers}
 \exists\eta,\sigma>0\;
-\forall L=o(B/\log B)\;
+\forall L\in\mathfrak L\;
 \exists B_0(L)\;
 \forall B\ge B_0(L).
 \end{equation}

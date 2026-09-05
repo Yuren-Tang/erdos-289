@@ -119,7 +119,40 @@ U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}
 \]
 is a normal oplax $2$-functor.
 
-For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets.  The labels define a map $\ell:P_n\to\mathcal C^n$.  The obstruction to strictness is exactly whether $\ell$ factors through the joint-compatibility domain:
+For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets, let $\ell:P_n\to\mathcal C^n$ be the label map, and let
+\[
+\pi_{0,n}:P_n\longrightarrow X_0\times X_n
+\]
+be the endpoint projection.  Put
+\[
+P_n^{\mathrm{comp}}=\ell^{-1}(D_n).
+\]
+Then
+\begin{equation}\label{eq:strictness-endpoint-images}
+U(R_n\odot\cdots\odot R_1)
+=\pi_{0,n}(P_n^{\mathrm{comp}}),
+\qquad
+U(R_n)\circ\cdots\circ U(R_1)
+=\pi_{0,n}(P_n).
+\end{equation}
+Hence the comparison $2$-cell is an identity precisely when
+\begin{equation}\label{eq:strictness-endpoint-criterion}
+\pi_{0,n}(P_n^{\mathrm{comp}})=\pi_{0,n}(P_n).
+\end{equation}
+The distinction between witness-level and endpoint-level loss is displayed by the commutative square
+\begin{equation}\label{eq:strictness-information-square}
+\begin{CD}
+P_n^{\mathrm{comp}} @>>> P_n\\
+@V{\pi_{0,n}}VV @VV{\pi_{0,n}}V\\
+U(R_n\odot\cdots\odot R_1) @>>>
+U(R_n)\circ\cdots\circ U(R_1),
+\end{CD}
+\end{equation}
+whose horizontal arrows are inclusions.  A stronger witnesswise sufficient condition is
+\[
+P_n^{\mathrm{comp}}=P_n,
+\]
+equivalently that $\ell$ factor through the joint-compatibility domain:
 \begin{equation}\label{eq:compatibility-factorization}
 \begin{CD}
 P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
@@ -127,7 +160,7 @@ P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
 \qquad
 \ell=\iota\circ\widetilde\ell.
 \end{equation}
-Whenever such a factorization exists, every relationally composable witness is jointly compatible, and hence
+Whenever this factorization exists, every relationally composable witness is jointly compatible, so \eqref{eq:strictness-endpoint-criterion} holds and hence
 \begin{equation}\label{eq:rel-strictification}
 U(R_n\odot\cdots\odot R_1)
 =
