@@ -1,8 +1,7 @@
 \section{Comparable prime supply}
 \label{app:prime-supply}
 
-The proof needs only one fixed-ratio prime band with two-sided order of
-magnitude $X/\log X$.  We record an elementary Chebyshev proof.
+The proof needs only one fixed-ratio prime band with two-sided order of magnitude $X/\log X$.  We record an elementary Chebyshev proof.
 
 Put
 \[
@@ -22,8 +21,7 @@ v_p\binom{2n}{n}
 \left(\left\lfloor\frac{2n}{p^j}\right\rfloor
 -2\left\lfloor\frac n{p^j}\right\rfloor\right),
 \]
-and every summand is $0$ or $1$; if the sum is $e$, then some nonzero summand
-has index at least $e$, so $p^e\le2n$.
+and every summand is $0$ or $1$; if the sum is $e$, then some nonzero summand has index at least $e$, so $p^e\le2n$.
 
 Since the central binomial coefficient is maximal in its row,
 \[
@@ -33,8 +31,7 @@ hence
 \[
 \psi(x)\ge c_\psi x
 \]
-eventually.  On the other hand, every prime $n<p\le2n$ divides
-$\binom{2n}{n}$, so dyadic telescoping gives
+eventually.  On the other hand, every prime $n<p\le2n$ divides $\binom{2n}{n}$, so dyadic telescoping gives
 \[
 \theta(x)\le C_\theta x.
 \]
@@ -49,14 +46,12 @@ c_\theta x\le\theta(x)\le C_\theta x
 \]
 eventually.
 
-Choose one fixed $\Lambda>1$ with
-$C_\theta<c_\theta\Lambda$.  Then
+Choose one fixed $\Lambda>1$ with $C_\theta<c_\theta\Lambda$.  Then
 \[
 \theta(\Lambda X)-\theta(X)
 \ge(c_\theta\Lambda-C_\theta)X,
 \]
-while every prime in $(X,\Lambda X]$ contributes between
-$\log X$ and $\log(\Lambda X)$.  Thus:
+while every prime in $(X,\Lambda X]$ contributes between $\log X$ and $\log(\Lambda X)$.  Thus:
 
 \begin{proposition}[Comparable prime band]\label{prop:prime-band}
 For some fixed $\Lambda>1$ and constants $c,C>0$,
@@ -71,5 +66,3 @@ for every sufficiently large $X$.
 \end{proposition}
 
 No numerical value of $\Lambda,c,C$ survives the provider boundary.
-
-\input{appendices/atomic-convolution}
