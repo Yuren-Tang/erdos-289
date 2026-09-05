@@ -1,6 +1,6 @@
-# E5–E6 — finite information channel, uniform profile, and sponsored final ray
+# E5–E6 — universal finite channel profile and sponsored final ray
 
-This file is deliberately target/scalar only.  It does not choose a Haxell packing and does not assert physical union for an arbitrary dense subrow.  Physical realization is postponed to E7.
+This file is deliberately target/scalar only.  E5 is now completely independent of a selected WideStart witness: it analyses **all sufficiently dense subrows of the original E3 row**.  E6 uses that universal profile to choose the startup request, and only afterwards is one E4 WideStart witness selected.  No actual Haxell packing is chosen here.
 
 # 1. Finite occurrence channel
 
@@ -103,15 +103,15 @@ then trivially
 \]
 Thus a channel with small output diversity necessarily has a heavy occurrence fibre.  Sections 2 and 3 are different constructions and are identified only at the common rectangle property (2.3)/(3.2).
 
-# 5. E289 dense-subrow specialization
+# 5. Universal E289 dense-subrow specialization
 
-Fix `ρ>0`.  For a late current `Q=p^e`, let `Surv(Q)` denote the row surviving E4.  Define the finite set
+Let `A_Q^{orig}` be the original deterministic E3 row at the late current `Q=p^e`.  Fix `ρ>0` and define
 \[
 \boxed{
-Adm_\rho(Q)=\{A\subseteq Surv(Q): |A|\ge\rho Q/\log Q\}.}
+Adm_\rho(Q)=\{A\subseteq A_Q^{orig}: |A|\ge\rho Q/\log Q\}.}
 \tag{5.1}
 \]
-No independence or packing datum is part of this definition.  It is a finite power-set fibre.  On the sufficiently late locus it is nonempty whenever `ρ` is below the uniform E4/E3 density constant.
+This definition contains no WideStart witness, survivor set, conflict graph, or packing datum.  It is a finite power-set fibre of the original E3 row.  Whenever `ρ` is below the E3 lower row constant, it is nonempty on a cofinal suffix.
 
 For any `A∈Adm_ρ(Q)`, restrict the E3 simple-value map to `A`.  The exact fibre bound `M≤Q/p` and (4.1) give
 \[
@@ -151,7 +151,7 @@ a(A)=O_\rho(\log q).
 \tag{5.6}
 \]
 
-# 6. Packing-independent finite extrema (E5)
+# 6. WideStart-independent finite extrema (E5)
 
 For `A∈Adm_ρ(Q)` define the route demand
 \[
@@ -191,7 +191,7 @@ By (5.6),(6.3), every term in the minimum is `\gg_ρ q/\log q`, hence
 \tag{6.5}
 \]
 
-For every dense subrow `A`, the same common profile is contained in its target rectangle:
+For every `A∈Adm_ρ(Q)`, the same common profile is contained in its target rectangle:
 
 - if `Q` is composite and the incoming interval is `[A_0,B_0]` with width at least `d_ρ(Q)`, then
   \[
@@ -204,9 +204,18 @@ For every dense subrow `A`, the same common profile is contained in its target r
   \]
   lies in (1.2).
 
-This is a target-level theorem for all dense subrows.  When E7 later supplies an **independent** dense subrow by Haxell, the same rectangle is physically realizable using the corresponding actual atoms.
+Thus E5 is independent not only of the Haxell packing but also of the selected E4 WideStart witness.  E7 will later show that its actual packed row is one point of this already-fixed universal admissible family.
 
-# 7. Scalar event system
+# 7. Fix the theorem-level density before the startup request
+
+Let `κ>0` be the late E3 lower row constant, let `σ>0` be the uniform survivor fraction supplied by the **statement** of E4, and let `ρ_P>0` be the fixed quota fraction supplied by G4 for the E3 conflict-degree bound.  These three constants are fixed before any WideStart witness is selected.  Choose once and for all
+\[
+\boxed{0<\rho<\kappa\sigma\rho_P.}
+\tag{7.1}
+\]
+Apply Sections 5–6 with this `ρ`.  The resulting functions `d_ρ,m_ρ` are now fixed independently of every future WideStart witness.
+
+# 8. Scalar event system
 
 Enumerate currents by strictly increasing rank and let `x_n=Q_n`.  Associate to event `n` an interval action
 \[
@@ -248,20 +257,20 @@ N(X)=\sum_{Q_n\le X}\max(-\chi_n,0)
 By (6.2),
 \[
 A(X)=O_\rho((\log X)^2)=o(\Phi(X)).
-\tag{7.1}
+\tag{8.1}
 \]
 There are at most
 \[
 O(\sqrt X\log X)
 \]
-prime powers `p^e≤X` with `e≥2` (sum the crude counts `X^{1/e}` over `2≤e≤\log_2X`).  Hence
+prime powers `p^e≤X` with `e≥2`, hence
 \[
 \boxed{
 N(X)=O_\rho(\sqrt X\log^3X)=o(\Phi(X)).}
-\tag{7.2}
+\tag{8.2}
 \]
 
-# 8. Earlier prime sponsors
+# 9. Earlier prime sponsors
 
 Let `Λ` be the fixed G2 band constant.  For every sufficiently large current rank `Q`, apply G2 at `X=Q/Λ^2`.  The interval
 \[
@@ -272,43 +281,86 @@ contains a prime `q`.  This atomic current occurs earlier than `Q` and by (6.5) 
 m_\rho(q)\gg_\rho q/\log q
 \asymp_{\Lambda,\rho} Q/\log Q
 =\Theta(\Phi(Q)).
-\tag{8.1}
+\tag{9.1}
 \]
 Thus every sufficiently late event has a bounded-multiplicative-lag earlier sponsor whose positive width increment is `\gg\Phi(Q)`.
 
-# 9. Sponsored amortization (E6)
+# 10. Sponsored amortization with the corrected transition scale (E6)
 
-The exact general argument is short.  Let the WideStart theorem E4 supply arbitrary initial width requests `L(B)=o(\Phi(B))`.  Define
+Define the startup request
 \[
-R(B)=A(\Lambda B)+N(\Lambda B).
-\tag{9.1}
+\boxed{R(B)=A(\Lambda^2 B)+N(\Lambda^2 B).}
+\tag{10.1}
 \]
-By (7.1),(7.2) and fixed-scale stability of `\Phi`,
+By (8.1),(8.2) and fixed-scale stability of `\Phi`,
 \[
 R(B)=o(\Phi(B)).
+\tag{10.2}
 \]
-Instantiate E4 with this particular request.
+This request was defined from the universal E5 profile, before any E4 WideStart witness is selected.
 
-Events whose sponsor lies before the chosen start have rank at most `\Lambda B`; pessimistically discard all positive increments.  The initial reserve (9.1) covers both every demand and the entire negative variation in this finite transition.
+E4 therefore supplies an onset `B_0(R)` for this request.  The scalar proof remains valid if we impose any additional prescribed lower bound `B_†`: choose
+\[
+B\ge\max\{B_0(R),B_†,B_{scalar}\},
+\tag{10.3}
+\]
+where `B_scalar` is a fixed onset after which the E5 estimates and sponsor theorem hold.  Only now choose one WideStart witness `W_B` at base `B` and request `R`.  Let its initial grade interval be `I_B`, whose width is at least `R(B)`.
 
-After sponsors lie inside the post-start chain, for an event of rank `Q` retain only the positive increment of one sponsor and subtract all negative variation through `Q`:
+Events whose sponsor lies at or before the start satisfy
+\[
+q\le B,\qquad q>Q/\Lambda^2,
+\]
+so necessarily
+\[
+Q<\Lambda^2B.
+\tag{10.4}
+\]
+Pessimistically discard all positive increments during this transition.  The reserve (10.1) covers every demand through `\Lambda^2B` and all cumulative negative variation there, so the scalar recursion is legal throughout the transition.
+
+For every later event `Q>\Lambda^2B`, the sponsor from Section 9 satisfies `q>B` and lies inside the post-start chain.  Retaining only the positive increment of one sponsor and subtracting all negative variation through `Q` gives
 \[
 w(Q)\ge m_\rho(q)-N(Q).
-\tag{9.2}
+\tag{10.5}
 \]
-By (8.1),(7.2),
+By (9.1),(8.2),
 \[
 w(Q)\gg\Phi(Q),
 \]
-whereas the demand satisfies `a(Q)=o(\Phi(Q))` by (7.1).  Hence every sufficiently late event is legal.  Induction, together with the finite transition already covered by the startup reserve, proves legality of the whole post-start chain.
+whereas the demand satisfies `a(Q)=o(\Phi(Q))` by (8.1).  Hence every sufficiently late event is legal.  Together with the transition argument, induction proves legality of the whole post-start chain.
 
 Successive integer intervals overlap.  Sponsor increments are unbounded because their ranks are cofinal and `\Phi(X)→∞`.  Therefore the union of the interval chain contains every sufficiently large integer.
 
-Finally, the E4 neutral cube contributes one literal residue `\beta_B`.  All productive current responses after the start are internal to the endpoint filtration, so the centre at cutoff `X` is the image of `\beta_B` in `A/H_X`.  E1 cofinality gives a finite `X_abs` after which this centre is zero.  Since the scalar interval chain contains a final ray, for every sufficiently large `k` there is a first-hit horizon at or beyond `X_abs` whose grade interval contains `k` and whose centre is zero.
+# 11. Carry the full WideStart centre
 
-Thus
+The chosen WideStart witness `W_B` covers an affine fibre
+\[
+Tor_{H_B}(\gamma_B),
+\qquad
+\boxed{\gamma_B:=\alpha_B+\beta_B},
+\tag{11.1}
+\]
+where `\alpha_B` is the ragged Prefix centre and `\beta_B` is the common neutral-cube translation.  Productive current responses transport the image of this same fixed class through the endpoint filtration; they do not delete `\alpha_B`.
+
+By E1 cofinality, the torsion class `\gamma_B∈(\mathbf Q/\mathbf Z)/H_B` is killed after a finite endpoint cutoff: there exists `X_abs≥B` such that its image in `(\mathbf Q/\mathbf Z)/H_X` is zero for every `X≥X_abs`.
+
+The scalar interval chain is a final ray and remains so after discarding any finite initial segment.  Hence for every sufficiently large grade `k` there is a first-hit horizon `X≥X_abs` whose grade interval contains `k` and whose transported centre is zero.  Thus
 \[
 \boxed{\exists k_0\ \forall k\ge k_0:\quad Term_k\ne\varnothing.}
-\tag{9.3}
+\tag{11.2}
 \]
 No packing witness, conflict graph, physical resource sum, or n-ary multiplication witness is used in this scalar theorem.
+
+# 12. Quantifier order after repair
+
+The load-bearing order is now explicit:
+
+1. E3 fixes the original rows and `κ`; E4 proves uniform theorem-level `η,σ`; G4 fixes `ρ_P`.
+2. Fix `ρ<κσρ_P`.
+3. E5 takes extrema over **all `ρ`-dense subrows of the original E3 rows**, producing `d_ρ,m_ρ` independently of any WideStart witness.
+4. E6 defines `R(B)` from this universal profile.
+5. Choose `B` past the E4 onset for `R` and any additional prescribed lower bound `B_†`.
+6. Only now select one WideStart witness `W_B`; it determines `Surv_{W_B}` and the full centre `γ_B=α_B+β_B`.
+7. Run the scalar first-hit construction using the already-fixed universal profile.
+8. E7 finally chooses one finite Haxell packing inside `Surv_{W_B}` and checks that its row projections belong to the already-analysed universal `Adm_ρ`.
+
+Thus neither the profile nor the startup request depends on the selected WideStart witness.
