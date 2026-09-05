@@ -3,11 +3,21 @@
 \usepackage{trajan}
 \usepackage{soul}
 
-% Exact legacy control mechanism from the manuscript/E306 baseline.
-\sodef\trajantrack{\trjnfamily}{.08em}{.413em}{.413em}
-\newcommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
+% Two legacy Trajan references:
+% - default: the current E289 manuscript setting, 0.08 em tracking;
+% - \TrajanNormalized defined: the E306-current normalized gate, 0.09 em.
+%
+% Keep the tracked text literal. soul's reconstruction pass is deliberately
+% conservative about commands inside its argument; wrapping the whole line in
+% an unregistered macro can trigger "Reconstruction failed" even under pdfLaTeX.
+\sodef\trajantrackeight{\trjnfamily}{.08em}{.413em}{.413em}
+\sodef\trajantracknine{\trjnfamily}{.09em}{.413em}{.413em}
 
 \begin{document}
-{\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
- \trajantrack{\EpigraphText}}
+{\trjnfamily\mdseries\upshape\fontsize{10.5}{16}\selectfont
+ \ifdefined\TrajanNormalized
+   \trajantracknine{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}%
+ \else
+   \trajantrackeight{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}%
+ \fi}
 \end{document}
