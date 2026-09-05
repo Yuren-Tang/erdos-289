@@ -1,64 +1,29 @@
 \section{Terminal pullback and exact reciprocal sum}
 \label{sec:terminalization}
 
-Only pullback stability of surjections in $\mathbf{Set}$ remains.  For $X\in\mathcal H_B$ put
+Fix a sufficiently large integer $k$.  By Theorem~\ref{thm:scalar-terminality}, choose
 \[
-T_X=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X,
-\qquad
-\mathcal T=\coprod_{X\in\mathcal H_B}T_X.
+X\in\mathcal X_k.
 \]
-A realization $r\in\mathcal R_X$ contains a labelled correspondence $R_X$ covering $T_X$.  Let
+Then the image $\gamma_X$ of the affine centre is zero in $A/E_X$ and $k\in I_X$.  Hence
 \[
-\mathcal E
-=
-\{(X,r,t,e):X\in\mathcal H_B,\ r\in\mathcal R_X,\ t\in T_X,
-\ e\text{ is an edge of }R_X\text{ ending at }t\}.
+(0,k)\in T_X
+=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X.
 \]
-There is a natural surjection
-\begin{equation}\label{eq:universal-edge-surjection}
-\mathcal E
-\twoheadrightarrow
-\mathcal R\times_{\mathcal H_B}\mathcal T.
-\end{equation}
-Every interval configuration labelling an edge of $\mathcal E$ has reciprocal value below $2$ by \eqref{eq:physical-W-less-2}.
 
-Fix a sufficiently large integer $k$.  Theorem~\ref{thm:scalar-terminality} gives the nonempty set $\mathcal X_k$ from \eqref{eq:term-k}.  Form the pullback
+By Proposition~\ref{prop:finite-realization}, choose a finite covering labelled relation $R_X$ with target $T_X$, all of whose edge labels have reciprocal value below $2$.  Let
 \[
-\begin{CD}
-\mathcal R_k @>>> \mathcal R\\
-@VVV @VVV\\
-\mathcal X_k @>>> \mathcal H_B.
-\end{CD}
-\tag{8.1}\label{eq:real-k-square}
+\tau_X:R_X\longrightarrow T_X
 \]
-Since $\mathcal R\to\mathcal H_B$ is surjective, so is
-\begin{equation}\label{eq:real-k}
-\mathcal R_k\twoheadrightarrow\mathcal X_k.
+be the target projection.  Pull it back along the point $(0,k):\{*\}\to T_X$:
+\begin{equation}\label{eq:terminal-edge-pullback}
+\begin{CD}
+E_{X,k} @>>> R_X\\
+@VVV @VV{\tau_X}V\\
+\{*\} @>{(0,k)}>> T_X .
+\end{CD}
 \end{equation}
-
-For $X\in\mathcal X_k$ we have $\gamma_X=0$ and $k\in I_X$, hence there is a canonical point
-\[
-(0,k)\in T_X.
-\]
-These points form a section
-\[
-s_k:\mathcal X_k\longrightarrow\mathcal T
-\]
-over $\mathcal H_B$.  Combining it with \eqref{eq:real-k-square} gives a map
-\[
-\mathcal R_k\longrightarrow
-\mathcal R\times_{\mathcal H_B}\mathcal T.
-\]
-Pulling \eqref{eq:universal-edge-surjection} back along this map gives the second cartesian square
-\[
-\begin{CD}
-\mathcal E_k @>>> \mathcal E\\
-@VVV @VVV\\
-\mathcal R_k @>>> \mathcal R\times_{\mathcal H_B}\mathcal T.
-\end{CD}
-\tag{8.2}\label{eq:terminal-edge-pullback}
-\]
-Thus $\mathcal E_k\to\mathcal R_k$ is surjective.  Since $\mathcal X_k$ is nonempty, both $\mathcal R_k$ and $\mathcal E_k$ are nonempty.  Any element of $\mathcal E_k$ supplies an interval configuration $S\in\mathcal C$ satisfying
+Since $\tau_X$ is surjective, the left vertical map is surjective.  Thus $E_{X,k}$ is nonempty.  An element of $E_{X,k}$ has an interval-configuration label $S\in\mathcal C$ satisfying
 \begin{equation}\label{eq:terminal-state}
 \overline W(S)=0,
 \qquad
@@ -66,29 +31,27 @@ Thus $\mathcal E_k\to\mathcal R_k$ is surjective.  Since $\mathcal X_k$ is nonem
 \qquad
 W(S)<2.
 \end{equation}
-No coherent choice as $k$ varies is required.
 
 Let
 \[
-q_{\mathbf Z}:\mathbf Q\longrightarrow\mathbf Q/\mathbf Z
+q_{\Z}:\Q\longrightarrow\Q/\Z
 \]
 be the quotient map.  By definition of $\overline W$, the square
-\[
+\begin{equation}\label{eq:value-residue-square}
 \begin{CD}
-\mathcal C @>{W}>> \mathbf Q\\
-@V{\overline W}VV @VV{q_{\mathbf Z}}V\\
-\mathbf Q/\mathbf Z @= \mathbf Q/\mathbf Z
+\mathcal C @>{W}>> \Q\\
+@V{\overline W}VV @VV{q_{\Z}}V\\
+\Q/\Z @= \Q/\Z
 \end{CD}
-\tag{8.3}\label{eq:value-residue-square}
-\]
+\end{equation}
 commutes.  Hence $\overline W(S)=0$ implies
 \[
-W(S)\in\ker q_{\mathbf Z}=\mathbf Z.
+W(S)\in\ker q_{\Z}=\Z.
 \]
 Since $\nu(S)=k>0$, the configuration is nonempty and $W(S)>0$.  Together with \eqref{eq:terminal-state},
 \[
 0<W(S)<2,
 \qquad
-W(S)\in\mathbf Z,
+W(S)\in\Z,
 \]
 so $W(S)=1$.  The $k$ connected components of $S$ are pairwise nonadjacent intervals of cardinality $2$ or $3$.  This proves Theorem~\ref{thm:main}.
