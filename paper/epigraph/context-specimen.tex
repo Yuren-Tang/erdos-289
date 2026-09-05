@@ -5,11 +5,14 @@
 \usepackage{newtxmath}
 \usepackage[no-math]{fontspec}
 
-% Exact E306 typography control selected by the Owner:
-% erdos-306 commit 9ab332be9e02248f603b718a4c918e36d595a50b.
-% The Greek dedication there uses EB Garamond Medium at LetterSpace=8,
-% 10.5/16, with 8pt/12pt vertical spacing.  Here the same display parameters
-% are applied to the E289 Latin line so the page-level control is comparable.
+% Exact Owner-specified E306 frozen arXiv-v1 typography control.
+% Frozen source ZIP:
+%   sha256 2856963cfab075e1c888212e1960a071922faa69119c42384e14248a9213b85e
+% Exact main.tex inside that ZIP:
+%   sha256 11570a165e963f113c0ea00bd1bc95bbe1e52f449c8d3fafda4d0d1b082ee56a
+% Its dedication uses EB Garamond Medium at LetterSpace=8, 10.5/16, with
+% 8pt/12pt vertical spacing. Here the same display parameters are applied to
+% the E289 Latin line so the page-level control is comparable.
 \newfontfamily\EThreeOhSixControl{EBGaramond-Medium.otf}[
   ItalicFont=EBGaramond-Medium.otf,
   LetterSpace=8
