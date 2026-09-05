@@ -1,7 +1,7 @@
 \section{A wide affine initial cover}
 \label{sec:wide-start}
 
-The initial construction has two requirements.  It must cover one full affine fibre of the endpoint filtration with a long interval of component counts, and it must remain compatible with a fixed positive fraction of every later signed-inverse family $\mathcal A_Q$.  It is constructed before the uniform simple-quotient transfer theorem and before any independent set is chosen.
+The initial construction must cover one full affine fibre of the endpoint filtration with a long interval of component counts while remaining compatible with a fixed positive fraction of every later signed-inverse family $\mathcal A_Q$.
 
 Put
 \[
@@ -28,26 +28,24 @@ Minimality gives $k\le p-1$, so every $r\in R_p$ divides $D$.  Set
 a_r=\frac{pD}{r}
 \]
 and use the two alternatives
-\[
+\begin{equation}\label{eq:bridge-switch}
 [a_r+1,a_r+2]
 \longleftrightarrow
 [a_r,a_r+2].
-\tag{4.1}\label{eq:bridge-switch}
-\]
+\end{equation}
 Their reciprocal difference is exactly $r/(pD)$.  Thus the full finite-subset relation on $R_p$ maps surjectively to
 \[
-L_n^{-1}\mathbf Z/L_{n-1}^{-1}\mathbf Z
-\cong\mathbf Z/p\mathbf Z.
+L_n^{-1}\Z/L_{n-1}^{-1}\Z
+\cong\Z/p\Z.
 \]
-Every branch contains exactly $k$ connected components, so the bridge changes the residue class without introducing any branch-dependent component-count change.  No section of the subset-sum map is chosen.
+Every branch contains exactly $k$ connected components, so the bridge changes the residue class without introducing any branch-dependent component-count change.
 
 Minimality also gives $k^2=O(p)$ and $T_k=O(p)$.  The total reciprocal mass of the bridge is therefore $O(D^{-1})$.  If $r<s\le k$, then
-\[
+\begin{equation}\label{eq:bridge-separation}
 a_r-a_s
 =\frac{pD(s-r)}{rs}
 \ge\frac{pD}{k^2}.
-\tag{4.2}\label{eq:bridge-separation}
-\]
+\end{equation}
 For all sufficiently large jumps this exceeds the interaction radius of interval components.  Lemma~\ref{lem:finite-prefix-initialization} supplies the finite initialization before this uniform separation regime begins.
 
 The successive nontrivial lower moduli grow at least geometrically, so the total reciprocal mass of the future bridge sequence is finite.  Together with the finite initialization this leaves a fixed positive margin below $2$.
@@ -55,114 +53,114 @@ The successive nontrivial lower moduli grow at least geometrically, so the total
 \subsection{A bounded-spread affine cover}
 
 Fix the finite initialization from Lemma~\ref{lem:finite-prefix-initialization} and compose it with one bridge at every subsequent prime-power jump up to a cutoff $B$.  On residues, finite induction gives a full affine $E_B$-fibre.  Let $\mathcal B_B\subset\mathcal C$ be the finite set of interval labels occurring in this affine cover.  Since every bridge adds the same number of components to every label, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that
-\[
+\begin{equation}\label{eq:ragged-spread}
 \nu(x)\in[m_B,M_B]
 \qquad(x\in\mathcal B_B),
 \qquad
 M_B-m_B=G_0.
-\tag{4.3}\label{eq:ragged-spread}
-\]
-No integer from the explicit certificate of Appendix~\ref{app:prefix-seed} is used beyond this point.
+\end{equation}
+The explicit integers of Appendix~\ref{app:prefix-seed} are used only to establish this finite initial cover.
 
 \subsection{Sparse interaction with later prime-power families}
 
 Let $Q>B$ be a later prime-power step.  Proposition~\ref{prop:signed-inverse-capabilities} places the support of $\mathcal A_Q$ inside
-\[
+\begin{equation}\label{eq:future-window}
 \left[c\frac{Q^2}{\log Q},\,2Q^2\right]
-\tag{4.4}\label{eq:future-window}
-\]
+\end{equation}
 up to a fixed endpoint enlargement.
 
 Suppose a bridge at a jump $n=p^e$, with lower modulus $D=L_{n-1}$, can meet this interval.  Since its bases are $a_r=pD/r$, the upper endpoint gives
 \[
 D=O(Q^2).
-\tag{4.5}
 \]
 The primorial through $n-1$ divides $D$, so the Chebyshev estimate of Appendix~\ref{app:prime-supply} gives
 \[
 n,p=O(\log Q).
-\tag{4.6}
 \]
 The lower endpoint of \eqref{eq:future-window}, together with $a_r\le pD$, gives
 \[
 D\gg\frac{Q^2}{(\log Q)^2}.
-\tag{4.7}
 \]
 Hence the relevant lower moduli lie in a multiplicative window of polylogarithmic width.  Since every nontrivial least-common-multiple jump multiplies the modulus by at least two, only $O(\log\log Q)$ bridge stages can meet the support window.  Each contains
 \[
 k=O(\sqrt p)=O(\sqrt{\log Q})
 \]
 component envelopes.  The total number of bridge envelopes capable of meeting $\mathcal A_Q$ is therefore
-\[
+\begin{equation}\label{eq:bridge-footprint}
 O(\sqrt{\log Q}\,\log\log Q)
 =o(Q/\log Q).
-\tag{4.8}\label{eq:bridge-footprint}
-\]
+\end{equation}
 By Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes are incompatible with only $o(Q/\log Q)$ members of $\mathcal A_Q$.
 
 \subsection{The neutral Hamming pullback}
 
 Let $L(B)$ be any nonnegative integer-valued function satisfying
-\[
+\begin{equation}\label{eq:startup-subscale}
 L(B)=o(B/\log B).
-\tag{4.9}\label{eq:startup-subscale}
-\]
-Apply Lemma~\ref{lem:neutral-cube} to the bounded-spread affine cover using $G_0+L(B)$ neutral coordinates and arbitrarily small total reciprocal mass.  If $x\in\mathcal B_B$ and $0\le j\le L(B)$, the required Hamming weight is
+\end{equation}
+Set
 \[
-(M_B-\nu(x))+j.
-\tag{4.10}\label{eq:hamming-match}
+N_B=G_0+L(B).
 \]
+Apply Lemma~\ref{lem:neutral-cube} to the bounded-spread affine cover using $N_B$ neutral coordinates and arbitrarily small total reciprocal mass.  A neutral coordinate contributes either two or three components.  Thus a Boolean vector of Hamming weight $h$ contributes exactly $2N_B+h$ components.
+
+If $x\in\mathcal B_B$ and $0\le j\le L(B)$, take
+\begin{equation}\label{eq:hamming-match}
+h=(M_B-\nu(x))+j.
+\end{equation}
 Define $\mathcal P_B$ by the cartesian square
-\[
+\begin{equation}\label{eq:hamming-pullback}
 \begin{CD}
-\mathcal P_B @>>> \{0,1\}^{G_0+L(B)}\\
+\mathcal P_B @>>> \{0,1\}^{N_B}\\
 @VVV @VV{|\cdot|}V\\
 \mathcal B_B\times\{0,\ldots,L(B)\}
 @>{(x,j)\mapsto M_B-\nu(x)+j}>>
-\{0,\ldots,G_0+L(B)\}.
+\{0,\ldots,N_B\}.
 \end{CD}
-\tag{4.11}\label{eq:hamming-pullback}
+\end{equation}
+By \eqref{eq:ragged-spread}, the bottom map lands in the displayed interval, and the Hamming-weight map is surjective.  The total component count of the configuration determined by $(x,j)$ is
+\[
+\nu(x)+2N_B+(M_B-\nu(x))+j
+=2N_B+M_B+j.
 \]
-By \eqref{eq:ragged-spread}, the bottom map lands in the displayed interval.  The right vertical map is surjective, so the left vertical map is surjective as well.  Hence every label $x\in\mathcal B_B$ occurs with every requested component count in one common interval of width $L(B)$, without a chosen Hamming representative.
+Hence all labels of $\mathcal B_B$ occur over the same interval
+\begin{equation}\label{eq:common-count-interval}
+I_B=[2N_B+M_B,\,2N_B+M_B+L(B)],
+\end{equation}
+whose width is exactly $L(B)$.
 
 All alternatives in a neutral coordinate have the same reciprocal value, and hence the same residue.  They therefore translate the affine fibre by a single class $\beta_B$.  If $\alpha_B$ is the centre before the neutral family is added, the resulting centre is
-\[
+\begin{equation}\label{eq:full-centre}
 \gamma_B=\alpha_B+\beta_B.
-\tag{4.12}\label{eq:full-centre}
-\]
-The class $\gamma_B$ is retained until endpoint cofinality annihilates it.
+\end{equation}
 
 The neutral family contributes $O(G_0+L(B))=o(B/\log B)$ bounded-size component envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every $Q\ge B$.  Together with \eqref{eq:bridge-footprint} and \eqref{eq:family-size}, this gives constants $\sigma,\eta>0$, independent of $L$, such that the following holds.  Let
-\[
+\begin{equation}\label{eq:compatible-subfamily}
 \mathcal A_Q(B)
 =
 \{I\in\mathcal A_Q:I\text{ is compatible with every label of the initial cover at }B\}.
-\tag{4.13}\label{eq:compatible-subfamily}
-\]
+\end{equation}
 After increasing the onset cutoff if necessary,
-\[
+\begin{equation}\label{eq:wide-survivor-fraction}
 |\mathcal A_Q(B)|\ge\sigma|\mathcal A_Q|
-\tag{4.14}\label{eq:wide-survivor-fraction}
-\]
+\end{equation}
 for every later prime-power step $Q>B$, and every label of the initial cover has reciprocal value below $2-\eta$.
 
 \begin{proposition}[Wide affine initial cover]\label{prop:wide-start}
-There exist $\eta,\sigma>0$ such that, for every integer-valued $L$ satisfying $L(B)=o(B/\log B)$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a finite labelled correspondence covering
+There exist $\eta,\sigma>0$ such that, for every integer-valued $L$ satisfying $L(B)=o(B/\log B)$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a finite covering labelled relation with target
 \[
 \operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
 \]
-where $I_B$ is an integer interval of width at least $L(B)$ and every interval label has reciprocal value below $2-\eta$.  Moreover every later prime-power family satisfies
+where $I_B$ is the interval in \eqref{eq:common-count-interval} and every interval label has reciprocal value below $2-\eta$.  Moreover every later prime-power family satisfies
 \[
 |\mathcal A_Q(B)|\ge\sigma|\mathcal A_Q|.
 \]
 \end{proposition}
 
 The quantifier order is
-\[
+\begin{equation}\label{eq:wide-start-quantifiers}
 \exists\eta,\sigma>0\;
 \forall L=o(B/\log B)\;
 \exists B_0(L)\;
 \forall B\ge B_0(L).
-\tag{4.15}\label{eq:wide-start-quantifiers}
-\]
-In particular $\eta$ and $\sigma$ are fixed before the later transfer theorem and before the particular initial width required by the component-count argument are known.
+\end{equation}
