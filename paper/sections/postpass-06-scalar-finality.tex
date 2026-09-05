@@ -1,159 +1,133 @@
-\section{Sponsored scalar finality}
+\section{Eventual coverage of component counts}
 \label{sec:scalar-finality}
 
-We now forget all physical witnesses.  The only data retained from Theorem~\ref{thm:uniform-profile} are the scalar demand $d_\rho(Q)$ and, at prime currents, the scalar mint $m_\rho(q)$.  The purpose of this section is to prove target terminality before any actual Haxell packing is chosen.
+We now discard the interval labels entirely.  The only information retained from Theorem~\ref{thm:uniform-profile} is the required incoming width $\delta_\rho(Q)$ and, at prime steps, the positive width increment $\mu_\rho(q)$.  The goal is to prove eventual coverage of all component counts before choosing an independent set of intervals.
 
-Enumerate only the late current subtype
+Enumerate the prime powers
 \[
-\{Q=p^e:Q\ge Q_{\mathrm{prof}}\}
+\{Q=p^e:Q\ge Q_{\mathrm{tr}}\}
 \]
-in increasing rank.  Let a grade interval $I=[A,B]$ have width
-\[
-w(I)=B-A.
-\]
-For a prime event $q$, Theorem~\ref{thm:uniform-profile} gives the action
+in increasing order.  For an integer interval $I=[A,B]$ write $w(I)=B-A$.  At a prime $q$, Theorem~\ref{thm:uniform-profile} gives
 \[
 [A,B]\longmapsto
-[A+d_\rho(q),\,B+d_\rho(q)+m_\rho(q)],
+[A+\delta_\rho(q),\,B+\delta_\rho(q)+\mu_\rho(q)],
 \tag{6.1}\label{eq:prime-action}
 \]
-which increases width by $m_\rho(q)$.  For a composite event $Q=p^e$, $e\ge2$, it gives
+so the width increases by $\mu_\rho(q)$.  At a composite prime power $Q=p^e$, $e\ge2$, it gives
 \[
-[A,B]\longmapsto[A+d_\rho(Q),B],
+[A,B]\longmapsto[A+\delta_\rho(Q),B],
 \tag{6.2}\label{eq:composite-action}
 \]
-which decreases width by $d_\rho(Q)$.  An event is legal whenever its incoming width is at least its demand; in that case the new interval overlaps the old one.
+so the width decreases by $\delta_\rho(Q)$.  A step is available whenever the incoming width is at least $\delta_\rho(Q)$; in that case the old and new integer intervals overlap.
 
 Put
 \[
 \Phi(X)=\frac X{\log X}.
 \]
-Let
+Define the maximal required width
 \[
-A(X)=\max_{Q\le X}d_\rho(Q)
+\Delta(X)=\max_{Q\le X}\delta_\rho(Q)
 \]
-over the late event domain, and let
+over the displayed prime-power domain, and the accumulated composite loss
 \[
-N(X)=
-\sum_{\substack{p^e\le X\\ e\ge2}}d_\rho(p^e)
+\mathcal L(X)=
+\sum_{\substack{p^e\le X\\ e\ge2}}\delta_\rho(p^e).
 \tag{6.3}\label{eq:cumulative-debt}
 \]
-be the cumulative negative variation.  By \eqref{eq:d-composite},
+By \eqref{eq:d-composite},
 \[
-A(X)=O_\rho((\log X)^2)=o(\Phi(X)).
+\Delta(X)=O_\rho((\log X)^2)=o(\Phi(X)).
 \tag{6.4}\label{eq:max-demand-subscale}
 \]
-There are $O(\sqrt X\log X)$ prime powers $p^e\le X$ with $e\ge2$: sum the crude bounds $X^{1/e}$ for $2\le e\le\log_2X$.  Hence
+The number of prime powers $p^e\le X$ with $e\ge2$ is $O(\sqrt X\log X)$, so
 \[
 \boxed{
-N(X)=O_\rho(\sqrt X\,\log^3X)
+\mathcal L(X)=O_\rho(\sqrt X\,\log^3X)
 =o(\Phi(X)).}
 \tag{6.5}\label{eq:debt-subscale}
 \]
 
-\subsection{Earlier prime sponsors}
+\subsection{Bounded-lag prime compensation}
 
-Let $\Lambda\ge2$ be the integer multiplier from Proposition~\ref{prop:prime-supply-main}.  There is a fixed integer
+Let $\Lambda\ge2$ be the multiplier in Proposition~\ref{prop:prime-supply-main}.  Put
 \[
-\Lambda_s=4\Lambda
+\Lambda_s=4\Lambda.
 \tag{6.6}\label{eq:sponsor-lag}
 \]
-such that every sufficiently large event rank $Q$ has an earlier prime sponsor $q$ satisfying
+Every sufficiently large prime-power rank $Q$ admits an earlier prime $q$ such that
 \[
 q<Q\le\Lambda_s q.
 \tag{6.7}\label{eq:sponsor-bounded-lag}
 \]
-Indeed, put
-\[
-Y=Q\operatorname{div}(2\Lambda).
-\]
-For $Q$ sufficiently large, $Y$ is in the range of Proposition~\ref{prop:prime-supply-main}, so there is a prime
-\[
-Y<q\le\Lambda Y.
-\]
-Euclidean division gives
+Indeed, let $Y=Q\operatorname{div}(2\Lambda)$.  For large $Q$, Proposition~\ref{prop:prime-supply-main} gives a prime $Y<q\le\Lambda Y$.  Writing
 \[
 Q=(2\Lambda)Y+r,
-\qquad 0\le r<2\Lambda.
+\qquad0\le r<2\Lambda,
 \]
-Thus $q\le\Lambda Y<2\Lambda Y\le Q$, while for $Y\ge1$,
+shows $q<Q$ and, for $Y\ge1$,
 \[
 Q<2\Lambda(Y+1)\le4\Lambda Y<4\Lambda q.
 \]
-Hence \eqref{eq:sponsor-bounded-lag}.  Enlarging the onset so that $Q>\Lambda_sQ_{\mathrm{prof}}$ also forces $q>Q_{\mathrm{prof}}$, so the sponsor belongs to the same late event subtype.
+After enlarging the onset, $q$ also lies above $Q_{\mathrm{tr}}$.
 
-By \eqref{eq:mint-prime} and \eqref{eq:sponsor-bounded-lag},
+By \eqref{eq:mint-prime},
 \[
-m_\rho(q)
-\gg_\rho \frac q{\log q}
+\mu_\rho(q)
+\gg_\rho\frac q{\log q}
 \asymp_{\rho,\Lambda_s}\frac Q{\log Q}
 =\Theta(\Phi(Q)).
 \tag{6.8}\label{eq:sponsor-mint}
 \]
-Thus every sufficiently late event has a bounded-multiplicative-lag earlier prime sponsor whose positive width increment is macroscopic on the scale $\Phi(Q)$.
+Thus every sufficiently large step has a preceding prime step, at bounded multiplicative distance, whose positive width increment is of order $Q/\log Q$.
 
-\subsection{Startup reserve and legal continuation}
+\subsection{Initial width and continuation}
 
-The scalar theorem will be used above an arbitrarily prescribed lower cutoff $B_\dagger$.  Define the startup request
+Let $B_\dagger$ be any prescribed lower cutoff.  Define
 \[
-R(B)=A(\Lambda_sB)+N(\Lambda_sB).
+R(B)=\Delta(\Lambda_sB)+\mathcal L(\Lambda_sB).
 \tag{6.9}\label{eq:startup-request}
 \]
-By \eqref{eq:max-demand-subscale}, \eqref{eq:debt-subscale}, and fixed-scale stability of $\Phi$,
+By \eqref{eq:max-demand-subscale} and \eqref{eq:debt-subscale},
 \[
 R(B)=o(B/\log B).
-\tag{6.10}
+\tag{6.10}\label{eq:startup-subscale-scalar}
 \]
-Hence Proposition~\ref{prop:wide-start} applies to this particular request.  Choose $B$ sufficiently large so that
-\[
-B\ge B_\dagger,
-\qquad
-B\ge Q_{\mathrm{prof}},
-\]
-and so that all asymptotic statements above and the WideStart conclusion hold.  Fix one resulting WideStart with grade interval of width at least $R(B)$ and full centre $\gamma_B$ from \eqref{eq:full-centre}.
+Proposition~\ref{prop:wide-start} can therefore be applied with $L(B)=R(B)$.  Choose $B$ large enough that $B\ge B_\dagger$, $B\ge Q_{\mathrm{tr}}$, and all preceding asymptotic conclusions hold, and fix one wide affine initial cover with component-count interval of width at least $R(B)$ and centre $\gamma_B$.
 
-If an event $Q$ has its chosen sponsor $q$ at or before the start $B$, then \eqref{eq:sponsor-bounded-lag} implies
-\[
-Q\le\Lambda_sB.
-\]
-Pessimistically discard every positive mint in this finite transition.  The initial width $R(B)$ covers both the largest individual demand and all negative variation through $\Lambda_sB$.
+If the bounded-lag prime associated with a step $Q$ lies at or before $B$, then $Q\le\Lambda_sB$.  Ignoring all positive increments in this finite transition, the initial width $R(B)$ covers both the largest single requirement and the total composite loss through $\Lambda_sB$.
 
-After every sponsor lies inside the post-start chain, retain only the positive increment of one sponsor and subtract all negative variation through the current event.  Immediately before an event of rank $Q$ we have the lower bound
+After the associated prime always lies in the post-$B$ sequence, keep only the positive increment from that prime and subtract all composite losses up to the current step.  Immediately before a step of rank $Q$,
 \[
-w(Q)\ge m_\rho(q)-N(Q).
+w(Q)\ge\mu_\rho(q)-\mathcal L(Q).
 \tag{6.11}\label{eq:sponsored-width}
 \]
-By \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale},
+Equations \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale} give $w(Q)\gg\Phi(Q)$, whereas the required incoming width is $o(\Phi(Q))$ by \eqref{eq:max-demand-subscale}.  Hence all sufficiently large steps are available; together with the finite transition above, the entire sequence after $B$ is defined.
+
+Successive component-count intervals overlap.  Their upper endpoints are unbounded because the positive increments at prime steps are unbounded.  Hence their union contains a final ray in $\mathbf N$.
+
+\subsection{Vanishing of the affine centre}
+
+The initial affine fibre has centre
 \[
-w(Q)\gg\Phi(Q),
+\gamma_B\in A/E_B.
 \]
-whereas the current demand is $o(\Phi(Q))$ by \eqref{eq:max-demand-subscale}.  Thus every sufficiently late event is legal.  Together with the startup reserve, induction gives legality of the entire post-start chain.
+Each later prime-power step transports this class along the quotient maps of the endpoint filtration.  By cofinality of $(E_X)$, there is a finite cutoff after which the image of $\gamma_B$ in $A/E_X$ is zero.  Removing a finite initial segment does not change the final-ray conclusion.
 
-Successive integer intervals overlap, and prime sponsor mints are unbounded because their ranks are cofinal and $\Phi(X)\to\infty$.  Therefore the union of the scalar grade intervals contains a final ray in $\mathbf N$.
-
-\subsection{The centre dies at a finite endpoint}
-
-The WideStart begins in the affine fibre centred at the fixed class
+For $k\in\mathbf N$ define
 \[
-\gamma_B=\alpha_B+\beta_B\in A/E_B.
-\]
-Every productive current response after the start is internal to the endpoint filtration and transports this centre by the canonical quotient map.  By cofinality of $(E_X)$, there exists a finite cutoff $X_{\mathrm{abs}}$ after which the image of $\gamma_B$ in $A/E_X$ is zero.  Deleting the finite initial part of an interval chain does not change the final-ray conclusion.
-
-For a grade $k$ define
-\[
-\operatorname{Term}_k=
+\mathcal X_k=
 \{X\ge B:
 \gamma_B\mapsto0\text{ in }A/E_X,
 \quad k\in I_X\},
 \tag{6.12}\label{eq:term-k}
 \]
-where $I_X$ is the scalar grade interval after processing all late currents through $X$.
+where $I_X$ is the component-count interval after all prime-power steps through $X$ have been processed.
 
-\begin{theorem}[Scalar terminality]\label{thm:scalar-terminality}
-For every prescribed lower cutoff $B_\dagger$, one can choose a WideStart base $B\ge B_\dagger$ such that
+\begin{theorem}[Eventual component-count coverage]\label{thm:scalar-terminality}
+For every lower cutoff $B_\dagger$ one can choose $B\ge B_\dagger$ and a wide affine initial cover at $B$ such that
 \[
 \exists k_0\ \forall k\ge k_0:
-\qquad \operatorname{Term}_k\ne\varnothing.
+\qquad \mathcal X_k\ne\varnothing.
 \]
-No Haxell packing, conflict graph, physical union, or reciprocal-resource tail is used in this target-only theorem.
+The theorem is entirely observable: it uses no incompatibility graph, independent transversal, joint interval union, or reciprocal-mass tail from the later realization.
 \end{theorem}
