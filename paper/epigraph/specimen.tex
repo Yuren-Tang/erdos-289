@@ -17,12 +17,12 @@
 \newcommand{\plainline}{CARPE DIEM QVAM MINIMVM CREDVLA POSTERO}
 \newcommand{\dotline}{CARPE\char"00B7DIEM\char"00B7QVAM\char"00B7MINIMVM\char"00B7CREDVLA\char"00B7POSTERO}
 
-% E306 control dimensions: 10.5 pt on 16 pt, LetterSpace=8.
-% fontspec tracking is used, so the fonts retain their normal OpenType kerning;
-% there is no manual kerning and no synthetic emboldening.
+% Current successful E306 dedication baseline: 10.5 pt on 16 pt,
+% LetterSpace=9 (0.09 em). This is a comparison prior, not a universal rule.
+% fontspec tracking is used; there is no manual kerning or synthetic bolding.
 \newcommand{\epigraphfont}[2]{%
   \fontfamily{#1}\fontseries{#2}\upshape\selectfont
-  \addfontfeatures{LetterSpace=8}%
+  \addfontfeatures{LetterSpace=9}%
   \fontsize{10.5}{16}\selectfont
 }
 \newcommand{\sample}[4]{%
@@ -38,8 +38,8 @@
 {\Large Free epigraph specimen}\par
 \vspace{1mm}
 {\small
-All candidates are in TeX Live and use the E306 control size/tracking:
-10.5/16 and \texttt{LetterSpace=8}.  Automatic font kerning is left enabled.
+All candidates are in TeX Live and use the current E306 baseline size/tracking:
+10.5/16 and \texttt{LetterSpace=9}. This sheet remains glyph-level only.
 }
 
 \sample{A. Cinzel Regular --- no punctuation}{\CinzelFamily}{m}{\plainline}
