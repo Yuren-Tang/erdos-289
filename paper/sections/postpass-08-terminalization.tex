@@ -1,11 +1,14 @@
 \section{Terminal exactification and the proof of Erdős Problem 289}
 \label{sec:terminalization}
 
-Only Set-level base change remains.  Let
+Only Set-level base change remains.  For each horizon $X$ put
+\[
+T_X=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X,
+\]
+and let
 \[
 \mathcal T=
-\sum_{X\in\operatorname{Horizon}_B}
-\operatorname{Tor}_{E_X}(\gamma_X)\times I_X
+\sum_{X\in\operatorname{Horizon}_B}T_X
 \]
 be the total target bundle.  If $\ell\in\operatorname{Lift}(X)$, its finite response $R_X$ covers the corresponding target fibre.  Define the universal edge object
 \[
@@ -80,8 +83,4 @@ and therefore
 \[
 W(S)=1.
 \]
-The $k$ connected components of $S$ are pairwise disjoint, nonadjacent finite intervals of positive integers, each of length $2$ or $3$.  We have proved the public theorem.
-
-\begin{theorem}\label{thm:erdos289}
-For every sufficiently large integer $k$, there exist exactly $k$ pairwise disjoint and nonadjacent finite intervals of positive integers, each of length at least $2$, such that the sum of the reciprocals of all integers in these intervals is $1$.
-\end{theorem}
+The $k$ connected components of $S$ are pairwise disjoint, nonadjacent finite intervals of positive integers, each of length $2$ or $3$.  This proves Theorem~\ref{thm:main}.
