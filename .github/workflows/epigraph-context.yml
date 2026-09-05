@@ -1,0 +1,99 @@
+name: epigraph-context
+
+on:
+  push:
+    branches:
+      - paper/epigraph-specimen
+    paths:
+      - 'paper/epigraph/**'
+      - 'paper/sections/00-introduction.tex'
+      - 'paper/references.bib'
+      - '.github/workflows/epigraph-context.yml'
+  workflow_dispatch:
+
+env:
+  ARXIV_TEX_IMAGE: registry.gitlab.com/islandoftex/images/texlive:TL2025-2025-08-03-full
+
+jobs:
+  build-context-proofs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Pull full TeX Live 2025 snapshot
+        run: docker pull "$ARXIV_TEX_IMAGE"
+
+      - name: Verify exact typography dependencies
+        run: |
+          docker run --rm "$ARXIV_TEX_IMAGE" bash -lc '
+            set -euo pipefail
+            xelatex --version | head -n 2
+            biber --version | head -n 1
+            kpsewhich ETbb-Regular.otf
+            kpsewhich ETbb-Bold.otf
+            kpsewhich ETbb-Italic.otf
+            kpsewhich ETbb-BoldItalic.otf
+            kpsewhich EBGaramond-Medium.otf
+            kpsewhich newtxmath.sty
+            kpsewhich cinzel.sty
+            kpsewhich marcellus.sty
+            kpsewhich CormorantGaramond.sty
+            kpsewhich microtype.sty
+            kpsewhich biblatex.sty
+          '
+
+      - name: Build six real-first-page proofs
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -e HOME=/tmp \
+            -e TEXMFHOME=/tmp/e289-empty-texmf \
+            -v "$PWD:/workspace" \
+            -w /workspace/paper/epigraph \
+            "$ARXIV_TEX_IMAGE" \
+            bash -lc 'sh build-context.sh'
+
+      - name: Install PDF diagnostics
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
+
+      - name: Validate proof PDFs
+        working-directory: paper/epigraph
+        run: |
+          set -euo pipefail
+          expected='context-00-e306-ebgaramond-medium.pdf
+          context-01-cinzel-regular.pdf
+          context-02-cinzel-bold.pdf
+          context-03-marcellus-regular.pdf
+          context-04-cormorant-medium.pdf
+          context-05-cormorant-semibold.pdf'
+
+          printf '%s\n' "$expected" | while IFS= read -r pdf; do
+            test -s "$pdf"
+            test "$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')" -ge 1
+            pdfinfo "$pdf" | grep -q '^Page size:.*595.*842.*A4'
+            pdffonts "$pdf" > "$pdf.fonts.txt"
+            if grep -q 'Type 3' "$pdf.fonts.txt"; then
+              echo "Type 3 font found in $pdf"
+              cat "$pdf.fonts.txt"
+              exit 1
+            fi
+          done
+
+          pdffonts context-00-e306-ebgaramond-medium.pdf | grep -q 'EBGaramond-Medium'
+
+      - name: Upload context proof matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: e289-epigraph-context-proofs
+          path: |
+            paper/epigraph/context-00-e306-ebgaramond-medium.pdf
+            paper/epigraph/context-01-cinzel-regular.pdf
+            paper/epigraph/context-02-cinzel-bold.pdf
+            paper/epigraph/context-03-marcellus-regular.pdf
+            paper/epigraph/context-04-cormorant-medium.pdf
+            paper/epigraph/context-05-cormorant-semibold.pdf
+            paper/epigraph/context-*.pdf.fonts.txt
+          if-no-files-found: error
