@@ -1,0 +1,40 @@
+{
+  "certified_early_bridge_crude_bound": "11/20",
+  "certified_root_bound": "5/6",
+  "certified_seed_bound": "3/2",
+  "checks": {
+    "1_root_identities": true,
+    "2_root_grades": true,
+    "3_root_separation": true,
+    "4_lcmUpto3_and_residue_exhaustion": true,
+    "5_bridge_formula": true,
+    "6_bridge_subset_sum_surjective": true,
+    "7_root_boundary_bridge_compatibility": true,
+    "8_boundary_bridge_pairwise_compatibility": true,
+    "9_structural_seed_margin": true
+  },
+  "early_seed_bridge_bases": [12,20,30,60],
+  "explicit_p5_witnesses": {
+    "0": [],
+    "1": [1],
+    "2": [2],
+    "3": [3],
+    "4": [1,3]
+  },
+  "finite_boundary_compatibility_bases": [12,20,30,60,140,210,420,840,1260,2520],
+  "future_accumulated_bridge_bound": "proved structurally in 03_PREPARED_WIDE_START.md; < 1/5 < 1/4",
+  "non_exported_diagnostics": [
+    "exact finite branch maximum intentionally not computed",
+    "numeric grade cap intentionally not computed",
+    "finite boundary compatibility coordinates die before the prepared-wide-start theorem"
+  ],
+  "prefix_separator_witness": "1/4",
+  "root_grades": [0,9,15,7,15,1],
+  "root_masses": ["0","1/6","1/3","1/2","2/3","5/6"],
+  "schema": "E289-R40star-blind-prefix-seed-certificate-v1",
+  "status": "PASS",
+  "subset_sum_residues": {
+    "p2": [0,1],
+    "p5": [0,1,2,3,4]
+  }
+}
