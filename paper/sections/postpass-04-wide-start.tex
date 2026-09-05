@@ -49,15 +49,15 @@ a_r-a_s
 \ge\frac{pD}{k^2}.
 \tag{4.2}
 \]
-For all sufficiently late jumps this is larger than the fixed physical interaction radius.  A direct finite certificate handles the exceptional early rows; see Appendix~\ref{app:prefix-seed}.
+For all sufficiently late jumps this is larger than the fixed physical interaction radius.  Lemma~\ref{lem:finite-prefix-initialization} supplies the finite initialization needed before this uniform regime begins.
 
-The successive nontrivial lower moduli grow at least geometrically, so the full future bridge tower has finite total reciprocal cost.  Together with the finite seed, this leaves a fixed positive resource margin below $2$.
+The successive nontrivial lower moduli grow at least geometrically, so the full future bridge tower has finite total reciprocal cost.  Together with the finite initialization, this leaves a fixed positive resource margin below $2$.
 
 \subsection{Ragged affine accumulation}
 
-Appendix~\ref{app:prefix-seed} supplies one finite physical seed whose residue image is a complete affine fibre at an early endpoint, whose branch grades have fixed finite spread, and whose resource together with the entire future bridge majorant is bounded away from $2$.
+Fix once and for all a finite starting object supplied by Lemma~\ref{lem:finite-prefix-initialization}.  Its residue image is a complete affine fibre at an early endpoint, its branch grades have a fixed finite spread, and its resource together with the whole future bridge tower is bounded away from $2$.  No concrete coordinate of the certificate in Appendix~\ref{app:prefix-seed} is used from this point onward.
 
-Compose this seed with one bridge at every later prime-power jump through a rank cutoff $B$.  On residue images, finite induction gives a complete affine $E_B$-fibre.  Since every bridge row is fixed-grade, every bridge adds the same grade constant to every old branch.  Therefore the branch-to-branch grade oscillation after any number of bridges is exactly the finite seed oscillation.  In particular there is a fixed constant $G_{\mathrm{seed}}$ such that all grades of the ragged affine cover lie in an interval
+Compose this starting object with one bridge at every later prime-power jump through a rank cutoff $B$.  On residue images, finite induction gives a complete affine $E_B$-fibre.  Since every bridge row is fixed-grade, every bridge adds the same grade constant to every old branch.  Therefore the branch-to-branch grade oscillation after any number of bridges is exactly the finite seed oscillation.  In particular there is a fixed constant $G_{\mathrm{seed}}$ such that all grades of the ragged affine cover lie in an interval
 \[
 [m_B,M_B],
 \qquad M_B-m_B=G_{\mathrm{seed}}.
@@ -102,7 +102,7 @@ O(\sqrt{\log Q}\,\log\log Q)
 =o(Q/\log Q).
 \tag{4.8}\label{eq:bridge-footprint}
 \]
-By the bounded conflict incidence in Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes remove only $o(Q/\log Q)$ atoms.
+By the external-envelope conflict bound in Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes remove only $o(Q/\log Q)$ atoms.
 
 \subsection{One neutral Hamming pullback}
 
@@ -136,7 +136,7 @@ The cube contributes only $O(G_{\mathrm{seed}}+L(B))=o(B/\log B)$ bounded-comple
 \]
 for every future late current $Q>B$.
 
-The finite seed and bridge tower have a fixed resource margin, while the neutral cube can be made arbitrarily cheap.  Hence there is also a theorem-level $\eta>0$ independent of $L$ such that every WideStart branch has reciprocal value $<2-\eta$.
+The finite initialization and bridge tower have a fixed resource margin, while the neutral cube can be made arbitrarily cheap.  Hence there is also a theorem-level $\eta>0$ independent of $L$ such that every WideStart branch has reciprocal value $<2-\eta$.
 
 \begin{proposition}[Cofinal WideStart supply]\label{prop:wide-start}
 There exist constants $\eta>0$ and $\sigma>0$ such that, for every integer-valued function $L$ satisfying $L(B)=o(B/\log B)$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a finite physical response covering
