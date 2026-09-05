@@ -1,90 +1,94 @@
-\section{Terminal exactification and the proof of Erdős Problem 289}
+\section{Terminal pullback and exact reciprocal sum}
 \label{sec:terminalization}
 
-Only Set-level base change remains.  For each horizon $X$ put
+Only pullback stability of surjections in $\mathbf{Set}$ remains.  For $X\in\mathcal H_B$ put
 \[
 T_X=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X,
+\qquad
+\mathcal T=\coprod_{X\in\mathcal H_B}T_X.
 \]
-and let
+A realization $r\in\mathcal R_X$ contains a labelled correspondence $R_X$ covering $T_X$.  Let
 \[
-\mathcal T=
-\sum_{X\in\operatorname{Horizon}_B}T_X
+\mathcal E
+=
+\{(X,r,t,e):X\in\mathcal H_B,\ r\in\mathcal R_X,\ t\in T_X,
+\ e\text{ is an edge of }R_X\text{ ending at }t\}.
 \]
-be the total target bundle.  If $\ell\in\operatorname{Lift}(X)$, its finite response $R_X$ covers the corresponding target fibre.  Define the universal edge object
-\[
-\mathcal E=
-\{(X,\ell,t,e):
-\ell\in\operatorname{Lift}(X),\
-t\in T_X,\
-e\in R_X\text{ lands at }t\}.
-\]
-By construction there is a surjection
+There is a natural surjection
 \begin{equation}\label{eq:universal-edge-surjection}
 \mathcal E
 \twoheadrightarrow
-\operatorname{Real}\times_{\operatorname{Horizon}_B}\mathcal T.
+\mathcal R\times_{\mathcal H_B}\mathcal T.
 \end{equation}
-Every physical label in $\mathcal E$ has reciprocal value $<2$ by \eqref{eq:physical-W-less-2}.
+Every interval configuration labelling an edge of $\mathcal E$ has reciprocal value below $2$ by \eqref{eq:physical-W-less-2}.
 
-Fix a sufficiently large grade $k$.  Theorem~\ref{thm:scalar-terminality} gives the nonempty terminal set
+Fix a sufficiently large integer $k$.  Theorem~\ref{thm:scalar-terminality} gives the nonempty set $\mathcal X_k$ from \eqref{eq:term-k}.  Form the pullback
 \[
-\operatorname{Term}_k
-=
-\{X\in\operatorname{Horizon}_B:
-\gamma_X=0,\ k\in I_X\}.
+\begin{CD}
+\mathcal R_k @>>> \mathcal R\\
+@VVV @VVV\\
+\mathcal X_k @>>> \mathcal H_B.
+\end{CD}
+\tag{8.1}\label{eq:real-k-square}
 \]
-Pull the realization surjection \eqref{eq:real-surjection} back along
+Since $\mathcal R\to\mathcal H_B$ is surjective, so is
+\begin{equation}\label{eq:real-k}
+\mathcal R_k\twoheadrightarrow\mathcal X_k.
+\end{equation}
+
+For $X\in\mathcal X_k$ we have $\gamma_X=0$ and $k\in I_X$, hence there is a canonical point
 \[
-\operatorname{Term}_k\hookrightarrow\operatorname{Horizon}_B.
+(0,k)\in T_X.
 \]
-Since surjections in $\mathbf{Set}$ are stable under pullback, we obtain
+These points form a section
 \[
-\operatorname{Real}_k\twoheadrightarrow\operatorname{Term}_k.
-\tag{8.1}\label{eq:real-k}
+s_k:\mathcal X_k\longrightarrow\mathcal T
 \]
-For every $X\in\operatorname{Term}_k$, the target point
+over $\mathcal H_B$.  Combining it with \eqref{eq:real-k-square} gives a map
 \[
-(0,k)\in\operatorname{Tor}_{E_X}(0)\times I_X
+\mathcal R_k\longrightarrow
+\mathcal R\times_{\mathcal H_B}\mathcal T.
 \]
-is canonical.  Pull \eqref{eq:universal-edge-surjection} back along this target section and \eqref{eq:real-k}.  Cartesian pasting gives a surjection
+Pulling \eqref{eq:universal-edge-surjection} back along this map gives the second cartesian square
 \[
-\mathcal E_k\twoheadrightarrow\operatorname{Real}_k.
-\tag{8.2}\label{eq:terminal-edge-cover}
+\begin{CD}
+\mathcal E_k @>>> \mathcal E\\
+@VVV @VVV\\
+\mathcal R_k @>>> \mathcal R\times_{\mathcal H_B}\mathcal T.
+\end{CD}
+\tag{8.2}\label{eq:terminal-edge-pullback}
 \]
-Since $\operatorname{Term}_k$ is nonempty, so is $\mathcal E_k$.  Any point of this finite solution object gives a literal physical state $S$ with
+Thus $\mathcal E_k\to\mathcal R_k$ is surjective.  Since $\mathcal X_k$ is nonempty, both $\mathcal R_k$ and $\mathcal E_k$ are nonempty.  Any element of $\mathcal E_k$ supplies an interval configuration $S\in\mathcal C$ satisfying
 \begin{equation}\label{eq:terminal-state}
-\operatorname{res}(S)=0,
+\overline W(S)=0,
 \qquad
-g(S)=k,
+\nu(S)=k,
 \qquad
 W(S)<2.
 \end{equation}
-No coherent choice over different $k$ is asserted or needed.
+No coherent choice as $k$ varies is required.
 
 Let
 \[
 q_{\mathbf Z}:\mathbf Q\longrightarrow\mathbf Q/\mathbf Z
 \]
-be the quotient map.  The observations fit into the commutative square
+be the quotient map.  By definition of $\overline W$, the square
 \[
 \begin{CD}
-\operatorname{Phys} @>{W}>> \mathbf Q\\
-@V{\operatorname{res}}VV @VV{q_{\mathbf Z}}V\\
-\mathbf Q/\mathbf Z @= \mathbf Q/\mathbf Z.
+\mathcal C @>{W}>> \mathbf Q\\
+@V{\overline W}VV @VV{q_{\mathbf Z}}V\\
+\mathbf Q/\mathbf Z @= \mathbf Q/\mathbf Z
 \end{CD}
 \tag{8.3}\label{eq:value-residue-square}
 \]
-Thus $\operatorname{res}(S)=0$ implies
+commutes.  Hence $\overline W(S)=0$ implies
 \[
-W(S)\in\ker(q_{\mathbf Z})=\mathbf Z.
+W(S)\in\ker q_{\mathbf Z}=\mathbf Z.
 \]
-Because $g(S)=k>0$, the state is nonempty, so $W(S)>0$.  Together with \eqref{eq:terminal-state},
+Since $\nu(S)=k>0$, the configuration is nonempty and $W(S)>0$.  Together with \eqref{eq:terminal-state},
 \[
 0<W(S)<2,
-\qquad W(S)\in\mathbf Z,
+\qquad
+W(S)\in\mathbf Z,
 \]
-and therefore
-\[
-W(S)=1.
-\]
-The $k$ connected components of $S$ are pairwise disjoint, nonadjacent finite intervals of positive integers, each of length $2$ or $3$.  This proves Theorem~\ref{thm:main}.
+so $W(S)=1$.  The $k$ connected components of $S$ are pairwise nonadjacent intervals of cardinality $2$ or $3$.  This proves Theorem~\ref{thm:main}.
