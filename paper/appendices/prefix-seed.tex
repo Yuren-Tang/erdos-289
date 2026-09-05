@@ -52,11 +52,11 @@ Their subset sums are surjective modulo $2$ and $5$ respectively; for $p=5$ the 
 The bridge identity is the same as in Section~\ref{sec:wide-start}: at lower modulus $D$ and quotient prime $p$, the alternatives at base $a=pD/r$ differ in reciprocal value by $r/(pD)$.
 
 The finite physical-boundary bases that must be checked before the structural separation argument takes over are
-\[
+\begin{equation}\label{eq:prefix-boundary-bases}
 12,20,30,60,140,210,420,840,1260,2520.
 \tag{PS3}
-\]
-Direct comparison shows that every such bridge envelope is nonadjacent to every root envelope and that the bridge envelopes in \eqref{eq:prefix-root-identities}--\eqref{eq:PS3} are pairwise compatible.
+\end{equation}
+Direct comparison shows that every such bridge envelope is nonadjacent to every root envelope and that the bridge envelopes in \eqref{eq:prefix-boundary-bases} are pairwise compatible.
 
 For the resource margin, the largest root value is $5/6$.  For the four finite seed bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ has total
 \[
@@ -66,13 +66,31 @@ For the resource margin, the largest root value is $5/6$.  For the four finite s
 Hence the finite seed is bounded by
 \[
 \frac56+\frac{11}{20}<\frac32.
-\tag{PS4}
+\tag{PS4}\label{eq:finite-seed-bound}
 \]
-The structural future-bridge estimate gives total future bridge cost $<1/5<1/4$.  Therefore
+
+For a later universal bridge at lower modulus $D$, let $k$ be least with $k(k+1)/2\ge p-1$.  Minimality gives
+\[
+T_k=\frac{k(k+1)}2<2p.
+\]
+At base $a_r=pD/r$, every binary or ternary alternative has reciprocal mass $<3/a_r$.  Thus an entire branch of the bridge row has mass
+\[
+<\sum_{r=1}^k\frac{3r}{pD}
+=\frac{3T_k}{pD}
+<\frac6D.
+\tag{PS5}\label{eq:future-row-bound}
+\]
+After the finite seed the first lower modulus is at least $60$, and successive nontrivial lcm jumps multiply the lower modulus by at least two.  Therefore the whole accumulated future bridge has branch mass
+\[
+<\sum_{j\ge0}\frac6{60\,2^j}
+=\frac15<\frac14.
+\tag{PS6}\label{eq:future-bridge-total}
+\]
+Combining \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total},
 \[
 \frac32+\frac14<2,
-\tag{PS5}
+\tag{PS7}
 \]
 leaving a fixed positive margin before the arbitrarily small neutral-cube cost is added.
 
-All statements in this appendix are finite exact-rational checks.  The repository accompanying the manuscript contains a short replay script for these identities and compatibility lists; the proof above does not use the script as a mathematical oracle.
+All finite statements in the first part of this appendix are exact-rational checks.  The repository accompanying the manuscript contains a short replay script for the identities and compatibility lists; the proof above does not use the script as a mathematical oracle.
