@@ -77,37 +77,37 @@ Blind result:
 - across Phase I.5 and I.6 the Owner showed a small but repeated preference for
   9.0 as the more exact/collected setting over 9.5 as slightly looser.
 
-Accordingly the provisional optical setting is now closed at:
-
-```text
-family/weight  EB Garamond Medium
-LetterSpace    9
-size/leading   10.5 / 16
-vertical       8 pt before / 12 pt after
-```
-
-This does not claim that a hypothetical mathematical optimum is exactly 9.000;
-it is the robust representative of a visually indistinguishable 9--9.5 band and
-avoids overfitting sub-unit tracking differences.
+Accordingly the tracking setting is closed at `LetterSpace=9`; this is the robust
+representative of the visually near-equivalent 9--9.5 band, not a claim that a
+hypothetical continuous optimum is exactly 9.000.
 
 ## 5. Phase I.7: blind punctuation gate
 
-`build-phase17.sh` keeps the provisional setting above fixed and varies only the
-punctuation treatment:
+`build-phase17.sh` kept EB Garamond Medium, `LetterSpace=9`, 10.5/16 and 8 pt /
+12 pt vertical spacing fixed and compared:
 
 1. `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
 2. `CARPE DIEM QVAM MINIMVM CREDVLA POSTERO`;
 3. `CARPE · DIEM · QVAM · MINIMVM · CREDVLA · POSTERO`.
 
-The six-page judgement packet contains each candidate twice in concealed
-randomized order. The page-to-punctuation key is deliberately not recorded in
-repository history before judgement. See `PHASE17_BLIND_PROTOCOL.md`.
+Each appeared twice in concealed randomized order. The result was decisive:
+**no comma and no interpuncts**. The comma disrupted the visual flow, while the
+interpuncts disrupted the page architecture more strongly. Both duplicate copies
+of the punctuation-free treatment supported the selected setting. The concealed
+key and full result are recorded in `PHASE17_BLIND_PROTOCOL.md` only after the
+judgement was made.
 
-The point of this gate is not merely "which looks most Roman". The comma retains
-the literary/editorial syntax of the Horatian quotation; the no-punctuation form
-lets the all-cap spacing carry the pause; the interpunct form deliberately tests
-a more inscriptional presentation and may fail if it reads as theatrical
-pseudo-antique styling rather than a restrained mathematical dedication.
+The current selected candidate is therefore:
+
+```text
+CARPE DIEM QVAM MINIMVM CREDVLA POSTERO
+
+family/weight  EB Garamond Medium
+LetterSpace    9
+size/leading   10.5 / 16
+vertical       8 pt before / 12 pt after
+punctuation    none
+```
 
 ## 6. Local build and remote parity
 
@@ -128,8 +128,15 @@ Legacy TeX-Live Trajan remains outside the decision gate: repairing its old
 Type-1/map/PK fallback chain would add environment noise without improving this
 OpenType comparison.
 
-## 7. Publication boundary
+## 7. Final optical gate and publication boundary
 
-No experiment here changes `paper/manuscript.tex`. After punctuation is chosen,
-perform one final whole-page optical check before a separate bounded manuscript
-change and the ordinary full-manuscript TeX Live/arXiv parity gates.
+No experiment here changes `paper/manuscript.tex`. Family/weight, tracking and
+punctuation are now closed. Before integration, inspect the selected candidate as
+a whole page once more and change size/leading or vertical whitespace only if a
+specific page-level defect remains visible. Do not introduce a new tuning axis
+merely because one is available.
+
+If the selected 10.5/16 and 8 pt / 12 pt geometry has no identifiable defect in
+that final check, retain the exact E306 geometry and proceed to a separate bounded
+publication-manuscript change followed by the ordinary full-manuscript TeX Live /
+arXiv parity gates.
