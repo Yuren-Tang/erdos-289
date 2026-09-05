@@ -4,10 +4,19 @@
 \usepackage{amsmath,amssymb,amscd,mathtools}
 \usepackage{newtxmath}
 \usepackage[no-math]{fontspec}
-\usepackage{graphicx}
 
-% Candidate display families. Capture their NFSS names before restoring the
-% manuscript text face; loading a candidate must not change the page context.
+% Exact E306 typography control selected by the Owner:
+% erdos-306 commit 9ab332be9e02248f603b718a4c918e36d595a50b.
+% The Greek dedication there uses EB Garamond Medium at LetterSpace=8,
+% 10.5/16, with 8pt/12pt vertical spacing.  Here the same display parameters
+% are applied to the E289 Latin line so the page-level control is comparable.
+\newfontfamily\EThreeOhSixControl{EBGaramond-Medium.otf}[
+  ItalicFont=EBGaramond-Medium.otf,
+  LetterSpace=8
+]
+
+% Free candidate display families. Capture each NFSS family before restoring
+% the manuscript text face; loading candidates must not alter page context.
 \usepackage{cinzel}
 \edef\CinzelFamily{\rmdefault}
 \usepackage{marcellus}
@@ -64,38 +73,22 @@
 \newcommand{\im}{\operatorname{im}}
 \numberwithin{equation}{section}
 
-% Phase I uses the current successful E306 dedication geometry as the baseline:
-% 10.5/16, LetterSpace=9, and 8pt/12pt vertical spacing. The E289 Latin wording
-% and comma are held fixed. Variant 0 is a historical E289-current reference at
-% its own 0.08 em tracking; variants 1--6 form the normalized family/weight gate
-% at the E306-current 0.09 em tracking target.
+% Phase I freezes the specified E306 successful parameters. Only family/weight
+% vary: Latin wording and comma, 10.5/16, LetterSpace=8, and 8pt/12pt spacing
+% remain invariant throughout this gate.
 \providecommand{\EpigraphVariant}{0}
 \newcommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
 
 \newcommand{\TrackedCandidate}[2]{%
   {\fontfamily{#1}\fontseries{#2}\upshape\selectfont
-   \addfontfeatures{LetterSpace=9}%
+   \addfontfeatures{LetterSpace=8}%
    \fontsize{10.5}{16}\selectfont
    \EpigraphText}%
 }
 
-% TeX Live's trajan face is a legacy Type 1/METAFONT family. The build script
-% renders both legacy Trajan references with pdfLaTeX+soul and embeds the tiny
-% PDFs here at natural size. A 10.5/16 strut supplies the same line metrics as
-% the live candidates.
-\newcommand{\EmbeddedTrajan}[1]{%
-  {\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
-   \setbox0=\hbox{\strut}%
-   \raisebox{-\dp0}[\ht0][\dp0]{\includegraphics{#1}}}%
-}
-\newcommand{\TrajanCurrent}{\EmbeddedTrajan{trajan-control-08.pdf}}
-\newcommand{\TrajanNormalized}{\EmbeddedTrajan{trajan-control-09.pdf}}
-
 \newcommand{\ContextEpigraph}{%
   \ifcase\EpigraphVariant
-    \TrajanCurrent
-  \or
-    \TrajanNormalized
+    {\EThreeOhSixControl\upshape\fontsize{10.5}{16}\selectfont\EpigraphText}%
   \or
     \TrackedCandidate{\CinzelFamily}{m}%
   \or
@@ -108,7 +101,7 @@
     \TrackedCandidate{\CormorantFamily}{sb}%
   \else
     \PackageError{e289-context}{Unknown EpigraphVariant \EpigraphVariant}%
-      {Use an integer from 0 through 6.}%
+      {Use an integer from 0 through 5.}%
   \fi
 }
 
