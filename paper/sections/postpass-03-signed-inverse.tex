@@ -1,13 +1,13 @@
-\section{Signed-inverse current families}
+\section{Signed-inverse families at prime-power steps}
 \label{sec:signed-inverse}
 
-We now construct, simultaneously for all sufficiently late currents, the finite binary families that feed both the local additive channel and the global packing argument.  The construction is deterministic; all carrier, sign, and coefficient coordinates disappear at the theorem boundary.
+For every sufficiently large prime power $Q=p^e$ we construct a finite family $\mathcal A_Q\subset\mathcal C$ of two-point interval components.  The construction serves two purposes: its image in the simple quotient $S_Q$ is large and uniformly distributed, while its members have uniformly controlled incompatibility and reciprocal mass.  The auxiliary carrier, sign, and coefficient coordinates used below disappear after Proposition~\ref{prop:signed-inverse-capabilities}.
 
-Fix the integer comparable-prime multiplier $\Lambda$ from Proposition~\ref{prop:prime-supply-main}, and put
+Fix the integer $\Lambda$ from Proposition~\ref{prop:prime-supply-main} and put
 \[
 B_{\mathrm{car}}=\Lambda+1.
 \]
-Let the current rank be $Q=p^e$ and define the natural cutoff
+Let $Q=p^e$ and define the integer cutoff
 \[
 X_Q=Q\operatorname{div}B_{\mathrm{car}}.
 \tag{3.1}\label{eq:carrier-base}
@@ -15,7 +15,7 @@ X_Q=Q\operatorname{div}B_{\mathrm{car}}.
 Choose carrier primes
 \[
 X_Q<b\le\Lambda X_Q,
-\qquad \gcd(b,Q)=1.
+\qquad (b,Q)=1.
 \tag{3.2}\label{eq:carrier-band}
 \]
 Writing
@@ -23,7 +23,7 @@ Writing
 Q=B_{\mathrm{car}}X_Q+r,
 \qquad 0\le r<B_{\mathrm{car}},
 \]
-shows that every carrier satisfies the exact inequalities
+shows that every carrier satisfies
 \[
 B_{\mathrm{car}}b>Q,
 \qquad
@@ -34,9 +34,9 @@ For $X_Q\ge1$ one also has
 \[
 B_{\mathrm{car}}X_Q\le Q<2B_{\mathrm{car}}X_Q,
 \]
-so $X_Q\asymp Q$ with constants depending only on $B_{\mathrm{car}}$.  Proposition~\ref{prop:prime-supply-main}, applied literally at the integer cutoff $X_Q$, therefore gives $\asymp Q/\log Q$ raw carriers; the coprimality condition removes at most the base prime $p$.
+so $X_Q\asymp Q$.  Proposition~\ref{prop:prime-supply-main}, applied at the integer cutoff $X_Q$, therefore gives $\asymp Q/\log Q$ possible carriers; imposing $(b,Q)=1$ removes at most the prime $p$.
 
-For each carrier $b$, let $c_+\in\{1,\ldots,Q-1\}$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and define
+For each carrier $b$, let $c_+\in\{1,\ldots,Q-1\}$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and write
 \[
 bc_+=Qk_++1,
 \qquad
@@ -50,16 +50,16 @@ Then
 k_++k_-=b.
 \tag{3.5}
 \]
-Since $p\nmid b$, the two coefficients cannot both be divisible by $p$.  We choose an orientation deterministically: for $e=1$ take the larger coefficient; for $e\ge2$ take $+$ unless $p\mid k_+$, in which case take $-$.  Let $k=k(Q,b)$ be the selected coefficient and let the associated binary atom be
+Since $p\nmid b$, the two coefficients cannot both be divisible by $p$.  Choose a sign deterministically: if $e=1$, take the larger coefficient; if $e\ge2$, take $+$ unless $p\mid k_+$, and take $-$ otherwise.  With $k=k(Q,b)$ the chosen coefficient, define
 \[
-a(Q,b)=
+I(Q,b)=
 \begin{cases}
 [Qk,Qk+1],&+,\\
 [Qk-1,Qk],&-.
 \end{cases}
-\tag{3.6}
+\tag{3.6}\label{eq:signed-block}
 \]
-In the atomic case $Q=p$, this rule gives
+If $Q=p$ is prime, this rule gives
 \[
 k\ge b/2>X_Q/2\gg p.
 \tag{3.7}\label{eq:atomic-k-lower}
@@ -67,47 +67,43 @@ k\ge b/2>X_Q/2\gg p.
 
 \subsection{Transversality and deterministic deduplication}
 
-The distinguished denominator $Qk$ has maximal current exactly $Q$: the chosen coefficient is a $p$-unit, and every prime-power factor contributed by $k$ has smaller rank because $k<Q$.
+The distinguished denominator $Qk$ has largest prime-power stage exactly $Q$: the coefficient $k$ is a $p$-unit, and every prime-power factor contributed by $k$ has rank below $Q$ because $k<Q$.
 
-For the companion denominator $bc_\pm=Qk\pm1$, both $b$ and $c_\pm$ are $<Q$.  Hence every prime-power factor is automatically of rank $<Q$, except possibly when the carrier prime occurs again inside $c_\pm$.  Thus the only possible new large prime-power obstruction is
+For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  Hence a new prime-power factor of rank at least $Q$ can occur only if the carrier prime occurs again in $c_\pm$, that is, if
 \[
-b\mid c_\pm,
+b\mid c_\pm.
 \]
-equivalently $b^2\mid Qk\pm1$.  In that case write $c_\pm=\ell b$.  Since $c_\pm<Q<B_{\mathrm{car}}b$ by \eqref{eq:carrier-exact}, one has $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+Equivalently $b^2\mid Qk\pm1$.  Write $c_\pm=\ell b$.  From $c_\pm<Q<B_{\mathrm{car}}b$ one obtains $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
 \[
 \ell b^2\equiv\pm1\pmod Q.
 \tag{3.8}\label{eq:bad-carrier}
 \]
-For fixed $(\ell,\pm)$ this congruence has uniformly boundedly many unit roots modulo $p^e$: at most two for odd $p$ and at most four for $p=2$.  Hence only $O_{B_{\mathrm{car}}}(1)$ carrier candidates fail transversality.
+For fixed $(\ell,\pm)$ this congruence has uniformly boundedly many unit roots modulo $p^e$: at most two when $p$ is odd and at most four when $p=2$.  Thus only $O_{B_{\mathrm{car}}}(1)$ carriers fail transversality.
 
-Different carriers may produce the same coefficient.  For a fixed $k$, every such carrier divides one of
+Different carriers can produce the same coefficient $k$.  Every carrier producing that coefficient divides one of
 \[
 Qk-1,\qquad Qk+1,
 \]
-both of which are $<Q^2$ for $1\le k<Q$ and $Q>1$.  On the late locus $Q>B_{\mathrm{car}}^3$, three distinct carriers $b_1,b_2,b_3$ would satisfy
-\[
-B_{\mathrm{car}}^3b_1b_2b_3>Q^3>B_{\mathrm{car}}^3Q^2,
-\]
-so $b_1b_2b_3>Q^2$, impossible if all three divide the same integer $Qk\pm1$.  Thus each coefficient has uniformly bounded carrier multiplicity.  Keep, for each coefficient, the occurrence with least carrier.  This gives a deterministic deduplicated coefficient set of cardinality
+both below $Q^2$.  If $Q>B_{\mathrm{car}}^3$, no one of these integers can contain three distinct carrier primes, because each carrier exceeds $Q/B_{\mathrm{car}}$.  Thus the multiplicity of a coefficient is uniformly bounded.  Keep, for each coefficient, the occurrence with least carrier.  The resulting coefficient set still has cardinality
 \[
 \asymp Q/\log Q.
 \tag{3.9}\label{eq:coef-scale}
 \]
 
-For a non-atomic current, order the distinct coefficients
+If $e\ge2$, order the remaining coefficients
 \[
 k_1<\cdots<k_N
 \]
-and keep the upper half.  Since $k_i\ge i$, every retained non-atomic coefficient satisfies
+and retain the upper half.  Since $k_i\ge i$, every retained coefficient then satisfies
 \[
 k\gg Q/\log Q.
 \tag{3.10}\label{eq:coef-lower}
 \]
-For an atomic current keep all coefficients.  Write $A_Q$ for the resulting finite set of transverse binary atoms.
+If $Q=p$ is prime, retain all coefficients.  Let $\mathcal A_Q$ be the resulting family of intervals \eqref{eq:signed-block}.
 
-\subsection{Simple values}
+\subsection{The simple-quotient value}
 
-Modulo the lower endpoint stage $F_{<Q}$, the companion reciprocal has only lower currents, so the current-step class of the atom is the class of the distinguished term $1/(Qk)$.  To compute it, choose $u\in\mathbf Z$ with
+Modulo $F_{<Q}$, the companion reciprocal has only smaller prime-power stages, so the class contributed by $I(Q,b)$ is the class of $1/(Qk)$.  Choose $u\in\mathbf Z$ with
 \[
 uk\equiv1\pmod p,
 \qquad uk=1+pt.
@@ -115,62 +111,64 @@ uk\equiv1\pmod p,
 Then
 \[
 \frac{u}{Q}-\frac1{Qk}
-=\frac{uk-1}{Qk}
 =\frac{t}{p^{e-1}k}.
 \tag{3.11}\label{eq:simple-coordinate-calculation}
 \]
-Every prime-power factor of the denominator on the right has rank strictly below $Q=p^e$: its $p$-part is at most $p^{e-1}$ and every prime-power factor coming from $k$ is $<Q$ because $k<Q$.  Thus the difference lies in $F_{<Q}$.  Relative to the canonical generator represented by $1/Q$, the simple-factor coordinate is therefore
+Every prime-power factor of the denominator on the right has rank below $Q$: the $p$-part is at most $p^{e-1}$, and every factor coming from $k$ is below $Q$.  Hence the difference belongs to $F_{<Q}$.  Relative to the canonical generator represented by $1/Q$, the simple-quotient map
 \[
-sv_Q(a)=u=k^{-1}\pmod p
-\quad\in S_Q^\times.
+\phi_Q:\mathcal A_Q\longrightarrow S_Q^\times
+\]
+is therefore
+\[
+\phi_Q(I(Q,b))=k^{-1}\pmod p.
 \tag{3.12}\label{eq:simple-value}
 \]
-The atom itself recovers $Q$ and $k$: exactly one support denominator has maximal current $Q$, namely $Qk$.  Hence the map from retained atoms to distinguished centres $Qk$ is globally injective.
+The interval $I(Q,b)$ itself recovers $Q$ and $k$: exactly one of its two denominators has largest prime-power stage $Q$, namely $Qk$.  Thus the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
 
-\begin{proposition}[Signed-inverse capabilities]\label{prop:signed-inverse-capabilities}
-There is a late-current threshold beyond which the families $A_Q$ satisfy the following uniformly.
+\begin{proposition}[Uniform estimates for the signed-inverse families]\label{prop:signed-inverse-capabilities}
+There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold.
 \begin{enumerate}
-\item There is $\kappa>0$ such that
+\item There is $\kappa>0$, independent of $Q$, for which
 \[
-|A_Q|\ge \kappa\frac Q{\log Q}.
-\tag{3.13}
+|\mathcal A_Q|\ge \kappa\frac Q{\log Q}.
+\tag{3.13}\label{eq:family-size}
 \]
-\item Every simple value is nonzero, and for every $s\in S_Q^\times$,
+\item For every $s\in S_Q^\times$,
 \[
-|sv_Q^{-1}(s)|\le Q/p.
+|\phi_Q^{-1}(s)|\le Q/p.
 \tag{3.14}\label{eq:fibre-bound}
 \]
-\item The atom--atom conflict graph on the union of all late rows has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is a constant $C_L$ such that any external interval envelope of cardinality at most $L$ conflicts with at most $C_L$ retained atoms, uniformly across all late currents.
-\item Every support vertex $z$ of a retained atom satisfies
+\item The incompatibility graph on $\bigcup_{Q\ge Q_0}\mathcal A_Q$ has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an arbitrary interval envelope of cardinality at most $L$ is incompatible with at most $C_L$ members of the union.
+\item Every support point $z$ of a member of $\mathcal A_Q$ satisfies
 \[
 c\frac{Q^2}{\log Q}\le z\le2Q^2
 \tag{3.15}\label{eq:support-window}
 \]
-for a fixed $c>0$.  At prime currents one has the stronger lower scale $z\gg Q^2$.
-\item There is a nonnegative row majorant $\operatorname{roleMass}(Q)$ such that every local current response uses reciprocal value at most $\operatorname{roleMass}(Q)$ and
+for a fixed $c>0$.  If $Q$ is prime then $z\gg Q^2$.
+\item There are nonnegative numbers $\omega_Q$ such that every local correspondence formed from the family $\mathcal A_Q$ below has reciprocal mass at most $\omega_Q$, and
 \[
-\sum_Q\operatorname{roleMass}(Q)<\infty.
+\sum_Q\omega_Q<\infty.
 \tag{3.16}\label{eq:role-summable}
 \]
 \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-The cardinality statement follows from the carrier count, bounded exceptional set, bounded coefficient multiplicity, and the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among the integers $1\le k<Q=p^e$; deterministic deduplication keeps at most one atom per coefficient.
+The first assertion follows from the carrier count, the bounded exceptional set, bounded coefficient multiplicity and, for $e\ge2$, the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple-quotient values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among $1\le k<Q=p^e$, and the deterministic deduplication retains at most one interval for each coefficient.
 
-For the conflict statements, each atom occupies two adjacent vertices around its globally injective centre $Qk$.  If an external interval envelope has cardinality at most $L$, any conflicting atom has centre in a fixed one-vertex enlargement of that envelope.  That enlargement contains $O(L)$ integer sites, and global centre injectivity leaves at most one retained atom per site.  Taking $L=2$ gives the atom--atom degree bound; fixed larger $L$ gives the stated external-envelope bound.
+For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an external envelope has cardinality at most $L$, every incompatible member has its distinguished point in a fixed one-step enlargement of that envelope.  The enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.
 
-The support window follows from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, prime rows have $O(p/\log p)$ atoms of individual mass $O(p^{-2})$, so
+The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, a prime family has $O(p/\log p)$ intervals, each of reciprocal mass $O(p^{-2})$, so one may take
 \[
-\operatorname{roleMass}(p)=O\!\left(\frac1{p\log p}\right).
+\omega_p=O\!\left(\frac1{p\log p}\right).
 \]
-Grouping primes into the fixed geometric bands supplied by Proposition~\ref{prop:prime-supply-main} gives a convergent series.  For $Q=p^e$, $e\ge2$, a local response uses at most $p$ atoms, each of mass $O(\log Q/Q^2)$, hence
+Summing over the fixed geometric prime bands from Proposition~\ref{prop:prime-supply-main} converges.  For $Q=p^e$, $e\ge2$, a local correspondence uses at most $p$ intervals, each of mass $O(\log Q/Q^2)$, so
 \[
-\operatorname{roleMass}(p^e)
+\omega_{p^e}
 =O\!\left(\frac{p\log Q}{Q^2}\right)
 =O\!\left(\frac{e\log p}{p^{2e-1}}\right).
 \]
-Summing first over $e\ge2$ and then over $p$ is bounded by a constant multiple of $\sum_p p^{-2}$.  This proves \eqref{eq:role-summable}.
+The sum over $e\ge2$ and then over $p$ is bounded by a constant multiple of $\sum_p p^{-2}$.
 \end{proof}
 
-A useful consequence of \eqref{eq:role-summable} is the tail form: for every positive real $\varepsilon$ there is a rank cutoff $Q_0$ such that every finite set of currents of rank at least $Q_0$ has total role mass below $\varepsilon$.
+In particular, for every $\varepsilon>0$ there is $Q_1$ such that every finite set of prime-power steps of rank at least $Q_1$ has total reciprocal-mass bound below $\varepsilon$.
