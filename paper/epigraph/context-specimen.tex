@@ -78,12 +78,12 @@
 \newcommand{\im}{\operatorname{im}}
 \numberwithin{equation}{section}
 
-% Phase I defaults reproduce the frozen E306 setting. Phase I.5 overrides only
-% \EpigraphTracking and/or selects the Regular control variant. Wording, comma,
-% 10.5/16 and 8pt/12pt vertical spacing remain invariant.
+% Phase I defaults reproduce the frozen E306 setting. Later optical gates may
+% override only the explicitly named variables on the command line. Wording,
+% punctuation, size/leading and title-matter spacing remain controlled.
 \providecommand{\EpigraphVariant}{0}
 \providecommand{\EpigraphTracking}{8}
-\newcommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
+\providecommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
 
 \newcommand{\TrackedCandidate}[2]{%
   {\fontfamily{#1}\fontseries{#2}\upshape\selectfont
