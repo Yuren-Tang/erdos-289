@@ -1,13 +1,13 @@
-\section{The finite simple-factor channel and a uniform dense-restriction profile}
+\section{Uniform transfer on the simple quotients}
 \label{sec:local-profile}
 
-This section is entirely target-level.  It does not choose a WideStart witness and it does not choose a Haxell packing.  The local theorem is proved uniformly for \emph{every sufficiently dense restriction of the original deterministic row} $A_Q$ from Section~\ref{sec:signed-inverse}.
+This section is entirely at the observable level.  It makes no choice of an affine initial cover and no use of Haxell's theorem.  The result is uniform over every sufficiently dense restriction of the original family $\mathcal A_Q$.
 
-Fix a cyclic group $S$ of prime order $p$, a finite occurrence set $A$, and a map
+Let $S$ be a cyclic group of prime order $p$, let $A$ be a finite set, and let
 \[
-f:A\to S^\times.
+f:A\longrightarrow S^\times.
 \]
-Define the cardinality-graded subset-sum support
+Define the component-count graded subset-sum support
 \[
 \Gamma_f=
 \left\{
@@ -17,25 +17,25 @@ O\subseteq A,\ |O|\le p
 \subseteq S\times\mathbf N.
 \tag{5.1}\label{eq:gamma-f}
 \]
-For an incoming grade interval $I$, the observable target support is
+If $I\subset\mathbf N$ is an incoming interval of component counts, the induced target support is
 \[
 \Gamma_f+(\{0\}\times I).
 \]
 
-\subsection{Diversity and redundancy}
+\subsection{Large image and heavy fibres}
 
-Let
+Put
 \[
 B=\operatorname{im}f,
 \qquad r=|B|.
 \]
-For $0\le h\le r$, the full finite occurrence-lift relation from $h$-element subsets of $B$ to $h$ distinct occurrences in $A$ is surjective: every value fibre is nonempty, and distinct values force distinct lifted occurrences.  Thus Theorem~\ref{thm:restricted-fold} applies without choosing a section $B\to A$.
+For $0\le h\le r$, the full occurrence relation from $h$-element subsets of $B$ to $h$ distinct elements of $A$ is surjective: each value fibre is nonempty, and distinct values require distinct occurrences.  Hence Theorem~\ref{thm:restricted-fold} applies without a section $B\to A$.
 
-Define
+Let
 \[
 I_D(p,r)=\{h:h(r-h)+1\ge p\}.
 \]
-If this set is nonempty and $a=\min I_D(p,r)$, then symmetry and unimodality give
+If this set is nonempty and $a=\min I_D(p,r)$, symmetry and unimodality give
 \[
 I_D(p,r)=[a,r-a]\cap\mathbf N,
 \]
@@ -44,7 +44,7 @@ and
 a<\frac{2p}{r}+1.
 \tag{5.2}\label{eq:rich-demand}
 \]
-Hence the diversity branch gives
+Thus the large-image case gives
 \[
 S\times[A_0+a,B_0+r-a]
 \subseteq
@@ -52,171 +52,157 @@ S\times[A_0+a,B_0+r-a]
 \tag{5.3}\label{eq:rich-rectangle}
 \]
 
-The redundancy branch uses no additive theorem.  Suppose some $c\in S^\times$ has at least $p-1$ preimages.  Work with the full finite solution set of $(p-1)$-element subsets of $f^{-1}(c)$.  Its $j$-element subobjects give
+The complementary mechanism uses a heavy fibre.  If some $c\in S^\times$ has at least $p-1$ preimages, then for every $0\le j<p$ the full family of $j$-element subsets of $f^{-1}(c)$ gives
 \[
-(jc,j)\in\Gamma_f
-\qquad(0\le j<p).
+(jc,j)\in\Gamma_f.
 \]
-Since $j\mapsto jc$ bijects $\{0,\ldots,p-1\}$ with $S$, convolution with $[A_0,B_0]$ gives the common horizontal interval
+Since $j\mapsto jc$ bijects $\{0,\ldots,p-1\}$ with $S$, one obtains
 \[
 S\times[A_0+p-1,B_0]
 \subseteq
 \Gamma_f+(\{0\}\times[A_0,B_0])
 \tag{5.4}\label{eq:poor-rectangle}
 \]
-whenever the incoming width is at least $p-1$.
+whenever the incoming interval has width at least $p-1$.
 
-These are different physical constructions.  We identify them only at the common rectangle property \eqref{eq:rich-rectangle}/\eqref{eq:poor-rectangle}.
+The two constructions are kept distinct; only their common rectangle conclusion is used below.
 
-\subsection{Uniformity over every dense restriction}
+\subsection{Uniformity under every dense restriction}
 
-Let $\kappa>0$ be the lower row constant from Proposition~\ref{prop:signed-inverse-capabilities}, let $\sigma>0$ be the WideStart survivor fraction from Proposition~\ref{prop:wide-start}, and let $\rho_P>0$ be the non-small Haxell fraction from Proposition~\ref{prop:haxell-quota}.  Fix once and for all
+Let $\kappa$ be the constant in \eqref{eq:family-size}, let $\sigma$ be the compatibility fraction in Proposition~\ref{prop:wide-start}, and let $\rho_P$ be the constant in Proposition~\ref{prop:haxell-quota}.  Fix
 \[
 0<\rho<\kappa\sigma\rho_P.
 \tag{5.5}\label{eq:rho-choice}
 \]
-The choice uses theorem-level constants only; no WideStart witness or packing point exists yet.
+These are theorem-level constants; no initial cover or independent set has yet been chosen.
 
-For a late current $Q=p^e$, define
+For every sufficiently large prime power $Q=p^e$, define the family of dense restrictions
 \[
 \boxed{
-\operatorname{Adm}_\rho(Q)=
+\mathcal D_\rho(Q)=
 \left\{
-A\subseteq A_Q:
+A\subseteq\mathcal A_Q:
 |A|\ge \rho\frac Q{\log Q}
 \right\}.}
 \tag{5.6}\label{eq:adm-universal}
 \]
-This finite family is defined from the original signed-inverse row $A_Q$ itself.  In particular it is independent of every future obstacle deletion and every future Haxell witness.
+This depends only on the deterministic family $\mathcal A_Q$.
 
-Let $A\in\operatorname{Adm}_\rho(Q)$ and restrict the simple-value map to $A$.  By \eqref{eq:fibre-bound}, if
+Fix $A\in\mathcal D_\rho(Q)$ and restrict $\phi_Q$ to $A$.  If
 \[
-M=\max_s|f^{-1}(s)|,
+M=\max_s|\phi_Q^{-1}(s)\cap A|,
+\qquad
+r=|\operatorname{im}(\phi_Q|_A)|,
 \]
-then $M\le Q/p$.  Since
+then \eqref{eq:fibre-bound} gives $M\le Q/p$, and therefore
 \[
-|A|\le |\operatorname{im}f|M,
-\]
-we obtain
-\[
-r=|\operatorname{im}f|
-\gg_\rho \frac p{\log Q}.
+r\gg_\rho\frac p{\log Q}.
 \tag{5.7}\label{eq:image-lower}
 \]
 
-If $I_D(p,r)$ is nonempty, \eqref{eq:rich-demand} and \eqref{eq:image-lower} give
+If $I_D(p,r)$ is nonempty, \eqref{eq:rich-demand} gives
 \[
 a(A)=O_\rho(\log Q).
 \tag{5.8}\label{eq:rich-demand-log}
 \]
-If $I_D(p,r)$ is empty, then $r^2<4p$.  Combining this with \eqref{eq:image-lower} gives
+If $I_D(p,r)$ is empty, then $r^2<4p$, and \eqref{eq:image-lower} yields
 \[
 p=O_\rho((\log Q)^2).
 \tag{5.9}\label{eq:poor-p-bound}
 \]
-Moreover some nonzero simple value has fibre size at least
+Moreover some nonzero simple-quotient value has at least
 \[
 \frac{|A|}{r}
-\gg_\rho\frac{Q}{\sqrt p\,\log Q}.
+\gg_\rho\frac{Q}{\sqrt p\,\log Q}
 \tag{5.10}\label{eq:heavy-fibre}
 \]
-For a composite current $Q=p^e$, $e\ge2$, this lower bound is uniformly eventually larger than $p-1$.  Indeed, after division by $p$ the relevant ratio is
+preimages.  If $Q=p^e$ with $e\ge2$, this is eventually larger than $p-1$ uniformly in $p$ and $e$, because after division by $p$ the relevant ratio is
 \[
 \frac{Q}{p^{3/2}\log Q}
 =
 \frac{p^{e-3/2}}{e\log p}.
 \tag{5.11}\label{eq:heavy-ratio}
 \]
-If $p\to\infty$, its smallest exponent occurs at $e=2$ and gives
+For $p\to\infty$ the smallest case is $e=2$, giving $\sqrt p/(2\log p)\to\infty$; for bounded $p$ and $e\to\infty$ the ratio grows exponentially.  Thus the heavy-fibre rectangle \eqref{eq:poor-rectangle} applies to every sufficiently large composite prime power, with required incoming width
 \[
-\frac{\sqrt p}{2\log p}\longrightarrow\infty.
+p-1=O_\rho((\log Q)^2).
 \]
-If $p$ remains bounded while $Q=p^e\to\infty$, then $e\to\infty$ and \eqref{eq:heavy-ratio} grows exponentially.  Thus one late threshold works for every composite current.  The redundancy rectangle \eqref{eq:poor-rectangle} therefore applies, with demand
-\[
-p-1=O_\rho((\log Q)^2)
-\]
-by \eqref{eq:poor-p-bound}.
 
-For a prime current $Q=q$, the exact fibre capacity is $Q/p=1$, so the simple-value map is injective and hence
+If $Q=q$ is prime, \eqref{eq:fibre-bound} has capacity one, so $\phi_q|_A$ is injective and
 \[
 r=|A|\ge \rho q/\log q.
 \]
-If the diversity set were empty, then $r^2<4q$; but
+The alternative $I_D(q,r)=\varnothing$ would imply $r^2<4q$, contradicting
 \[
 r^2\ge \rho^2\frac{q^2}{(\log q)^2}>4q
 \]
-for all sufficiently large $q$, a contradiction.  Thus the poor branch is eventually impossible at prime currents, and \eqref{eq:rich-demand} gives
+for sufficiently large $q$.  Hence the large-image case is forced at prime steps and
 \[
-r=|A|\gg_\rho q/\log q,
+r\gg_\rho q/\log q,
 \qquad
 a(A)=O_\rho(\log q).
 \tag{5.12}\label{eq:prime-rich}
 \]
 
-\subsection{Canonical extrema}
+\subsection{Uniform loss and prime gain}
 
-Choose a late threshold $Q_{\mathrm{prof}}$ beyond which all preceding estimates hold, and from now on define the profile only on currents of rank at least $Q_{\mathrm{prof}}$.
+Choose $Q_{\mathrm{tr}}$ large enough that all preceding statements hold for every prime power $Q\ge Q_{\mathrm{tr}}$.
 
-For $A\in\operatorname{Adm}_\rho(Q)$ define its route demand
+For $A\in\mathcal D_\rho(Q)$ define the required incoming width
 \[
 \delta(Q,A)=
 \begin{cases}
-a(A),&\text{in the diversity branch},\\
-p-1,&\text{in the redundancy branch}.
+a(A),&\text{in the large-image case},\\
+p-1,&\text{in the heavy-fibre case}.
 \end{cases}
 \]
 Set
 \[
 \boxed{
-d_\rho(Q)=
-\max_{A\in\operatorname{Adm}_\rho(Q)}\delta(Q,A).}
+\delta_\rho(Q)=
+\max_{A\in\mathcal D_\rho(Q)}\delta(Q,A).}
 \tag{5.13}\label{eq:common-demand}
 \]
-The previous bounds give
+Then
 \[
-d_\rho(Q)=O_\rho((\log Q)^2)
+\delta_\rho(Q)=O_\rho((\log Q)^2)
 \tag{5.14}\label{eq:d-composite}
 \]
-for every late current, and
+for every sufficiently large prime power, while
 \[
-d_\rho(q)=O_\rho(\log q)
+\delta_\rho(q)=O_\rho(\log q)
 \tag{5.15}\label{eq:d-prime}
 \]
-for prime currents.
+when $q$ is prime.
 
-For a prime current $q$ and $A\in\operatorname{Adm}_\rho(q)$, write
+For a prime $q$ and $A\in\mathcal D_\rho(q)$ put
 \[
-r_A=|\operatorname{im}(sv_q|_A)|.
+r_A=|\operatorname{im}(\phi_q|_A)|.
 \]
-Only after $d_\rho(q)$ is fixed do we define the prime mint
+Only after $\delta_\rho(q)$ has been fixed define the uniform prime gain
 \[
 \boxed{
-m_\rho(q)=
-\min_{A\in\operatorname{Adm}_\rho(q)}
-\bigl(r_A-a(A)-d_\rho(q)\bigr).}
+\mu_\rho(q)=
+\min_{A\in\mathcal D_\rho(q)}
+\bigl(r_A-a(A)-\delta_\rho(q)\bigr).}
 \tag{5.16}\label{eq:common-mint}
 \]
-By \eqref{eq:prime-rich}--\eqref{eq:d-prime},
+By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
 \[
-m_\rho(q)\gg_\rho q/\log q.
+\mu_\rho(q)\gg_\rho q/\log q.
 \tag{5.17}\label{eq:mint-prime}
 \]
 
-\begin{theorem}[Uniform local profile]\label{thm:uniform-profile}
-For every late current and every $A\in\operatorname{Adm}_\rho(Q)$, the same profile applies to the target relation determined by $A$.
-
-If $Q$ is composite and the incoming interval is $[A_0,B_0]$ of width at least $d_\rho(Q)$, then
+\begin{theorem}[Uniform simple-quotient transfer]\label{thm:uniform-profile}
+Let $Q\ge Q_{\mathrm{tr}}$ and $A\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then the observable relation contains
 \[
-S_Q\times[A_0+d_\rho(Q),B_0]
+S_Q\times[A_0+\delta_\rho(Q),B_0].
 \]
-is contained in the observable response support.
-
-If $Q=q$ is prime, then
+If $Q=q$ is prime, then it contains
 \[
 S_q\times
-[A_0+d_\rho(q),\,B_0+d_\rho(q)+m_\rho(q)]
+[A_0+\delta_\rho(q),\,B_0+\delta_\rho(q)+\mu_\rho(q)].
 \]
-is contained in the observable response support.
 \end{theorem}
 
-The theorem is stronger than packing-independence: it is uniform under \emph{every} sufficiently dense restriction of the original arithmetic row.  Physical independence will enter only when the finite horizon is realized in Section~\ref{sec:finite-realization}.
+Thus the local statement is uniform under every sufficiently dense restriction of the original arithmetic family.  Compatibility is imposed only later, after a finite terminal cutoff has been selected.
