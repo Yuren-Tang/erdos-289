@@ -13,6 +13,40 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Guard manuscript source
+        working-directory: paper
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          main_files = [Path("manuscript.tex"), *sorted(Path("sections").glob("*.tex"))]
+          corpus = "\n".join(p.read_text(encoding="utf-8") for p in main_files)
+
+          numeric_tags = re.findall(r"\\tag\{\d+\.\d+\}", corpus)
+          if numeric_tags:
+              raise SystemExit("Manual numeric equation tags are forbidden in the main text: " + repr(numeric_tags))
+
+          labels = re.findall(r"\\label\{([^}]+)\}", corpus)
+          duplicates = sorted({x for x in labels if labels.count(x) > 1})
+          if duplicates:
+              raise SystemExit("Duplicate LaTeX labels: " + repr(duplicates))
+
+          refs = re.findall(r"\\(?:eqref|ref)\{([^}]+)\}", corpus)
+          missing = sorted(set(refs) - set(labels))
+          # Appendix labels are not in the main-text corpus; allow those explicitly.
+          appendix_prefixes = ("app:", "thm:restricted-fold", "lem:finite-prefix-initialization", "eq:finite-seed-bound", "eq:future-bridge-total")
+          missing = [x for x in missing if not x.startswith(appendix_prefixes)]
+          if missing:
+              raise SystemExit("References without main-text targets: " + repr(missing))
+
+          print(f"Source guard PASS: {len(labels)} unique main-text labels; no manual numeric tags.")
+          PY
+
+      - name: Replay finite initialization
+        working-directory: paper
+        run: python3 tools/verify_prefix_seed.py
+
       - name: Install TeX toolchain
         run: |
           sudo apt-get update
@@ -35,7 +69,13 @@ jobs:
         working-directory: paper
         run: latexmk -xelatex -interaction=nonstopmode -halt-on-error manuscript.tex
 
-      - name: Reject unresolved references and missing glyphs
+      - name: Extract PDF diagnostics
+        working-directory: paper
+        run: |
+          pdftotext -enc UTF-8 manuscript.pdf manuscript.txt
+          pdffonts manuscript.pdf > manuscript-fonts.txt
+
+      - name: Seal references, glyphs, fonts, and layout
         working-directory: paper
         run: |
           test -s manuscript.pdf
@@ -56,6 +96,19 @@ jobs:
             echo "Biber reported a warning or error."
             exit 1
           fi
+          if grep -q "Type 3" manuscript-fonts.txt; then
+            echo "Type 3 fonts are not permitted."
+            exit 1
+          fi
+          grep -q "0009-0006-0847-3330" manuscript.txt
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          text = Path("manuscript.txt").read_text(encoding="utf-8")
+          leaked = sorted(set(re.findall(r"\b(?:eq|thm|sec|lem|prop|app):[A-Za-z0-9_.:-]+", text)))
+          if leaked:
+              raise SystemExit("Internal LaTeX labels leaked into PDF text: " + repr(leaked))
+          PY
 
       - name: Upload manuscript PDF
         uses: actions/upload-artifact@v4
