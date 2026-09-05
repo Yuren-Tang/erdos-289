@@ -23,8 +23,6 @@
 ]
 \usepackage{trajan}
 \usepackage{microtype}
-\usepackage{soul}
-\sodef\trajantrack{\trjnfamily}{.08em}{.413em}{.413em}
 \setlength{\emergencystretch}{2em}
 \usepackage{enumitem}
 \usepackage{csquotes}
@@ -79,11 +77,20 @@
    \EpigraphText}%
 }
 
+% The publication manuscript currently uses soul's \sodef for the TeX-Live
+% Trajan face.  soul 3.2 can fail its reconstruction pass under XeTeX when the
+% tracked material involves font switching.  For this visual control only, use
+% microtype's native XeTeX letterspacing instead: 80/1000 em = 0.08 em, i.e.
+% the same E306 tracking target.  The starred form adds no extra boundary kern.
+% This changes the mechanism, not the intended optical parameter.
+\newcommand{\TrajanControl}{%
+  {\trjnfamily\mdseries\upshape\fontsize{10.5}{16}\selectfont
+   \textls*[80]{\EpigraphText}}%
+}
+
 \newcommand{\ContextEpigraph}{%
   \ifcase\EpigraphVariant
-    % 0: exact current Trajan control.
-    {\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
-     \trajantrack{\EpigraphText}}%
+    \TrajanControl
   \or
     \TrackedCandidate{\CinzelFamily}{m}%
   \or
