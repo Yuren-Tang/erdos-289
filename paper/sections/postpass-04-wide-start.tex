@@ -46,7 +46,7 @@ a_r-a_s
 =\frac{pD(s-r)}{rs}
 \ge\frac{pD}{k^2}.
 \end{equation}
-For all sufficiently large jumps this exceeds the interaction radius of interval components.  Lemma~\ref{lem:finite-prefix-initialization} supplies the finite initialization before this uniform separation regime begins.
+For all sufficiently large jumps the right-hand side is at least $4$, so every alternative at one bridge base is disjoint and nonadjacent from every alternative at another base.  Lemma~\ref{lem:finite-prefix-initialization} supplies the finite initialization before this uniform separation regime begins.
 
 The successive nontrivial lower moduli grow at least geometrically, so the total reciprocal mass of the future bridge sequence is finite.  Together with the finite initialization this leaves a fixed positive margin below $2$.
 
@@ -85,12 +85,12 @@ Hence the relevant lower moduli lie in a multiplicative window of polylogarithmi
 \[
 k=O(\sqrt p)=O(\sqrt{\log Q})
 \]
-component envelopes.  The total number of bridge envelopes capable of meeting $\mathcal A_Q$ is therefore
+bounded-size exclusion envelopes.  The total number of bridge envelopes capable of meeting $\mathcal A_Q$ is therefore
 \begin{equation}\label{eq:bridge-footprint}
 O(\sqrt{\log Q}\,\log\log Q)
 =o(Q/\log Q).
 \end{equation}
-By Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes are incompatible with only $o(Q/\log Q)$ members of $\mathcal A_Q$.
+By Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes are incompatible with only $o(Q/\log Q)$ members of $\mathcal A_Q$.  The fixed finite seed contributes only $O(1)$ further bounded-size exclusion envelopes, and hence excludes only $O(1)$ additional members of $\mathcal A_Q$.
 
 \subsection{The neutral Hamming pullback}
 
@@ -134,7 +134,7 @@ All alternatives in a neutral coordinate have the same reciprocal value, and hen
 \gamma_B=\alpha_B+\beta_B.
 \end{equation}
 
-The neutral family contributes $O(G_0+L(B))=o(B/\log B)$ bounded-size component envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every $Q\ge B$.  Together with \eqref{eq:bridge-footprint} and \eqref{eq:family-size}, this gives constants $\sigma,\eta>0$, independent of $L$, such that the following holds.  Let
+The neutral family contributes $O(G_0+L(B))=o(B/\log B)$ bounded-size exclusion envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every $Q\ge B$.  Together with \eqref{eq:bridge-footprint}, the $O(1)$ seed contribution and \eqref{eq:family-size}, this gives constants $\sigma,\eta>0$, independent of $L$, such that the following holds.  Let
 \begin{equation}\label{eq:compatible-subfamily}
 \mathcal A_Q(B)
 =
