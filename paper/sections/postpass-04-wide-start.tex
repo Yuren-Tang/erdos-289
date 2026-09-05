@@ -54,9 +54,10 @@ The successive nontrivial lower moduli grow at least geometrically, so the total
 
 \subsection{A bounded-spread affine cover}
 
-Fix the finite initialization from Lemma~\ref{lem:finite-prefix-initialization} and compose it with one bridge at every subsequent prime-power jump up to a cutoff $B$.  On residues, finite induction gives a full affine $E_B$-fibre.  Since every bridge adds the same number of components to every branch, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that every branch of the resulting affine cover has component count in
+Fix the finite initialization from Lemma~\ref{lem:finite-prefix-initialization} and compose it with one bridge at every subsequent prime-power jump up to a cutoff $B$.  On residues, finite induction gives a full affine $E_B$-fibre.  Let $\mathcal B_B\subset\mathcal C$ be the finite set of interval labels occurring in this affine cover.  Since every bridge adds the same number of components to every label, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that
 \[
-[m_B,M_B],
+\nu(x)\in[m_B,M_B]
+\qquad(x\in\mathcal B_B),
 \qquad
 M_B-m_B=G_0.
 \tag{4.3}\label{eq:ragged-spread}
@@ -106,23 +107,23 @@ Let $L(B)$ be any nonnegative integer-valued function satisfying
 L(B)=o(B/\log B).
 \tag{4.9}\label{eq:startup-subscale}
 \]
-Apply Lemma~\ref{lem:neutral-cube} to the bounded-spread affine cover using $G_0+L(B)$ neutral coordinates and arbitrarily small total reciprocal mass.  If a branch has component count $r\in[m_B,M_B]$ and $0\le j\le L(B)$, the required Hamming weight is
+Apply Lemma~\ref{lem:neutral-cube} to the bounded-spread affine cover using $G_0+L(B)$ neutral coordinates and arbitrarily small total reciprocal mass.  If $x\in\mathcal B_B$ and $0\le j\le L(B)$, the required Hamming weight is
 \[
-(M_B-r)+j.
+(M_B-\nu(x))+j.
 \tag{4.10}\label{eq:hamming-match}
 \]
-The construction is literally the pullback
+Define $\mathcal P_B$ by the cartesian square
 \[
 \begin{CD}
 \mathcal P_B @>>> \{0,1\}^{G_0+L(B)}\\
 @VVV @VV{|\cdot|}V\\
 \mathcal B_B\times\{0,\ldots,L(B)\}
 @>{(x,j)\mapsto M_B-\nu(x)+j}>>
-\{0,\ldots,G_0+L(B)\},
+\{0,\ldots,G_0+L(B)\}.
 \end{CD}
 \tag{4.11}\label{eq:hamming-pullback}
 \]
-where $\mathcal B_B$ denotes the branch set of the bounded-spread affine cover.  The right vertical map is surjective, so every affine branch occurs with every requested component count in one common interval of width $L(B)$, without a chosen Hamming representative.
+By \eqref{eq:ragged-spread}, the bottom map lands in the displayed interval.  The right vertical map is surjective, so the left vertical map is surjective as well.  Hence every label $x\in\mathcal B_B$ occurs with every requested component count in one common interval of width $L(B)$, without a chosen Hamming representative.
 
 All alternatives in a neutral coordinate have the same reciprocal value, and hence the same residue.  They therefore translate the affine fibre by a single class $\beta_B$.  If $\alpha_B$ is the centre before the neutral family is added, the resulting centre is
 \[
