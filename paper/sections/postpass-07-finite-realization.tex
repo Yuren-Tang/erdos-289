@@ -1,0 +1,89 @@
+\section{Finite-horizon physical realization}
+\label{sec:finite-realization}
+
+We now reconnect the scalar theorem to physical states.  This is the first point at which an actual Haxell packing is chosen.
+
+Let $\eta>0$ be the resource margin from Proposition~\ref{prop:wide-start}.  By \eqref{eq:role-summable}, choose a rank threshold $B_{\mathrm{res}}$ such that
+\[
+\sum_{Q>B_{\mathrm{res}}}\operatorname{roleMass}(Q)<\eta.
+\tag{7.1}\label{eq:resource-tail}
+\]
+Also choose a threshold $B_{\mathrm{ns}}$ beyond which every WideStart survivor row has cardinality at least the quota denominator $L_P$ of Proposition~\ref{prop:haxell-quota}.  This exists because the original row has size $\gg Q/\log Q$ and Proposition~\ref{prop:wide-start} preserves a fixed positive fraction.
+
+Apply Theorem~\ref{thm:scalar-terminality} with
+\[
+B_\dagger=\max\{B_{\mathrm{res}},B_{\mathrm{ns}}\}.
+\tag{7.2}\label{eq:global-start-cutoff}
+\]
+Thus the WideStart base $B$ and the entire scalar first-hit construction are chosen only after the resource tail and the non-small packing onset have been fixed.
+
+Fix one scalar-legal horizon $X\ge B$.  There are only finitely many current rows between $B$ and $X$.  For each such current $Q$, delete from the original row $A_Q$ every atom conflicting with any label of the fixed WideStart.  Let $\operatorname{Surv}(Q)$ denote the resulting row.  Proposition~\ref{prop:wide-start} gives
+\[
+|\operatorname{Surv}(Q)|
+\ge \sigma |A_Q|
+\ge \kappa\sigma\frac Q{\log Q}
+\tag{7.3}\label{eq:survivor-density}
+\]
+for all rows in the late regime.
+
+Put an edge between two surviving atoms whenever they cannot coexist in one physical state.  Proposition~\ref{prop:signed-inverse-capabilities} gives a uniform maximum degree bound.  Apply Proposition~\ref{prop:haxell-quota} once to the finite union of rows through $X$.  We obtain a globally independent atom pool $P_X$ with
+\[
+|P_X\cap\operatorname{Surv}(Q)|
+\ge \rho_P|\operatorname{Surv}(Q)|
+>\rho\frac Q{\log Q}
+\tag{7.4}\label{eq:packed-density}
+\]
+by the choice \eqref{eq:rho-choice}.  Therefore the actual row projection
+\[
+P_X(Q)=P_X\cap\operatorname{Surv}(Q)
+\]
+belongs to the already-defined universal family $\operatorname{Adm}_\rho(Q)$ from \eqref{eq:adm-universal}.  No scalar constant is chosen after seeing $P_X$.
+
+\subsection{Local physical lifts}
+
+The proof of Theorem~\ref{thm:uniform-profile} used full finite solution relations: distinct-value occurrence lifts in the diversity branch and full finite equal-value subset families in the redundancy branch.  Apply those same relations to the actual row $P_X(Q)$.  Since every element is an actual signed-inverse atom, each local target rectangle is now represented by literal finite collections of physical atoms.
+
+Because $P_X$ is globally independent in the interval-conflict graph, all atoms in the pool are pairwise disjoint and nonadjacent.  On a path, every finite subset of such a pool is therefore a physical state.  In addition, every surviving atom was deleted against the complete WideStart obstacle, so it is compatible with \emph{every} WideStart label, not merely with one selected branch.
+
+Consequently the ordinary composability pullback for the entire finite chain maps to $\operatorname{Phys}^n$ through the genuine $n$-ary multiplication domain $D_n$.  The strictification principle of Section~\ref{sec:states-filtration} then identifies the observable composition with the literal physical composition on this finite diagram.  Induction through the current events up to $X$ produces a finite physical response
+\[
+R_X:\mathbf1\longrightarrow
+\operatorname{Tor}_{E_X}(\gamma_X)\times I_X
+\tag{7.5}\label{eq:finite-response}
+\]
+whose projection to the displayed target is surjective.  Here $\gamma_X$ is the transported image of the fixed WideStart centre $\gamma_B$.
+
+\subsection{Resource control}
+
+Let $S_0$ be any WideStart label.  Proposition~\ref{prop:wide-start} gives
+\[
+W(S_0)<2-\eta.
+\]
+Every current response at rank $Q$ uses reciprocal value at most $\operatorname{roleMass}(Q)$.  By the subadditive filtration and \eqref{eq:resource-tail}, every edge label $S$ of \eqref{eq:finite-response} satisfies
+\[
+W(S)
+\le W(S_0)+\sum_{B<Q\le X}\operatorname{roleMass}(Q)
+<2.
+\tag{7.6}\label{eq:physical-W-less-2}
+\]
+This is the last consumer of the conflict graph, the actual Haxell packing, the $n$-ary compatibility witness, and the resource series.
+
+\subsection{The realization surjection}
+
+Let $\operatorname{Horizon}_B$ be the set of scalar-legal finite cutoffs after the fixed WideStart base.  For $X\in\operatorname{Horizon}_B$, let $\operatorname{Lift}(X)$ be the finite-data solution set consisting of a quota packing through $X$, the local occurrence-lift witnesses, the $n$-ary physical factorization, and the resulting response \eqref{eq:finite-response} satisfying \eqref{eq:physical-W-less-2}.  The preceding argument proves
+\[
+\operatorname{Lift}(X)\ne\varnothing
+\qquad(X\in\operatorname{Horizon}_B).
+\]
+Define the dependent sum
+\[
+\operatorname{Real}
+=
+\sum_{X\in\operatorname{Horizon}_B}\operatorname{Lift}(X).
+\]
+Then the projection is surjective:
+\begin{equation}\label{eq:real-surjection}
+\boxed{
+\operatorname{Real}\twoheadrightarrow\operatorname{Horizon}_B.}
+\end{equation}
+Different horizons may use unrelated finite packings.  No coherent infinite choice, inverse limit, or compactness argument occurs.
