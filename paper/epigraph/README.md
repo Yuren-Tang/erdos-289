@@ -65,11 +65,25 @@ to the ETbb page texture, and whether the epigraph belongs to the title matter
 rather than reading as a detached ornament.
 
 A local full-TeX-Live build on 2026-09-05 successfully generated all six A4
-proofs. Initial optical triage retained EB Garamond Medium, Cinzel Regular and
-Marcellus Regular; Cinzel Bold was too dark against the title, Cormorant Medium
-too light, and Cormorant Semibold remained more literary/calligraphic than the
-leading inscriptional candidates. This is a working shortlist, not a publication
-selection.
+proofs. The Owner's optical assessment was more informative than a generic
+family ranking:
+
+- **00 EB Garamond Medium:** already very good and without an obvious defect;
+  compared with Trajan Pro it is slightly more solid / matter-of-fact and less
+  airy or expansive;
+- **01 Cinzel Regular:** too weak and fine to support the title matter;
+- **02 Cinzel Bold:** restores weight but becomes somewhat rigid;
+- **03 Marcellus Regular:** coherent on its own terms but stylistically farther
+  from the intended Trajan-like register;
+- **04 Cormorant Medium:** promising underlying proportions and some Trajan-like
+  flavour, but much too fine;
+- **05 Cormorant Semibold:** weight improves, but the thick/thin contrast becomes
+  too pronounced and modern; simply adding weight does not preserve the useful
+  structure seen in 04.
+
+This makes 00 the clear Phase-I leader. Variant 04 is retained conceptually as a
+useful failure specimen because it diagnoses the desired skeleton versus the
+wrong stroke contrast, not as an immediate publication candidate.
 
 Legacy TeX-Live Trajan is deliberately **not** part of this gate. On a minimal
 BasicTeX installation its Type-1/map/PK fallback chain can require additional
@@ -88,8 +102,8 @@ sh build-context.sh
 open context-*.pdf
 ```
 
-Because the Owner's Mac has stale files in `~/Library/texmf`, `build-context.sh`
-uses an empty temporary `TEXMFHOME` by default.
+Because the Owner's Mac has stale files in `~/Library/texmf`, the scripts use an
+empty temporary `TEXMFHOME` by default.
 
 The glyph-level `specimen.tex` remains available as a secondary reference, but
 it is not a decision gate because it lacks page context.
@@ -97,36 +111,67 @@ it is not a decision gate because it lacks page context.
 Local builds are the normal iteration path. They have now been demonstrated to
 work without the legacy Trajan chain.
 
-## 4. Remote parity build
+## 4. Phase I.5: is 00 merely too solid?
+
+Before changing punctuation or searching more families, isolate the residual
+question raised by the leading E306 control:
+
+> Is the slight solidity of 00 mainly a spacing problem, or a stroke-weight
+> problem?
+
+`build-phase15.sh` therefore varies **only** EB Garamond weight and tracking.
+Everything else remains frozen: Latin wording, comma, 10.5/16 and 8pt/12pt
+vertical spacing.
+
+The six proofs are:
+
+1. `phase15-00-medium-ls08.pdf` — exact Phase-I leader / frozen E306 tracking;
+2. `phase15-01-medium-ls09.pdf`;
+3. `phase15-02-medium-ls10.pdf`;
+4. `phase15-03-medium-ls11.pdf`;
+5. `phase15-04-regular-ls08.pdf`;
+6. `phase15-05-regular-ls09.pdf`.
+
+The Medium ladder 8/9/10/11 asks whether added air alone supplies the missing
+lift. The deliberately narrow Regular 8/9 pair asks whether the residual
+solidity instead comes from the Medium cut itself. Do not tune punctuation,
+size or vertical spacing during this gate.
+
+Build locally with:
+
+```sh
+cd paper/epigraph
+sh build-phase15.sh
+open phase15-*.pdf
+```
+
+A raster contact sheet is not an acceptable decision surface for this stage;
+inspect the native vector PDFs at matched zoom.
+
+## 5. Remote parity build
 
 `.github/workflows/epigraph-context.yml` is retained only as a manual
 `workflow_dispatch` TeX Live 2025/arXiv-parity utility. It no longer runs on every
 specimen change and therefore does not block optical iteration with irrelevant
 CI status.
 
-## 5. Phase II
+## 6. Later optical tuning
 
-Only Phase-I survivors are tuned further. Keep the frozen E306 values as the
-starting point, then vary one parameter at a time:
+Only after Phase I.5 decides the EB Garamond weight/tracking question should the
+next variable be introduced. The intended order is:
 
 1. punctuation treatment;
-2. small tracking changes around 8;
-3. weight or size only if still necessary;
+2. if needed, a finer tracking bracket around the Phase-I.5 survivor;
+3. weight or size only if still unresolved;
 4. vertical spacing last.
 
-The working Phase-I survivors are:
+If no EB Garamond Phase-I.5 specimen captures the desired airiness without
+losing page integration, then return to family search with a sharply defined
+criterion: inscriptional / Trajan-like proportions with lower and more even
+stroke contrast than Cormorant Semibold. Do not reopen a broad undirected font
+survey.
 
-- EB Garamond Medium — exact E306 family/weight control, highly integrated with
-  the mathematical page but less explicitly inscriptional;
-- Cinzel Regular — strongest monumental/inscriptional candidate without the
-  excessive blackness of Cinzel Bold;
-- Marcellus Regular — softer inscriptional alternative.
-
-Different families may have different eventual optimal tracking because their
-native sidebearings and cap proportions differ. Phase I fixes the value only to
-make the family/weight comparison identifiable.
-
-## 6. Publication boundary
+## 7. Publication boundary
 
 No experiment here changes `paper/manuscript.tex`. After a display face and its
 optical parameters are chosen, the publication manuscript receives a separate
