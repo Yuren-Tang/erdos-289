@@ -1,15 +1,15 @@
-\section{Restricted fixed-rank sums in a prime cyclic group}
+\section{Fixed-cardinality sums in a prime cyclic group}
 \label{app:restricted-fold}
 
-We record the additive-combinatorial input used by the local response theorem.  The proof is the standard polynomial-method argument, included to keep the arithmetic dependency explicit.  For a finite set $A$, write $\operatorname{FinSub}_h(A)$ for the set of its $h$-element subsets, with ordinary extensional equality.
+This appendix proves the additive-combinatorial input used in Section~\ref{sec:local-profile}.  For a finite set $A$, write $\binom{A}{h}$ for the set of its $h$-element subsets.
 
-\begin{theorem}[Restricted fixed-rank fold]\label{thm:restricted-fold}
-Let $S$ be a cyclic group of prime order $p$, let $A\subseteq S$ with $|A|=r$, and let $0\le h\le r$.  If
+\begin{theorem}[Fixed-cardinality sum theorem]\label{thm:restricted-fold}
+Let $S$ be a cyclic group of prime order $p$, let $A\subseteq S$ with $|A|=r$, and let $0\le h\le r$.  Define
 \[
-\Sigma_h:\operatorname{FinSub}_h(A)\longrightarrow S,
-\qquad O\longmapsto\sum_{a\in O}a,
+\Sigma_h:\binom{A}{h}\longrightarrow S,
+\qquad O\longmapsto\sum_{a\in O}a.
 \]
-then
+Then
 \[
 |\operatorname{im}\Sigma_h|
 \ge \min\{p,h(r-h)+1\}.
@@ -18,13 +18,13 @@ In particular, if $h(r-h)+1\ge p$, then $\Sigma_h$ is surjective.
 \end{theorem}
 
 \begin{proof}
-The endpoint cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose a proof-local identification $S\simeq\mathbf F_p$; the final statement is invariant under this choice.  Since $A\subseteq\mathbf F_p$, one has $r\le p$.
+The cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose an identification $S\simeq\mathbf F_p$ for the duration of the proof.  Since $A\subseteq\mathbf F_p$, one has $r\le p$.
 
 Put
 \[
 M=\min\{p-1,h(r-h)\}.
 \]
-Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\mathbf F_p$ of cardinality exactly $M$.  Consider
+Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\mathbf F_p$ of cardinality exactly $M$ and consider
 \[
 P(x_1,\ldots,x_h)
 =
@@ -32,13 +32,13 @@ P(x_1,\ldots,x_h)
 \prod_{1\le i<j\le h}(x_j-x_i).
 \tag{RF1}\label{eq:rf-polynomial}
 \]
-The polynomial vanishes on $A^h$: repeated coordinates kill the Vandermonde factor, while distinct coordinates have sum in the image of $\Sigma_h$, hence in $C$.
+The polynomial vanishes on $A^h$: repeated coordinates kill the Vandermonde factor, while distinct coordinates have sum in $\operatorname{im}\Sigma_h\subseteq C$.
 
-We use two elementary coefficient facts.  First, if a polynomial $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
+We use two elementary coefficient facts.  First, if $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
 \[
 [x_1^{d_1}\cdots x_h^{d_h}]F\ne0,
 \]
-and if finite sets $A_i$ satisfy $|A_i|>d_i$, then $F$ is nonzero somewhere on $\prod_iA_i$.  This follows by tensoring the one-variable Lagrange coefficient-extraction functionals.
+and if finite sets $A_i$ satisfy $|A_i|>d_i$, then $F$ is nonzero somewhere on $\prod_iA_i$.  This is the usual combinatorial Nullstellensatz coefficient criterion, obtained for instance by tensoring the one-variable Lagrange coefficient-extraction functionals.
 
 Second, for distinct nonnegative integers $k_1,\ldots,k_h$ and
 \[
@@ -53,7 +53,7 @@ one has
 m!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
 \tag{RF2}\label{eq:rf-vandermonde}
 \]
-Indeed, expand the Vandermonde determinant; the remaining alternating sum is a determinant of falling factorials, hence the ordinary Vandermonde determinant.
+Indeed, expanding the Vandermonde determinant reduces the alternating sum to a determinant of falling factorials, hence to the ordinary Vandermonde determinant.
 
 For every $0\le m\le h(r-h)$ one may choose distinct
 \[
@@ -64,47 +64,39 @@ with
 \sum_i k_i=m+\frac{h(h-1)}2.
 \tag{RF3}\label{eq:rf-exponents}
 \]
-To see this, write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.  If $q=R$, then $m\le hR$ forces $s=0$, so the displayed bounds remain valid.
+Write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.  If $q=R$, then $m\le hR$ forces $s=0$.
 
-It remains to connect the coefficient in \eqref{eq:rf-vandermonde} with the actual polynomial \eqref{eq:rf-polynomial}.  Put
+It remains to connect \eqref{eq:rf-vandermonde} with the polynomial \eqref{eq:rf-polynomial}.  Put
 \[
 H_C(T)=\prod_{c\in C}(T-c),
 \qquad
 V(x)=\prod_{i<j}(x_j-x_i).
 \]
-Because $|C|=M$, $H_C$ is monic of degree $M$, so
+Since $|C|=M$, the polynomial $H_C$ is monic of degree $M$:
 \[
 H_C(T)=T^M+R_C(T),
 \qquad \deg R_C<M.
 \tag{RF4}\label{eq:rf-top-homogeneous}
 \]
-The Vandermonde $V$ is homogeneous of degree $h(h-1)/2$.  Hence every monomial of
+The Vandermonde is homogeneous of degree $h(h-1)/2$.  Hence every monomial of
 \[
 R_C(x_1+\cdots+x_h)V(x)
 \]
-has total degree strictly below
-\[
-M+\frac{h(h-1)}2.
-\]
-Consequently, for every multi-index $k$ of exactly that total degree,
+has total degree strictly below $M+h(h-1)/2$.  Therefore, for every multi-index $k$ of that total degree,
 \[
 [x^k]P
 =
 [x^k](x_1+\cdots+x_h)^M V(x).
 \tag{RF5}\label{eq:rf-coefficient-bridge}
 \]
-Thus no lower homogeneous term of $H_C$ can contribute to the coefficient used below.
+Thus the lower homogeneous terms of $H_C$ cannot contribute to the coefficient used below.
 
-Apply \eqref{eq:rf-exponents} with $m=M$.  The corresponding monomial has total degree $M+h(h-1)/2$, so by \eqref{eq:rf-coefficient-bridge} and \eqref{eq:rf-vandermonde} its coefficient in $P$ is
+Apply \eqref{eq:rf-exponents} with $m=M$.  By \eqref{eq:rf-coefficient-bridge} and \eqref{eq:rf-vandermonde}, the corresponding coefficient of $P$ is
 \[
 M!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
 \tag{RF6}\label{eq:rf-nonzero-coefficient}
 \]
-This is nonzero in $\mathbf F_p$: one has $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so all factorials in numerator and denominator are nonzero; moreover the distinct integers $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient detector therefore contradicts the vanishing of $P$ on $A^h$.
+It is nonzero in $\mathbf F_p$: $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so the factorials are nonzero, and the distinct $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient criterion contradicts the vanishing of $P$ on $A^h$.
 
-Hence $|\operatorname{im}\Sigma_h|>M$, which is exactly
-\[
-|\operatorname{im}\Sigma_h|\ge\min\{p,h(r-h)+1\}.
-\]
-Transporting the conclusion back across the proof-local identification $S\simeq\mathbf F_p$ shows that no basis or generator survives in the theorem statement.
+Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.  The statement is invariant under the temporary identification $S\simeq\mathbf F_p$.
 \end{proof}
