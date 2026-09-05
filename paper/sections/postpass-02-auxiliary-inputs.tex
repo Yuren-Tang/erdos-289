@@ -1,0 +1,86 @@
+\section{Four auxiliary inputs}
+\label{sec:auxiliary-inputs}
+
+The active proof uses four ordinary inputs.  Three are proved here or in appendices; the fourth is a standard independent-transversal theorem of Haxell.  None of the historical Tail, defect, donor, or probabilistic machinery is used.
+
+\subsection{Remote reciprocal-neutral grade switches}
+
+Put
+\[
+P(n)=\frac1n+\frac1{n+1}.
+\]
+For every integer $a\ge1$ one has the exact identity
+\begin{equation}\label{eq:neutral-identity}
+P(a)+P(a^2+3a+1)
+=
+P(a+2)+P\!\left(\frac{a(a+3)}2\right)+P(a(a+3)).
+\end{equation}
+Indeed, if $C=a(a+3)$, then $(a+1)(a+2)=C+2$ and
+\[
+P(a)-P(a+2)=\frac{2(2C+3)}{C(C+2)},
+\]
+while
+\[
+P(C)-P(C+1)+P(C/2)=\frac{2(2C+3)}{C(C+2)}.
+\]
+For $a\ge3$ the two sides of \eqref{eq:neutral-identity} are physical states with respectively two and three pairwise nonadjacent binary components.  Their reciprocal values agree and their grades differ by one.  As $a\to\infty$, all support vertices tend to infinity and the common reciprocal value tends to zero.
+
+\begin{lemma}[Remote neutral cube]\label{lem:neutral-cube}
+Let $\mathcal O$ be a finite family of physical obstacles, let $\varepsilon>0$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every obstacle in $\mathcal O$, such that the sum of their common reciprocal costs is less than $\varepsilon$.
+
+The resulting Boolean selector has one common reciprocal value and one common residue translation, while its possible grade shifts are exactly
+\[
+0,1,\ldots,L.
+\]
+\end{lemma}
+
+\begin{proof}
+Construct the coordinates inductively.  At stage $i$, enlarge the finite obstacle by both alternatives from all preceding coordinates.  Choose $a$ so large that both new alternatives lie beyond this finite support by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives compatibility with all previous choices and total cost $<\varepsilon$.  The Hamming-weight map $\{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}$ gives the grade shifts without choosing a distinguished selector in any fibre.
+\end{proof}
+
+\subsection{Comparable prime bands}
+
+We use the elementary Chebyshev consequence proved in Appendix~\ref{app:prime-supply}.
+
+\begin{proposition}[Comparable prime supply]\label{prop:prime-supply-main}
+There are constants $\Lambda>1$ and $c_\Pi,C_\Pi>0$ such that, for every sufficiently large $X$,
+\[
+c_\Pi\frac X{\log X}
+\le
+\#\{p:X<p\le\Lambda X\}
+\le
+C_\Pi\frac X{\log X}.
+\]
+\end{proposition}
+
+\subsection{Restricted fixed-rank sums}
+
+The additive-combinatorial input is Theorem~\ref{thm:restricted-fold} from Appendix~\ref{app:restricted-fold}.  In the form used below it says that if $S$ is cyclic of prime order $p$, $A\subseteq S$ has size $r$, and
+\[
+h(r-h)+1\ge p,
+\]
+then every element of $S$ is the sum of an $h$-element subset of $A$.  The theorem is basis-free: an identification $S\simeq\mathbf F_p$ is used only inside its proof.
+
+\subsection{Bounded-conflict quota packing}
+
+We use the following standard consequence of Haxell's independent-transversal theorem; see \cite{Haxell1995,Haxell2001}.
+
+\begin{proposition}[Quota thinning]\label{prop:haxell-quota}
+For every integer $\Delta\ge0$ there is an integer $L_P\ge1$ such that the following holds.  Let $G$ be a finite graph of maximum degree at most $\Delta$, and partition its vertices into finite rows $R_i$.  Then there is an independent set $P$ satisfying
+\[
+|P\cap R_i|\ge \left\lfloor\frac{|R_i|}{L_P}\right\rfloor
+\qquad\text{for every }i.
+\]
+Consequently there exists $\rho_P>0$ such that, whenever $|R_i|\ge L_P$,
+\[
+|P\cap R_i|\ge \rho_P|R_i|.
+\]
+\end{proposition}
+
+\begin{proof}
+For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each row into as many full blocks of size $2\Delta$ as possible and discard the remainder.  Haxell's theorem applied to the induced graph on these blocks gives one independent vertex from every block, so one may take $L_P=2\Delta$.  Finally, for $n\ge L_P$,
+\[
+\left\lfloor\frac n{L_P}\right\rfloor\ge\frac{n}{2L_P},
+\]
+so $\rho_P=1/(2L_P)$ is sufficient.  No particular numerical value of $L_P$ or $\rho_P$ is used later.
+\end{proof}
