@@ -24,6 +24,7 @@ need_tex() {
 need_tex newtxmath.sty newtx
 need_tex ETbb-Regular.otf etbb
 need_tex EBGaramond-Medium.otf ebgaramond
+need_tex EBGaramond-Regular.otf ebgaramond
 need_tex microtype.sty microtype
 need_tex enumitem.sty enumitem
 need_tex csquotes.sty csquotes
