@@ -19,7 +19,7 @@ There is a finite family of configurations in $\mathcal C$ with the following pr
 \end{lemma}
 
 \begin{proof}
-One witness is recorded below.  The first three assertions are finite exact checks.  The fourth follows from \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total}.
+One witness is recorded below.  The first three assertions are finite exact checks together with the explicit separation estimate following \eqref{eq:successive-row-gap}.  The fourth follows from \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total}.
 \end{proof}
 
 \subsection*{One explicit witness}
@@ -65,16 +65,36 @@ Direct comparison shows that the corresponding component envelopes are compatibl
 
 \subsection*{Why the numerical initialization disappears}
 
-After the finite boundary, separation follows from a uniform estimate.  Suppose a previous prime-power jump has upper least-common-multiple modulus $D$, so every base in that stage is at most $D$ and every component envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
+Suppose a previous prime-power jump has upper least-common-multiple modulus $D$, so every base in that stage is at most $D$ and every component envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
 \[
 a_k=\frac{pD}{k},
 \]
-where $k$ is least with $k(k+1)/2\ge p-1$.  Since $k<p$,
-\[
+where $k$ is least with $k(k+1)/2\ge p-1$.  Thus
+\begin{equation}\label{eq:successive-row-gap}
 a_k-D=D\left(\frac pk-1\right).
-\tag{PS3}\label{eq:successive-row-gap}
+\tag{PS3}
+\end{equation}
+In fact
+\[
+\frac pk-1\ge\frac12
 \]
-If $p\to\infty$, then $k^2=O(p)$ and $p/k\to\infty$; if $p$ stays bounded along later prime-power jumps, then $k$ is fixed while $D\to\infty$.  Thus the right side tends to infinity.  Beyond the finite boundary every new component envelope therefore begins at least two unused vertices beyond the preceding stage.
+for every prime $p$.  The cases $p=2,3,5$ are immediate.  For $p\ge7$, put $m=\lfloor2p/3\rfloor$.  Since $m\ge2p/3-1$,
+\[
+\frac{m(m+1)}2
+\ge\frac{2p^2}{9}-\frac p3
+\ge p-1,
+\]
+so minimality gives $k\le m\le2p/3$.
+
+The bases in \eqref{eq:prefix-boundary-bases} are exactly those needed through the jump at $n=9$.  After that jump the next lower modulus is
+\[
+D=L_{10}=2520.
+\]
+Hence every subsequent stage satisfies
+\[
+a_k-D\ge D/2\ge1260.
+\]
+The new component envelopes therefore begin far beyond both the finite seed and the preceding bridge stage, and the same estimate persists inductively as the lower moduli increase.  Thus the finite list \eqref{eq:prefix-boundary-bases} really is beyond the uniform-separation threshold.
 
 The reciprocal-mass estimate is likewise uniform.  The largest initial reciprocal value is $5/6$.  For the four finite bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ gives
 \begin{equation}\label{eq:finite-seed-bound}
