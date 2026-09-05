@@ -1,9 +1,9 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Let $\mathcal C$ denote the family of finite subsets $S\subset\mathbf N_{>0}$ whose connected components in the path graph on $\mathbf N_{>0}$ are finite intervals, any two distinct components being separated by at least one unused integer.  Write
+Let $\mathcal C$ denote the family of finite subsets $S\subset\mathbf N_{>0}$ whose connected components in the path graph on $\mathbf N_{>0}$ have cardinality $2$ or $3$ and are pairwise nonadjacent.  Write
 \[
-  c(S)=|\pi_0(S)|,
+  \nu(S)=|\pi_0(S)|,
   \qquad
   W(S)=\sum_{n\in S}\frac1n.
 \]
@@ -12,46 +12,45 @@ Our main result is the following.
 \begin{theorem}\label{thm:main}
 For every sufficiently large integer $k$ there exists $S\in\mathcal C$ such that
 \[
-  c(S)=k,
+  \nu(S)=k,
   \qquad
-  W(S)=1,
+  W(S)=1.
 \]
-and every connected component of $S$ has cardinality $2$ or $3$.
 \end{theorem}
 
-In particular, the connected components are pairwise disjoint, nonadjacent integer intervals of length at least two.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency of the intervals.  The current problem list records this distinction and adopts the strengthened formulation above \cite{ErdosProblem289}.  We therefore regard Theorem~\ref{thm:main}, rather than a problem number, as the mathematical statement proved in this article.
+Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency of the intervals.  The current problem list records this distinction and adopts the strengthened formulation above \cite{ErdosProblem289}.  We therefore regard Theorem~\ref{thm:main}, rather than a problem number, as the mathematical statement proved in this article.
 
 The proof is most transparent after separating three layers.
 
 \medskip
 \noindent\textbf{Structural layer.}
-Finite interval configurations carry three additive observations: reciprocal value in $\mathbf Q$, residue in $\mathbf Q/\mathbf Z$, and component count in $\mathbf N$.  Prime-power torsion stages of $\mathbf Q/\mathbf Z$ give one-dimensional simple quotients.  Labelled finite correspondences are composed by pullback, and their observable images form relations.  The only genuinely noncommutative phenomenon is that forgetting the physical labels is oplax with respect to composition; in the locally posetal bicategory $\mathbf{Rel}$ this is an inclusion 2-cell.  Joint physical compatibility turns that comparison 2-cell into an identity.  Quotient lifting, finite realization, and the final residue-zero argument are then ordinary pullback and exactness statements.
+Finite interval configurations carry three additive observations: reciprocal value in $\mathbf Q$, residue in $\mathbf Q/\mathbf Z$, and component count in $\mathbf N$.  Prime-power torsion stages of $\mathbf Q/\mathbf Z$ give one-dimensional simple quotients.  Labelled finite correspondences are composed by pullback, and their observable images form relations.  The only genuinely non-strict phenomenon is that forgetting interval labels is oplax with respect to composition; in the locally posetal bicategory $\mathbf{Rel}$ this is an inclusion $2$-cell.  Joint compatibility turns that comparison $2$-cell into an identity.  Quotient lifting, finite realization, and the final residue-zero argument are then ordinary pullback and exactness statements.
 
 \medskip
 \noindent\textbf{Interface layer.}
-At each prime-power step, a concrete arithmetic family is compressed to a finite relation on the simple quotient together with a component-count interval.  A uniform theorem is proved for every sufficiently dense restriction of that family, before any packing is chosen.  Later, one finite independent-transversal argument supplies an actual compatible restriction, and a single affine-lifting square carries the simple-quotient statement back to the global torsor filtration.
+At each prime-power step, a concrete arithmetic family is compressed to a finite relation on the simple quotient together with a component-count interval.  A uniform theorem is proved for every sufficiently dense restriction of that family, before any independent set is chosen.  Later, one finite independent-transversal argument supplies an actual compatible restriction, and a single affine-lifting square carries the simple-quotient statement back to the global torsor filtration.
 
 \medskip
 \noindent\textbf{Ordinary input layer.}
 The remaining inputs are elementary or standard: comparable-prime supply, a signed-inverse congruence construction, a restricted fixed-cardinality subset-sum theorem, a reciprocal-neutral identity, one finite initialization certificate, and Haxell's independent-transversal theorem.  These inputs certify surjectivity, density, compatibility, and reciprocal-mass bounds for the structural correspondences; they are not additional categorical structure.
 
-The structural part may be summarized in the following way.  For a finite physically composable string $R_1,\ldots,R_n$, let $U(R_i)$ be its observable relation after forgetting the physical label.  In $\mathbf{Rel}$ there is a canonical comparison 2-cell
+For a finite jointly compatible string of labelled correspondences $R_1,\ldots,R_n$, let $U(R_i)$ be the relation obtained by forgetting its interval label.  In $\mathbf{Rel}$ there is a canonical comparison $2$-cell
 \[
   U(R_n\odot\cdots\odot R_1)
   \;\Longrightarrow\;
   U(R_n)\circ\cdots\circ U(R_1),
 \tag{1.1}\label{eq:oplax-comparison}
 \]
-where a 2-cell is simply inclusion of relations.  The comparison becomes the identity precisely on the finite diagrams for which the ordinary composability pullback factors through the genuine joint-compatibility domain.  This is the categorical reason that all target-level calculations may be performed before the final finite physical realization.
+where a $2$-cell is simply inclusion of relations.  The comparison becomes the identity on exactly the finite diagrams for which the ordinary composability fibre product factors through the genuine joint-compatibility domain.  This is the categorical reason that the target calculation can be completed before the final finite realization by intervals.
 
-The proof then has a simple logical order.  First we construct the prime-power families and a wide affine initial cover.  Next we forget physical witnesses and prove an eventual interval theorem for the component count.  Only after a finite terminal cutoff has been selected do we apply Haxell's theorem once and return to literal interval configurations.  Finally the commutative square
+The proof then has a simple logical order.  First we construct the prime-power families and a wide affine initial cover.  Next we forget interval labels and prove an eventual interval theorem for the component count.  Only after a finite terminal cutoff has been selected do we apply Haxell's theorem once and return to literal interval configurations.  Finally the commutative square
 \[
 \begin{CD}
 \mathcal C @>{W}>> \mathbf Q\\
-@V{[W]}VV @VV{q_{\mathbf Z}}V\\
+@V{\overline W}VV @VV{q_{\mathbf Z}}V\\
 \mathbf Q/\mathbf Z @= \mathbf Q/\mathbf Z
 \end{CD}
 \]
-turns residue zero and $0<W<2$ into the exact equality $W=1$.
+turns $\overline W=0$ and $0<W<2$ into the exact equality $W=1$.
 
-Section~\ref{sec:states-filtration} develops the structural calculus and torsion filtration.  Section~\ref{sec:auxiliary-inputs} records the ordinary auxiliary inputs.  Sections~\ref{sec:signed-inverse} and~\ref{sec:wide-start} construct the arithmetic families and the wide affine initial cover.  Sections~\ref{sec:local-profile} and~\ref{sec:scalar-finality} compress them to a target-only component-count process.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} perform the unique finite physical realization and terminal pullback.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} prove the two ordinary auxiliary theorems; Appendix~\ref{app:prefix-seed} contains only the finite initialization certificate and has no asymptotic role.
+Section~\ref{sec:states-filtration} develops the structural calculus and torsion filtration.  Section~\ref{sec:auxiliary-inputs} records the ordinary auxiliary inputs.  Sections~\ref{sec:signed-inverse} and~\ref{sec:wide-start} construct the arithmetic families and the wide affine initial cover.  Sections~\ref{sec:local-profile} and~\ref{sec:scalar-finality} compress them to a target-only component-count process.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} perform the unique finite realization by compatible intervals and the terminal pullback.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} prove the two ordinary auxiliary theorems; Appendix~\ref{app:prefix-seed} contains only the finite initialization certificate and has no asymptotic role.
