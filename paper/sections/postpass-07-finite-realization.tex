@@ -39,13 +39,50 @@ P_X(Q)=P_X\cap\operatorname{Surv}(Q)
 \]
 belongs to the already-defined universal family $\operatorname{Adm}_\rho(Q)$ from \eqref{eq:adm-universal}.  No scalar constant is chosen after seeing $P_X$.
 
+\subsection{Affine lifting across one current step}
+
+The local theorem lives on the simple factor $S_Q=F_Q/F_{<Q}$, whereas the global induction covers affine fibres in $A=\mathbf Q/\mathbf Z$.  The following elementary torsor lemma is the only bridge between those levels.
+
+\begin{lemma}[Simple-factor rectangle lifts to the affine torsor]\label{lem:affine-current-lift}
+Let $Q$ be a current.  Suppose an incoming response covers
+\[
+\operatorname{Tor}_{F_{<Q}}(\alpha)\times I,
+\qquad \alpha\in A/F_{<Q},
+\]
+and let $\bar\alpha\in A/F_Q$ be the image of $\alpha$.  Suppose a finite local relation has residues in $F_Q$ and has the following simple-factor/grade property: for every $s\in S_Q$ and every $k'\in I'$, its full finite solution relation contains a local label $L$ and an incoming grade $i\in I$ such that
+\[
+[\operatorname{res}(L)]_{S_Q}=s,
+\qquad i+g(L)=k'.
+\]
+If the incoming and local labels are physically composable, then their composite response covers
+\[
+\operatorname{Tor}_{F_Q}(\bar\alpha)\times I'.
+\]
+\end{lemma}
+
+\begin{proof}
+Fix a desired target $(y,k')$ in the displayed $F_Q$-torsor.  Choose one proof-local point
+\[
+x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha).
+\]
+Because $y$ and $x_0$ have the same image in $A/F_Q$, the difference $y-x_0$ belongs to $F_Q$; its class
+\[
+s=[y-x_0]\in F_Q/F_{<Q}=S_Q
+\]
+is independent of the choice of $x_0$.  By the simple-factor/grade hypothesis choose a local solution $(L,i)$ with simple class $s$ and $i+g(L)=k'$.  Then
+\[
+y-\operatorname{res}(L)-x_0\in F_{<Q},
+\]
+so $y-\operatorname{res}(L)$ lies in the incoming fibre $\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Incoming surjectivity therefore supplies a label of grade $i$ at that residue.  Composing it with $L$ gives residue $y$ and grade $k'$.  This is an existential pullback argument for each target point; no section of either quotient or finite solution relation is chosen.
+\end{proof}
+
 \subsection{Local physical lifts}
 
 The proof of Theorem~\ref{thm:uniform-profile} used full finite solution relations: distinct-value occurrence lifts in the diversity branch and full finite equal-value subset families in the redundancy branch.  Apply those same relations to the actual row $P_X(Q)$.  Since every element is an actual signed-inverse atom, each local target rectangle is now represented by literal finite collections of physical atoms.
 
 Because $P_X$ is globally independent in the interval-conflict graph, all atoms in the pool are pairwise disjoint and nonadjacent.  On a path, every finite subset of such a pool is therefore a physical state.  In addition, every surviving atom was deleted against the complete WideStart obstacle, so it is compatible with \emph{every} WideStart label, not merely with one selected branch.
 
-Consequently the ordinary composability pullback for the entire finite chain maps to $\operatorname{Phys}^n$ through the genuine $n$-ary multiplication domain $D_n$.  The strictification principle of Section~\ref{sec:states-filtration} then identifies the observable composition with the literal physical composition on this finite diagram.  Induction through the current events up to $X$ produces a finite physical response
+Consequently the ordinary composability pullback for the entire finite chain maps to $\operatorname{Phys}^n$ through the genuine $n$-ary multiplication domain $D_n$.  At each current step, Theorem~\ref{thm:uniform-profile} supplies the simple-factor rectangle and Lemma~\ref{lem:affine-current-lift} lifts that rectangle to the next affine endpoint torsor.  The strictification principle of Section~\ref{sec:states-filtration} then identifies the observable composition with the literal physical composition on this finite diagram.  Induction through the current events up to $X$ produces a finite physical response
 \[
 R_X:\mathbf1\longrightarrow
 \operatorname{Tor}_{E_X}(\gamma_X)\times I_X
