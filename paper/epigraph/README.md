@@ -5,53 +5,63 @@ changed while the display face is being selected.
 
 ## 1. Local TeX
 
-macOS does not ship a TeX distribution. For this specimen, full MacTeX is not
-needed: BasicTeX is sufficient because it includes XeTeX. A current local TeX
-Live release is fine for visual iteration; the complete manuscript receives a
-separate final parity build against the arXiv TeX Live 2025 environment.
+macOS does not ship TeX. A current local TeX Live is sufficient for visual
+iteration; the complete manuscript receives a separate final parity build
+against arXiv's supported TeX Live 2025 environment.
 
-The specimen itself needs only XeLaTeX + `fontspec`; `latexmk` is not required.
+The free-font specimen uses only fonts distributed by TeX Live:
 
-## 2. Activate Trajan
+- `cinzel`;
+- `marcellus`;
+- `cormorantgaramond`.
 
-Trajan is not a macOS system font. Activate the **Trajan** family from Adobe
-Fonts through the Creative Cloud desktop app. The Adobe family contains the
-Trajan Pro 3 weights, including Regular and Semibold. No Adobe font file belongs
-in this repository.
+With BasicTeX, install them once:
 
-After activation, restart Terminal if necessary and confirm that the family is
-visible in Font Book / desktop applications.
+```sh
+sudo tlmgr install cinzel marcellus cormorantgaramond
+```
 
-## 3. Render the four-way proof
+No font binary needs to be downloaded, copied into the repository, or uploaded
+to arXiv.
 
-The specimen lives in this directory, not at the repository root:
+## 2. Render the comparison
+
+Because this Mac currently has stale core LaTeX files in `~/Library/texmf`, run
+the specimen with an empty `TEXMFHOME` so the TeX Live 2026 system tree remains
+internally consistent:
 
 ```sh
 cd paper/epigraph
-xelatex -interaction=nonstopmode -halt-on-error specimen.tex
+mkdir -p /tmp/e289-empty-texmf
+TEXMFHOME=/tmp/e289-empty-texmf \
+  xelatex -interaction=nonstopmode -halt-on-error specimen.tex
 open specimen.pdf
 ```
 
-The four candidates differ only in:
+The sheet compares:
 
-- Regular vs Semibold;
-- no punctuation vs inscriptional interpuncts.
+- Cinzel Regular and Bold;
+- Marcellus Regular;
+- Cormorant Garamond Medium and Semibold;
+- no punctuation against full inscriptional interpuncts where most useful.
 
-All use 10.5/16 and `fontspec` `LetterSpace=8`. Kerning is not disabled or
-manually altered. No synthetic bolding is used.
+All candidates use the E306 control specification: 10.5/16 and `fontspec`
+`LetterSpace=8`. Automatic font kerning remains enabled; no manual kerning or
+synthetic bolding is used.
 
-## 4. Generate the selected fixed-line asset
+## 3. Publication choice
 
-`asset.tex` produces a tightly cropped one-line PDF at the final 10.5 pt size.
-The generated `epigraph-final.pdf` is the only Trajan-bearing publication asset
-that needs to be committed. Do not commit, package, copy, or redistribute the
-Trajan font software itself.
+Cinzel is the closest first candidate: it was explicitly designed from
+first-century Roman inscriptional proportions and is all-caps, while remaining
+freely licensed. Marcellus gives a softer inscriptional alternative; Cormorant
+Garamond is included as a more literary control rather than a Trajan substitute.
 
-## 5. Build policy
+Once a family/weight/punctuation treatment is selected, the publication
+manuscript can use the TeX Live font directly. There is then no proprietary-font
+asset, no font upload, and no separate licensing workflow.
+
+## 4. Build policy
 
 - Fast local iteration: any current TeX Live installation is sufficient.
 - Publication parity gate: rebuild the complete manuscript against arXiv's
   supported TeX Live 2025 environment before submission.
-
-The exact arXiv package snapshot is a seal/reproducibility condition, not a
-requirement for every visual proof iteration.
