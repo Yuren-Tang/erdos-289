@@ -1,7 +1,13 @@
 \section{Physical states, response relations, and the torsion filtration}
 \label{sec:states-filtration}
 
-We work on the path graph on $\mathbf N_{>0}$.  A \emph{physical state} is a finite support whose connected components all have cardinality $2$ or $3$ and are separated by at least one unused vertex.  If $S$ is a physical state, put
+We work on the path graph on $\mathbf N_{>0}$.  A \emph{physical state} is a finite support whose connected components all have cardinality $2$ or $3$ and are separated by at least one unused vertex.  Let
+\[
+\operatorname{Phys}
+=
+\{S\subset\mathbf N_{>0}:S\text{ is a physical state}\}.
+\]
+If $S$ is a physical state, put
 \[
 W(S)=\sum_{n\in S}\frac1n,
 \qquad
@@ -9,6 +15,12 @@ g(S)=|\pi_0(S)|,
 \qquad
 \operatorname{res}(S)=[W(S)]\in \mathbf Q/\mathbf Z.
 \]
+For $n\ge1$, define the genuine $n$-ary multiplication domain
+\[
+D_n\subseteq\operatorname{Phys}^n
+\]
+to consist of tuples $(S_1,\ldots,S_n)$ with pairwise disjoint supports whose literal union $S_1\cup\cdots\cup S_n$ is again a physical state.  Equivalently, no component belonging to one label overlaps or is adjacent to a component belonging to another.  On $D_n$ the partial product is literal union.
+
 Whenever two finite states are physically compatible, their literal union is again a state and
 \[
 W(S\sqcup T)=W(S)+W(T),\qquad
@@ -23,7 +35,13 @@ The proof uses finite relations whose edges carry literal physical labels.  If $
 \[
 R\subseteq X\times \operatorname{Phys}\times Y
 \]
-whose projection to $Y$ is surjective.  We retain the physical edge label until all compatibility conditions have been checked.  Only afterwards do we pass to the regular image seen by the next consumer.
+whose projection to $Y$ is surjective.  Its reciprocal filtration norm is
+\[
+\|R\|_W
+=
+\max\{W(S):(x,S,y)\in R\},
+\]
+with the convention $\|\varnothing\|_W=0$.  We retain the physical edge label until all compatibility conditions have been checked.  Only afterwards do we pass to the regular image seen by the next consumer.
 
 We do \emph{not} assert that arbitrary right-total decorated relations are closed under unrestricted composition.  The only compositions used below occur on finite diagrams for which two additional facts have been proved:
 \begin{enumerate}
