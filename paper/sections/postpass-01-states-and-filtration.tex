@@ -65,7 +65,7 @@ The operation $\odot$ is associative and $1_X$ is a two-sided identity.  With in
 \end{lemma}
 
 \begin{proof}
-The empty configuration is compatible with every label, so $1_X$ is an identity.  For three composable labelled relations, either parenthesization selects exactly the same triples of edges whose three labels have jointly compatible literal union, and assigns that union as the composite label.  Since literal union is associative, the two composites coincide.  Monotonicity under inclusion is immediate from the definition.
+The empty configuration is compatible with every label, so $1_X$ is an identity.  Suppose $L_1,L_2,L_3\in\mathcal C$ are pairwise disjoint and their total union belongs to $\mathcal C$.  No component of one $L_i$ can be adjacent to a component of another: such two components each have cardinality at least $2$, so their union would lie in one connected component of cardinality at least $4$.  Hence every partial union of the $L_i$ also belongs to $\mathcal C$.  It follows that either parenthesization of a triple composite selects exactly the same triples of edges, and both assign the literal union $L_1\cup L_2\cup L_3$ as label.  Thus $\odot$ is associative.  Monotonicity under inclusion is immediate.
 \end{proof}
 
 The underlying unlabelled relation is
@@ -97,9 +97,9 @@ is a normal oplax $2$-functor.
 For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets.  The labels define a map $\ell:P_n\to\mathcal C^n$.  The obstruction to strictness is exactly whether $\ell$ lands in $D_n$:
 \begin{equation}\label{eq:compatibility-factorization}
 \begin{CD}
-& P_n &\\
-@V{\widetilde\ell}VV @VV{\ell}V\\
-D_n @>{\iota}>> \mathcal C^n .
+P_n @>{\ell}>> \mathcal C^n\\
+@V{\widetilde\ell}VV @AA{\iota}A\\
+D_n @= D_n
 \end{CD}
 \end{equation}
 Whenever such a factorization exists, every relationally composable witness is jointly compatible, and hence
