@@ -1,0 +1,29 @@
+\documentclass[border=0pt]{standalone}
+\usepackage[no-math]{fontspec}
+
+% Local-only source: requires a licensed Adobe Fonts activation of Trajan.
+% The font software itself must never be committed or packaged.
+\IfFontExistsTF{Trajan Pro 3}{}{
+  \PackageError{e289-epigraph}{Trajan Pro 3 is not active on this machine}%
+    {Activate Trajan in Adobe Fonts, then rerun XeLaTeX.}%
+}
+
+\ifdefined\EpigraphSemibold
+  \newfontfamily\epigraphfont{Trajan Pro 3}[
+    UprightFont=* Semibold,
+    LetterSpace=8
+  ]
+\else
+  \newfontfamily\epigraphfont{Trajan Pro 3}[
+    UprightFont=* Regular,
+    LetterSpace=8
+  ]
+\fi
+
+\newcommand{\plainline}{CARPE DIEM QVAM MINIMVM CREDVLA POSTERO}
+\newcommand{\dotline}{CARPE\char"00B7DIEM\char"00B7QVAM\char"00B7MINIMVM\char"00B7CREDVLA\char"00B7POSTERO}
+
+\begin{document}
+{\epigraphfont\upshape\fontsize{10.5}{16}\selectfont
+  \ifdefined\EpigraphInterpuncts\dotline\else\plainline\fi}
+\end{document}
