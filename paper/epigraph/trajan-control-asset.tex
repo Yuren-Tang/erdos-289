@@ -1,0 +1,13 @@
+\documentclass[border=0pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage{trajan}
+\usepackage{soul}
+
+% Exact legacy control mechanism from the manuscript/E306 baseline.
+\sodef\trajantrack{\trjnfamily}{.08em}{.413em}{.413em}
+\newcommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
+
+\begin{document}
+{\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
+ \trajantrack{\EpigraphText}}
+\end{document}
