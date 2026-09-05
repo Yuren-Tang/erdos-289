@@ -1,4 +1,4 @@
-\section{Interval configurations, labelled relations, and torsion}
+\section{Interval configurations, observable relations, and torsion}
 \label{sec:states-filtration}
 
 Let $\mathcal C$ be the set of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Put
@@ -9,11 +9,19 @@ W(S)=\sum_{n\in S}\frac1n,
 \qquad
 \overline W(S)=[W(S)]\in A:=\Q/\Z.
 \end{equation}
+Let
+\[
+M=A\times\N,
+\qquad
+0_M=(0,0),
+\qquad
+\Omega=(\overline W,\nu):\mathcal C\longrightarrow M.
+\]
 For $n\ge1$, let
 \[
 D_n\subseteq\mathcal C^n
 \]
-be the joint-compatibility domain: $(S_1,\ldots,S_n)\in D_n$ when the supports are pairwise disjoint and their literal union is again an element of $\mathcal C$.  On $D_n$ the partial product is simply union.  Hence
+be the joint-compatibility domain: $(S_1,\ldots,S_n)\in D_n$ when the supports are pairwise disjoint and their literal union is again an element of $\mathcal C$.  On $D_n$ the partial product is literal union.  Hence
 \begin{equation}\label{eq:additive-observations}
 W\!\left(\bigcup_iS_i\right)=\sum_iW(S_i),
 \quad
@@ -26,20 +34,31 @@ Equivalently, for binary compatible unions the diagram
 \begin{CD}
 D_2 @>{\cup}>> \mathcal C\\
 @V{(\Omega\pi_1,\Omega\pi_2)}VV @VV{\Omega}V\\
-(A\times\N)^2 @>{+}>> A\times\N
+M^2 @>{+}>> M
 \end{CD}
-\qquad
-\Omega=(\overline W,\nu)
 \end{equation}
-commutes.
+commutes.  Thus $\mathcal C$, with unit $\varnothing$ and compatible union as partial addition, is a partial commutative monoid, and $\Omega$ is additive wherever that partial sum is defined.
 
-\subsection{The locally posetal 2-category of labelled relations}
+\subsection{The locally posetal 2-category of observable labelled relations}
 
-For finite sets $X,Y$, a \emph{labelled finite relation} $R:X\rightsquigarrow Y$ is a finite subset
+The objects used below are finite subsets $X\subseteq M$.  For finite $X,Y\subseteq M$, a \emph{labelled finite relation}
 \[
-R\subseteq X\times\mathcal C\times Y.
+R:X\rightsquigarrow Y
 \]
-It is \emph{covering} if its projection to $Y$ is surjective.  Thus covering is a property of a labelled relation, not part of the definition of the class of morphisms.
+is a finite subset $R\subseteq X\times\mathcal C\times Y$ satisfying the observable conservation law
+\begin{equation}\label{eq:edge-conservation}
+y=x+\Omega(L)
+\qquad\text{for every }(x,L,y)\in R.
+\end{equation}
+If $\ell:R\to\mathcal C$ is the label map and $\pi_X,\pi_Y$ are the endpoint projections, this is exactly the commutative square
+\begin{equation}\label{eq:edge-conservation-square}
+\begin{CD}
+R @>{(\pi_X,\ell)}>> X\times\mathcal C\\
+@V{\pi_Y}VV @VV{(x,L)\mapsto x+\Omega(L)}V\\
+Y @>>> M,
+\end{CD}
+\end{equation}
+where the bottom arrow is inclusion.  The relation is \emph{covering} if its projection to $Y$ is surjective.
 
 For labelled relations $R:X\rightsquigarrow Y$ and $S:Y\rightsquigarrow Z$, define $S\odot R:X\rightsquigarrow Z$ by
 \[
@@ -55,17 +74,23 @@ if and only if there are $y\in Y$ and labels $L_1,L_2\in\mathcal C$ such that
 \qquad
 L=L_1\cup L_2.
 \]
-Equivalently, $S\odot R$ is obtained from the fibre product of the two edge sets over $Y$, restricted to compatible label pairs, by applying literal union to the labels and then taking the image.  Put
+The conservation law is preserved because
+\[
+z=y+\Omega(L_2)
+=x+\Omega(L_1)+\Omega(L_2)
+=x+\Omega(L_1\cup L_2)
+\]
+by \eqref{eq:observation-square}.  Put
 \[
 1_X=\{(x,\varnothing,x):x\in X\}.
 \]
 
 \begin{lemma}\label{lem:labelled-relation-category}
-The operation $\odot$ is associative and $1_X$ is a two-sided identity.  With inclusions of labelled relations as $2$-cells, finite sets and labelled finite relations therefore form a locally posetal $2$-category, denoted $\mathbf{Rel}_{\mathcal C}$.
+The operation $\odot$ is associative and $1_X$ is a two-sided identity.  With inclusions of labelled relations as $2$-cells, finite subsets of $M$ and observable labelled finite relations form a locally posetal $2$-category, denoted $\mathbf{Rel}_{\mathcal C}^{\Omega}$.
 \end{lemma}
 
 \begin{proof}
-The empty configuration is compatible with every label, so $1_X$ is an identity.  Suppose $L_1,L_2,L_3\in\mathcal C$ are pairwise disjoint and their total union belongs to $\mathcal C$.  No component of one $L_i$ can be adjacent to a component of another: such two components each have cardinality at least $2$, so their union would lie in one connected component of cardinality at least $4$.  Hence every partial union of the $L_i$ also belongs to $\mathcal C$.  It follows that either parenthesization of a triple composite selects exactly the same triples of edges, and both assign the literal union $L_1\cup L_2\cup L_3$ as label.  Thus $\odot$ is associative.  Monotonicity under inclusion is immediate.
+The empty configuration is compatible with every label and has $\Omega(\varnothing)=0_M$, so $1_X$ is an identity.  Suppose $L_1,L_2,L_3\in\mathcal C$ are pairwise disjoint and their total union belongs to $\mathcal C$.  No component of one $L_i$ can be adjacent to a component of another: such two components each have cardinality at least $2$, so their union would lie in one connected component of cardinality at least $4$.  Hence every partial union of the $L_i$ also belongs to $\mathcal C$.  Either parenthesization of a triple composite therefore selects exactly the same triples of edges, and both assign the literal union $L_1\cup L_2\cup L_3$ as label.  Thus $\odot$ is associative.  Monotonicity under inclusion is immediate.
 \end{proof}
 
 The underlying unlabelled relation is
@@ -90,7 +115,7 @@ U(S)\circ U(R),
 \end{equation}
 where a $2$-cell in $\mathbf{Rel}$ is inclusion of relations.  Associativity of $\odot$ makes these comparisons coherent automatically; in other words,
 \[
-U:\mathbf{Rel}_{\mathcal C}\longrightarrow\mathbf{Rel}
+U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}
 \]
 is a normal oplax $2$-functor.
 
