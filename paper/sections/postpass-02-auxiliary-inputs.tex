@@ -1,9 +1,9 @@
-\section{Four auxiliary inputs}
+\section{Auxiliary inputs}
 \label{sec:auxiliary-inputs}
 
-The active proof uses four ordinary inputs.  Three are proved here or in appendices; the fourth is a standard independent-transversal theorem of Haxell.  None of the historical Tail, defect, donor, or probabilistic machinery is used.
+We record four ordinary inputs.  Three are proved here or in the appendices; the fourth is a standard consequence of Haxell's independent-transversal theorem.
 
-\subsection{Remote reciprocal-neutral grade switches}
+\subsection{Reciprocal-neutral component switches}
 
 Put
 \[
@@ -23,23 +23,27 @@ while
 \[
 P(C)-P(C+1)+P(C/2)=\frac{2(2C+3)}{C(C+2)}.
 \]
-For $a\ge3$ the two sides of \eqref{eq:neutral-identity} are physical states with respectively two and three pairwise nonadjacent binary components.  Their reciprocal values agree and their grades differ by one.  As $a\to\infty$, all support vertices tend to infinity and the common reciprocal value tends to zero.
+For $a\ge3$ the two sides of \eqref{eq:neutral-identity} belong to $\mathcal C$, with respectively two and three connected components.  Their reciprocal values agree, while their component counts differ by one.  As $a\to\infty$, their supports move arbitrarily far to the right and their common reciprocal value tends to zero.
 
-\begin{lemma}[Remote neutral cube]\label{lem:neutral-cube}
-Let $\mathcal O$ be a finite family of physical obstacles, let $\varepsilon\in\Q_{>0}$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every obstacle in $\mathcal O$, such that the sum of their common reciprocal costs is less than $\varepsilon$.
+\begin{lemma}[Remote neutral Boolean family]\label{lem:neutral-cube}
+Let $\mathcal O$ be a finite family of interval components, let $\varepsilon\in\Q_{>0}$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every component in $\mathcal O$, such that the sum of their common reciprocal values is less than $\varepsilon$.
 
-The resulting Boolean selector has one common reciprocal value and one common residue translation, while its possible grade shifts are exactly
+The resulting Boolean family has a common reciprocal value and hence a common residue translation, while its possible increments in component count are exactly
 \[
 0,1,\ldots,L.
 \]
-Moreover, for each coordinate the union of the complete component-envelope families of its two alternatives has cardinality at most $5$.
+For each coordinate, the union of the component envelopes occurring in its two alternatives has cardinality at most $5$.
 \end{lemma}
 
 \begin{proof}
-Construct the coordinates inductively.  At stage $i$, enlarge the finite obstacle by both alternatives from all preceding coordinates.  Choose $a$ so large that both new alternatives lie beyond this finite support by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives compatibility with all previous choices and total cost $<\varepsilon$.  The two alternatives in one coordinate have respectively two and three complete component envelopes, so their combined envelope complexity is at most $5$.  The Hamming-weight map $\{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}$ gives the grade shifts without choosing a distinguished selector in any fibre.
+Choose the coordinates inductively.  At stage $i$, enlarge the finite forbidden region by all components occurring in the alternatives already chosen.  Take $a$ so large that both new alternatives lie beyond this region by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives mutual compatibility and total reciprocal value below $\varepsilon$.  The two alternatives contain respectively two and three components, so at most five component envelopes occur in one coordinate.  Finally the Hamming-weight map
+\[
+\{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}
+\]
+realizes every component-count increment, with no choice of a distinguished point in a fibre.
 \end{proof}
 
-Whenever a later argument is stated with a positive real resource tolerance, we first choose a positive rational tolerance below it and apply the lemma.  Thus no change of tolerance field is hidden at the neutral-cube interface.
+Whenever a later estimate supplies a positive real reciprocal-mass tolerance, we first choose a smaller positive rational tolerance and apply the lemma.
 
 \subsection{Comparable prime bands}
 
@@ -56,34 +60,34 @@ C_\Pi\frac X{\log X}.
 \]
 \end{proposition}
 
-\subsection{Restricted fixed-rank sums}
+\subsection{Fixed-cardinality sums in a prime cyclic group}
 
-The additive-combinatorial input is Theorem~\ref{thm:restricted-fold} from Appendix~\ref{app:restricted-fold}.  In the form used below it says that if $S$ is cyclic of prime order $p$, $A\subseteq S$ has size $r$, and
+The additive-combinatorial input is Theorem~\ref{thm:restricted-fold} from Appendix~\ref{app:restricted-fold}.  In the form used below, if $S$ is cyclic of prime order $p$, $A\subseteq S$ has cardinality $r$, and
 \[
 h(r-h)+1\ge p,
 \]
-then every element of $S$ is the sum of an $h$-element subset of $A$.  The theorem is basis-free: an identification $S\simeq\mathbf F_p$ is used only inside its proof.
+then every element of $S$ is the sum of an $h$-element subset of $A$.  The theorem is intrinsic to the cyclic group; an identification $S\simeq\mathbf F_p$ is used only inside its proof.
 
-\subsection{Bounded-conflict quota packing}
+\subsection{Independent thinning with a uniform quota}
 
 We use the following standard consequence of Haxell's independent-transversal theorem; see \cite{Haxell1995,Haxell2001}.
 
-\begin{proposition}[Quota thinning]\label{prop:haxell-quota}
-For every integer $\Delta\ge0$ there is an integer $L_P\ge1$ such that the following holds.  Let $G$ be a finite graph of maximum degree at most $\Delta$, and partition its vertices into finite rows $R_i$.  Then there is an independent set $P$ satisfying
+\begin{proposition}[Independent quota lemma]\label{prop:haxell-quota}
+For every integer $\Delta\ge0$ there is an integer $L_P\ge1$ such that the following holds.  Let $G$ be a finite graph of maximum degree at most $\Delta$, and partition its vertices into finite classes $R_i$.  Then there is an independent set $P$ such that
 \[
 |P\cap R_i|\ge \left\lfloor\frac{|R_i|}{L_P}\right\rfloor
 \qquad\text{for every }i.
 \]
-Consequently there exists $\rho_P>0$ such that, whenever $|R_i|\ge L_P$,
+Consequently there is $\rho_P>0$ such that, whenever $|R_i|\ge L_P$,
 \[
 |P\cap R_i|\ge \rho_P|R_i|.
 \]
 \end{proposition}
 
 \begin{proof}
-For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each row into as many full blocks of size $2\Delta$ as possible and discard the remainder.  Haxell's theorem applied to the induced graph on these blocks gives one independent vertex from every block, so one may take $L_P=2\Delta$.  Finally, for $n\ge L_P$,
+For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each class into as many full blocks of size $2\Delta$ as possible and discard the remainder.  Haxell's theorem applied to these blocks gives one independent vertex from every block, so one may take $L_P=2\Delta$.  For $n\ge L_P$,
 \[
 \left\lfloor\frac n{L_P}\right\rfloor\ge\frac{n}{2L_P},
 \]
-so $\rho_P=1/(2L_P)$ is sufficient.  No particular numerical value of $L_P$ or $\rho_P$ is used later.
+so $\rho_P=1/(2L_P)$ suffices.  No numerical value of $L_P$ or $\rho_P$ is used later.
 \end{proof}
