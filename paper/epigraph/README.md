@@ -27,7 +27,7 @@ to arXiv.
 
 ## 2. Glyph-level reference sheet
 
-`specimen.tex` is only a glyph-level reference.  It is useful for seeing the
+`specimen.tex` is only a glyph-level reference. It is useful for seeing the
 families and weights in isolation, but it is **not** the publication decision
 gate because it contains no real first-page context.
 
@@ -48,21 +48,22 @@ Garamond Medium/Semibold, with punctuation variants where useful.
 
 ## 3. Phase-I decision gate: real first-page context
 
-The actual family/weight decision is made with `context-specimen.tex`.  This is
+The actual family/weight decision is made with `context-specimen.tex`. This is
 a controlled copy of the real E289 first-page environment: the same `amsart`
 class, ETbb text face, NewTX mathematics, title, author, ORCID, abstract, and the
-actual beginning of the Introduction.  The publication manuscript itself is
-not modified.
+actual beginning of the Introduction. The publication manuscript itself is not
+modified.
 
 Phase I freezes the successful E306/current-manuscript parameters:
 
 - exact wording and comma: `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
 - 10.5 pt on 16 pt;
-- tracking 8;
+- tracking 8 / 0.08 em;
 - existing 8 pt / 12 pt vertical spacing;
-- normal OpenType kerning, no manual kerning, no synthetic emboldening.
+- normal OpenType kerning for the OpenType candidates, no manual kerning, no
+  synthetic emboldening.
 
-Only **family and weight** vary.  Build the complete matrix with:
+Only **family and weight** vary. Build the complete matrix with:
 
 ```sh
 cd paper/epigraph
@@ -70,10 +71,13 @@ sh build-context.sh
 open context-*.pdf
 ```
 
+`build-context.sh` performs a preflight and prints the exact `tlmgr install`
+command if this BasicTeX installation lacks a manuscript or proof dependency.
+
 The six proofs are:
 
-1. `context-00-trajan-control.pdf` — Trajan at the same optical target as the
-   current manuscript;
+1. `context-00-trajan-control.pdf` — exact legacy Trajan+soul control line,
+   embedded in the real XeTeX first-page context;
 2. `context-01-cinzel-regular.pdf`;
 3. `context-02-cinzel-bold.pdf`;
 4. `context-03-marcellus-regular.pdf`;
@@ -82,29 +86,36 @@ The six proofs are:
 
 ### Trajan control implementation
 
-The publication manuscript currently implements Trajan tracking through
-`soul`/`\sodef`.  With current TeX Live 2026 (`soul` 3.2), that path can fail
-under XeTeX with `Package soul Error: Reconstruction failed` when the
-reconstruction pass encounters the font switch.  This is an implementation
-failure, not a change in the desired typography.
+The TeX Live `trajan` family is a legacy Type 1/METAFONT font. The publication
+manuscript currently selects it through the classic LaTeX package and applies
+tracking through `soul`/`\sodef`. Directly reproducing that mechanism inside the
+XeTeX context proof is not robust: current `soul` can fail its reconstruction
+pass, `microtype` cannot letterspace the legacy T1 face under XeTeX, and
+`xdvipdfmx` may then fail to emit a physical font.
 
-For the context proof only, the Trajan control therefore uses `microtype`
-`\textls*[80]{...}`.  Microtype tracking is measured in thousandths of an em,
-so 80 reproduces the intended 0.08 em tracking target; the starred form avoids
-adding boundary kerns.  Thus the visual control remains anchored at the E306
-parameter while avoiding the fragile `soul` reconstruction mechanism.  The
-publication manuscript is deliberately left untouched until the final display
-face is chosen.
+The control is therefore rendered in two stages without changing its historical
+typography:
+
+1. `trajan-control-asset.tex` is run with **pdfLaTeX**, using the actual TeX Live
+   Trajan package, the actual `soul` `\sodef` definition, 10.5/16, and 0.08 em
+   tracking;
+2. the resulting `trajan-control-line.pdf` is embedded at natural size in
+   variant 0 of the XeLaTeX context proof, with a 10.5/16 strut supplying the
+   same line metrics as the live candidates.
+
+Thus variant 0 preserves the legacy control rather than approximating it with a
+different XeTeX tracking mechanism. The publication manuscript remains
+untouched until the final display face is chosen.
 
 Judge the **whole first page**, not the epigraph line in isolation: optical
 weight against the title, line width, relation to the ETbb page texture, and
 whether the epigraph reads as part of the title matter rather than as a separate
-decoration.  Do not tune punctuation, tracking, size, or vertical spacing until
+decoration. Do not tune punctuation, tracking, size, or vertical spacing until
 a family/weight shortlist survives this gate.
 
 ## 4. Phase II: local optical tuning
 
-Only the Phase-I survivors should be tested further.  Starting from the frozen
+Only the Phase-I survivors should be tested further. Starting from the frozen
 E306 control, vary one optical parameter at a time, in this order unless the
 page gives a strong reason otherwise:
 
@@ -121,7 +132,7 @@ reason rather than several simultaneous changes.
 Cinzel is the closest free first candidate: it was explicitly designed from
 first-century Roman inscriptional proportions and is all-caps. Marcellus gives
 a softer inscriptional alternative; Cormorant Garamond is included as a more
-literary control rather than a Trajan substitute.  These are priors only: the
+literary control rather than a Trajan substitute. These are priors only: the
 real-page Phase-I proof decides.
 
 Once a family/weight/punctuation treatment is selected, the publication
