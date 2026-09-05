@@ -1,7 +1,7 @@
 \section{Comparable prime supply}
 \label{app:prime-supply}
 
-The proof needs only one fixed-ratio prime band with two-sided order of magnitude $X/\log X$.  We record an elementary Chebyshev proof.
+The proof needs only one fixed-ratio prime band with two-sided order of magnitude $X/\log X$.  We record an elementary Chebyshev proof.  Throughout this appendix the band multiplier is an integer; this keeps every later current-rank cutoff on the natural-number scale.
 
 Put
 \[
@@ -46,7 +46,7 @@ c_\theta x\le\theta(x)\le C_\theta x
 \]
 eventually.
 
-Choose one fixed $\Lambda>1$ with $C_\theta<c_\theta\Lambda$.  Then
+Choose an integer $\Lambda\ge2$ such that $C_\theta<c_\theta\Lambda$.  Then
 \[
 \theta(\Lambda X)-\theta(X)
 \ge(c_\theta\Lambda-C_\theta)X,
@@ -54,15 +54,14 @@ Choose one fixed $\Lambda>1$ with $C_\theta<c_\theta\Lambda$.  Then
 while every prime in $(X,\Lambda X]$ contributes between $\log X$ and $\log(\Lambda X)$.  Thus:
 
 \begin{proposition}[Comparable prime band]\label{prop:prime-band}
-For some fixed $\Lambda>1$ and constants $c,C>0$,
+There are an integer $\Lambda\ge2$ and constants $c,C>0$ such that, for every sufficiently large integer $X$,
 \[
 c\frac X{\log X}
 \le
 \#\{p:X<p\le\Lambda X\}
 \le
-C\frac X{\log X}
+C\frac X{\log X}.
 \]
-for every sufficiently large $X$.
 \end{proposition}
 
 No numerical value of $\Lambda,c,C$ survives the provider boundary.
