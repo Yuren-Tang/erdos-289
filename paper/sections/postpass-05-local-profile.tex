@@ -120,14 +120,29 @@ Moreover some nonzero simple value has fibre size at least
 \gg_\rho\frac{Q}{\sqrt p\,\log Q}.
 \tag{5.10}\label{eq:heavy-fibre}
 \]
-For a composite current $Q=p^e$, $e\ge2$, the right side is eventually larger than $p-1$, so the redundancy rectangle \eqref{eq:poor-rectangle} applies.  Its demand is $p-1=O_\rho((\log Q)^2)$ by \eqref{eq:poor-p-bound}.
+For a composite current $Q=p^e$, $e\ge2$, this lower bound is uniformly eventually larger than $p-1$.  Indeed, after division by $p$ the relevant ratio is
+\[
+\frac{Q}{p^{3/2}\log Q}
+=
+\frac{p^{e-3/2}}{e\log p}.
+\tag{5.11}\label{eq:heavy-ratio}
+\]
+If $p\to\infty$, its smallest exponent occurs at $e=2$ and gives
+\[
+\frac{\sqrt p}{2\log p}\longrightarrow\infty.
+\]
+If $p$ remains bounded while $Q=p^e\to\infty$, then $e\to\infty$ and \eqref{eq:heavy-ratio} grows exponentially.  Thus one late threshold works for every composite current.  The redundancy rectangle \eqref{eq:poor-rectangle} therefore applies, with demand
+\[
+p-1=O_\rho((\log Q)^2)
+\]
+by \eqref{eq:poor-p-bound}.
 
 For a prime current $Q=q$, the exact fibre capacity is $Q/p=1$, hence the simple-value map is injective and the poor branch is impossible.  Thus
 \[
 r=|A|\gg_\rho q/\log q,
 \qquad
 a(A)=O_\rho(\log q).
-\tag{5.11}\label{eq:prime-rich}
+\tag{5.12}\label{eq:prime-rich}
 \]
 
 \subsection{Canonical extrema}
@@ -147,17 +162,17 @@ Set
 \boxed{
 d_\rho(Q)=
 \max_{A\in\operatorname{Adm}_\rho(Q)}\delta(Q,A).}
-\tag{5.12}\label{eq:common-demand}
+\tag{5.13}\label{eq:common-demand}
 \]
 The previous bounds give
 \[
 d_\rho(Q)=O_\rho((\log Q)^2)
-\tag{5.13}\label{eq:d-composite}
+\tag{5.14}\label{eq:d-composite}
 \]
 for every late current, and
 \[
 d_\rho(q)=O_\rho(\log q)
-\tag{5.14}\label{eq:d-prime}
+\tag{5.15}\label{eq:d-prime}
 \]
 for prime currents.
 
@@ -167,12 +182,12 @@ Only after $d_\rho(q)$ is fixed do we define the prime mint
 m_\rho(q)=
 \min_{A\in\operatorname{Adm}_\rho(q)}
 \bigl(r_A-a(A)-d_\rho(q)\bigr).}
-\tag{5.15}\label{eq:common-mint}
+\tag{5.16}\label{eq:common-mint}
 \]
 By \eqref{eq:prime-rich}--\eqref{eq:d-prime},
 \[
 m_\rho(q)\gg_\rho q/\log q.
-\tag{5.16}\label{eq:mint-prime}
+\tag{5.17}\label{eq:mint-prime}
 \]
 
 \begin{theorem}[Uniform local profile]\label{thm:uniform-profile}
