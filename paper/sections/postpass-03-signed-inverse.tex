@@ -1,35 +1,32 @@
 \section{Signed-inverse families at prime-power steps}
 \label{sec:signed-inverse}
 
-For every sufficiently large prime power $Q=p^e$ we construct a finite family $\mathcal A_Q\subset\mathcal C$ of two-point interval components.  The construction serves two purposes: its image in the simple quotient $S_Q$ is large and uniformly distributed, while its members have uniformly controlled incompatibility and reciprocal mass.  The auxiliary carrier, sign, and coefficient coordinates used below disappear after Proposition~\ref{prop:signed-inverse-capabilities}.
+For every sufficiently large prime power $Q=p^e$ we construct a finite family $\mathcal A_Q\subset\mathcal C$ of two-point interval components.  Its image in the simple quotient $S_Q$ is large and uniformly distributed, while its members have uniformly controlled incompatibility and reciprocal mass.
 
 Fix the integer $\Lambda$ from Proposition~\ref{prop:prime-supply-main} and put
 \[
 B_{\mathrm{car}}=\Lambda+1.
 \]
 Let $Q=p^e$ and define
-\[
+\begin{equation}\label{eq:carrier-base}
 X_Q=\left\lfloor\frac{Q}{B_{\mathrm{car}}}\right\rfloor.
-\tag{3.1}\label{eq:carrier-base}
-\]
+\end{equation}
 Choose carrier primes
-\[
+\begin{equation}\label{eq:carrier-band}
 X_Q<b\le\Lambda X_Q,
 \qquad (b,Q)=1.
-\tag{3.2}\label{eq:carrier-band}
-\]
+\end{equation}
 Writing
 \[
 Q=B_{\mathrm{car}}X_Q+r,
 \qquad 0\le r<B_{\mathrm{car}},
 \]
 shows that every carrier satisfies
-\[
+\begin{equation}\label{eq:carrier-exact}
 B_{\mathrm{car}}b>Q,
 \qquad
 b\le\Lambda X_Q<B_{\mathrm{car}}X_Q\le Q.
-\tag{3.3}\label{eq:carrier-exact}
-\]
+\end{equation}
 For $X_Q\ge1$ one also has
 \[
 B_{\mathrm{car}}X_Q\le Q<2B_{\mathrm{car}}X_Q,
@@ -37,68 +34,49 @@ B_{\mathrm{car}}X_Q\le Q<2B_{\mathrm{car}}X_Q,
 so $X_Q\asymp Q$.  Proposition~\ref{prop:prime-supply-main}, applied at $X_Q$, therefore gives $\asymp Q/\log Q$ possible carriers; imposing $(b,Q)=1$ removes at most the prime $p$.
 
 For each carrier $b$, let $c_+\in\{1,\ldots,Q-1\}$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and write
-\[
+\begin{equation}\label{eq:signed-inverse}
 bc_+=Qk_++1,
 \qquad
 bc_-=Qk_--1.
-\tag{3.4}\label{eq:signed-inverse}
-\]
+\end{equation}
 Then
 \[
 1\le k_\pm<b<Q,
 \qquad
 k_++k_-=b.
-\tag{3.5}
 \]
 Since $p\nmid b$, the two coefficients cannot both be divisible by $p$.  Choose a sign deterministically: if $e=1$, take the larger coefficient; if $e\ge2$, take $+$ unless $p\mid k_+$, and take $-$ otherwise.  With $k=k(Q,b)$ the chosen coefficient, define
-\[
+\begin{equation}\label{eq:signed-block}
 I(Q,b)=
 \begin{cases}
 [Qk,Qk+1],&+,\\
 [Qk-1,Qk],&-.
 \end{cases}
-\tag{3.6}\label{eq:signed-block}
-\]
+\end{equation}
 If $Q=p$ is prime, this rule gives
-\[
+\begin{equation}\label{eq:atomic-k-lower}
 k\ge b/2>X_Q/2\gg p.
-\tag{3.7}\label{eq:atomic-k-lower}
-\]
+\end{equation}
 
 \subsection{Transversality and deterministic deduplication}
 
 The distinguished denominator $Qk$ has largest prime-power stage exactly $Q$: the coefficient $k$ is a $p$-unit, and every prime-power factor contributed by $k$ has rank below $Q$ because $k<Q$.
 
-For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  Hence a new prime-power factor of rank at least $Q$ can occur only if the carrier prime occurs again in $c_\pm$, that is, if
-\[
-b\mid c_\pm.
-\]
-Equivalently $b^2\mid Qk\pm1$.  Write $c_\pm=\ell b$.  From $c_\pm<Q<B_{\mathrm{car}}b$ one obtains $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
-\[
+For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  Hence a new prime-power factor of rank at least $Q$ can occur only if $b\mid c_\pm$.  Equivalently $b^2\mid Qk\pm1$.  Write $c_\pm=\ell b$.  From $c_\pm<Q<B_{\mathrm{car}}b$ one obtains $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+\begin{equation}\label{eq:bad-carrier}
 \ell b^2\equiv\pm1\pmod Q.
-\tag{3.8}\label{eq:bad-carrier}
-\]
+\end{equation}
 For fixed $(\ell,\pm)$ this congruence has uniformly boundedly many unit roots modulo $p^e$: at most two when $p$ is odd and at most four when $p=2$.  Thus only $O_{B_{\mathrm{car}}}(1)$ carriers fail transversality.
 
-Different carriers can produce the same coefficient $k$.  Every carrier producing that coefficient divides one of
-\[
-Qk-1,\qquad Qk+1,
-\]
-both below $Q^2$.  If $Q>B_{\mathrm{car}}^3$, no one of these integers can contain three distinct carrier primes, because each carrier exceeds $Q/B_{\mathrm{car}}$.  Thus the multiplicity of a coefficient is uniformly bounded.  Keep, for each coefficient, the occurrence with least carrier.  The resulting coefficient set still has cardinality
+Different carriers can produce the same coefficient $k$.  Every carrier producing that coefficient divides one of $Qk-1,Qk+1$, both below $Q^2$.  If $Q>B_{\mathrm{car}}^3$, no one of these integers can contain three distinct carrier primes, because each carrier exceeds $Q/B_{\mathrm{car}}$.  Thus the multiplicity of a coefficient is uniformly bounded.  Keep, for each coefficient, the occurrence with least carrier.  The resulting coefficient set still has cardinality
 \[
 \asymp Q/\log Q.
-\tag{3.9}\label{eq:coef-scale}
 \]
 
-If $e\ge2$, order the remaining coefficients
-\[
-k_1<\cdots<k_N
-\]
-and retain the upper half.  Since $k_i\ge i$, every retained coefficient then satisfies
-\[
+If $e\ge2$, order the remaining coefficients $k_1<\cdots<k_N$ and retain the upper half.  Since $k_i\ge i$, every retained coefficient then satisfies
+\begin{equation}\label{eq:coef-lower}
 k\gg Q/\log Q.
-\tag{3.10}\label{eq:coef-lower}
-\]
+\end{equation}
 If $Q=p$ is prime, retain all coefficients.  Let $\mathcal A_Q$ be the resulting family of intervals \eqref{eq:signed-block}.
 
 \subsection{The simple-quotient value}
@@ -109,20 +87,18 @@ uk\equiv1\pmod p,
 \qquad uk=1+pt.
 \]
 Then
-\[
+\begin{equation}\label{eq:simple-coordinate-calculation}
 \frac{u}{Q}-\frac1{Qk}
 =\frac{t}{p^{e-1}k}.
-\tag{3.11}\label{eq:simple-coordinate-calculation}
-\]
+\end{equation}
 Every prime-power factor of the denominator on the right has rank below $Q$: the $p$-part is at most $p^{e-1}$, and every factor coming from $k$ is below $Q$.  Hence the difference belongs to $F_{<Q}$.  Relative to the canonical generator represented by $1/Q$, the simple-quotient map
 \[
 \phi_Q:\mathcal A_Q\longrightarrow S_Q^\times
 \]
 is therefore
-\[
+\begin{equation}\label{eq:simple-value}
 \phi_Q(I(Q,b))=k^{-1}\pmod p.
-\tag{3.12}\label{eq:simple-value}
-\]
+\end{equation}
 The interval $I(Q,b)$ itself recovers $Q$ and $k$: exactly one of its two denominators has largest prime-power stage $Q$, namely $Qk$.  Thus the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
 
 For compatibility estimates, by an \emph{interval envelope} we mean a finite interval $J\subset\N_{>0}$ together with the one-step exclusion zone required for nonadjacency.  A member of $\mathcal A_Q$ is said to meet the envelope if its support intersects this exclusion zone.
@@ -131,27 +107,23 @@ For compatibility estimates, by an \emph{interval envelope} we mean a finite int
 There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold.
 \begin{enumerate}
 \item There is $\kappa>0$, independent of $Q$, for which
-\[
+\begin{equation}\label{eq:family-size}
 |\mathcal A_Q|\ge \kappa\frac Q{\log Q}.
-\tag{3.13}\label{eq:family-size}
-\]
+\end{equation}
 \item For every $s\in S_Q^\times$,
-\[
+\begin{equation}\label{eq:fibre-bound}
 |\phi_Q^{-1}(s)|\le Q/p.
-\tag{3.14}\label{eq:fibre-bound}
-\]
+\end{equation}
 \item The incompatibility graph on $\bigcup_{Q\ge Q_0}\mathcal A_Q$ has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an interval envelope of cardinality at most $L$ meets at most $C_L$ members of the union.
 \item Every support point $z$ of a member of $\mathcal A_Q$ satisfies
-\[
+\begin{equation}\label{eq:support-window}
 c\frac{Q^2}{\log Q}\le z\le2Q^2
-\tag{3.15}\label{eq:support-window}
-\]
+\end{equation}
 for a fixed $c>0$.  If $Q$ is prime then $z\gg Q^2$.
-\item There are nonnegative numbers $\omega_Q$ such that every local correspondence formed from $\mathcal A_Q$ below has reciprocal mass at most $\omega_Q$, and
-\[
+\item There are nonnegative numbers $\omega_Q$ such that every local labelled relation formed from $\mathcal A_Q$ below has reciprocal mass at most $\omega_Q$, and
+\begin{equation}\label{eq:role-summable}
 \sum_Q\omega_Q<\infty.
-\tag{3.16}\label{eq:role-summable}
-\]
+\end{equation}
 \end{enumerate}
 \end{proposition}
 
@@ -164,7 +136,7 @@ The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; 
 \[
 \omega_p=O\!\left(\frac1{p\log p}\right).
 \]
-Summing over the fixed geometric prime bands from Proposition~\ref{prop:prime-supply-main} converges.  For $Q=p^e$, $e\ge2$, a local correspondence uses at most $p$ intervals, each of mass $O(\log Q/Q^2)$, so
+Summing over the fixed geometric prime bands from Proposition~\ref{prop:prime-supply-main} converges.  For $Q=p^e$, $e\ge2$, a local labelled relation uses at most $p$ intervals, each of mass $O(\log Q/Q^2)$, so
 \[
 \omega_{p^e}
 =O\!\left(\frac{p\log Q}{Q^2}\right)
