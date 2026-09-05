@@ -1,16 +1,16 @@
 \section{Uniform transfer on the simple quotients}
 \label{sec:local-profile}
 
-Let $S$ be a cyclic group of prime order $p$, let $A$ be a finite set, and let
+Let $S$ be a cyclic group of prime order $p$, let $E$ be a finite set, and let
 \[
-f:A\longrightarrow S^\times.
+f:E\longrightarrow S^\times.
 \]
 Define the component-count graded subset-sum support
 \begin{equation}\label{eq:gamma-f}
 \Gamma_f=
 \left\{
 \left(\sum_{x\in O}f(x),|O|\right):
-O\subseteq A,\ |O|\le p
+O\subseteq E,\ |O|\le p
 \right\}
 \subseteq S\times\N.
 \end{equation}
@@ -26,7 +26,7 @@ Put
 B=\operatorname{im}f,
 \qquad r=|B|.
 \]
-For $0\le h\le r$, the occurrence relation from $h$-element subsets of $B$ to $h$ distinct elements of $A$ is surjective: each value fibre is nonempty, and distinct values require distinct occurrences.  Hence Theorem~\ref{thm:restricted-fold} applies directly.
+For $0\le h\le r$, the occurrence relation from $h$-element subsets of $B$ to $h$ distinct elements of $E$ is surjective: each value fibre is nonempty, and distinct values require distinct occurrences.  Hence Theorem~\ref{thm:restricted-fold} applies directly.
 
 Let
 \[
@@ -69,25 +69,25 @@ For every sufficiently large prime power $Q=p^e$, define
 \begin{equation}\label{eq:adm-universal}
 \mathcal D_\rho(Q)=
 \left\{
-A\subseteq\mathcal A_Q:
-|A|\ge \rho\frac Q{\log Q}
+E\subseteq\mathcal A_Q:
+|E|\ge \rho\frac Q{\log Q}
 \right\}.
 \end{equation}
 
-Fix $A\in\mathcal D_\rho(Q)$ and restrict $\phi_Q$ to $A$.  If
+Fix $E\in\mathcal D_\rho(Q)$ and restrict $\phi_Q$ to $E$.  If
 \[
-M=\max_s|\phi_Q^{-1}(s)\cap A|,
+m_E=\max_s|\phi_Q^{-1}(s)\cap E|,
 \qquad
-r=|\operatorname{im}(\phi_Q|_A)|,
+r=|\operatorname{im}(\phi_Q|_E)|,
 \]
-then \eqref{eq:fibre-bound} gives $M\le Q/p$, and therefore
+then \eqref{eq:fibre-bound} gives $m_E\le Q/p$, and therefore
 \begin{equation}\label{eq:image-lower}
 r\gg_\rho\frac p{\log Q}.
 \end{equation}
 
 If $I_D(p,r)$ is nonempty, \eqref{eq:rich-demand} gives
 \begin{equation}\label{eq:rich-demand-log}
-a(A)=O_\rho(\log Q).
+a(E)=O_\rho(\log Q).
 \end{equation}
 If $I_D(p,r)$ is empty, then $r^2<4p$, and \eqref{eq:image-lower} yields
 \begin{equation}\label{eq:poor-p-bound}
@@ -95,7 +95,7 @@ p=O_\rho((\log Q)^2).
 \end{equation}
 Moreover some nonzero simple-quotient value has at least
 \begin{equation}\label{eq:heavy-fibre}
-\frac{|A|}{r}
+\frac{|E|}{r}
 \gg_\rho\frac{Q}{\sqrt p\,\log Q}
 \end{equation}
 preimages.  If $Q=p^e$ with $e\ge2$, this is eventually larger than $p-1$ uniformly in $p$ and $e$, because after division by $p$ the relevant ratio is
@@ -109,9 +109,9 @@ For $p\to\infty$ the smallest case is $e=2$, giving $\sqrt p/(2\log p)\to\infty$
 p-1=O_\rho((\log Q)^2).
 \]
 
-If $Q=q$ is prime, \eqref{eq:fibre-bound} has capacity one, so $\phi_q|_A$ is injective and
+If $Q=q$ is prime, \eqref{eq:fibre-bound} has capacity one, so $\phi_q|_E$ is injective and
 \[
-r=|A|\ge \rho q/\log q.
+r=|E|\ge \rho q/\log q.
 \]
 The alternative $I_D(q,r)=\varnothing$ would imply $r^2<4q$, contradicting
 \[
@@ -121,25 +121,25 @@ for sufficiently large $q$.  Hence the large-image case is forced at prime steps
 \begin{equation}\label{eq:prime-rich}
 r\gg_\rho q/\log q,
 \qquad
-a(A)=O_\rho(\log q).
+a(E)=O_\rho(\log q).
 \end{equation}
 
 \subsection{Uniform loss and prime gain}
 
 Choose $Q_{\mathrm{tr}}$ large enough that all preceding statements hold for every prime power $Q\ge Q_{\mathrm{tr}}$.
 
-For $A\in\mathcal D_\rho(Q)$ define
+For $E\in\mathcal D_\rho(Q)$ define
 \[
-\delta(Q,A)=
+\delta(Q,E)=
 \begin{cases}
-a(A),&\text{in the large-image case},\\
+a(E),&\text{in the large-image case},\\
 p-1,&\text{in the heavy-fibre case}.
 \end{cases}
 \]
 and then set
 \begin{equation}\label{eq:common-demand}
 \delta_\rho(Q)=
-\max_{A\in\mathcal D_\rho(Q)}\delta(Q,A).
+\max_{E\in\mathcal D_\rho(Q)}\delta(Q,E).
 \end{equation}
 Thus
 \begin{equation}\label{eq:d-composite}
@@ -151,15 +151,15 @@ for every sufficiently large prime power, while
 \end{equation}
 when $q$ is prime.
 
-For a prime $q$ and $A\in\mathcal D_\rho(q)$ put
+For a prime $q$ and $E\in\mathcal D_\rho(q)$ put
 \[
-r_A=|\operatorname{im}(\phi_q|_A)|.
+r_E=|\operatorname{im}(\phi_q|_E)|.
 \]
 With $\delta_\rho(q)$ now fixed, define
 \begin{equation}\label{eq:common-mint}
 \mu_\rho(q)=
-\min_{A\in\mathcal D_\rho(q)}
-\bigl(r_A-a(A)-\delta_\rho(q)\bigr).
+\min_{E\in\mathcal D_\rho(q)}
+\bigl(r_E-a(E)-\delta_\rho(q)\bigr).
 \end{equation}
 By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
 \begin{equation}\label{eq:mint-prime}
@@ -167,17 +167,17 @@ By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
 \end{equation}
 
 \begin{theorem}[Uniform simple-quotient transfer]\label{thm:uniform-profile}
-Let $Q\ge Q_{\mathrm{tr}}$ and $A\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then
+Let $Q\ge Q_{\mathrm{tr}}$ and $E\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then
 \[
 S_Q\times[A_0+\delta_\rho(Q),B_0]
 \subseteq
-\Gamma_{\phi_Q|_A}+(\{0\}\times[A_0,B_0]).
+\Gamma_{\phi_Q|_E}+(\{0\}\times[A_0,B_0]).
 \]
 If $Q=q$ is prime, then
 \[
 S_q\times
 [A_0+\delta_\rho(q),\,B_0+\delta_\rho(q)+\mu_\rho(q)]
 \subseteq
-\Gamma_{\phi_q|_A}+(\{0\}\times[A_0,B_0]).
+\Gamma_{\phi_q|_E}+(\{0\}\times[A_0,B_0]).
 \]
 \end{theorem}
