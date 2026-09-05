@@ -12,7 +12,9 @@ mkdir -p "$TEXMFHOME"
 # BasicTeX is intentionally small.  Before starting a six-proof build, detect
 # all TeX Live components used by the real E289 first-page environment so a
 # missing manuscript dependency is reported once rather than one package at a
-# time during XeLaTeX.
+# time during XeLaTeX.  The context proof deliberately does not use soul: the
+# Trajan control is tracked with microtype because current soul reconstruction
+# is fragile around XeTeX font switches.
 missing=""
 need_tex() {
   file=$1
@@ -26,7 +28,6 @@ need_tex newtxmath.sty newtx
 need_tex ETbb-Regular.otf etbb
 need_tex trajan.sty trajan
 need_tex microtype.sty microtype
-need_tex soul.sty soul
 need_tex enumitem.sty enumitem
 need_tex csquotes.sty csquotes
 need_tex biblatex.sty biblatex
