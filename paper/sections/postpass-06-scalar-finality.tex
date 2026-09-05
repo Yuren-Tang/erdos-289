@@ -140,3 +140,11 @@ For every lower cutoff $B_\dagger$ one can choose $B\ge B_\dagger$ and an affine
 \qquad \mathcal X_k\ne\varnothing.
 \]
 \end{theorem}
+
+\begin{proof}
+Choose $B$ and the affine initial cover by the construction above.  By cofinality, there is $X_0\ge B$ such that the image of $\gamma_B$ in $A/E_X$ is zero for every $X\ge X_0$.  The intervals $I_X$ for $X\ge X_0$ form a tail of the same sequence of successive overlapping intervals, and their upper endpoints are still unbounded.  Hence
+\[
+\bigcup_{X\ge X_0} I_X
+\]
+contains $[k_0,\infty)\cap\N$ for some $k_0$.  For any $k\ge k_0$, choose $X\ge X_0$ with $k\in I_X$.  At this $X$ the affine centre has vanished and $k\in I_X$, so $X\in\mathcal X_k$ by \eqref{eq:term-k}.
+\end{proof}
