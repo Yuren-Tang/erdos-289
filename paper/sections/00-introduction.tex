@@ -3,40 +3,41 @@
 
 Let $\mathcal C$ denote the family of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph on $\N_{>0}$ have cardinality $2$ or $3$.  Write
 \[
-  \nu(S)=|\pi_0(S)|,
-  \qquad
-  W(S)=\sum_{n\in S}\frac1n.
+\nu(S)=|\pi_0(S)|,
+\qquad
+W(S)=\sum_{n\in S}\frac1n.
 \]
-Our main result is the following.
 
 \begin{theorem}\label{thm:main}
 For every sufficiently large integer $k$ there exists $S\in\mathcal C$ such that
 \[
-  \nu(S)=k,
-  \qquad
-  W(S)=1.
+\nu(S)=k,
+\qquad
+W(S)=1.
 \]
 \end{theorem}
 
-Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency of the intervals.  The current problem list records this distinction and adopts the strengthened formulation above \cite{ErdosProblem289}.  We therefore regard Theorem~\ref{thm:main}, rather than a problem number, as the mathematical statement proved in this article.
+Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
 
-The proof is most transparent after separating three layers.
+The proof separates three layers.
 
 \medskip
 \noindent\textbf{Structural layer.}
-Finite interval configurations carry three additive observations: reciprocal value in $\Q$, residue in $\Q/\Z$, and component count in $\N$.  Prime-power torsion stages of $\Q/\Z$ give one-dimensional simple quotients.  Labelled finite correspondences are composed by pullback, and their observable images form relations.  The only genuinely non-strict phenomenon is that forgetting interval labels is oplax with respect to composition; in the locally posetal $2$-category $\mathbf{Rel}$ this is an inclusion $2$-cell.  Joint compatibility turns that comparison $2$-cell into an identity.  Quotient lifting, finite realization, and the final residue-zero argument are then ordinary pullback and exactness statements.
+The interval configurations form the label object for a locally posetal $2$-category $\mathbf{Rel}_{\mathcal C}$ of labelled finite relations.  Composition is fibre product followed by compatible union of labels.  Forgetting labels defines a normal oplax $2$-functor
+\[
+U:\mathbf{Rel}_{\mathcal C}\longrightarrow\mathbf{Rel};
+\]
+its comparison $2$-cell is precisely the inclusion created by discarding incompatible label tuples.  Once joint compatibility is established, this comparison is an identity.  The residue and component-count observations are additive, while prime-power torsion in $\Q/\Z$ supplies one-dimensional simple quotients.  The remaining structural passages are pullbacks and quotient maps.
 
 \medskip
 \noindent\textbf{Interface layer.}
-At each prime-power step, a concrete arithmetic family is compressed to a finite relation on the simple quotient together with a component-count interval.  A uniform theorem is proved for every sufficiently dense restriction of that family, before any independent set is chosen.  Later, one finite independent-transversal argument supplies an actual compatible restriction, and a single affine-lifting square carries the simple-quotient statement back to the global torsor filtration.
+At a prime-power step, a concrete interval family is compressed to a finite relation on the simple quotient and the component count.  The transfer theorem is uniform over every sufficiently dense restriction of that family.  After a finite cutoff has been chosen, Haxell's theorem supplies a compatible dense restriction, and an affine pullback lifts the simple-quotient statement to the global torsion filtration.
 
 \medskip
-\noindent\textbf{Ordinary input layer.}
-The remaining inputs are elementary or standard: comparable-prime supply, a signed-inverse congruence construction, a restricted fixed-cardinality subset-sum theorem, a reciprocal-neutral identity, one finite initialization, and Haxell's independent-transversal theorem.  These inputs certify surjectivity, density, compatibility, and reciprocal-mass bounds for the structural correspondences; they are not additional categorical structure.
+\noindent\textbf{Arithmetic input layer.}
+The inputs are comparable-prime supply, the signed-inverse construction, the Dias da Silva--Hamidoune fixed-cardinality sum theorem, a reciprocal-neutral identity, a finite initialization, and Haxell's independent-transversal theorem.  Their role is to provide the density, surjectivity, compatibility, and reciprocal-mass estimates required by the structural argument.
 
-Section~\ref{sec:states-filtration} makes the structural statement precise.  For a finite composable string of labelled correspondences, forgetting the interval labels produces a canonical inclusion $2$-cell in $\mathbf{Rel}$; after joint compatibility is proved, that $2$-cell is an identity.  This is the categorical reason that the observable calculation can be completed before the final finite realization by intervals.
-
-The proof then has a simple logical order.  First we construct the prime-power families and a wide affine initial cover.  Next we forget interval labels and prove an eventual interval theorem for the component count.  Only after a finite terminal cutoff has been selected do we apply Haxell's theorem once and return to literal interval configurations.  Finally the commutative square
+The proof proceeds as follows.  Signed-inverse families are constructed at the prime-power stages, and a finite affine initialization is enlarged by reciprocal-neutral switches to produce an arbitrarily wide interval of component counts.  The simple-quotient transfer is then applied uniformly under dense restriction.  Prime steps contribute width of order $Q/\log Q$, whereas the accumulated loss from composite prime powers is $o(Q/\log Q)$; this yields eventual coverage of all component counts.  For a fixed terminal cutoff, Haxell's theorem produces compatible literal intervals, and the affine lifting lemma carries the observable calculation through the torsion filtration.  Finally the commutative square
 \[
 \begin{CD}
 \mathcal C @>{W}>> \Q\\
@@ -44,6 +45,6 @@ The proof then has a simple logical order.  First we construct the prime-power f
 \Q/\Z @= \Q/\Z
 \end{CD}
 \]
-turns $\overline W=0$ and $0<W<2$ into the exact equality $W=1$.
+turns $\overline W=0$ and $0<W<2$ into $W=1$.
 
-Section~\ref{sec:states-filtration} develops the structural calculus and torsion filtration.  Section~\ref{sec:auxiliary-inputs} records the ordinary auxiliary inputs.  Sections~\ref{sec:signed-inverse} and~\ref{sec:wide-start} construct the arithmetic families and the wide affine initial cover.  Sections~\ref{sec:local-profile} and~\ref{sec:scalar-finality} compress them to a target-only component-count process.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} perform the unique finite realization by compatible intervals and the terminal pullback.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} prove the two ordinary auxiliary theorems; Appendix~\ref{app:prefix-seed} contains only the finite initialization and has no asymptotic role.
+Section~\ref{sec:states-filtration} develops $\mathbf{Rel}_{\mathcal C}$ and the torsion filtration.  Sections~\ref{sec:auxiliary-inputs}--\ref{sec:scalar-finality} supply the arithmetic families, affine initialization, uniform transfer, and component-count continuation.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} return to literal intervals and exactify the reciprocal sum.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} give the two auxiliary theorems used in the main text, while Appendix~\ref{app:prefix-seed} contains the finite initialization.
