@@ -1,13 +1,13 @@
 \section{Interval configurations, labelled correspondences, and torsion}
 \label{sec:states-filtration}
 
-Let $\mathcal C$ be the set of finite subsets $S\subset\mathbf N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$ and are pairwise nonadjacent.  Put
+Let $\mathcal C$ be the set of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Put
 \[
 W(S)=\sum_{n\in S}\frac1n,
 \qquad
 \nu(S)=|\pi_0(S)|,
 \qquad
-\overline W(S)=[W(S)]\in A:=\mathbf Q/\mathbf Z.
+\overline W(S)=[W(S)]\in A:=\Q/\Z.
 \tag{2.1}\label{eq:observations}
 \]
 For $n\ge1$, let
@@ -28,7 +28,7 @@ Equivalently, for binary compatible unions the diagram
 \begin{CD}
 D_2 @>{\cup}>> \mathcal C\\
 @V{(\Omega\pi_1,\Omega\pi_2)}VV @VV{\Omega}V\\
-(A\times\mathbf N)^2 @>{+}>> A\times\mathbf N,
+(A\times\N)^2 @>{+}>> A\times\N,
 \end{CD}
 \qquad
 \Omega=(\overline W,\nu),
@@ -38,7 +38,7 @@ commutes.  This is the basic structural square of the proof.
 
 \subsection{Labelled finite correspondences and the relation 2-cell}
 
-We use the standard locally posetal bicategory $\mathbf{Rel}$: its objects are sets, its $1$-morphisms are relations, and a $2$-cell is inclusion of relations.  No higher-categorical structure beyond this convention is needed.
+We use the standard locally posetal $2$-category $\mathbf{Rel}$: its objects are sets, its $1$-morphisms are relations, and a $2$-cell is inclusion of relations.  No higher-categorical structure beyond this convention is needed.
 
 Let $X$ and $Y$ be finite sets.  A \emph{labelled correspondence} from $X$ to $Y$ is a finite subset
 \[
@@ -99,7 +99,7 @@ We shall use \eqref{eq:rel-strictification} only after the factorization through
 \]
 Thus the structural calculus consists of ordinary fibre products and images, together with the single oplax comparison \eqref{eq:oplax-inclusion}; joint compatibility turns the latter into strict composition.
 
-\subsection{Finite torsion in \texorpdfstring{$\mathbf Q/\mathbf Z$}{Q/Z}}
+\subsection{Finite torsion in \texorpdfstring{$\Q/\Z$}{Q/Z}}
 
 For $n\ge1$ put
 \[
@@ -130,7 +130,7 @@ Consequently the nonzero join-irreducible stages are exactly $H_{p^e}$, with $p$
 \end{lemma}
 
 \begin{proof}
-If $[q]\in H_n$, then $nq\in\mathbf Z$, so $[q]=[j/n]$ for some $j\in\mathbf Z$; hence $H_n=\langle[1/n]\rangle$ and has order $n$.  The inclusion criterion follows by testing $[1/m]$.  Put $L=\operatorname{lcm}(m,n)$.  Since $\gcd(L/m,L/n)=1$, there exist $a,b\in\mathbf Z$ with
+If $[q]\in H_n$, then $nq\in\Z$, so $[q]=[j/n]$ for some $j\in\Z$; hence $H_n=\langle[1/n]\rangle$ and has order $n$.  The inclusion criterion follows by testing $[1/m]$.  Put $L=\operatorname{lcm}(m,n)$.  Since $\gcd(L/m,L/n)=1$, there exist $a,b\in\Z$ with
 \[
 aL/m+bL/n=1.
 \]
@@ -146,7 +146,7 @@ Let $F_Q$ be the join of all prime-power stages of rank at most $Q$, and $F_{<Q}
 S_Q=F_Q/F_{<Q}
 \tag{2.10}\label{eq:simple-quotient}
 \]
-has order $p$: the $p$-adic valuation of the lower least common multiple is $e-1$, and adjoining $p^e$ raises it by one.  Thus $S_Q$ is canonically a one-dimensional $\mathbf F_p$-object.
+has order $p$: the $p$-adic valuation of the lower least common multiple is $e-1$, and adjoining $p^e$ raises it by one.  Thus $S_Q$ is canonically a one-dimensional $\F_p$-object.
 
 For $X\ge1$ define the endpoint stage
 \[
