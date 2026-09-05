@@ -11,11 +11,13 @@
 % Exact main.tex inside that ZIP:
 %   sha256 11570a165e963f113c0ea00bd1bc95bbe1e52f449c8d3fafda4d0d1b082ee56a
 % Its dedication uses EB Garamond Medium at LetterSpace=8, 10.5/16, with
-% 8pt/12pt vertical spacing. Here the same display parameters are applied to
-% the E289 Latin line so the page-level control is comparable.
-\newfontfamily\EThreeOhSixControl{EBGaramond-Medium.otf}[
-  ItalicFont=EBGaramond-Medium.otf,
-  LetterSpace=8
+% 8pt/12pt vertical spacing. Phase I.5 also compares the real Regular cut while
+% keeping every other title-matter parameter fixed.
+\newfontfamily\EThreeOhSixMedium{EBGaramond-Medium.otf}[
+  ItalicFont=EBGaramond-Medium.otf
+]
+\newfontfamily\EThreeOhSixRegular{EBGaramond-Regular.otf}[
+  ItalicFont=EBGaramond-Regular.otf
 ]
 
 % Free candidate display families. Capture each NFSS family before restoring
@@ -76,22 +78,29 @@
 \newcommand{\im}{\operatorname{im}}
 \numberwithin{equation}{section}
 
-% Phase I freezes the specified E306 successful parameters. Only family/weight
-% vary: Latin wording and comma, 10.5/16, LetterSpace=8, and 8pt/12pt spacing
-% remain invariant throughout this gate.
+% Phase I defaults reproduce the frozen E306 setting. Phase I.5 overrides only
+% \EpigraphTracking and/or selects the Regular control variant. Wording, comma,
+% 10.5/16 and 8pt/12pt vertical spacing remain invariant.
 \providecommand{\EpigraphVariant}{0}
+\providecommand{\EpigraphTracking}{8}
 \newcommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
 
 \newcommand{\TrackedCandidate}[2]{%
   {\fontfamily{#1}\fontseries{#2}\upshape\selectfont
-   \addfontfeatures{LetterSpace=8}%
+   \addfontfeatures{LetterSpace=\EpigraphTracking}%
+   \fontsize{10.5}{16}\selectfont
+   \EpigraphText}%
+}
+\newcommand{\TrackedEThreeOhSix}[1]{%
+  {#1\upshape
+   \addfontfeatures{LetterSpace=\EpigraphTracking}%
    \fontsize{10.5}{16}\selectfont
    \EpigraphText}%
 }
 
 \newcommand{\ContextEpigraph}{%
   \ifcase\EpigraphVariant
-    {\EThreeOhSixControl\upshape\fontsize{10.5}{16}\selectfont\EpigraphText}%
+    \TrackedEThreeOhSix{\EThreeOhSixMedium}%
   \or
     \TrackedCandidate{\CinzelFamily}{m}%
   \or
@@ -102,9 +111,11 @@
     \TrackedCandidate{\CormorantFamily}{mb}%
   \or
     \TrackedCandidate{\CormorantFamily}{sb}%
+  \or
+    \TrackedEThreeOhSix{\EThreeOhSixRegular}%
   \else
     \PackageError{e289-context}{Unknown EpigraphVariant \EpigraphVariant}%
-      {Use an integer from 0 through 5.}%
+      {Use an integer from 0 through 6.}%
   \fi
 }
 
