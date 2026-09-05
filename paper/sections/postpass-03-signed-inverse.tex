@@ -1,0 +1,132 @@
+\section{Signed-inverse current families}
+\label{sec:signed-inverse}
+
+We now construct, simultaneously for all sufficiently late currents, the finite binary families that feed both the local additive channel and the global packing argument.  The construction is deterministic; all carrier, sign, and coefficient coordinates disappear at the theorem boundary.
+
+Fix the comparable-prime constant $\Lambda$ from Proposition~\ref{prop:prime-supply-main}, and put $B_{\mathrm{car}}=\Lambda+1$.  Let the current rank be
+\[
+Q=p^e.
+\]
+Choose carrier primes
+\[
+\frac{Q}{B_{\mathrm{car}}}<b\le \frac{\Lambda Q}{B_{\mathrm{car}}}.
+\tag{3.1}\label{eq:carrier-band}
+\]
+For sufficiently large $Q$ these primes are $<Q$ and coprime to $Q$, and there are $\asymp Q/\log Q$ of them.
+
+For each carrier $b$, let $c_+\in\{1,\ldots,Q-1\}$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and define
+\[
+bc_+=Qk_++1,
+\qquad
+bc_-=Qk_--1.
+\tag{3.2}\label{eq:signed-inverse}
+\]
+Then
+\[
+1\le k_\pm<b<Q,
+\qquad
+k_++k_-=b.
+\tag{3.3}
+\]
+Since $p\nmid b$, the two coefficients cannot both be divisible by $p$.  We choose an orientation deterministically: for $e=1$ take the larger coefficient; for $e\ge2$ take $+$ unless $p\mid k_+$, in which case take $-$.  Let $k=k(Q,b)$ be the selected coefficient and let the associated binary atom be
+\[
+a(Q,b)=
+\begin{cases}
+[Qk,Qk+1],&+,\\
+[Qk-1,Qk],&-.
+\end{cases}
+\tag{3.4}
+\]
+In the atomic case $Q=p$, this rule gives
+\[
+k\ge b/2\gg p.
+\tag{3.5}
+\]
+
+\subsection{Transversality and deterministic deduplication}
+
+The distinguished denominator $Qk$ has maximal current exactly $Q$: the chosen coefficient is a $p$-unit, and every prime-power factor contributed by $k$ has smaller rank because $k<Q$.  The only possible obstruction is that the carrier $b$ also divides the companion denominator.  Then $c_\pm=\ell b$ with $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+\[
+\ell b^2\equiv\pm1\pmod Q.
+\tag{3.6}\label{eq:bad-carrier}
+\]
+For fixed $(\ell,\pm)$ this congruence has uniformly boundedly many unit roots modulo $p^e$: at most two for odd $p$ and at most four for $p=2$.  Hence only $O_{B_{\mathrm{car}}}(1)$ carrier candidates fail transversality.
+
+Different carriers may produce the same coefficient.  For a fixed $k$, every such carrier divides one of
+\[
+Qk-1,\qquad Qk+1<Q^2+1,
+\]
+and every carrier is $>Q/B_{\mathrm{car}}$.  For all sufficiently large $Q$, three distinct such prime divisors would already have product larger than $Q^2+1$.  Thus each coefficient has uniformly bounded carrier multiplicity.  Keep, for each coefficient, the occurrence with least carrier.  This gives a deterministic deduplicated coefficient set of cardinality
+\[
+\asymp Q/\log Q.
+\tag{3.7}\label{eq:coef-scale}
+\]
+
+For a non-atomic current, order the distinct coefficients
+\[
+k_1<\cdots<k_N
+\]
+and keep the upper half.  Since $k_i\ge i$, every retained non-atomic coefficient satisfies
+\[
+k\gg Q/\log Q.
+\tag{3.8}\label{eq:coef-lower}
+\]
+For an atomic current keep all coefficients.  Write $A_Q$ for the resulting finite set of transverse binary atoms.
+
+\subsection{Simple values}
+
+Modulo the lower endpoint stage $F_{<Q}$, the companion reciprocal vanishes and the distinguished term gives the nonzero simple value
+\[
+sv_Q(a)=k^{-1}\pmod p
+\quad\in S_Q^\times.
+\tag{3.9}\label{eq:simple-value}
+\]
+The atom itself recovers $Q$ and $k$: exactly one support denominator has maximal current $Q$, namely $Qk$.  Hence the map from retained atoms to distinguished centres $Qk$ is globally injective.
+
+\begin{proposition}[Signed-inverse capabilities]\label{prop:signed-inverse-capabilities}
+There is a late-current threshold beyond which the families $A_Q$ satisfy the following uniformly.
+\begin{enumerate}
+\item There is $\kappa>0$ such that
+\[
+|A_Q|\ge \kappa\frac Q{\log Q}.
+\tag{3.10}
+\]
+\item Every simple value is nonzero, and for every $s\in S_Q^\times$,
+\[
+|sv_Q^{-1}(s)|\le Q/p.
+\tag{3.11}\label{eq:fibre-bound}
+\]
+\item The conflict graph on the union of all late rows has uniformly bounded degree.
+\item Every support vertex $z$ of a retained atom satisfies
+\[
+c\frac{Q^2}{\log Q}\le z\le2Q^2
+\tag{3.12}\label{eq:support-window}
+\]
+for a fixed $c>0$.  At prime currents one has the stronger lower scale $z\gg Q^2$.
+\item There is a nonnegative row majorant $\operatorname{roleMass}(Q)$ such that every local current response uses reciprocal value at most $\operatorname{roleMass}(Q)$ and
+\[
+\sum_Q\operatorname{roleMass}(Q)<\infty.
+\tag{3.13}\label{eq:role-summable}
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The cardinality statement follows from the carrier count, bounded exceptional set, bounded coefficient multiplicity, and the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among the integers $1\le k<Q=p^e$; deterministic deduplication keeps at most one atom per coefficient.
+
+For the conflict bound, each atom occupies two adjacent vertices around its globally injective centre $Qk$.  An interval envelope of bounded length can conflict only with centres in a fixed bounded enlargement of that envelope, so it conflicts with only $O(1)$ retained atoms across all currents.
+
+The support window follows from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:carrier-band} and \eqref{eq:3.5}.  Finally, prime rows have $O(p/\log p)$ atoms of individual mass $O(p^{-2})$, so
+\[
+\operatorname{roleMass}(p)=O\!\left(\frac1{p\log p}\right).
+\]
+Grouping primes into the fixed geometric bands supplied by Proposition~\ref{prop:prime-supply-main} gives a convergent series.  For $Q=p^e$, $e\ge2$, a local response uses at most $p$ atoms, each of mass $O(\log Q/Q^2)$, hence
+\[
+\operatorname{roleMass}(p^e)
+=O\!\left(\frac{p\log Q}{Q^2}\right)
+=O\!\left(\frac{e\log p}{p^{2e-1}}\right).
+\]
+Summing first over $e\ge2$ and then over $p$ is bounded by a constant multiple of $\sum_p p^{-2}$.  This proves \eqref{eq:role-summable}.
+\end{proof}
+
+A useful consequence of \eqref{eq:role-summable} is the tail form: for every $\varepsilon>0$ there is a rank cutoff $Q_0$ such that every finite set of currents of rank at least $Q_0$ has total role mass below $\varepsilon$.
