@@ -69,18 +69,16 @@ U(R_n\odot\cdots\odot R_1)
 U(R_n)\circ\cdots\circ U(R_1).
 \tag{2.6}\label{eq:oplax-inclusion}
 \]
-In $\mathbf{Rel}$ this inclusion is precisely the comparison $2$-cell
+In $\mathbf{Rel}$ the inclusion itself is the comparison $2$-cell
 \[
-\begin{tikzcd}[column sep=huge]
-X_0
-  \arrow[r,bend left=22,"U(R_n\odot\cdots\odot R_1)"{name=U,below}]
-  \arrow[r,bend right=22,swap,"U(R_n)\circ\cdots\circ U(R_1)"{name=D,above}]
-& X_n
-  \arrow[Rightarrow,from=U,to=D,"\vartheta" description]
-\end{tikzcd}
+U(R_n\odot\cdots\odot R_1)
+\xRightarrow{\;\vartheta\;}
+U(R_n)\circ\cdots\circ U(R_1),
+\qquad
+\vartheta\;\equiv\;\text{relation inclusion}.
 \tag{2.7}\label{eq:oplax-2cell}
 \]
-(the $2$-cell means inclusion, not a newly defined kind of arrow).
+Thus the double arrow is standard $2$-categorical notation; it introduces no additional kind of morphism.
 
 The comparison becomes an identity exactly in the situation used later: if the label map
 \[
