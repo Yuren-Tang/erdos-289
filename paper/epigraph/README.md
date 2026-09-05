@@ -53,72 +53,97 @@ but too fine; Semibold restored weight at the cost of excessive modern
 thick/thin contrast. Cinzel Regular was too weak, Cinzel Bold somewhat rigid,
 and Marcellus stylistically farther from the intended register.
 
-## 3. Phase I.5: weight versus tracking
+## 3. Phase I.5--I.6: weight and tracking
 
-`build-phase15.sh` varied only EB Garamond weight and tracking. Medium was tested
-at 8/9/10/11; Regular at 8/9. The Regular cut remained too fine at this page
-scale, so the weight dimension was closed at **EB Garamond Medium**. Medium 8 was
-slightly tight, 11 slightly loose, with the useful region around 9--10.
+`build-phase15.sh` varied only EB Garamond weight and tracking. The Regular cut
+remained too fine at this page scale, so the weight dimension closed at **EB
+Garamond Medium**. Medium 8 was slightly tight, 11 slightly loose, with the useful
+region around 9--10.
 
-## 4. Phase I.6: blind fine-tracking gate
+`build-phase16.sh` then tested Medium at LetterSpace 8.5, 9.0, 9.5 and 10.0 in a
+concealed duplicate design. The robust sweet spot was 9.0--9.5; 8.5 was slightly
+constrained and 10 slightly loose. Across the two gates the Owner showed a small
+but repeated preference for 9.0 as the more collected setting. Accordingly
+tracking is closed at:
 
-`build-phase16.sh` reproducibly builds EB Garamond Medium at LetterSpace 8.5,
-9.0, 9.5 and 10.0. The judgement packet used six concealed pages, duplicating
-9.0 and 9.5.
+```text
+LetterSpace = 9
+```
 
-Blind result:
+This is the robust representative of a near-equivalent visual band, not a claim
+that a continuous mathematical optimum is exactly 9.000.
 
-- 8.5 was judged slightly constrained;
-- 10.0 slightly loose;
-- the 9.0--9.5 region was the stable sweet spot;
-- the two 9.5 copies were correctly recognized as identical;
-- the two 9.0 copies nevertheless received somewhat different momentary
-  impressions, providing a useful estimate of perceptual/order noise;
-- across Phase I.5 and I.6 the Owner showed a small but repeated preference for
-  9.0 as the more exact/collected setting over 9.5 as slightly looser.
+## 4. Phase I.7: punctuation
 
-Accordingly the tracking setting is closed at `LetterSpace=9`; this is the robust
-representative of the visually near-equivalent 9--9.5 band, not a claim that a
-hypothetical continuous optimum is exactly 9.000.
+`build-phase17.sh` compared comma, no punctuation, and interpuncts while keeping
+all other selected variables fixed. Each appeared twice in concealed order. The
+result was decisive: **no comma and no interpuncts**. The comma disrupted the
+visual flow; the interpuncts disrupted the page architecture more strongly.
 
-## 5. Phase I.7: blind punctuation gate
-
-`build-phase17.sh` kept EB Garamond Medium, `LetterSpace=9`, 10.5/16 and 8 pt /
-12 pt vertical spacing fixed and compared:
-
-1. `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
-2. `CARPE DIEM QVAM MINIMVM CREDVLA POSTERO`;
-3. `CARPE · DIEM · QVAM · MINIMVM · CREDVLA · POSTERO`.
-
-Each appeared twice in concealed randomized order. The result was decisive:
-**no comma and no interpuncts**. The comma disrupted the visual flow, while the
-interpuncts disrupted the page architecture more strongly. Both duplicate copies
-of the punctuation-free treatment supported the selected setting. The concealed
-key and full result are recorded in `PHASE17_BLIND_PROTOCOL.md` only after the
-judgement was made.
-
-The current selected candidate is therefore:
+The selected text is therefore:
 
 ```text
 CARPE DIEM QVAM MINIMVM CREDVLA POSTERO
+```
 
+## 5. Phase I.8--I.11: vertical plaque field
+
+The final page-level issue was not the epigraph face itself but its relation to
+the nearby author line. The intended model became explicit: the epigraph plus its
+surrounding white space should read as an independent plaque-like page element,
+not as a third line belonging ambiguously to the author or abstract.
+
+Phase I.8 and I.9 rejected large downward shifts and the wrong asymmetry direction.
+Phase I.10 therefore tested only small upper-side compensation, with the upper
+space never larger than the lower. In that blind micro-grid the leading sequence
+was approximately:
+
+```text
+11/12  >  12/13  ≳  13.5/14
+```
+
+with small margins. The important structural result was that `11/12` preserved
+the already-comfortable original 12 pt lower gap while increasing the upper gap
+from 8 pt to 11 pt and still leaving the upper field 1 pt smaller than the lower.
+
+Phase I.11 was a separate cross-session confirmation using only `8/12`, `11/12`
+and `12/13`, each duplicated. All duplicate pairs were correctly recognized. Both
+expanded fields (`11/12` and `12/13`) were preferred to the original `8/12`. The
+ordering between the two expanded settings reversed by a tiny amount across the
+two sessions: Phase I.10 slightly favoured `11/12`; Phase I.11 slightly favoured
+`12/13`. This establishes them as one perceptual equivalence band and shows that
+further half-point or tenth-point tuning would be overfitting.
+
+The final conservative representative is therefore **11 pt before / 12 pt after**:
+it preserves the original lower gap that was already judged comfortable and
+changes only the upper interface needed to make the plaque field legible as a
+separate element.
+
+## 6. Closed optical specification
+
+The optical experiment is now closed at:
+
+```text
+text           CARPE DIEM QVAM MINIMVM CREDVLA POSTERO
 family/weight  EB Garamond Medium
 LetterSpace    9
 size/leading   10.5 / 16
-vertical       8 pt before / 12 pt after
+pre-space      11 pt
+post-space     12 pt
 punctuation    none
+kerning        ordinary OpenType kerning
+manual fixes   none
 ```
 
-## 6. Local build and remote parity
+Do not reopen family, tracking, punctuation or vertical-spacing search without a
+new concrete page-level defect. In particular, do not chase sub-point spacing
+values inside the observed perceptual-equivalence bands.
+
+## 7. Local build and remote parity
 
 Local builds are the normal iteration path and have been demonstrated to work
 without the legacy Trajan chain. Because the Owner's Mac has stale files in
 `~/Library/texmf`, the scripts use an empty temporary `TEXMFHOME` by default.
-
-```sh
-cd paper/epigraph
-sh build-phase17.sh
-```
 
 `.github/workflows/epigraph-context.yml` is retained only as a manual
 `workflow_dispatch` TeX Live 2025/arXiv-parity utility. It does not block optical
@@ -128,15 +153,9 @@ Legacy TeX-Live Trajan remains outside the decision gate: repairing its old
 Type-1/map/PK fallback chain would add environment noise without improving this
 OpenType comparison.
 
-## 7. Final optical gate and publication boundary
+## 8. Publication boundary
 
-No experiment here changes `paper/manuscript.tex`. Family/weight, tracking and
-punctuation are now closed. Before integration, inspect the selected candidate as
-a whole page once more and change size/leading or vertical whitespace only if a
-specific page-level defect remains visible. Do not introduce a new tuning axis
-merely because one is available.
-
-If the selected 10.5/16 and 8 pt / 12 pt geometry has no identifiable defect in
-that final check, retain the exact E306 geometry and proceed to a separate bounded
-publication-manuscript change followed by the ordinary full-manuscript TeX Live /
-arXiv parity gates.
+No experiment in this directory has changed `paper/manuscript.tex`. The next step,
+if authorized, is a separate bounded integration of the closed optical
+specification into the publication manuscript, followed by the ordinary
+full-manuscript TeX Live/arXiv parity gates.
