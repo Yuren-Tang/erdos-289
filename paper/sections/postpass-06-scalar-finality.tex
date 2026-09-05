@@ -1,0 +1,135 @@
+\section{Sponsored scalar finality}
+\label{sec:scalar-finality}
+
+We now forget all physical witnesses.  The only data retained from Theorem~\ref{thm:uniform-profile} are the scalar demand $d_\rho(Q)$ and, at prime currents, the scalar mint $m_\rho(q)$.  The purpose of this section is to prove target terminality before any actual Haxell packing is chosen.
+
+Enumerate only the late current subtype
+\[
+\{Q=p^e:Q\ge Q_{\mathrm{prof}}\}
+\]
+in increasing rank.  Let a grade interval $I=[A,B]$ have width
+\[
+w(I)=B-A.
+\]
+For a prime event $q$, Theorem~\ref{thm:uniform-profile} gives the action
+\[
+[A,B]\longmapsto
+[A+d_\rho(q),\,B+d_\rho(q)+m_\rho(q)],
+\tag{6.1}\label{eq:prime-action}
+\]
+which increases width by $m_\rho(q)$.  For a composite event $Q=p^e$, $e\ge2$, it gives
+\[
+[A,B]\longmapsto[A+d_\rho(Q),B],
+\tag{6.2}\label{eq:composite-action}
+\]
+which decreases width by $d_\rho(Q)$.  An event is legal whenever its incoming width is at least its demand; in that case the new interval overlaps the old one.
+
+Put
+\[
+\Phi(X)=\frac X{\log X}.
+\]
+Let
+\[
+A(X)=\max_{Q\le X}d_\rho(Q)
+\]
+over the late event domain, and let
+\[
+N(X)=
+\sum_{\substack{p^e\le X\\ e\ge2}}d_\rho(p^e)
+\tag{6.3}\label{eq:cumulative-debt}
+\]
+be the cumulative negative variation.  By \eqref{eq:d-composite},
+\[
+A(X)=O_\rho((\log X)^2)=o(\Phi(X)).
+\tag{6.4}\label{eq:max-demand-subscale}
+\]
+There are $O(\sqrt X\log X)$ prime powers $p^e\le X$ with $e\ge2$: sum the crude bounds $X^{1/e}$ for $2\le e\le\log_2X$.  Hence
+\[
+\boxed{
+N(X)=O_\rho(\sqrt X\,\log^3X)
+=o(\Phi(X)).}
+\tag{6.5}\label{eq:debt-subscale}
+\]
+
+\subsection{Earlier prime sponsors}
+
+Let $\Lambda$ be the fixed constant from Proposition~\ref{prop:prime-supply-main}.  For every sufficiently large event rank $Q$, apply the comparable-prime theorem at $X=Q/\Lambda^2$.  There is a prime
+\[
+\frac{Q}{\Lambda^2}<q\le\frac Q\Lambda.
+\tag{6.6}\label{eq:sponsor-band}
+\]
+This prime current occurs earlier than $Q$, and by \eqref{eq:mint-prime},
+\[
+m_\rho(q)
+\gg_\rho \frac q{\log q}
+\asymp_{\rho,\Lambda}\frac Q{\log Q}
+=\Theta(\Phi(Q)).
+\tag{6.7}\label{eq:sponsor-mint}
+\]
+Thus every sufficiently late event has a bounded-multiplicative-lag earlier prime sponsor whose positive width increment is macroscopic on the scale $\Phi(Q)$.
+
+\subsection{Startup reserve and legal continuation}
+
+The scalar theorem will be used above an arbitrarily prescribed lower cutoff $B_\dagger$.  Define the startup request
+\[
+R(B)=A(\Lambda^2B)+N(\Lambda^2B).
+\tag{6.8}\label{eq:startup-request}
+\]
+By \eqref{eq:max-demand-subscale}, \eqref{eq:debt-subscale}, and fixed-scale stability of $\Phi$,
+\[
+R(B)=o(B/\log B).
+\tag{6.9}
+\]
+Hence Proposition~\ref{prop:wide-start} applies to this particular request.  Choose $B$ sufficiently large so that
+\[
+B\ge B_\dagger,
+\qquad
+B\ge Q_{\mathrm{prof}},
+\]
+and so that all asymptotic statements above and the WideStart conclusion hold.  Fix one resulting WideStart with grade interval of width at least $R(B)$ and full centre $\gamma_B$ from \eqref{eq:full-centre}.
+
+If an event $Q$ has its chosen sponsor $q$ at or before the start $B$, then \eqref{eq:sponsor-band} implies
+\[
+Q<\Lambda^2B.
+\]
+Pessimistically discard every positive mint in this finite transition.  The initial width $R(B)$ covers both the largest individual demand and all negative variation through $\Lambda^2B$.
+
+After every sponsor lies inside the post-start chain, retain only the positive increment of one sponsor and subtract all negative variation through the current event.  Immediately before an event of rank $Q$ we have the lower bound
+\[
+w(Q)\ge m_\rho(q)-N(Q).
+\tag{6.10}\label{eq:sponsored-width}
+\]
+By \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale},
+\[
+w(Q)\gg\Phi(Q),
+\]
+whereas the current demand is $o(\Phi(Q))$ by \eqref{eq:max-demand-subscale}.  Thus every sufficiently late event is legal.  Together with the startup reserve, induction gives legality of the entire post-start chain.
+
+Successive integer intervals overlap, and prime sponsor mints are unbounded because their ranks are cofinal and $\Phi(X)\to\infty$.  Therefore the union of the scalar grade intervals contains a final ray in $\mathbf N$.
+
+\subsection{The centre dies at a finite endpoint}
+
+The WideStart begins in the affine fibre centred at the fixed class
+\[
+\gamma_B=\alpha_B+\beta_B\in A/E_B.
+\]
+Every productive current response after the start is internal to the endpoint filtration and transports this centre by the canonical quotient map.  By cofinality of $(E_X)$, there exists a finite cutoff $X_{\mathrm{abs}}$ after which the image of $\gamma_B$ in $A/E_X$ is zero.  Deleting the finite initial part of an interval chain does not change the final-ray conclusion.
+
+For a grade $k$ define
+\[
+\operatorname{Term}_k=
+\{X\ge B:
+\gamma_B\mapsto0\text{ in }A/E_X,
+\quad k\in I_X\},
+\tag{6.11}\label{eq:term-k}
+\]
+where $I_X$ is the scalar grade interval after processing all late currents through $X$.
+
+\begin{theorem}[Scalar terminality]\label{thm:scalar-terminality}
+For every prescribed lower cutoff $B_\dagger$, one can choose a WideStart base $B\ge B_\dagger$ such that
+\[
+\exists k_0\ \forall k\ge k_0:
+\qquad \operatorname{Term}_k\ne\varnothing.
+\]
+No Haxell packing, conflict graph, physical union, or reciprocal-resource tail is used in this target-only theorem.
+\end{theorem}
