@@ -1,120 +1,115 @@
 \section{Finite realization by compatible intervals}
 \label{sec:finite-realization}
 
-We now return from the observable component-count argument to literal intervals.  This is the first point at which Haxell's theorem is used to choose an independent set.
+We now return from the component-count argument to literal intervals.  Haxell's theorem is used only after a finite cutoff has been fixed.
 
 Let $\eta>0$ be the reciprocal-mass margin in Proposition~\ref{prop:wide-start}.  By \eqref{eq:role-summable}, choose $B_{\mathrm{mass}}$ such that
-\[
+\begin{equation}\label{eq:resource-tail}
 \sum_{Q>B_{\mathrm{mass}}}\omega_Q<\eta.
-\tag{7.1}\label{eq:resource-tail}
-\]
-Choose also $B_{\mathrm{pack}}$ so large that every compatible subfamily $\mathcal A_Q(B)$ occurring after that point has cardinality at least the quota denominator $L_P$ of Proposition~\ref{prop:haxell-quota}.  This is possible by \eqref{eq:family-size} and Proposition~\ref{prop:wide-start}.
-
-Apply Theorem~\ref{thm:scalar-terminality} with
-\[
+\end{equation}
+Choose also $B_{\mathrm{pack}}$ so large that every compatible subfamily $\mathcal A_Q(B)$ occurring after that point has cardinality at least the quota denominator $L_P$ of Proposition~\ref{prop:haxell-quota}.  This is possible by \eqref{eq:family-size} and Proposition~\ref{prop:wide-start}.  Apply Theorem~\ref{thm:scalar-terminality} with
+\begin{equation}\label{eq:global-start-cutoff}
 B_\dagger=\max\{B_{\mathrm{mass}},B_{\mathrm{pack}}\}.
-\tag{7.2}\label{eq:global-start-cutoff}
-\]
-Thus the affine initial cover and the entire observable component-count process are fixed only after the reciprocal-mass tail and the packing threshold have been fixed.
+\end{equation}
 
 Fix $X\in\mathcal H_B$.  Only finitely many prime-power steps lie between $B$ and $X$.  For each such $Q$, Proposition~\ref{prop:wide-start} gives
-\[
+\begin{equation}\label{eq:survivor-density}
 |\mathcal A_Q(B)|
 \ge\sigma|\mathcal A_Q|
 \ge\kappa\sigma\frac Q{\log Q}.
-\tag{7.3}\label{eq:survivor-density}
-\]
+\end{equation}
 Join two members of the finite union of these families when they are incompatible as interval components.  Proposition~\ref{prop:signed-inverse-capabilities} gives a uniform maximum degree.  Proposition~\ref{prop:haxell-quota}, applied once to the finitely many families through $X$, yields an independent set $P_X$ with
-\[
+\begin{equation}\label{eq:packed-density}
 |P_X\cap\mathcal A_Q(B)|
 \ge\rho_P|\mathcal A_Q(B)|
 >\rho\frac Q{\log Q}.
-\tag{7.4}\label{eq:packed-density}
-\]
+\end{equation}
 Hence
 \[
 P_X(Q):=P_X\cap\mathcal A_Q(B)
 \in\mathcal D_\rho(Q)
 \]
-for every step through $X$.  The constants $\delta_\rho$ and $\mu_\rho$ were fixed before $P_X$ existed.
+for every step through $X$.
 
 \subsection{From the simple quotient to the affine fibre}
 
-The local theorem concerns $S_Q=F_Q/F_{<Q}$, while the global induction concerns affine fibres in $A=\mathbf Q/\mathbf Z$.  The connection is the pullback square
-\[
+The local theorem concerns $S_Q=F_Q/F_{<Q}$, while the global induction concerns affine fibres in $A=\Q/\Z$.  The connection is the pullback square
+\begin{equation}\label{eq:simple-factor-pullback}
 \begin{CD}
 F_Q @>>> A\\
 @V{q}VV @VV{q_{F_{<Q}}}V\\
-S_Q=F_Q/F_{<Q} @>>> A/F_{<Q},
+S_Q=F_Q/F_{<Q} @>>> A/F_{<Q}
 \end{CD}
-\tag{7.5}\label{eq:simple-factor-pullback}
-\]
-where the bottom arrow is the natural inclusion.  Equivalently, two elements of $F_Q$ have the same image in $S_Q$ exactly when their difference belongs to $F_{<Q}$.
+\end{equation}
+where the bottom arrow is the natural inclusion.
 
 \begin{lemma}[Affine lifting across one prime-power step]\label{lem:affine-current-lift}
-Let $Q$ be a prime power.  Suppose an incoming labelled correspondence covers
+Let $Q$ be a prime power.  Suppose a covering labelled relation has target
 \[
 \operatorname{Tor}_{F_{<Q}}(\alpha)\times I,
 \qquad \alpha\in A/F_{<Q},
 \]
-and let $\bar\alpha\in A/F_Q$ be the image of $\alpha$.  Suppose a finite local relation has residues in $F_Q$ and has the following property: for every $s\in S_Q$ and $k'\in I'$, its full finite solution relation contains an interval label $L$ and $i\in I$ such that
+and let $\bar\alpha\in A/F_Q$ be the image of $\alpha$.  Suppose a finite local relation has residues in $F_Q$ and, for every $s\in S_Q$ and $k'\in I'$, contains a label $L$ and $i\in I$ satisfying
 \[
 [\overline W(L)]_{S_Q}=s,
 \qquad i+\nu(L)=k'.
 \]
-If the incoming and local labels are jointly compatible, then their composite covers
+If the incoming and local labels are jointly compatible, their composite is covering with target
 \[
 \operatorname{Tor}_{F_Q}(\bar\alpha)\times I'.
 \]
 \end{lemma}
 
 \begin{proof}
-Fix $(y,k')$ in the target fibre and choose one point $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, their difference belongs to $F_Q$.  Let $s$ be its class in $S_Q$.  Choose a local solution $(L,i)$ of simple class $s$ and total component count $k'$.  By the pullback property \eqref{eq:simple-factor-pullback},
+Fix $(y,k')$ in the target fibre and choose $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, their difference belongs to $F_Q$.  Let $s$ be its class in $S_Q$ and choose a local solution $(L,i)$ of simple class $s$ and component-count increment $k'-i$.  The pullback property \eqref{eq:simple-factor-pullback} gives
 \[
 y-\overline W(L)-x_0\in F_{<Q}.
 \]
-Thus $y-\overline W(L)$ lies in the incoming affine fibre, where surjectivity supplies an incoming label of component count $i$.  Its union with $L$ gives residue $y$ and component count $k'$.  The argument is fibrewise existential; no section of either quotient or finite solution relation is chosen.
+Thus $y-\overline W(L)$ lies in the incoming affine fibre.  An incoming edge ending there, composed with the chosen local edge, ends at $(y,k')$.
 \end{proof}
 
 \subsection{Joint compatibility and exact composition}
 
-The proof of Theorem~\ref{thm:uniform-profile} retained the full finite solution relations in both the large-image and heavy-fibre cases.  Apply those relations to the actual dense restriction $P_X(Q)$.  Since $P_X$ is independent in the incompatibility graph, all its interval components are pairwise disjoint and nonadjacent; every finite subset therefore belongs to $\mathcal C$.  Moreover, membership in $\mathcal A_Q(B)$ means compatibility with every label of the affine initial cover.
+The local relations in Theorem~\ref{thm:uniform-profile} use finite subsets of the dense restriction $P_X(Q)$.
 
-Consequently the ordinary fibre product of all composable edges in the finite chain has its label map
+\begin{lemma}[Joint compatibility]\label{lem:joint-compatibility}
+Let $S_0$ be a label of the affine initial cover.  Let $Q_1,\ldots,Q_m\le X$ be distinct later prime-power steps, and for each $i$ let $L_i$ be the union of a finite subset of $P_X(Q_i)$.  Then
 \[
-P_n\longrightarrow\mathcal C^n
+(S_0,L_1,\ldots,L_m)\in D_{m+1}.
 \]
-factor through $D_n$.  The comparison $2$-cell \eqref{eq:oplax-2cell} is therefore an identity by \eqref{eq:rel-strictification}.  At each prime-power step, Theorem~\ref{thm:uniform-profile} gives the simple-quotient rectangle and Lemma~\ref{lem:affine-current-lift} lifts it to the next endpoint fibre.  Induction through the finitely many steps up to $X$ yields a finite labelled correspondence $R_X$ whose target projection covers
-\[
-\operatorname{Tor}_{E_X}(\gamma_X)\times I_X.
-\tag{7.6}\label{eq:finite-response}
-\]
-Here $\gamma_X$ is the image of $\gamma_B$ under the endpoint quotient map.
+\end{lemma}
+
+\begin{proof}
+All interval components selected from the sets $P_X(Q_i)$ belong to the single independent set $P_X$, so they are pairwise disjoint and nonadjacent.  Each of them lies in $\mathcal A_{Q_i}(B)$ and is therefore compatible with every initial-cover label, in particular with $S_0$.  Their literal union with $S_0$ is consequently an element of $\mathcal C$.
+\end{proof}
+
+Let $P_n$ be the fibre product of the edge sets in the finite chain through $X$.  Every local edge label is a union of a finite subset of one $P_X(Q)$, so Lemma~\ref{lem:joint-compatibility} gives the factorization
+\begin{equation}\label{eq:realization-factorization}
+\begin{CD}
+P_n @>{\ell}>> \mathcal C^n\\
+@V{\widetilde\ell}VV @AA{\iota}A\\
+D_n @= D_n .
+\end{CD}
+\end{equation}
+Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  At each prime-power step, Theorem~\ref{thm:uniform-profile} gives the simple-quotient rectangle and Lemma~\ref{lem:affine-current-lift} lifts it to the next endpoint fibre.  Finite induction therefore produces a covering labelled relation $R_X$ with target
+\begin{equation}\label{eq:finite-response}
+T_X:=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X,
+\end{equation}
+where $\gamma_X$ is the image of $\gamma_B$ under the endpoint quotient map.
 
 \subsection{Reciprocal-mass control}
 
 If $S_0$ is a label in the affine initial cover, Proposition~\ref{prop:wide-start} gives $W(S_0)<2-\eta$.  Each later prime-power step contributes reciprocal mass at most $\omega_Q$.  By \eqref{eq:mass-subadditive} and \eqref{eq:resource-tail}, every interval configuration $S$ labelling an edge of $R_X$ satisfies
-\[
+\begin{equation}\label{eq:physical-W-less-2}
 W(S)
 \le W(S_0)+\sum_{B<Q\le X}\omega_Q
 <2.
-\tag{7.7}\label{eq:physical-W-less-2}
-\]
-At this point the incompatibility graph, the independent set $P_X$, the joint-compatibility factorization and the series $(\omega_Q)$ have all served their final purpose.
-
-\subsection{The realization family}
-
-For $X\in\mathcal H_B$, let $\mathcal R_X$ be the set of all finite realization data through $X$: an independent quota set, the local finite-solution witnesses, the factorization through $D_n$, and the resulting correspondence $R_X$ satisfying \eqref{eq:physical-W-less-2}.  The preceding argument shows
-\[
-\mathcal R_X\ne\varnothing
-\qquad(X\in\mathcal H_B).
-\]
-Define
-\[
-\mathcal R=\coprod_{X\in\mathcal H_B}\mathcal R_X.
-\]
-Then the evident projection is surjective:
-\begin{equation}\label{eq:real-surjection}
-\mathcal R\twoheadrightarrow\mathcal H_B.
 \end{equation}
-Different cutoffs may use unrelated finite independent sets; no coherent infinite choice or compactness argument is involved.
+
+\begin{proposition}[Finite realization through a cutoff]\label{prop:finite-realization}
+For every $X\in\mathcal H_B$ there exists a finite covering labelled relation
+\[
+R_X\rightsquigarrow T_X
+\]
+with target $T_X$ as in \eqref{eq:finite-response}, and every edge label $S$ of $R_X$ satisfies $W(S)<2$.
+\end{proposition}
