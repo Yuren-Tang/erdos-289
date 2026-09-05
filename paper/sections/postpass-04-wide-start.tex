@@ -1,0 +1,153 @@
+\section{A prepared wide affine start}
+\label{sec:wide-start}
+
+The preparatory construction has two tasks: it must cover one full affine endpoint fibre, and it must leave a uniform positive proportion of every later signed-inverse row available for the productive part of the proof.  The construction is independent of the later local profile and of any Haxell packing.
+
+Put
+\[
+L_n=\operatorname{lcm}(1,\ldots,n).
+\]
+At a prime-power jump $n=p^e$, write
+\[
+D=L_{n-1},\qquad L_n=pD.
+\]
+By Lemma~\ref{lem:torsion-filtration}, the quotient step has order $p$.
+
+\subsection{A universal fixed-grade bridge}
+
+Let $k$ be the least positive integer such that
+\[
+T_k=\frac{k(k+1)}2\ge p-1,
+\]
+and put
+\[
+R_p=\{1,\ldots,k\}.
+\]
+The subset sums of $R_p$ fill the whole interval $[0,T_k]$: after adjoining $j$, the old interval $[0,T_{j-1}]$ and its translate $[j,j+T_{j-1}]$ overlap or are adjacent.  Hence reduction modulo $p$ is surjective.
+
+Minimality gives $k\le p-1$, so every $r\in R_p$ divides $D$.  Set
+\[
+a_r=\frac{pD}{r}
+\]
+and use the binary endpoint switch
+\[
+[a_r+1,a_r+2]
+\longleftrightarrow
+[a_r,a_r+2].
+\tag{4.1}\label{eq:bridge-switch}
+\]
+Its reciprocal difference is exactly $r/(pD)$.  Thus the full finite-subset selector on $R_p$ maps surjectively to the simple quotient
+\[
+L_n^{-1}\mathbf Z/L_{n-1}^{-1}\mathbf Z\cong\mathbf Z/p\mathbf Z.
+\]
+Every selector branch has the same grade $k$, because either side of each coordinate in \eqref{eq:bridge-switch} is one connected component.  No subset section is chosen.
+
+Minimality also gives $k^2=O(p)$ and $T_k=O(p)$.  The row resource is therefore $O(D^{-1})$.  Moreover, if $r<s\le k$,
+\[
+a_r-a_s
+=\frac{pD(s-r)}{rs}
+\ge\frac{pD}{k^2}.
+\tag{4.2}
+\]
+For all sufficiently late jumps this is larger than the fixed physical interaction radius.  A direct finite certificate handles the exceptional early rows; see Appendix~\ref{app:prefix-seed}.
+
+The successive nontrivial lower moduli grow at least geometrically, so the full future bridge tower has finite total reciprocal cost.  Together with the finite seed, this leaves a fixed positive resource margin below $2$.
+
+\subsection{Ragged affine accumulation}
+
+Appendix~\ref{app:prefix-seed} supplies one finite physical seed whose residue image is a complete affine fibre at an early endpoint, whose branch grades have fixed finite spread, and whose resource together with the entire future bridge majorant is bounded away from $2$.
+
+Compose this seed with one bridge at every later prime-power jump through a rank cutoff $B$.  On residue images, finite induction gives a complete affine $E_B$-fibre.  Since every bridge row is fixed-grade, every bridge adds the same grade constant to every old branch.  Therefore the branch-to-branch grade oscillation after any number of bridges is exactly the finite seed oscillation.  In particular there is a fixed constant $G_{\mathrm{seed}}$ such that all grades of the ragged affine cover lie in an interval
+\[
+[m_B,M_B],
+\qquad M_B-m_B=G_{\mathrm{seed}}.
+\tag{4.3}\label{eq:ragged-spread}
+\]
+
+\subsection{Sparse future footprint}
+
+We next show that the complete preparatory family occupies a vanishing fraction of every later signed-inverse row.  Let a future current have rank $Q>B$.  By Proposition~\ref{prop:signed-inverse-capabilities}, its support lies in
+\[
+\left[c\frac{Q^2}{\log Q},\,2Q^2\right]
+\tag{4.4}\label{eq:future-window}
+\]
+up to a fixed endpoint buffer.
+
+Suppose a bridge row at a jump $n=p^e$, with lower modulus $D=L_{n-1}$, can meet this window.  Since its bases are $a_r=pD/r$ with $1\le r\le k$, the upper end of \eqref{eq:future-window} gives
+\[
+D=O(Q^2).
+\tag{4.5}
+\]
+The primorial through $n-1$ divides $D$.  The Chebyshev estimate of Appendix~\ref{app:prime-supply} therefore gives
+\[
+n,p=O(\log Q).
+\tag{4.6}
+\]
+The lower end of \eqref{eq:future-window}, together with $a_r\le pD$, then gives
+\[
+D\gg \frac{Q^2}{(\log Q)^2}.
+\tag{4.7}
+\]
+Thus the relevant lower moduli lie in a multiplicative window of polylogarithmic width.  Since every nontrivial lcm jump multiplies the modulus by at least two, only
+\[
+O(\log\log Q)
+\]
+bridge rows can meet the future window.  Each such row has
+\[
+k=O(\sqrt p)=O(\sqrt{\log Q})
+\]
+complete envelopes.  Hence the number of preparatory bridge envelopes capable of conflicting with the future row is
+\[
+O(\sqrt{\log Q}\,\log\log Q)
+=o(Q/\log Q).
+\tag{4.8}\label{eq:bridge-footprint}
+\]
+By the bounded conflict incidence in Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes remove only $o(Q/\log Q)$ atoms.
+
+\subsection{One neutral Hamming pullback}
+
+Let $L(B)$ be any nonnegative integer-valued function with
+\[
+L(B)=o(B/\log B).
+\tag{4.9}\label{eq:startup-subscale}
+\]
+Apply Lemma~\ref{lem:neutral-cube} to the entire ragged affine cover, with cube length
+\[
+G_{\mathrm{seed}}+L(B),
+\]
+and with arbitrarily small common reciprocal cost.  For a ragged branch of grade $r$ and a requested offset $0\le j\le L(B)$, require Hamming weight
+\[
+(M_B-r)+j.
+\tag{4.10}\label{eq:hamming-match}
+\]
+By \eqref{eq:ragged-spread}, this lies between $0$ and $G_{\mathrm{seed}}+L(B)$.  The Hamming-weight map is surjective, so the matching object is a pullback of a surjection.  Hence every affine branch covers every grade in one common interval of width $L(B)$, without choosing a selector section.
+
+All alternatives in a neutral coordinate have equal reciprocal value and therefore equal residue.  Thus the cube translates the affine residue fibre by one fixed class $\beta_B$.  If $\alpha_B$ is the centre of the ragged affine cover, the complete WideStart centre is
+\[
+\gamma_B=\alpha_B+\beta_B.
+\tag{4.11}\label{eq:full-centre}
+\]
+The full centre, not merely the neutral translation, is retained until endpoint cofinality kills it.
+
+The cube contributes only $O(G_{\mathrm{seed}}+L(B))=o(B/\log B)$ bounded-complexity envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every future $Q\ge B$.  Combining this with \eqref{eq:bridge-footprint} and the lower row bound of Proposition~\ref{prop:signed-inverse-capabilities} gives one theorem-level survivor fraction $\sigma>0$ independent of $L$ and independent of the particular WideStart witness.
+
+The finite seed and bridge tower have a fixed resource margin, while the neutral cube can be made arbitrarily cheap.  Hence there is also a theorem-level $\eta>0$ independent of $L$ such that every WideStart branch has reciprocal value $<2-\eta$.
+
+\begin{proposition}[Cofinal WideStart supply]\label{prop:wide-start}
+There exist constants $\eta>0$ and $\sigma>0$ such that, for every integer-valued function $L$ satisfying $L(B)=o(B/\log B)$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a finite physical response covering
+\[
+\operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
+\]
+where $I_B$ is an integer interval of width at least $L(B)$, every branch satisfies
+\[
+W<2-\eta,
+\]
+and every sufficiently late future current row retains at least a fixed positive fraction $\sigma$ of its original $Q/\log Q$ scale after deletion against the complete WideStart.
+\end{proposition}
+
+The quantifier order is essential:
+\[
+\exists\eta,\sigma>0\;\forall L=o(B/\log B)\;\exists B_0(L)\;\forall B\ge B_0(L).
+\tag{4.12}\label{eq:wide-start-quantifiers}
+\]
+In particular neither $\eta$ nor $\sigma$ is chosen after the later local profile or scalar startup request is known.
