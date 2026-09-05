@@ -13,281 +13,76 @@
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
-\newcommand{\N}{\mathbb N}
-\newcommand{\Q}{\mathbb Q}
-\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbf N}
+\newcommand{\Q}{\mathbf Q}
+\newcommand{\Z}{\mathbf Z}
+\newcommand{\F}{\mathbf F}
 \newcommand{\im}{\operatorname{im}}
-\newcommand{\Supp}{\operatorname{Supp}}
 
-\title{Fibrewise Exactification and Reciprocal Interval Profiles\\
-\large A categorical proof of Erd\H{o}s Problem 289}
+\title{Exact Reciprocal Interval Counts\\
+\large A proof of Erd\H{o}s Problem 289}
 \author{Yuren Tang}
-\date{4 September 2026}
+\date{5 September 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We prove Erd\H{o}s Problem 289 in the stronger subsystem in which every
-connected component has size $2$ or $3$.  There exists $d_*$ such that, for
-every fixed $d\ge d_*$, all sufficiently large binary component counts $b$
-occur in an exact reciprocal representation of $1$ with component profile
-$(b_2,b_3)=(b,d)$.
+We prove Erd\H{o}s Problem 289: every sufficiently large integer occurs as the number of pairwise disjoint, nonadjacent intervals of positive integers, each of length at least two, whose reciprocal sum is exactly one.  The construction in fact uses only intervals of lengths two and three.
 
-The proof separates categorical exactification from two reciprocal providers.
-The target $1$ is centered by the universal quotient $\Q\to\Q/\Z$.  A
-source-closed finite Prefix supplies a cofinal affine residue cover with
-uniform physical transparency, while a direct late-source Tail uses finite
-convolution support at prime simple factors and target-specific filtered
-lifting.  Their eventual source tails are intersected, one endpoint source is
-frozen before defect and final grade are quantified, and exact value $1$
-follows from a pullback of opposite literal cosets in $\Q/\Z$ together with
-$0<W<2$.
+The proof separates target dynamics from physical realization.  Finite torsion in $\Q/\Z$ provides a prime-power filtration with one-dimensional simple factors.  Deterministic signed-inverse binary rows have size $\asymp Q/\log Q$, bounded physical conflict degree, exact simple-value fibre bound $Q/p$, and summable reciprocal resource.  A finite affine Prefix together with one remote reciprocal-neutral Boolean cube gives a cofinal WideStart with arbitrary $o(B/\log B)$ grade width while preserving a fixed positive fraction of every later row.  On each simple factor, a diversity/redundancy dichotomy yields one profile valid for every sufficiently dense restriction of the original row.  Prime currents mint width of order $q/\log q$, while total composite debt through $X$ is $O(\sqrt X\log^3X)$; comparable earlier prime sponsors therefore force a final ray of target grades.  Only after a finite first-hit horizon is fixed do we apply Haxell's independent-transversal theorem once.  The resulting physical response has reciprocal value below two.  A final pullback at residue zero and the exact sequence $0\to\Z\to\Q\to\Q/\Z\to0$ then force reciprocal value exactly one.
 \end{abstract}
 
 \section{Introduction}
+\label{sec:introduction}
 
-For a finite set $S\subset\N_{>0}$ put
+For a finite set $S\subset\N_{>0}$ define
 \[
 W(S)=\sum_{n\in S}\frac1n.
 \]
-Erd\H{o}s Problem 289 asks whether, for every sufficiently large integer $k$,
-one can find exactly $k$ pairwise disjoint and non-adjacent finite intervals of
-positive integers, each of length at least $2$, whose reciprocal weights sum
-to $1$.
+Erd\H{o}s Problem 289 asks whether, for every sufficiently large integer $k$, there are exactly $k$ pairwise disjoint and nonadjacent finite intervals of positive integers, each of length at least $2$, whose reciprocal weights sum to $1$.
 
-We regard a finite support in the path graph on $\N_{>0}$ as the physical
-state; its intervals are the connected components of the induced graph.  We
-work in the stronger subsystem in which every component has size $2$ or $3$.
-Write
-\[
-b_2(S)=\#\{\text{components of size }2\},
-\qquad
-b_3(S)=\#\{\text{components of size }3\}.
-\]
-The intrinsic additive label is
-\[
-\pi(S)=(b_2(S),b_3(S))\in\N^2,
-\]
-while the ordinary number of intervals is only the consumer
-\[
-g(S)=b_2(S)+b_3(S).
-\]
-
-\begin{theorem}[Fibrewise profile saturation]\label{thm:fibrewise}
-There exists $d_*\in\N$ such that for every $d\ge d_*$ there is $b_0(d)$ for
-which every $b\ge b_0(d)$ is realized by a finite support $S$ satisfying
-\begin{enumerate}
-\item every connected component has size $2$ or $3$;
-\item distinct components are non-adjacent;
-\item $W(S)=1$;
-\item $(b_2(S),b_3(S))=(b,d)$.
-\end{enumerate}
+\begin{theorem}[Erd\H{o}s Problem 289]\label{thm:main}
+For every sufficiently large integer $k$, there exist exactly $k$ pairwise disjoint and nonadjacent finite intervals of positive integers, each of length at least $2$, such that the sum of the reciprocals of all integers in the intervals is $1$.
 \end{theorem}
 
-\begin{corollary}[Erd\H{o}s Problem 289]\label{cor:erdos289}
-For every sufficiently large integer $k$, there exist exactly $k$ pairwise
-disjoint and non-adjacent finite intervals of positive integers, each of
-length at least $2$, whose reciprocal weights sum to $1$.
-\end{corollary}
-
-\begin{proof}
-Fix one $d\ge d_*$.  Theorem~\ref{thm:fibrewise} realizes every sufficiently
-large $b$ with profile $(b,d)$, hence every sufficiently large total component
-count $b+d$ occurs.
-\end{proof}
-
-The active proof graph is
+We prove the theorem in the subsystem in which every component has length $2$ or $3$.  The proof is organized so that all target-level choices are completed before a physical packing witness is selected.  Its dependency spine is
 \[
 \begin{tikzcd}[column sep=large,row sep=large]
-& \text{target quotient / regular images} \arrow[d] & \\
-& \text{component-profile specialization} \arrow[dl] \arrow[dr] & \\
-\text{source-closed affine ray} \arrow[dr]
-&& \text{direct targeted Tail} \arrow[dl] \\
-& \text{common endpoint source} \arrow[d] & \\
-& \text{opposite-coset pullback} \arrow[d] & \\
-& W=1,\quad (b_2,b_3)=(b,d) \arrow[d] & \\
-& \text{projection to total component count.} &
+& \text{signed-inverse arithmetic rows} \arrow[dl] \arrow[d] \arrow[dr] & \\
+\text{prepared WideStart} & \text{uniform dense-restriction profile} & \text{resource/conflict control} \\
+\text{} & \text{scalar final ray} \arrow[d] & \text{finite physical realization} \arrow[d] \\
+& \text{target terminal set} \arrow[dr] & \text{realization cover} \arrow[d] \\
+&& \text{terminal pullback} \arrow[d] \\
+&& \operatorname{res}=0,\quad g=k,\quad 0<W<2 \arrow[d] \\
+&& W=1.
 \end{tikzcd}
 \]
 
-\section{Physical states and categorical bookkeeping}
-\label{sec:categorical-bookkeeping}
+The separation is load-bearing.  The local profile is proved for \emph{all} sufficiently dense subrows of the original deterministic arithmetic family, before either a WideStart witness or a Haxell packing exists.  The scalar first-hit horizon is then determined from this universal profile.  Only for that finite horizon is one global independent packing chosen and lifted physically.  No coherent infinite packing, compactness argument, or selected family of representatives is used.
 
-For a finite support $S$, let
-\[
-E(S)\rightrightarrows S\longrightarrow\pi_0(S)
-\]
-be the connected-component quotient of the induced path graph.  Admissibility
-requires every component to have cardinality in $\{2,3\}$ and distinct
-components to be separated by at least one unused vertex.  Reciprocal weight
-and component profile are additive on physically compatible unions.
+The only external combinatorial input is Haxell's independent-transversal theorem, used through an elementary fixed-quota corollary.  The restricted fixed-cardinality additive theorem needed at a prime simple factor is proved in Appendix~\ref{app:restricted-fold}; comparable prime supply is proved by Chebyshev estimates in Appendix~\ref{app:prime-supply}; the finite early Prefix seed is recorded in Appendix~\ref{app:prefix-seed}.
 
-Write $C^{23}$ for this partial physical state system and
-\[
-\Sigma^{23}_1
-=
-\im\bigl(C^{23}_{W=1}\xrightarrow{(b_2,b_3)}\N^2\bigr)
-\]
-for its exact profile spectrum.  The ordinary grade factors through the strict
-triangle
-\[
-\begin{tikzcd}
-C^{23}_{W=1}\arrow[r,"{(b_2,b_3)}"]\arrow[dr,"g"']
-&\N^2\arrow[d,"+"]\\
-&\N,
-\end{tikzcd}
-\]
-so the ordinary exact-grade spectrum is a regular-image projection of the
-joint spectrum.
-
-Only three general categorical operations are used in the active proof.
-
-\paragraph{Pullback of covers.}
-Every target or selector requirement that appears in the active proof is
-represented by a fibre product.  Surjections in $\mathbf{Set}$, equivalently
-regular epimorphisms, remain surjective after pullback.  Thus a family covering
-a larger requirement may be restricted to a literal target fibre without
-selecting a section.
-
-\paragraph{Compose before reflect.}
-Physical compatibility is a property of actual states, not merely of their
-aggregate labels.  Literal witness tuples are therefore retained until their
-physical union is certified.  Only afterwards do we pass to the regular image
-seen by the next consumer.
-
-\paragraph{Support and cardinality.}
-For a finite witness family $X\to R$, its observable realizability support is
-\[
-X\twoheadrightarrow\Supp(X)\hookrightarrow R.
-\]
-When $R$ is a finite additive group, the same construction admits a cardinality
-refinement in $\N[R]$: product families become convolution and the ordinary
-regular image is the support of the resulting coefficient function.  Appendix
-\ref{app:atomic-convolution} uses this refinement to prove prime-order local
-coverage.  Character sums appear only inside the proof of coefficient
-positivity and disappear after support is taken.
-
-\section{Target quotient and compact endpoints}
-\label{sec:target-quotient}
-
-The target $1$ is the marked morphism
-\[
-\Z\xrightarrow{1\mapsto1}\Q.
-\]
-Its universal target-annihilating quotient is the cokernel
-\[
-A:=\Q/\Z.
-\]
-For a rational number $x$ write
-\[
-[x]=x+\Z\in A,
-\]
-and for a physical state $S$ define its literal residue by
-\[
-\operatorname{res}(S):=[W(S)]\in A.
-\]
-For every subgroup $H\le A$, write
-\[
-q_H:A\longrightarrow A/H
-\]
-for the quotient map.  Thus the source residue of $S$ at $H$ is
-$q_H(\operatorname{res}(S))$.
-
-For $n\ge1$ put
-\[
-H_n=n^{-1}\Z/\Z=\ker([n]:A\to A).
-\]
-These are exactly the finite subgroups of $A$ and
-\[
-H_n\le H_m\iff n\mid m.
-\]
-
-A numerical endpoint cutoff is a different coordinate.  Put
-\[
-L_B=\operatorname{lcm}(1,\ldots,B),
-\qquad
-E_B:=H_{L_B}.
-\tag{E1}\label{eq:endpoint-subgroup}
-\]
-Equivalently, $E_B$ is the join of all prime-power current subgroups whose rank
-is at most $B$.  The source-index object is simply $\N$ with its ordinary
-$B\to\infty$ filter; no further eligibility predicate is used.
-
-\begin{lemma}[Cofinality of endpoint sources]\label{lem:endpoint-cofinal}
-Every finite subgroup of $A$ is contained in $E_B$ for all sufficiently large
-$B$.  More concretely,
-\[
-B\ge n\quad\Longrightarrow\quad H_n\le E_B.
-\]
-Consequently every class in every quotient $A/E_B$ is represented in
-$E_X/E_B$ for some finite $X\ge B$.
-\end{lemma}
-
-\begin{proof}
-If $B\ge n$, then $n\mid L_B$, hence $H_n\le H_{L_B}=E_B$.  Every element of
-$A=\Q/\Z$ has finite order, so a representative of a class in $A/E_B$ lies in
-some finite cyclic subgroup $H_n$; taking $X\ge\max\{B,n\}$ gives the final
-claim.
-\end{proof}
-
-The only extra source phenomenon is a boundary predecessor.  Define
-\[
-\operatorname{Boundary}(B)
-=
-\{Q=p^e:e\ge3,\ p^{e-1}\le B<p^e\}.
-\tag{E2}\label{eq:boundary-definition}
-\]
-For $Q=p^e\in\operatorname{Boundary}(B)$ put $Q^-=p^{e-1}$.  Then
-\[
-B<Q=pQ^-\le(Q^-)^2,
-\tag{E3}\label{eq:boundary-rank}
-\]
-because $p\le Q^-$.  Hence boundary predecessors escape uniformly:
-for every $q_0$ there is $B_0$ such that
-\[
-B\ge B_0,\quad Q\in\operatorname{Boundary}(B)
-\quad\Longrightarrow\quad
-Q^-\ge q_0.
-\tag{E4}\label{eq:boundary-escape}
-\]
-Thus every property holding for all sufficiently large currents also holds,
-for all sufficiently large source cutoffs $B$, simultaneously on every
-boundary-predecessor row required at that source.  In particular the
-$B\to\infty$ filter is proper and finite intersections of eventual source
-tails are again eventual and nonempty.
-
-The fixed-source smallness obstruction is already visible here.  For fixed
-$H_n$, a positive value $0<W<1$ with zero residue in $A/H_n$ has
-$[W]\in H_n$ and therefore satisfies $W\ge1/n$.  Hence the resource tolerance
-must be fixed before the eventual endpoint source is chosen.
-
-\input{sections/ltar-provider}
-\input{sections/affine-ray-provider}
-\input{sections/germ-projections-and-exactification}
-
-\section{Provenance and formalization status}
-\label{sec:provenance}
-
-The mathematical route developed independently before the proof claim posted
-on 4 September 2026.  A standalone concrete proof manuscript had been
-completed in mid-August, followed by categorical reorganization and an ongoing
-Lean formalization programme.  The present manuscript uses the later
-categorical organization rather than reproducing the older concrete proof
-architecture.
-
-The Lean formalization is incomplete and is not claimed here as a formal
-verification of the final theorem.  The proof development used substantial
-assistance from large language models.  The present text is intended to be
-human-checkable; its only external combinatorial theorem is the explicitly
-cited independent-transversal theorem.
-
-\bibliographystyle{alpha}
-\bibliography{references}
+\input{sections/postpass-01-states-and-filtration}
+\input{sections/postpass-02-auxiliary-inputs}
+\input{sections/postpass-03-signed-inverse}
+\input{sections/postpass-04-wide-start}
+\input{sections/postpass-05-local-profile}
+\input{sections/postpass-06-scalar-finality}
+\input{sections/postpass-07-finite-realization}
+\input{sections/postpass-08-terminalization}
 
 \appendix
-\input{appendices/source-closed-prefix-certificate}
-\input{appendices/packing}
 \input{appendices/prime-supply}
+\input{appendices/restricted-fold}
+\input{appendices/prefix-seed}
+
+\section*{Proof assurance and computational status}
+The mathematical proof presented here was separated from its development history and reconstructed in a frozen background-blind review packet.  An independent reviewer, using only that packet and the stated Haxell theorem externally, returned a mathematical PASS after an earlier review had identified and prompted repair of a quantifier-order defect.  This assurance statement is not a substitute for ordinary mathematical scrutiny.
+
+A Lean formalization is a separate work in progress and is not claimed here to be a complete formal verification of Theorem~\ref{thm:main}.  Large-language-model systems were used extensively during proof exploration, normalization, audit design, and manuscript preparation; the author remains responsible for the mathematical claims and presentation.
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
