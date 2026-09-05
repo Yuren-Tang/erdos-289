@@ -84,6 +84,8 @@
 \providecommand{\EpigraphVariant}{0}
 \providecommand{\EpigraphTracking}{8}
 \providecommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
+\providecommand{\EpigraphPreSpace}{8pt}
+\providecommand{\EpigraphPostSpace}{12pt}
 
 \newcommand{\TrackedCandidate}[2]{%
   {\fontfamily{#1}\fontseries{#2}\upshape\selectfont
@@ -125,9 +127,9 @@
 \renewcommand{\shortauthors}{Yuren Tang}
 \date{}
 \dedicatory{%
-  \vspace{8pt}%
+  \vspace{\EpigraphPreSpace}%
   \ContextEpigraph
-  \vspace{12pt}%
+  \vspace{\EpigraphPostSpace}%
 }
 
 \subjclass[2020]{Primary 11D68; Secondary 11B75}
