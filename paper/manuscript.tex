@@ -10,10 +10,10 @@
   BoldItalicFont=ETbb-BoldItalic.otf,
   Ligatures=TeX
 ]
-\usepackage{trajan}
+\newfontfamily\epigraphfont{EBGaramond-Medium.otf}[
+  ItalicFont=EBGaramond-Medium.otf
+]
 \usepackage{microtype}
-\usepackage{soul}
-\sodef\trajantrack{\trjnfamily}{.08em}{.413em}{.413em}
 \setlength{\emergencystretch}{2em}
 \usepackage{enumitem}
 \usepackage{csquotes}
@@ -62,9 +62,11 @@
 \renewcommand{\shortauthors}{Yuren Tang}
 \date{}
 \dedicatory{%
-  \vspace{8pt}%
-  {\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
-   \trajantrack{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}}%
+  \vspace{11pt}%
+  {\epigraphfont\upshape
+   \addfontfeatures{LetterSpace=9}%
+   \fontsize{10.5}{16}\selectfont
+   CARPE DIEM QVAM MINIMVM CREDVLA POSTERO}%
   \vspace{12pt}%
 }
 
