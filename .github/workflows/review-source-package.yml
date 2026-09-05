@@ -1,0 +1,38 @@
+name: review-source-package
+
+on:
+  push:
+    branches:
+      - paper/epigraph-specimen
+
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Prepare active TeX source only
+        run: |
+          set -euo pipefail
+          mkdir -p review-source/sections review-source/appendices
+          cp paper/manuscript.tex review-source/
+          cp paper/references.bib review-source/
+          cp paper/sections/00-introduction.tex review-source/sections/
+          cp paper/sections/postpass-01-states-and-filtration.tex review-source/sections/
+          cp paper/sections/postpass-02-auxiliary-inputs.tex review-source/sections/
+          cp paper/sections/postpass-03-signed-inverse.tex review-source/sections/
+          cp paper/sections/postpass-04-wide-start.tex review-source/sections/
+          cp paper/sections/postpass-05-local-profile.tex review-source/sections/
+          cp paper/sections/postpass-06-scalar-finality.tex review-source/sections/
+          cp paper/sections/postpass-07-finite-realization.tex review-source/sections/
+          cp paper/sections/postpass-08-terminalization.tex review-source/sections/
+          cp paper/appendices/prime-supply.tex review-source/appendices/
+          cp paper/appendices/restricted-fold.tex review-source/appendices/
+          cp paper/appendices/prefix-seed.tex review-source/appendices/
+
+      - name: Upload active TeX source
+        uses: actions/upload-artifact@v4
+        with:
+          name: e289-review-source-only
+          path: review-source/
