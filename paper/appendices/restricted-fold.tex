@@ -1,9 +1,9 @@
 \section{Fixed-cardinality sums in a prime cyclic group}
 \label{app:restricted-fold}
 
-This appendix proves the additive-combinatorial input used in Section~\ref{sec:local-profile}.  For a finite set $A$, write $\binom{A}{h}$ for the set of its $h$-element subsets.
+The theorem below is the Dias da Silva--Hamidoune fixed-cardinality restricted-sum theorem \cite{DiasDaSilvaHamidoune1994}.  We include a self-contained polynomial proof in the form used in Section~\ref{sec:local-profile}.  For a finite set $A$, write $\binom{A}{h}$ for the set of its $h$-element subsets.
 
-\begin{theorem}[Fixed-cardinality sum theorem]\label{thm:restricted-fold}
+\begin{theorem}[Dias da Silva--Hamidoune]\label{thm:restricted-fold}
 Let $S$ be a cyclic group of prime order $p$, let $A\subseteq S$ with $|A|=r$, and let $0\le h\le r$.  Define
 \[
 \Sigma_h:\binom{A}{h}\longrightarrow S,
@@ -18,13 +18,13 @@ In particular, if $h(r-h)+1\ge p$, then $\Sigma_h$ is surjective.
 \end{theorem}
 
 \begin{proof}
-The cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose an identification $S\simeq\mathbf F_p$ for the duration of the proof.  Since $A\subseteq\mathbf F_p$, one has $r\le p$.
+The cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose an identification $S\simeq\F_p$ for the duration of the proof.  Since $A\subseteq\F_p$, one has $r\le p$.
 
 Put
 \[
 M=\min\{p-1,h(r-h)\}.
 \]
-Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\mathbf F_p$ of cardinality exactly $M$ and consider
+Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\F_p$ of cardinality exactly $M$ and consider
 \[
 P(x_1,\ldots,x_h)
 =
@@ -34,11 +34,11 @@ P(x_1,\ldots,x_h)
 \]
 The polynomial vanishes on $A^h$: repeated coordinates kill the Vandermonde factor, while distinct coordinates have sum in $\operatorname{im}\Sigma_h\subseteq C$.
 
-We use two elementary coefficient facts.  First, if $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
+We use two coefficient facts.  First, if $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
 \[
 [x_1^{d_1}\cdots x_h^{d_h}]F\ne0,
 \]
-and if finite sets $A_i$ satisfy $|A_i|>d_i$, then $F$ is nonzero somewhere on $\prod_iA_i$.  This is the usual combinatorial Nullstellensatz coefficient criterion, obtained for instance by tensoring the one-variable Lagrange coefficient-extraction functionals.
+and if finite sets $A_i$ satisfy $|A_i|>d_i$, then $F$ is nonzero somewhere on $\prod_iA_i$.  This is the coefficient form of the combinatorial Nullstellensatz \cite{Alon1999}, and follows directly from the one-variable Lagrange coefficient-extraction formula.
 
 Second, for distinct nonnegative integers $k_1,\ldots,k_h$ and
 \[
@@ -96,7 +96,7 @@ Apply \eqref{eq:rf-exponents} with $m=M$.  By \eqref{eq:rf-coefficient-bridge} a
 M!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
 \tag{RF6}\label{eq:rf-nonzero-coefficient}
 \]
-It is nonzero in $\mathbf F_p$: $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so the factorials are nonzero, and the distinct $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient criterion contradicts the vanishing of $P$ on $A^h$.
+It is nonzero in $\F_p$: $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so the factorials are nonzero, and the distinct $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient criterion contradicts the vanishing of $P$ on $A^h$.
 
-Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.  The statement is invariant under the temporary identification $S\simeq\mathbf F_p$.
+Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.  The statement is invariant under the temporary identification $S\simeq\F_p$.
 \end{proof}
