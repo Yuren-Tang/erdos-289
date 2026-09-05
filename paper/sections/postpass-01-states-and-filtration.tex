@@ -56,7 +56,13 @@ and its reciprocal-mass bound is
 \]
 with $\omega(\varnothing)=0$.
 
-Suppose $R_1,\ldots,R_n$ form a finite composable string.  Let $P_n$ be the ordinary fibre product of their edge sets over the intermediate target sets.  In general, forgetting labels before composition permits witnesses whose labels are not jointly compatible, so there is only a canonical inclusion
+Suppose $R_1,\ldots,R_n$ form a finite composable string, and let $P_n$ be the ordinary fibre product of their edge sets over the intermediate target sets.  Restrict $P_n$ to those tuples whose interval labels are jointly compatible; replace such a tuple of labels by its literal union; and then take the image in the first and last target sets together with the union label.  We denote the resulting labelled correspondence by
+\[
+R_n\odot\cdots\odot R_1.
+\]
+Thus $\odot$ is not an additional abstract composition law: it is the ordinary fibre-product construction followed by the partial union \eqref{eq:additive-observations} and image.
+
+Forgetting labels before this construction may admit witnesses whose labels are not jointly compatible.  Consequently there is in general only a canonical inclusion
 \[
 U(R_n\odot\cdots\odot R_1)
 \subseteq
