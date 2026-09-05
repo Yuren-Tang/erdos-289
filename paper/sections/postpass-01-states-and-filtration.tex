@@ -119,13 +119,13 @@ U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}
 \]
 is a normal oplax $2$-functor.
 
-For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets.  The labels define a map $\ell:P_n\to\mathcal C^n$.  The obstruction to strictness is exactly whether $\ell$ lands in $D_n$:
+For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets.  The labels define a map $\ell:P_n\to\mathcal C^n$.  The obstruction to strictness is exactly whether $\ell$ factors through the joint-compatibility domain:
 \begin{equation}\label{eq:compatibility-factorization}
 \begin{CD}
-P_n @>{\ell}>> \mathcal C^n\\
-@V{\widetilde\ell}VV @AA{\iota}A\\
-D_n @= D_n
+P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
 \end{CD}
+\qquad
+\ell=\iota\circ\widetilde\ell.
 \end{equation}
 Whenever such a factorization exists, every relationally composable witness is jointly compatible, and hence
 \begin{equation}\label{eq:rel-strictification}
