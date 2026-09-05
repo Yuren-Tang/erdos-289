@@ -1,20 +1,34 @@
 # E289 epigraph proof workflow
 
-This directory is deliberately local-first.  The publication manuscript is not
+This directory is deliberately local-first. The publication manuscript is not
 changed while the display face is being selected.
 
-## 1. Activate the licensed font
+## 1. Local TeX
 
-Activate **Trajan** in Adobe Fonts on the local Mac.  The specimen expects the
-desktop family exposed as `Trajan Pro 3`, with `Regular` and `Semibold` styles.
-No Adobe font file belongs in this repository.
+macOS does not ship a TeX distribution. For this specimen, full MacTeX is not
+needed: BasicTeX is sufficient because it includes XeTeX. A current local TeX
+Live release is fine for visual iteration; the complete manuscript receives a
+separate final parity build against the arXiv TeX Live 2025 environment.
 
-## 2. Render the four-way proof
+The specimen itself needs only XeLaTeX + `fontspec`; `latexmk` is not required.
 
-From `paper/epigraph/`:
+## 2. Activate Trajan
+
+Trajan is not a macOS system font. Activate the **Trajan** family from Adobe
+Fonts through the Creative Cloud desktop app. The Adobe family contains the
+Trajan Pro 3 weights, including Regular and Semibold. No Adobe font file belongs
+in this repository.
+
+After activation, restart Terminal if necessary and confirm that the family is
+visible in Font Book / desktop applications.
+
+## 3. Render the four-way proof
+
+The specimen lives in this directory, not at the repository root:
 
 ```sh
-latexmk -xelatex -interaction=nonstopmode -halt-on-error specimen.tex
+cd paper/epigraph
+xelatex -interaction=nonstopmode -halt-on-error specimen.tex
 open specimen.pdf
 ```
 
@@ -23,51 +37,21 @@ The four candidates differ only in:
 - Regular vs Semibold;
 - no punctuation vs inscriptional interpuncts.
 
-All use 10.5/16 and `fontspec` `LetterSpace=8`.  Kerning is not disabled or
-manually altered.  No synthetic bolding is used.
+All use 10.5/16 and `fontspec` `LetterSpace=8`. Kerning is not disabled or
+manually altered. No synthetic bolding is used.
 
-## 3. Generate the selected fixed-line asset
+## 4. Generate the selected fixed-line asset
 
 `asset.tex` produces a tightly cropped one-line PDF at the final 10.5 pt size.
-The two switches are supplied on the XeLaTeX command line.
-
-Regular, no punctuation:
-
-```sh
-xelatex -jobname=epigraph-final asset.tex
-```
-
-Regular, interpuncts:
-
-```sh
-xelatex -jobname=epigraph-final '\def\EpigraphInterpuncts{1}\input{asset.tex}'
-```
-
-Semibold, no punctuation:
-
-```sh
-xelatex -jobname=epigraph-final '\def\EpigraphSemibold{1}\input{asset.tex}'
-```
-
-Semibold, interpuncts:
-
-```sh
-xelatex -jobname=epigraph-final '\def\EpigraphSemibold{1}\def\EpigraphInterpuncts{1}\input{asset.tex}'
-```
-
 The generated `epigraph-final.pdf` is the only Trajan-bearing publication asset
-that needs to be committed.  A properly subset-embedded PDF is already within
-Adobe Fonts' stated PDF embedding permission, so converting the line to outlines
-is optional rather than required.  Outlining may still be used if we want the
-asset to contain no embedded font program at all.
+that needs to be committed. Do not commit, package, copy, or redistribute the
+Trajan font software itself.
 
-Do **not** commit, package, copy, or redistribute the Trajan font software itself.
+## 5. Build policy
 
-## 4. Build policy
+- Fast local iteration: any current TeX Live installation is sufficient.
+- Publication parity gate: rebuild the complete manuscript against arXiv's
+  supported TeX Live 2025 environment before submission.
 
-- Fast local iteration: any current TeX Live 2025 installation is sufficient.
-- Publication parity gate: rebuild the complete manuscript in the arXiv-matched
-  TeX Live 2025 snapshot dated 2025-08-03.
-
-The exact snapshot is a seal/reproducibility condition, not a requirement for
-every visual proof iteration.
+The exact arXiv package snapshot is a seal/reproducibility condition, not a
+requirement for every visual proof iteration.
