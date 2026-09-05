@@ -4,45 +4,53 @@
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 
-% This proof file deliberately references licensed desktop fonts by name.
-% Never commit or package the Trajan font software itself.
-\IfFontExistsTF{Trajan Pro 3}{%
-  \newfontfamily\trajanregular{Trajan Pro 3}[
-    UprightFont=* Regular,
-    LetterSpace=8
-  ]
-  \newfontfamily\trajansemibold{Trajan Pro 3}[
-    UprightFont=* Semibold,
-    LetterSpace=8
-  ]
-}{%
-  \PackageError{e289-epigraph}{Trajan Pro 3 is not active on this machine}%
-    {Activate the Trajan family in Adobe Fonts, then rerun XeLaTeX.}%
-}
+% All three families below are free and distributed by TeX Live.
+% Capture each NFSS family after loading its package so they can be compared
+% on one sheet without installing any system font.
+\usepackage{cinzel}
+\edef\CinzelFamily{\rmdefault}
+\usepackage{marcellus}
+\edef\MarcellusFamily{\rmdefault}
+\usepackage{CormorantGaramond}
+\edef\CormorantFamily{\rmdefault}
 
 \newcommand{\plainline}{CARPE DIEM QVAM MINIMVM CREDVLA POSTERO}
 \newcommand{\dotline}{CARPE\char"00B7DIEM\char"00B7QVAM\char"00B7MINIMVM\char"00B7CREDVLA\char"00B7POSTERO}
-\newcommand{\sample}[3]{%
-  \par\vspace{12mm}
-  {\small\bfseries #1}\par\vspace{5mm}
+
+% E306 control dimensions: 10.5 pt on 16 pt, LetterSpace=8.
+% fontspec tracking is used, so the fonts retain their normal OpenType kerning;
+% there is no manual kerning and no synthetic emboldening.
+\newcommand{\epigraphfont}[2]{%
+  \fontfamily{#1}\fontseries{#2}\upshape\selectfont
+  \addfontfeatures{LetterSpace=8}%
+  \fontsize{10.5}{16}\selectfont
+}
+\newcommand{\sample}[4]{%
+  \par\vspace{7mm}
+  {\small\bfseries #1}\par\vspace{2mm}
   \begin{center}
-    {#2\upshape\fontsize{10.5}{16}\selectfont #3}
+    {\epigraphfont{#2}{#3}#4}
   \end{center}
 }
 
 \begin{document}
 
-{\Large Epigraph specimen}\par
-\vspace{2mm}
+{\Large Free epigraph specimen}\par
+\vspace{1mm}
 {\small
-Erd\H{o}s 289 front-matter line. All four specimens use 10.5/16 and
-\texttt{fontspec} \texttt{LetterSpace=8}. OpenType kerning is left at its
-normal setting; there is no synthetic bolding and no manual kerning.
+All candidates are in TeX Live and use the E306 control size/tracking:
+10.5/16 and \texttt{LetterSpace=8}.  Automatic font kerning is left enabled.
 }
 
-\sample{A. Trajan Pro 3 Regular --- no punctuation}{\trajanregular}{\plainline}
-\sample{B. Trajan Pro 3 Regular --- inscriptional interpuncts}{\trajanregular}{\dotline}
-\sample{C. Trajan Pro 3 Semibold --- no punctuation}{\trajansemibold}{\plainline}
-\sample{D. Trajan Pro 3 Semibold --- inscriptional interpuncts}{\trajansemibold}{\dotline}
+\sample{A. Cinzel Regular --- no punctuation}{\CinzelFamily}{m}{\plainline}
+\sample{B. Cinzel Regular --- inscriptional interpuncts}{\CinzelFamily}{m}{\dotline}
+\sample{C. Cinzel Bold --- no punctuation}{\CinzelFamily}{b}{\plainline}
+\sample{D. Cinzel Bold --- inscriptional interpuncts}{\CinzelFamily}{b}{\dotline}
+
+\sample{E. Marcellus Regular --- no punctuation}{\MarcellusFamily}{m}{\plainline}
+\sample{F. Marcellus Regular --- inscriptional interpuncts}{\MarcellusFamily}{m}{\dotline}
+
+\sample{G. Cormorant Garamond Medium --- no punctuation}{\CormorantFamily}{mb}{\plainline}
+\sample{H. Cormorant Garamond Semibold --- no punctuation}{\CormorantFamily}{sb}{\plainline}
 
 \end{document}
