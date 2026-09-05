@@ -12,6 +12,8 @@
 ]
 \usepackage{trajan}
 \usepackage{microtype}
+\usepackage{soul}
+\sodef\trajantrack{\trjnfamily}{.08em}{.413em}{.413em}
 \setlength{\emergencystretch}{2em}
 \usepackage{enumitem}
 \usepackage{csquotes}
@@ -62,8 +64,7 @@
 \dedicatory{%
   \vspace{8pt}%
   {\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
-   \textls[80]{\texttrjn{CARPE DIEM}}\\
-   \textls[80]{\texttrjn{QVAM MINIMVM CREDVLA POSTERO}}}%
+   \trajantrack{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}}%
   \vspace{12pt}%
 }
 
