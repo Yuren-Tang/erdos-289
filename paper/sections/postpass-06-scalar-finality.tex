@@ -113,15 +113,19 @@ The initial affine fibre has centre
 \]
 Each later prime-power step transports this class along the quotient maps of the endpoint filtration.  By cofinality of $(E_X)$, there is a finite cutoff after which the image of $\gamma_B$ in $A/E_X$ is zero.  Removing a finite initial segment does not change the final-ray conclusion.
 
-For $k\in\mathbf N$ define
+Let
+\[
+\mathcal H_B=\{X\in\mathbf N:X\ge B\}.
+\tag{6.12}\label{eq:cutoff-base}
+\]
+For $X\in\mathcal H_B$, let $I_X$ be the component-count interval obtained after all prime-power steps of rank at most $X$ have been processed.  For $k\in\mathbf N$ define
 \[
 \mathcal X_k=
-\{X\ge B:
+\{X\in\mathcal H_B:
 \gamma_B\mapsto0\text{ in }A/E_X,
-\quad k\in I_X\},
-\tag{6.12}\label{eq:term-k}
+\quad k\in I_X\}.
+\tag{6.13}\label{eq:term-k}
 \]
-where $I_X$ is the component-count interval after all prime-power steps through $X$ have been processed.
 
 \begin{theorem}[Eventual component-count coverage]\label{thm:scalar-terminality}
 For every lower cutoff $B_\dagger$ one can choose $B\ge B_\dagger$ and a wide affine initial cover at $B$ such that
