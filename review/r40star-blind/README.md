@@ -46,10 +46,11 @@ No Lovász local lemma or probabilistic argument is part of the proof.
 1. `00_THEOREM_MAP.md` — the twelve reviewer-facing statements and their dependency order.
 2. `01_FOUNDATIONS_AND_GENERIC_INPUTS.md` — physical states, `Q/Z` filtration, and generic leaves N, Π, D, P.
 3. `02_SIGNED_INVERSE_PROVIDER.md` — the total current family and its five exported capabilities.
-4. `03_PREPARED_WIDE_START.md` — finite Prefix, sparse future footprint, and one neutral Hamming pullback.
-5. `04_LOCAL_PROFILE_AND_SCALAR.md` — finite information channel, packing-independent profile, and sponsored final-ray theorem.
-6. `05_FINITE_LIFT_AND_TERMINAL.md` — finite-horizon Haxell realization, n-ary strictification, resource control, terminal descent, and `W=1`.
-7. `06_DEPENDENCY_AND_REVIEW_CHECKLIST.md` — last-consumer ledger and requested hostile checks.
+4. `03_PREPARED_WIDE_START.md` — finite Prefix, structural bridge bounds, sparse future footprint, and one neutral Hamming pullback.
+5. `PREFIX_SEED_CERTIFICATE.json` — the finite early Prefix certificate used in step 4.  `verify_prefix_seed.py` is an exact-rational replay of those finite checks and is optional convenience, not a separate mathematical assumption.
+6. `04_LOCAL_PROFILE_AND_SCALAR.md` — finite information channel, packing-independent profile, and sponsored final-ray theorem.
+7. `05_FINITE_LIFT_AND_TERMINAL.md` — finite-horizon Haxell realization, n-ary strictification, resource control, terminal descent, and `W=1`.
+8. `06_DEPENDENCY_AND_REVIEW_CHECKLIST.md` — last-consumer ledger and requested hostile checks.
 
 ## Intended proof architecture
 
