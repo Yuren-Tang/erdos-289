@@ -32,148 +32,104 @@ The exact frozen `main.tex` declares:
 ```
 
 and sets the dedication at 10.5 pt on 16 pt with 8 pt before and 12 pt after.
-These, rather than an earlier/later E306 typography branch tip, are the Phase-I
-baseline parameters. Commit `9ab332be...` is useful ancestry for the EB Garamond
-selection but is not itself the exact frozen manuscript object.
+These, rather than an earlier/later E306 typography branch tip, are the baseline
+geometry. Commit `9ab332be...` is useful ancestry for the EB Garamond selection
+but is not itself the exact frozen manuscript object.
 
-## 2. Phase-I gate: real E289 first-page context
+## 2. Phase I: family / weight gate
 
 `context-specimen.tex` reproduces the real E289 first-page environment: `amsart`,
 ETbb body text, NewTX mathematics, title, author, ORCID, abstract, and the actual
-beginning of the Introduction. Only the epigraph family/weight varies.
+beginning of the Introduction.
 
-Phase I freezes:
+Phase I froze the Latin wording and comma, 10.5/16, `LetterSpace=8`, 8 pt / 12 pt
+vertical spacing, ordinary kerning, and no synthetic emboldening. The six complete
+first-page proofs compared EB Garamond Medium, Cinzel Regular/Bold, Marcellus
+Regular, and Cormorant Garamond Medium/Semibold.
 
-- `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO` including the comma;
-- 10.5/16;
-- `LetterSpace=8`;
-- 8 pt / 12 pt vertical spacing;
-- ordinary font kerning, no hand kerning, no synthetic emboldening.
+The Owner's optical assessment made EB Garamond Medium the clear leader. The
+useful failure specimen was Cormorant Medium: promising Trajan-like proportions,
+but too fine; Semibold restored weight at the cost of excessive modern
+thick/thin contrast. Cinzel Regular was too weak, Cinzel Bold somewhat rigid,
+and Marcellus stylistically farther from the intended register.
 
-The six complete first-page proofs are:
+## 3. Phase I.5: weight versus tracking
 
-1. `context-00-e306-ebgaramond-medium.pdf` — exact E306 family/weight control,
-   with the E289 Latin line;
-2. `context-01-cinzel-regular.pdf`;
-3. `context-02-cinzel-bold.pdf`;
-4. `context-03-marcellus-regular.pdf`;
-5. `context-04-cormorant-medium.pdf`;
-6. `context-05-cormorant-semibold.pdf`.
+`build-phase15.sh` varied only EB Garamond weight and tracking. Medium was tested
+at 8/9/10/11; Regular at 8/9. The Regular cut remained too fine at this page
+scale, so the weight dimension was closed at **EB Garamond Medium**. Medium 8 was
+slightly tight, 11 slightly loose, with the useful region around 9--10.
 
-Judge the whole first page: optical weight against the title, line width, relation
-to the ETbb page texture, and whether the epigraph belongs to the title matter
-rather than reading as a detached ornament.
+## 4. Phase I.6: blind fine-tracking gate
 
-A local full-TeX-Live build on 2026-09-05 successfully generated all six A4
-proofs. The Owner's optical assessment was more informative than a generic
-family ranking:
+`build-phase16.sh` reproducibly builds EB Garamond Medium at LetterSpace 8.5,
+9.0, 9.5 and 10.0. The judgement packet used six concealed pages, duplicating
+9.0 and 9.5.
 
-- **00 EB Garamond Medium:** already very good and without an obvious defect;
-  compared with Trajan Pro it is slightly more solid / matter-of-fact and less
-  airy or expansive;
-- **01 Cinzel Regular:** too weak and fine to support the title matter;
-- **02 Cinzel Bold:** restores weight but becomes somewhat rigid;
-- **03 Marcellus Regular:** coherent on its own terms but stylistically farther
-  from the intended Trajan-like register;
-- **04 Cormorant Medium:** promising underlying proportions and some Trajan-like
-  flavour, but much too fine;
-- **05 Cormorant Semibold:** weight improves, but the thick/thin contrast becomes
-  too pronounced and modern; simply adding weight does not preserve the useful
-  structure seen in 04.
+Blind result:
 
-This makes 00 the clear Phase-I leader. Variant 04 is retained conceptually as a
-useful failure specimen because it diagnoses the desired skeleton versus the
-wrong stroke contrast, not as an immediate publication candidate.
+- 8.5 was judged slightly constrained;
+- 10.0 slightly loose;
+- the 9.0--9.5 region was the stable sweet spot;
+- the two 9.5 copies were correctly recognized as identical;
+- the two 9.0 copies nevertheless received somewhat different momentary
+  impressions, providing a useful estimate of perceptual/order noise;
+- across Phase I.5 and I.6 the Owner showed a small but repeated preference for
+  9.0 as the more exact/collected setting over 9.5 as slightly looser.
 
-Legacy TeX-Live Trajan is deliberately **not** part of this gate. On a minimal
-BasicTeX installation its Type-1/map/PK fallback chain can require additional
-legacy utilities such as `gsftopk`; making that environment repair a prerequisite
-for choosing an OpenType display face adds no useful information. The old
-`trajan-control-asset.tex` is retained only as historical experiment material.
+Accordingly the provisional optical setting is now closed at:
 
-## 3. Local build
+```text
+family/weight  EB Garamond Medium
+LetterSpace    9
+size/leading   10.5 / 16
+vertical       8 pt before / 12 pt after
+```
 
-The build script performs a preflight and prints the exact missing TeX-Live
-packages. After dependencies are present:
+This does not claim that a hypothetical mathematical optimum is exactly 9.000;
+it is the robust representative of a visually indistinguishable 9--9.5 band and
+avoids overfitting sub-unit tracking differences.
+
+## 5. Phase I.7: blind punctuation gate
+
+`build-phase17.sh` keeps the provisional setting above fixed and varies only the
+punctuation treatment:
+
+1. `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
+2. `CARPE DIEM QVAM MINIMVM CREDVLA POSTERO`;
+3. `CARPE · DIEM · QVAM · MINIMVM · CREDVLA · POSTERO`.
+
+The six-page judgement packet contains each candidate twice in concealed
+randomized order. The page-to-punctuation key is deliberately not recorded in
+repository history before judgement. See `PHASE17_BLIND_PROTOCOL.md`.
+
+The point of this gate is not merely "which looks most Roman". The comma retains
+the literary/editorial syntax of the Horatian quotation; the no-punctuation form
+lets the all-cap spacing carry the pause; the interpunct form deliberately tests
+a more inscriptional presentation and may fail if it reads as theatrical
+pseudo-antique styling rather than a restrained mathematical dedication.
+
+## 6. Local build and remote parity
+
+Local builds are the normal iteration path and have been demonstrated to work
+without the legacy Trajan chain. Because the Owner's Mac has stale files in
+`~/Library/texmf`, the scripts use an empty temporary `TEXMFHOME` by default.
 
 ```sh
 cd paper/epigraph
-sh build-context.sh
-open context-*.pdf
+sh build-phase17.sh
 ```
-
-Because the Owner's Mac has stale files in `~/Library/texmf`, the scripts use an
-empty temporary `TEXMFHOME` by default.
-
-The glyph-level `specimen.tex` remains available as a secondary reference, but
-it is not a decision gate because it lacks page context.
-
-Local builds are the normal iteration path. They have now been demonstrated to
-work without the legacy Trajan chain.
-
-## 4. Phase I.5: is 00 merely too solid?
-
-Before changing punctuation or searching more families, isolate the residual
-question raised by the leading E306 control:
-
-> Is the slight solidity of 00 mainly a spacing problem, or a stroke-weight
-> problem?
-
-`build-phase15.sh` therefore varies **only** EB Garamond weight and tracking.
-Everything else remains frozen: Latin wording, comma, 10.5/16 and 8pt/12pt
-vertical spacing.
-
-The six proofs are:
-
-1. `phase15-00-medium-ls08.pdf` — exact Phase-I leader / frozen E306 tracking;
-2. `phase15-01-medium-ls09.pdf`;
-3. `phase15-02-medium-ls10.pdf`;
-4. `phase15-03-medium-ls11.pdf`;
-5. `phase15-04-regular-ls08.pdf`;
-6. `phase15-05-regular-ls09.pdf`.
-
-The Medium ladder 8/9/10/11 asks whether added air alone supplies the missing
-lift. The deliberately narrow Regular 8/9 pair asks whether the residual
-solidity instead comes from the Medium cut itself. Do not tune punctuation,
-size or vertical spacing during this gate.
-
-Build locally with:
-
-```sh
-cd paper/epigraph
-sh build-phase15.sh
-open phase15-*.pdf
-```
-
-A raster contact sheet is not an acceptable decision surface for this stage;
-inspect the native vector PDFs at matched zoom.
-
-## 5. Remote parity build
 
 `.github/workflows/epigraph-context.yml` is retained only as a manual
-`workflow_dispatch` TeX Live 2025/arXiv-parity utility. It no longer runs on every
-specimen change and therefore does not block optical iteration with irrelevant
-CI status.
+`workflow_dispatch` TeX Live 2025/arXiv-parity utility. It does not block optical
+iteration.
 
-## 6. Later optical tuning
-
-Only after Phase I.5 decides the EB Garamond weight/tracking question should the
-next variable be introduced. The intended order is:
-
-1. punctuation treatment;
-2. if needed, a finer tracking bracket around the Phase-I.5 survivor;
-3. weight or size only if still unresolved;
-4. vertical spacing last.
-
-If no EB Garamond Phase-I.5 specimen captures the desired airiness without
-losing page integration, then return to family search with a sharply defined
-criterion: inscriptional / Trajan-like proportions with lower and more even
-stroke contrast than Cormorant Semibold. Do not reopen a broad undirected font
-survey.
+Legacy TeX-Live Trajan remains outside the decision gate: repairing its old
+Type-1/map/PK fallback chain would add environment noise without improving this
+OpenType comparison.
 
 ## 7. Publication boundary
 
-No experiment here changes `paper/manuscript.tex`. After a display face and its
-optical parameters are chosen, the publication manuscript receives a separate
-bounded typography change and the ordinary full-manuscript TeX Live/arXiv parity
-gates.
+No experiment here changes `paper/manuscript.tex`. After punctuation is chosen,
+perform one final whole-page optical check before a separate bounded manuscript
+change and the ordinary full-manuscript TeX Live/arXiv parity gates.
