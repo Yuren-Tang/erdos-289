@@ -1,34 +1,33 @@
-\section{Finite initialization certificate}
+\section{A finite initialization}
 \label{app:prefix-seed}
 
-This appendix is proof data, not a third conceptual input alongside the prime-supply and fixed-rank theorems.  Its sole purpose is to enter the uniform bridge regime of Section~\ref{sec:wide-start}.  The particular integers below are one explicit witness; no minimality, uniqueness, or arithmetic significance is claimed for them.
+This appendix has a different status from Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold}.  It proves no asymptotic theorem: it supplies one finite starting configuration from which the uniform bridge construction of Section~\ref{sec:wide-start} takes over.  The integers below form one explicit witness; no minimality, uniqueness, or arithmetic significance is asserted.
 
 Put
 \[
 P(m)=\frac1m+\frac1{m+1}.
 \]
 
-\begin{lemma}[Finite Prefix initialization]\label{lem:finite-prefix-initialization}
-There exists a finite family of physical states with the following properties.
+\begin{lemma}[Finite initialization]\label{lem:finite-prefix-initialization}
+There is a finite family of configurations in $\mathcal C$ with the following properties.
 \begin{enumerate}
 \item Their residues exhaust the zero-centred $H_6$-fibre.
-\item Their grades have a finite spread independent of every later current.
-\item They are compatible with the finite exceptional bridge rows preceding the uniform separation regime.
-\item The reciprocal value of every initialized branch, together with the whole future universal bridge tower, is bounded by a constant strictly smaller than $2$.
+\item Their component counts have a finite spread independent of every later prime-power step.
+\item They are compatible with the finitely many exceptional bridge stages preceding the uniform separation regime.
+\item The reciprocal value of every initialized branch, together with the whole subsequent bridge sequence, is bounded by a constant strictly below $2$.
 \end{enumerate}
-Consequently all concrete coordinates used to verify this lemma may be forgotten before the asymptotic WideStart construction begins.
 \end{lemma}
 
 \begin{proof}
-One witness is recorded below.  The first three assertions are finite exact checks.  The fourth follows from the explicit seed bound \eqref{eq:finite-seed-bound} and the uniform future-bridge estimate \eqref{eq:future-bridge-total}.
+One witness is recorded below.  The first three assertions are finite exact checks.  The fourth follows from \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total}.
 \end{proof}
 
 \subsection*{One explicit witness}
 
-The empty state gives residue $0$.  The following table gives five further states; the third column lists the starts of their binary components $[m,m+1]$.
+The empty configuration gives residue $0$.  The following table gives five further configurations; the third column lists the starts of their binary components $[m,m+1]$.
 \[
 \begin{array}{c|c|l}
-\text{residue}&\text{grade}&\text{component starts}\\
+\text{residue}&\text{component count}&\text{component starts}\\
 \hline
 \frac16&9&35,56,90,119,152,170,455,494,714\\
 \frac13&15&17,35,44,84,104,119,132,170,272,285,455,494,560,714,935\\
@@ -38,35 +37,35 @@ The empty state gives residue $0$.  The following table gives five further state
 \end{array}
 \tag{PS1}\label{eq:prefix-root-table}
 \]
-Equivalently, the reciprocal identities are
+Equivalently,
 \[
 \frac j6=\sum_{m\in M_j}P(m)
 \qquad(j=1,2,3,4,5),
 \]
-where $M_j$ is the corresponding row of the table.  Exact rational summation verifies these identities; every displayed start set has gaps at least three, so every row is a physical state.  Together with the empty state the six residues exhaust $H_6$.
+where $M_j$ is the corresponding row of the table.  Direct rational summation verifies the identities; every displayed start set has gaps at least three, so every row belongs to $\mathcal C$.  Together with the empty configuration the six residues exhaust $H_6$.
 
-The two quotient jumps before the fully uniform bridge regime are
+The two quotient jumps before the uniform bridge regime are
 \[
 6\longrightarrow12,
 \qquad
 12\longrightarrow60.
 \]
-For $p=2$ use coefficient set $\{1\}$, giving bridge base $12$.  For $p=5$ use $\{1,2,3\}$, giving bases $60,30,20$.  Their subset sums cover $\mathbf Z/2\mathbf Z$ and $\mathbf Z/5\mathbf Z$; for $p=5$, residues $0,1,2,3,4$ are witnessed by
+For $p=2$ use coefficient set $\{1\}$, giving bridge base $12$.  For $p=5$ use $\{1,2,3\}$, giving bases $60,30,20$.  Their subset sums cover $\mathbf Z/2\mathbf Z$ and $\mathbf Z/5\mathbf Z$; for $p=5$, the residues $0,1,2,3,4$ are represented by
 \[
 \varnothing,\quad\{1\},\quad\{2\},\quad\{3\},\quad\{1,3\}.
 \]
-The bridge identity is the uniform identity of Section~\ref{sec:wide-start}: at lower modulus $D$ and quotient prime $p$, the alternatives at base $a=pD/r$ differ in reciprocal value by $r/(pD)$ and have equal grade.
+The bridge identity is exactly \eqref{eq:bridge-switch}: at lower modulus $D$ and quotient prime $p$, the alternatives at base $a=pD/r$ differ in reciprocal value by $r/(pD)$ and have the same component count.
 
-There remains only a finite boundary before the eventual separation argument becomes automatic.  One sufficient list of bridge bases to check is
+Only a finite boundary remains before the separation estimate becomes automatic.  One sufficient list of bridge bases is
 \begin{equation}\label{eq:prefix-boundary-bases}
 12,20,30,60,140,210,420,840,1260,2520.
 \tag{PS2}
 \end{equation}
-Direct comparison shows that these bridge envelopes are compatible with the root envelopes and with one another whenever they coexist in the finite initialization.  Again, the list is certificate data rather than a canonical sequence.
+Direct comparison shows that the corresponding component envelopes are compatible with the five displayed configurations and with one another whenever they occur simultaneously.  The list is part of this particular finite witness, not a canonical sequence.
 
-\subsection*{Why the finite certificate never returns}
+\subsection*{Why the numerical initialization disappears}
 
-After the boundary in \eqref{eq:prefix-boundary-bases}, separation is structural.  Suppose a previous prime-power jump has upper lcm modulus $D$, so every base in that row is at most $D$ and every complete envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
+After the finite boundary, separation follows from a uniform estimate.  Suppose a previous prime-power jump has upper least-common-multiple modulus $D$, so every base in that stage is at most $D$ and every component envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
 \[
 a_k=\frac{pD}{k},
 \]
@@ -75,28 +74,28 @@ where $k$ is least with $k(k+1)/2\ge p-1$.  Since $k<p$,
 a_k-D=D\left(\frac pk-1\right).
 \tag{PS3}\label{eq:successive-row-gap}
 \]
-If $p\to\infty$, then $k^2=O(p)$ and $p/k\to\infty$; if $p$ stays bounded along later prime-power jumps, then $k$ is fixed while $D\to\infty$.  Thus the right side tends to infinity along the nontrivial jump sequence.  Beyond the finite boundary every new complete envelope therefore starts at least two unused vertices beyond the preceding row.
+If $p\to\infty$, then $k^2=O(p)$ and $p/k\to\infty$; if $p$ stays bounded along later prime-power jumps, then $k$ is fixed while $D\to\infty$.  Thus the right side tends to infinity.  Beyond the finite boundary every new component envelope therefore begins at least two unused vertices beyond the preceding stage.
 
-The same distinction holds for resource.  The largest root value is $5/6$.  For the four finite seed bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ gives
+The reciprocal-mass estimate is likewise uniform.  The largest initial reciprocal value is $5/6$.  For the four finite bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ gives
 \begin{equation}\label{eq:finite-seed-bound}
 \frac56+\frac3{12}+\frac3{20}+\frac3{30}+\frac3{60}
 =\frac56+\frac{11}{20}<\frac32.
 \tag{PS4}
 \end{equation}
-For every later universal bridge, with lower modulus $D$ and $k$ least such that $T_k=k(k+1)/2\ge p-1$, minimality gives $T_k<2p$.  At base $a_r=pD/r$, every alternative has reciprocal mass $<3/a_r$, so an entire bridge branch has mass
+For every later bridge, with lower modulus $D$ and $k$ least such that $T_k=k(k+1)/2\ge p-1$, minimality gives $T_k<2p$.  At base $a_r=pD/r$, every alternative has reciprocal mass below $3/a_r$, so an entire branch has mass
 \[
 <\sum_{r=1}^k\frac{3r}{pD}
 =\frac{3T_k}{pD}
 <\frac6D.
 \tag{PS5}\label{eq:future-row-bound}
 \]
-After the finite seed the first lower modulus is at least $60$, and successive nontrivial lcm jumps multiply the lower modulus by at least two.  Hence
+After the finite initialization the first lower modulus is at least $60$, and successive nontrivial least-common-multiple jumps multiply the lower modulus by at least two.  Hence
 \begin{equation}\label{eq:future-bridge-total}
-\sum_{\text{future rows}}\text{branch mass}
+\sum_{\text{later bridge stages}}\text{reciprocal mass}
 <\sum_{j\ge0}\frac6{60\,2^j}
 =\frac15<\frac14.
 \tag{PS6}
 \end{equation}
-Combining \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total} leaves a fixed positive margin below $2$ before the arbitrarily small neutral-cube cost is added.
+Together with \eqref{eq:finite-seed-bound} this leaves a fixed positive margin below $2$ before the arbitrarily small neutral contribution is added.
 
-Thus the actual mathematical output of this appendix is Lemma~\ref{lem:finite-prefix-initialization}.  The residue representatives, bridge bases, and boundary list are discarded immediately after that lemma has supplied a finite starting object.  The repository accompanying the manuscript contains a short exact-rational replay of the finite table; the proof does not use the script as a mathematical oracle.
+Thus the main argument consumes only Lemma~\ref{lem:finite-prefix-initialization}.  The displayed residue representatives, bridge bases and finite boundary list play no further role.
