@@ -5,19 +5,24 @@ is not changed while the epigraph display face is being selected.
 
 ## 1. Exact E306 reference
 
-The Owner-specified reference is the E306 EB-Garamond finalization, not whichever
-E306 branch happens to be current later.
+The Owner-specified reference is the exact frozen E306 arXiv-v1 source object,
+not whichever E306 branch happens to be current later.
 
-Traceable source:
+Frozen provenance:
 
 ```text
-repository: Yuren-Tang/erdos-306
-branch:     finalization/e306-ebgaramond-v1
-commit:     9ab332be9e02248f603b718a4c918e36d595a50b
-message:    Select EB Garamond Medium dedication for arXiv v1
+source ZIP
+sha256 2856963cfab075e1c888212e1960a071922faa69119c42384e14248a9213b85e
+
+reference PDF
+sha256 7a2b44ef2410312fbd7db2fbd70727c705edf463772e55c208ac0c7c2948653c
+pages 35 A4
+
+main.tex inside the frozen source ZIP
+sha256 11570a165e963f113c0ea00bd1bc95bbe1e52f449c8d3fafda4d0d1b082ee56a
 ```
 
-Its dedication declaration is:
+The exact frozen `main.tex` declares:
 
 ```tex
 \newfontfamily\greekdedicationfont{EBGaramond-Medium.otf}[
@@ -26,13 +31,10 @@ Its dedication declaration is:
 ]
 ```
 
-and its title-matter geometry is 10.5 pt on 16 pt with 8 pt before and 12 pt
-after the dedication. These are the Phase-I baseline parameters.
-
-This corrects two historical confusions in earlier experiments: `LetterSpace=9`
-belongs to a later STIX/Gentium E306 finalization, while 0.08 em Trajan tracking
-belongs to the then-current E289 manuscript. Neither supersedes the Owner's
-specified E306 reference above.
+and sets the dedication at 10.5 pt on 16 pt with 8 pt before and 12 pt after.
+These, rather than an earlier/later E306 typography branch tip, are the Phase-I
+baseline parameters. Commit `9ab332be...` is useful ancestry for the EB Garamond
+selection but is not itself the exact frozen manuscript object.
 
 ## 2. Phase-I gate: real E289 first-page context
 
@@ -62,6 +64,13 @@ Judge the whole first page: optical weight against the title, line width, relati
 to the ETbb page texture, and whether the epigraph belongs to the title matter
 rather than reading as a detached ornament.
 
+A local full-TeX-Live build on 2026-09-05 successfully generated all six A4
+proofs. Initial optical triage retained EB Garamond Medium, Cinzel Regular and
+Marcellus Regular; Cinzel Bold was too dark against the title, Cormorant Medium
+too light, and Cormorant Semibold remained more literary/calligraphic than the
+leading inscriptional candidates. This is a working shortlist, not a publication
+selection.
+
 Legacy TeX-Live Trajan is deliberately **not** part of this gate. On a minimal
 BasicTeX installation its Type-1/map/PK fallback chain can require additional
 legacy utilities such as `gsftopk`; making that environment repair a prerequisite
@@ -79,32 +88,39 @@ sh build-context.sh
 open context-*.pdf
 ```
 
-Because this Mac has stale files in `~/Library/texmf`, `build-context.sh` uses an
-empty temporary `TEXMFHOME` by default.
+Because the Owner's Mac has stale files in `~/Library/texmf`, `build-context.sh`
+uses an empty temporary `TEXMFHOME` by default.
 
 The glyph-level `specimen.tex` remains available as a secondary reference, but
 it is not a decision gate because it lacks page context.
 
-## 4. Authoritative remote build
+Local builds are the normal iteration path. They have now been demonstrated to
+work without the legacy Trajan chain.
 
-`.github/workflows/epigraph-context.yml` builds the same six proofs inside the
-repository's established full TeX Live 2025-08-03 snapshot and uploads them as a
-single artifact. It runs on changes to this experiment branch and can also be
-started manually.
+## 4. Remote parity build
 
-The remote build is the stable comparison surface. Local BasicTeX is only a
-convenience for rapid inspection and need not reproduce obsolete Type-1 Trajan
-machinery.
+`.github/workflows/epigraph-context.yml` is retained only as a manual
+`workflow_dispatch` TeX Live 2025/arXiv-parity utility. It no longer runs on every
+specimen change and therefore does not block optical iteration with irrelevant
+CI status.
 
 ## 5. Phase II
 
-Only Phase-I survivors are tuned further. Keep the E306 values as the starting
-point, then vary one parameter at a time:
+Only Phase-I survivors are tuned further. Keep the frozen E306 values as the
+starting point, then vary one parameter at a time:
 
 1. punctuation treatment;
 2. small tracking changes around 8;
 3. weight or size only if still necessary;
 4. vertical spacing last.
+
+The working Phase-I survivors are:
+
+- EB Garamond Medium — exact E306 family/weight control, highly integrated with
+  the mathematical page but less explicitly inscriptional;
+- Cinzel Regular — strongest monumental/inscriptional candidate without the
+  excessive blackness of Cinzel Bold;
+- Marcellus Regular — softer inscriptional alternative.
 
 Different families may have different eventual optimal tracking because their
 native sidebearings and cap proportions differ. Phase I fixes the value only to
