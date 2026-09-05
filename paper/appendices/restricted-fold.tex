@@ -18,7 +18,7 @@ In particular, if $h(r-h)+1\ge p$, then $\Sigma_h$ is surjective.
 \end{theorem}
 
 \begin{proof}
-The endpoint cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose a proof-local identification $S\simeq\mathbf F_p$; the final statement is invariant under this choice.
+The endpoint cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose a proof-local identification $S\simeq\mathbf F_p$; the final statement is invariant under this choice.  Since $A\subseteq\mathbf F_p$, one has $r\le p$.
 
 Put
 \[
@@ -62,11 +62,45 @@ For every $0\le m\le h(r-h)$ one may choose distinct
 with
 \[
 \sum_i k_i=m+\frac{h(h-1)}2.
-\tag{RF3}
+\tag{RF3}\label{eq:rf-exponents}
 \]
-To see this, write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.
+To see this, write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.  If $q=R$, then $m\le hR$ forces $s=0$, so the displayed bounds remain valid.
 
-Apply this with $m=M$.  In the highest-degree part of \eqref{eq:rf-polynomial}, equation \eqref{eq:rf-vandermonde} gives a nonzero coefficient at $x_1^{k_1}\cdots x_h^{k_h}$.  It is nonzero modulo $p$ because $M\le p-1$ and $0\le k_i\le r-1\le p-1$.  The coefficient detector therefore contradicts the vanishing of $P$ on $A^h$.
+It remains to connect the coefficient in \eqref{eq:rf-vandermonde} with the actual polynomial \eqref{eq:rf-polynomial}.  Put
+\[
+H_C(T)=\prod_{c\in C}(T-c),
+\qquad
+V(x)=\prod_{i<j}(x_j-x_i).
+\]
+Because $|C|=M$, $H_C$ is monic of degree $M$, so
+\[
+H_C(T)=T^M+R_C(T),
+\qquad \deg R_C<M.
+\tag{RF4}\label{eq:rf-top-homogeneous}
+\]
+The Vandermonde $V$ is homogeneous of degree $h(h-1)/2$.  Hence every monomial of
+\[
+R_C(x_1+\cdots+x_h)V(x)
+\]
+has total degree strictly below
+\[
+M+\frac{h(h-1)}2.
+\]
+Consequently, for every multi-index $k$ of exactly that total degree,
+\[
+[x^k]P
+=
+[x^k](x_1+\cdots+x_h)^M V(x).
+\tag{RF5}\label{eq:rf-coefficient-bridge}
+\]
+Thus no lower homogeneous term of $H_C$ can contribute to the coefficient used below.
+
+Apply \eqref{eq:rf-exponents} with $m=M$.  The corresponding monomial has total degree $M+h(h-1)/2$, so by \eqref{eq:rf-coefficient-bridge} and \eqref{eq:rf-vandermonde} its coefficient in $P$ is
+\[
+M!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
+\tag{RF6}\label{eq:rf-nonzero-coefficient}
+\]
+This is nonzero in $\mathbf F_p$: one has $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so all factorials in numerator and denominator are nonzero; moreover the distinct integers $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient detector therefore contradicts the vanishing of $P$ on $A^h$.
 
 Hence $|\operatorname{im}\Sigma_h|>M$, which is exactly
 \[
