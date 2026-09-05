@@ -10,6 +10,7 @@
   BoldItalicFont=ETbb-BoldItalic.otf,
   Ligatures=TeX
 ]
+\usepackage{trajan}
 \usepackage{microtype}
 \setlength{\emergencystretch}{2em}
 \usepackage{enumitem}
@@ -58,10 +59,10 @@
 \thanks{ORCID: \href{https://orcid.org/0009-0006-0847-3330}{0009-0006-0847-3330}.}
 \renewcommand{\shortauthors}{Yuren Tang}
 \date{}
-
-% The final inscriptional dedicatory is deliberately deferred until the
-% publication PDF is sealed, so that the review source does not depend on a
-% proprietary display font.
+\dedicatory{%
+  \normalfont\texttrjn{CARPE DIEM}\\
+  \texttrjn{QVAM MINIMVM CREDVLA POSTERO}%
+}
 
 \subjclass[2020]{Primary 11D68; Secondary 11B75}
 \keywords{unit fractions, reciprocal sums, integer intervals, additive combinatorics, torsion filtrations, Erd\H{o}s problems}
