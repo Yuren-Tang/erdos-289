@@ -21,6 +21,12 @@ is retained as provenance for the preceding **INCOMPLETE — Minor Repair** verd
 
 No later authorial packet supersedes the independently reviewed proof unless a new review-triggered mathematical defect is found.
 
+The transcribed PASS report contains one evident formatting loss in the displayed composite-debt bound.  The authoritative reviewed estimate is
+
+`N(X) = O_rho(sqrt(X) log^3 X) = o(X/log X)`,
+
+not `O_rho(X log^3 X)`.  The latter would contradict the displayed little-o conclusion and must not be propagated into the manuscript.
+
 ## 2. Frozen proof spine
 
 The publication proof must preserve the following dependency firewall.
@@ -35,7 +41,7 @@ The publication proof must preserve the following dependency firewall.
 
 ## 3. R42 differential disposition
 
-The mathematics-only R42 packet was inspected after the independent PASS.  It is not the mathematical authority because it still labels itself as requiring a fresh review.  Three local improvements are worth absorbing into the publication manuscript because they only make already-valid interfaces explicit:
+The mathematics-only R42 packet was inspected after the independent PASS.  Its static validator, Prefix seed replay, and vendored frozen-blob replay all pass, but these are integrity/regression checks rather than a proof seal.  R42 is not the mathematical authority because it still labels itself as requiring a fresh review.  Three local improvements are worth absorbing into the publication manuscript because they only make already-valid interfaces explicit:
 
 ### 3.1 Late-domain typing
 
