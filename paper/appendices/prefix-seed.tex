@@ -1,7 +1,7 @@
 \section{A finite initialization}
 \label{app:prefix-seed}
 
-This appendix has a different status from Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold}.  It proves no asymptotic theorem: it supplies one finite starting configuration from which the uniform bridge construction of Section~\ref{sec:wide-start} takes over.  The integers below form one explicit witness; no minimality, uniqueness, or arithmetic significance is asserted.
+This appendix supplies one explicit finite seed for the uniform construction of Section~\ref{sec:wide-start}; no property of the particular numerical values is used later.
 
 Put
 \[
@@ -61,11 +61,13 @@ Only a finite boundary remains before the separation estimate becomes automatic.
 12,20,30,60,140,210,420,840,1260,2520.
 \tag{PS2}
 \end{equation}
-Direct comparison shows that the corresponding component envelopes are compatible with the five displayed configurations and with one another whenever they occur simultaneously.  The list is part of this particular finite witness, not a canonical sequence.
+Direct comparison shows that the bridge component supports determined by these bases are compatible with the five displayed configurations and with one another whenever they occur simultaneously.  The list is part of this particular finite witness, not a canonical sequence.
+
+These finite checks are also replayed, using exact rational arithmetic, by the ancillary script \texttt{tools/verify\_prefix\_seed.py}.  The script is verification of the displayed finite certificate; the argument below supplies the uniform proof beyond it.
 
 \subsection*{Why the numerical initialization disappears}
 
-Suppose a previous prime-power jump has upper least-common-multiple modulus $D$, so every base in that stage is at most $D$ and every component envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
+Suppose a previous prime-power jump has upper least-common-multiple modulus $D$.  Every bridge base in that stage is at most $D$, so every component support ends by $D+2$ and its exclusion envelope ends by $D+3$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
 \[
 a_k=\frac{pD}{k},
 \]
@@ -94,9 +96,9 @@ Hence every subsequent stage satisfies
 \[
 a_k-D\ge D/2\ge1260.
 \]
-The new component envelopes therefore begin far beyond both the finite seed and the preceding bridge stage, and the same estimate persists inductively as the lower moduli increase.  Thus the finite list \eqref{eq:prefix-boundary-bases} really is beyond the uniform-separation threshold.
+The new component supports therefore begin far beyond the preceding exclusion envelopes as well as the fixed finite seed, and the same estimate persists inductively as the lower moduli increase.  Thus the finite list \eqref{eq:prefix-boundary-bases} really is beyond the uniform-separation threshold.
 
-The reciprocal-mass estimate is likewise uniform.  The largest initial reciprocal value is $5/6$.  For the four finite bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ gives
+The reciprocal-mass estimate is likewise uniform.  The largest initial reciprocal value is $5/6$.  For the four finite bridge bases $12,20,30,60$, the crude reciprocal bound $<3/a$ gives
 \begin{equation}\label{eq:finite-seed-bound}
 \frac56+\frac3{12}+\frac3{20}+\frac3{30}+\frac3{60}
 =\frac56+\frac{11}{20}<\frac32.
