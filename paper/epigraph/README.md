@@ -1,89 +1,77 @@
 # E289 epigraph proof workflow
 
-This directory is deliberately local-first. The publication manuscript is not
-changed while the display face is being selected.
+This directory is an isolated typography experiment. The publication manuscript
+is not changed while the epigraph display face is being selected.
 
-## 1. Local TeX
+## 1. Exact E306 reference
 
-macOS does not ship TeX. A current local TeX Live is sufficient for visual
-iteration; the complete manuscript receives a separate final parity build
-against arXiv's supported TeX Live 2025 environment.
+The Owner-specified reference is the E306 EB-Garamond finalization, not whichever
+E306 branch happens to be current later.
 
-The free-font specimen uses only fonts distributed by TeX Live:
+Traceable source:
 
-- `cinzel`;
-- `marcellus`;
-- `cormorantgaramond`.
-
-With BasicTeX, install them once:
-
-```sh
-sudo tlmgr update --self
-sudo tlmgr install cinzel marcellus cormorantgaramond
+```text
+repository: Yuren-Tang/erdos-306
+branch:     finalization/e306-ebgaramond-v1
+commit:     9ab332be9e02248f603b718a4c918e36d595a50b
+message:    Select EB Garamond Medium dedication for arXiv v1
 ```
 
-No font binary needs to be downloaded, copied into the repository, or uploaded
-to arXiv.
+Its dedication declaration is:
 
-## 2. Glyph-level reference sheet
-
-`specimen.tex` is only a glyph-level reference. It is useful for seeing the
-families and weights in isolation, but it is **not** the publication decision
-gate because it contains no real first-page context.
-
-Because this Mac currently has stale core LaTeX files in `~/Library/texmf`, run
-it with an empty `TEXMFHOME` so the TeX Live 2026 system tree remains internally
-consistent:
-
-```sh
-cd paper/epigraph
-mkdir -p /tmp/e289-empty-texmf
-TEXMFHOME=/tmp/e289-empty-texmf \
-  xelatex -interaction=nonstopmode -halt-on-error specimen.tex
-open specimen.pdf
+```tex
+\newfontfamily\greekdedicationfont{EBGaramond-Medium.otf}[
+  ItalicFont=EBGaramond-Medium.otf,
+  LetterSpace=8
+]
 ```
 
-## 3. What the E306 baseline actually is
+and its title-matter geometry is 10.5 pt on 16 pt with 8 pt before and 12 pt
+after the dedication. These are the Phase-I baseline parameters.
 
-Do not conflate the current E289 manuscript setting with E306.
+This corrects two historical confusions in earlier experiments: `LetterSpace=9`
+belongs to a later STIX/Gentium E306 finalization, while 0.08 em Trajan tracking
+belongs to the then-current E289 manuscript. Neither supersedes the Owner's
+specified E306 reference above.
 
-The current successful E306 manuscript uses, for its Greek dedication:
+## 2. Phase-I gate: real E289 first-page context
 
-- Gentium Book Medium;
-- 10.5 pt on 16 pt;
-- `fontspec` `LetterSpace=9`;
-- 8 pt / 12 pt vertical spacing.
+`context-specimen.tex` reproduces the real E289 first-page environment: `amsart`,
+ETbb body text, NewTX mathematics, title, author, ORCID, abstract, and the actual
+beginning of the Introduction. Only the epigraph family/weight varies.
 
-In `fontspec`, `LetterSpace=9` means an additive 9% of the font size between
-letters, i.e. 0.09 em. This is a useful optical starting point for an all-caps
-display line, not a universal typographic law.
+Phase I freezes:
 
-An earlier accepted E306 checkpoint used Artemisia at 10/15 with no added
-tracking. Therefore there is no timeless rule "E306 = 0.08 em".
+- `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO` including the comma;
+- 10.5/16;
+- `LetterSpace=8`;
+- 8 pt / 12 pt vertical spacing;
+- ordinary font kerning, no hand kerning, no synthetic emboldening.
 
-The 0.08 em value belongs instead to the **current E289 manuscript**, where the
-TeX Live Trajan line is defined through `soul`/`\sodef`.
+The six complete first-page proofs are:
 
-## 4. Phase-I decision gate: real first-page context
+1. `context-00-e306-ebgaramond-medium.pdf` — exact E306 family/weight control,
+   with the E289 Latin line;
+2. `context-01-cinzel-regular.pdf`;
+3. `context-02-cinzel-bold.pdf`;
+4. `context-03-marcellus-regular.pdf`;
+5. `context-04-cormorant-medium.pdf`;
+6. `context-05-cormorant-semibold.pdf`.
 
-The actual family/weight decision is made with `context-specimen.tex`. This is
-a controlled copy of the real E289 first-page environment: the same `amsart`
-class, ETbb text face, NewTX mathematics, title, author, ORCID, abstract, and the
-actual beginning of the Introduction. The publication manuscript itself is not
-modified.
+Judge the whole first page: optical weight against the title, line width, relation
+to the ETbb page texture, and whether the epigraph belongs to the title matter
+rather than reading as a detached ornament.
 
-For the normalized family/weight gate, freeze:
+Legacy TeX-Live Trajan is deliberately **not** part of this gate. On a minimal
+BasicTeX installation its Type-1/map/PK fallback chain can require additional
+legacy utilities such as `gsftopk`; making that environment repair a prerequisite
+for choosing an OpenType display face adds no useful information. The old
+`trajan-control-asset.tex` is retained only as historical experiment material.
 
-- the E289 Latin wording and comma:
-  `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
-- E306-current geometry: 10.5/16 and 8 pt / 12 pt vertical spacing;
-- E306-current tracking target: 0.09 em / `LetterSpace=9`;
-- normal OpenType kerning for OpenType candidates;
-- no manual kerning and no synthetic emboldening.
+## 3. Local build
 
-Only **family and weight** vary inside the normalized gate.
-
-Build with:
+The build script performs a preflight and prints the exact missing TeX-Live
+packages. After dependencies are present:
 
 ```sh
 cd paper/epigraph
@@ -91,70 +79,40 @@ sh build-context.sh
 open context-*.pdf
 ```
 
-`build-context.sh` performs a preflight and prints the exact `tlmgr install`
-command if this BasicTeX installation lacks a manuscript or proof dependency.
+Because this Mac has stale files in `~/Library/texmf`, `build-context.sh` uses an
+empty temporary `TEXMFHOME` by default.
 
-The seven proofs are:
+The glyph-level `specimen.tex` remains available as a secondary reference, but
+it is not a decision gate because it lacks page context.
 
-1. `context-00-trajan-current-08.pdf` — historical E289-current Trajan at
-   0.08 em; reference only, not part of the normalized gate;
-2. `context-01-trajan-normalized-09.pdf` — the same Trajan family normalized
-   to the E306-current 0.09 em tracking target;
-3. `context-02-cinzel-regular.pdf`;
-4. `context-03-cinzel-bold.pdf`;
-5. `context-04-marcellus-regular.pdf`;
-6. `context-05-cormorant-medium.pdf`;
-7. `context-06-cormorant-semibold.pdf`.
+## 4. Authoritative remote build
 
-Thus variants 1--6 are directly comparable at the same tracking target, while
-variant 0 records what the present E289 manuscript actually does.
+`.github/workflows/epigraph-context.yml` builds the same six proofs inside the
+repository's established full TeX Live 2025-08-03 snapshot and uploads them as a
+single artifact. It runs on changes to this experiment branch and can also be
+started manually.
 
-### Trajan reference implementation
+The remote build is the stable comparison surface. Local BasicTeX is only a
+convenience for rapid inspection and need not reproduce obsolete Type-1 Trajan
+machinery.
 
-The TeX Live `trajan` family is a legacy Type 1/METAFONT font. Rather than force
-it through XeTeX, `build-context.sh` renders two tiny reference PDFs with
-pdfLaTeX+soul and embeds them at natural size into the XeLaTeX first-page proof.
+## 5. Phase II
 
-The tracked text is deliberately written **literally** inside the `soul`
-command. Passing the whole line through an unregistered macro can make soul's
-reconstruction pass fail with `Reconstruction failed`, even under pdfLaTeX.
-This was the cause of the previous failed control build; it was not evidence
-that 0.08 em itself or the Trajan font was invalid.
+Only Phase-I survivors are tuned further. Keep the E306 values as the starting
+point, then vary one parameter at a time:
 
-Judge the **whole first page**, not the epigraph line in isolation: optical
-weight against the title, line width, relation to the ETbb page texture, and
-whether the epigraph reads as part of the title matter rather than as a separate
-decoration.
-
-## 5. Phase II: local optical tuning
-
-Only the Phase-I survivors should be tuned further. Start from the E306-current
-0.09 em gate, but treat that value as a prior rather than a rule. Vary one
-parameter at a time:
-
-1. punctuation treatment (comma versus inscriptional interpuncts or none);
-2. small tracking adjustments around 9;
-3. only if necessary, a small weight or size adjustment;
+1. punctuation treatment;
+2. small tracking changes around 8;
+3. weight or size only if still necessary;
 4. vertical spacing last.
 
-A family may legitimately prefer less or more tracking than E306 because its
-native sidebearings, cap proportions and weight are different. The purpose of
-Phase I is merely to avoid confounding family choice with simultaneous optical
-tuning.
+Different families may have different eventual optimal tracking because their
+native sidebearings and cap proportions differ. Phase I fixes the value only to
+make the family/weight comparison identifiable.
 
-## 6. Publication choice
+## 6. Publication boundary
 
-Cinzel is the closest free first candidate: it was explicitly designed from
-first-century Roman inscriptional proportions and is all-caps. Marcellus gives
-a softer inscriptional alternative; Cormorant Garamond is included as a more
-literary control rather than a Trajan substitute. These are priors only: the
-real-page Phase-I proof decides.
-
-Once a family/weight/punctuation treatment is selected, the publication
-manuscript can use the TeX Live font directly.
-
-## 7. Build policy
-
-- Fast local iteration: any current TeX Live installation is sufficient.
-- Publication parity gate: rebuild the complete manuscript against arXiv's
-  supported TeX Live 2025 environment before submission.
+No experiment here changes `paper/manuscript.tex`. After a display face and its
+optical parameters are chosen, the publication manuscript receives a separate
+bounded typography change and the ordinary full-manuscript TeX Live/arXiv parity
+gates.
