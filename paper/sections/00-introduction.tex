@@ -19,32 +19,31 @@ W(S)=1.
 
 Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
 
-The basic reduction is elementary in spirit.  It is enough to construct a nonempty interval configuration with $0<W<2$ and $W\equiv0\pmod{\Z}$, because then $W$ must equal $1$.  We therefore work modulo $1$ until the final step.  The least-common-multiple filtration of $\Q/\Z$ changes only at prime powers: prime stages can be made to enlarge the available interval of component counts by order $q/\log q$, whereas the accumulated loss at higher prime powers is only $o(X/\log X)$.  The remaining task is to realize this residue-and-count calculation by literal compatible intervals without exhausting the fixed reciprocal-mass margin.
-
-The proof separates a structural calculus from its arithmetic inputs.
-
-\medskip
-\noindent\textbf{Structural calculus.}
-Compatible interval configurations form a partial commutative monoid, and
+The final reduction is elementary.  A nonempty configuration with
 \[
-\Omega=(\overline W,\nu):\mathcal C\longrightarrow
-(\Q/\Z)\times\N
+0<W(S)<2,
+\qquad
+W(S)\equiv0\pmod{\Z}
 \]
-is additive on every compatible union.  We use a locally posetal $2$-category $\mathbf{Rel}_{\mathcal C}^{\Omega}$ whose objects are finite sets of observable states and whose labelled edges obey the conservation law
+must have $W(S)=1$.  We therefore work modulo $1$ through most of the construction and retain a fixed margin below reciprocal mass $2$.
+
+The proof is driven by three constructions.  First, at each sufficiently large prime-power stage $Q=p^e$, a signed-inverse construction produces $\gg Q/\log Q$ short intervals whose residues in the new simple quotient of $\Q/\Z$ are controlled, while their mutual incompatibility and total reciprocal cost remain bounded.  Second, a reciprocal-neutral identity replaces two components by three without changing reciprocal value.  Remote copies of this identity form Boolean families that widen an interval of possible component counts at arbitrarily small reciprocal cost.  Third, restricted sumset estimates convert every sufficiently dense part of a signed-inverse family into a uniform transfer across the corresponding simple quotient.
+
+These local transfers reduce the middle of the proof to one scalar variable: the width of the available interval of component counts.  At prime stages the width gains order $q/\log q$; the total loss contributed by composite prime powers up to $X$ is $o(X/\log X)$.  A bounded-lag earlier prime therefore pays for every sufficiently late step, and the successive count intervals cover a final ray.
+
+It remains to turn this residue-and-count calculation into one literal configuration of pairwise compatible intervals.  This is postponed until a finite terminal cutoff $X$ has been chosen.  The relevant interval families then form a finite bounded-degree incompatibility graph, and Haxell's independent-transversal theorem supplies dense compatible subfamilies at all stages through $X$.  The local transfer theorem was proved for every sufficiently dense subfamily, so the same scalar calculation survives this final thinning.
+
+The categorical language below isolates the compositional issue in this last passage.  Observable residue-and-count relations may compose even when the concrete interval labels witnessing their edges cannot coexist.  Compatible configurations form a partial commutative monoid, and
 \[
-y=x+\Omega(L).
+\Omega=(\overline W,\nu):\mathcal C\longrightarrow(\Q/\Z)\times\N
 \]
-Composition is fibre product followed by compatible union of labels.  Forgetting labels defines a normal oplax $2$-functor
+is additive wherever the partial sum is defined.  We package labelled observable relations into a locally posetal $2$-category $\mathbf{Rel}_{\mathcal C}^{\Omega}$.  Forgetting labels gives a normal oplax $2$-functor
 \[
 U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel};
 \]
-its comparison $2$-cell records exactly the loss caused by incompatible label tuples.  Once joint compatibility is established, this comparison is an identity.  Prime-power torsion in $\Q/\Z$ supplies one-dimensional simple quotients, and the passage from a simple quotient back to an affine torsor is a pullback calculation inside the same observable calculus.
+its comparison $2$-cell records precisely the possible loss of witnesses caused by incompatible labels.  Once Haxell's finite selection supplies joint compatibility, the comparison becomes an identity, so the local transfers compose to a genuine interval configuration.  The prime-power filtration and the passage from simple quotients to affine torsor fibres are expressed by the corresponding quotient and pullback diagrams.
 
-\medskip
-\noindent\textbf{Arithmetic inputs.}
-The inputs are comparable-prime supply, the signed-inverse construction, the Dias da Silva--Hamidoune fixed-cardinality sum theorem, a reciprocal-neutral identity, a finite initialization, and Haxell's independent-transversal theorem.  They provide the density, restricted-sum surjectivity, compatibility and reciprocal-mass estimates required by the structural argument.
-
-The proof passes through an observable reduction.  Signed-inverse families are constructed at the prime-power stages, and a finite affine initialization is enlarged by reciprocal-neutral switches to produce an arbitrarily wide interval of component counts.  On the simple quotients these data give a scalar process: prime steps contribute width of order $Q/\log Q$, whereas the accumulated loss from composite prime powers is $o(Q/\log Q)$.  This yields eventual coverage of all component counts before any global compatible family is chosen.  For a fixed terminal cutoff, Haxell's theorem then produces compatible literal intervals.  Their canonical observable translation relations lift the simple-quotient calculation through the torsion filtration, and joint compatibility makes labelled composition exact.  Finally the commutative square
+At the terminal state we obtain residue $0$, component count $k$, and reciprocal mass below $2$.  The commutative square
 \[
 \begin{CD}
 \mathcal C @>{W}>> \Q\\
@@ -52,6 +51,6 @@ The proof passes through an observable reduction.  Signed-inverse families are c
 \Q/\Z @= \Q/\Z
 \end{CD}
 \]
-turns $\overline W=0$ and $0<W<2$ into $W=1$.
+then shows that the positive reciprocal value is an integer strictly below $2$, and hence equals $1$.
 
-Section~\ref{sec:states-filtration} develops the observable labelled-relation calculus and the torsion filtration.  Sections~\ref{sec:auxiliary-inputs}--\ref{sec:scalar-finality} supply the arithmetic families, affine initialization, uniform transfer and component-count continuation.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} return to literal intervals and recover the exact reciprocal sum.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} give the two auxiliary theorems used in the main text, while Appendix~\ref{app:prefix-seed} contains the finite initialization.
+Section~\ref{sec:states-filtration} develops the labelled-relation calculus and the torsion filtration.  Section~\ref{sec:auxiliary-inputs} records the auxiliary inputs.  Sections~\ref{sec:signed-inverse}--\ref{sec:scalar-finality} construct the arithmetic families, the wide affine start, the uniform transfer, and the scalar continuation.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} realize the finite compatible configuration and recover the exact reciprocal sum.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} prove the two auxiliary estimates used in the main text, while Appendix~\ref{app:prefix-seed} records the finite initialization.

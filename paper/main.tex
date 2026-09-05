@@ -82,20 +82,20 @@
 \begin{document}
 
 \begin{abstract}
-We prove that every sufficiently large integer $k$ is the number of connected components of a finite set $S\subset\N_{>0}$ whose components are pairwise nonadjacent integer intervals of cardinality $2$ or $3$ and whose reciprocal sum is $1$.  This settles the strengthened disjoint, nonadjacent formulation currently listed as Erd\H{o}s Problem 289.  The proof uses the prime-power torsion filtration of $\Q/\Z$.  Signed-inverse interval families give uniform simple-quotient control, while reciprocal-neutral switches create wide component-count intervals.  A dense-restriction transfer theorem converts these local data into a scalar process in which prime gains dominate the accumulated loss at composite prime powers.  Haxell's independent-transversal theorem is applied only after a finite terminal cutoff has been chosen; a final pullback at residue zero then forces the reciprocal sum to equal one.
+We prove that every sufficiently large integer $k$ is the number of connected components of a finite set $S\subset\N_{>0}$ whose components are pairwise nonadjacent integer intervals of cardinality $2$ or $3$ and whose reciprocal sum is $1$.  This settles the strengthened disjoint, nonadjacent formulation currently listed as Erd\H{o}s Problem 289.  Signed-inverse interval families control the prime-power quotients of $\Q/\Z$, while reciprocal-neutral switches create wide intervals of possible component counts at arbitrarily small reciprocal cost.  A uniform restricted-sum transfer reduces the construction to scalar width dynamics, where gains at prime stages dominate the accumulated losses at composite prime powers.  A finite independent-transversal step then realizes the local data by mutually compatible intervals, and a terminal pullback at residue zero forces the reciprocal sum to equal one.
 \end{abstract}
 
 \maketitle
 
 \input{sections/00-introduction}
-\input{sections/postpass-01-states-and-filtration}
-\input{sections/postpass-02-auxiliary-inputs}
-\input{sections/postpass-03-signed-inverse}
-\input{sections/postpass-04-wide-start}
-\input{sections/postpass-05-local-profile}
-\input{sections/postpass-06-scalar-finality}
-\input{sections/postpass-07-finite-realization}
-\input{sections/postpass-08-terminalization}
+\input{sections/01-states-and-filtration}
+\input{sections/02-auxiliary-inputs}
+\input{sections/03-signed-inverse}
+\input{sections/04-wide-start}
+\input{sections/05-local-profile}
+\input{sections/06-scalar-finality}
+\input{sections/07-finite-realization}
+\input{sections/08-terminalization}
 
 \appendix
 \input{appendices/prime-supply}
@@ -103,7 +103,7 @@ We prove that every sufficiently large integer $k$ is the number of connected co
 \input{appendices/prefix-seed}
 
 \section*{Acknowledgements}
-Generative AI systems assisted mathematical exploration, proof development, source and citation checking, and editorial revision. The author takes full responsibility for the mathematics, citations, and text.
+Generative AI systems assisted mathematical exploration, proof auditing, source and citation checking, and editorial revision. The author is responsible for the mathematical claims, citations, and final text.
 
 \printbibliography
 

@@ -8,6 +8,7 @@ on:
 
 env:
   ARXIV_TEX_IMAGE: registry.gitlab.com/islandoftex/images/texlive:TL2025-2025-08-03-full
+  PUBLICATION_PDF: Reciprocal-Sums-over-Separated-Integer-Intervals.pdf
 
 jobs:
   build:
@@ -23,7 +24,7 @@ jobs:
           import re
           from pathlib import Path
 
-          root = Path("manuscript.tex")
+          root = Path("main.tex")
           root_text = root.read_text(encoding="utf-8")
           active_section_paths = [
               Path(name + ".tex")
@@ -43,8 +44,6 @@ jobs:
 
           refs = re.findall(r"\\(?:eqref|ref)\{([^}]+)\}", corpus)
           missing = sorted(set(refs) - set(labels))
-          # These targets live in the three active appendices, which are checked
-          # by the full XeLaTeX/Biber build below.
           appendix_targets = {
               "app:prime-supply",
               "app:restricted-fold",
@@ -97,7 +96,7 @@ jobs:
             -v "$PWD:/workspace" \
             -w /workspace/paper \
             "$ARXIV_TEX_IMAGE" \
-            bash -lc 'latexmk -xelatex -interaction=nonstopmode -halt-on-error manuscript.tex'
+            bash -lc 'latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex'
 
       - name: Install PDF diagnostics only
         run: |
@@ -107,46 +106,47 @@ jobs:
       - name: Extract PDF diagnostics
         working-directory: paper
         run: |
-          pdftotext -enc UTF-8 manuscript.pdf manuscript.txt
-          pdffonts manuscript.pdf > manuscript-fonts.txt
+          pdftotext -enc UTF-8 main.pdf main.txt
+          pdffonts main.pdf > main-fonts.txt
 
       - name: Seal references, glyphs, fonts, and layout
         working-directory: paper
         run: |
-          test -s manuscript.pdf
-          test -s manuscript.bbl
-          if grep -E "LaTeX Warning: (There were undefined references|Reference .* undefined|Citation .* undefined|Label .* multiply defined)" manuscript.log; then
+          test -s main.pdf
+          test -s main.bbl
+          if grep -E "LaTeX Warning: (There were undefined references|Reference .* undefined|Citation .* undefined|Label .* multiply defined)" main.log; then
             echo "Unresolved or duplicate manuscript references remain."
             exit 1
           fi
-          if grep -q "Missing character:" manuscript.log; then
-            grep "Missing character:" manuscript.log
+          if grep -q "Missing character:" main.log; then
+            grep "Missing character:" main.log
             exit 1
           fi
-          if grep -Fq 'Overfull \hbox' manuscript.log; then
-            grep -F 'Overfull \hbox' manuscript.log
+          if grep -Fq 'Overfull \hbox' main.log; then
+            grep -F 'Overfull \hbox' main.log
             exit 1
           fi
-          if grep -E "(^|[[:space:]])(WARN|ERROR) -" manuscript.blg; then
+          if grep -E "(^|[[:space:]])(WARN|ERROR) -" main.blg; then
             echo "Biber reported a warning or error."
             exit 1
           fi
-          if grep -q "Type 3" manuscript-fonts.txt; then
+          if grep -q "Type 3" main-fonts.txt; then
             echo "Type 3 fonts are not permitted."
             exit 1
           fi
-          grep -q "0009-0006-0847-3330" manuscript.txt
+          grep -q "0009-0006-0847-3330" main.txt
           python3 - <<'PY'
           import re
           from pathlib import Path
-          text = Path("manuscript.txt").read_text(encoding="utf-8")
+          text = Path("main.txt").read_text(encoding="utf-8")
           leaked = sorted(set(re.findall(r"\b(?:eq|thm|sec|lem|prop|app):[A-Za-z0-9_.:-]+", text)))
           if leaked:
               raise SystemExit("Internal LaTeX labels leaked into PDF text: " + repr(leaked))
           PY
+          cp main.pdf "$PUBLICATION_PDF"
 
-      - name: Upload manuscript PDF
+      - name: Upload publication PDF
         uses: actions/upload-artifact@v4
         with:
           name: e289-publication-manuscript
-          path: paper/manuscript.pdf
+          path: paper/${{ env.PUBLICATION_PDF }}
