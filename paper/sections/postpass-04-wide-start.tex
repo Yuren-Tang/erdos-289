@@ -129,7 +129,12 @@ All alternatives in a neutral coordinate have equal reciprocal value and therefo
 \]
 The full centre, not merely the neutral translation, is retained until endpoint cofinality kills it.
 
-The cube contributes only $O(G_{\mathrm{seed}}+L(B))=o(B/\log B)$ bounded-complexity envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every future $Q\ge B$.  Combining this with \eqref{eq:bridge-footprint} and the lower row bound of Proposition~\ref{prop:signed-inverse-capabilities} gives one theorem-level survivor fraction $\sigma>0$ independent of $L$ and independent of the particular WideStart witness.
+The cube contributes only $O(G_{\mathrm{seed}}+L(B))=o(B/\log B)$ bounded-complexity envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every future $Q\ge B$.  Combining this with \eqref{eq:bridge-footprint} and the lower row bound of Proposition~\ref{prop:signed-inverse-capabilities} gives one theorem-level survivor fraction $\sigma>0$ independent of $L$ and independent of the particular WideStart witness; after increasing the onset cutoff if necessary,
+\[
+|\operatorname{Surv}(Q;B)|\ge \sigma |A_Q|
+\tag{4.12}\label{eq:wide-survivor-fraction}
+\]
+for every future late current $Q>B$.
 
 The finite seed and bridge tower have a fixed resource margin, while the neutral cube can be made arbitrarily cheap.  Hence there is also a theorem-level $\eta>0$ independent of $L$ such that every WideStart branch has reciprocal value $<2-\eta$.
 
@@ -138,16 +143,19 @@ There exist constants $\eta>0$ and $\sigma>0$ such that, for every integer-value
 \[
 \operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
 \]
-where $I_B$ is an integer interval of width at least $L(B)$, every branch satisfies
+where $I_B$ is an integer interval of width at least $L(B)$ and every branch satisfies
 \[
-W<2-\eta,
+W<2-\eta.
 \]
-and every sufficiently late future current row retains at least a fixed positive fraction $\sigma$ of its original $Q/\log Q$ scale after deletion against the complete WideStart.
+Moreover, after deleting every atom that conflicts with any label of this WideStart, every future late row satisfies the literal survivor bound
+\[
+|\operatorname{Surv}(Q;B)|\ge\sigma|A_Q|.
+\]
 \end{proposition}
 
 The quantifier order is essential:
 \[
 \exists\eta,\sigma>0\;\forall L=o(B/\log B)\;\exists B_0(L)\;\forall B\ge B_0(L).
-\tag{4.12}\label{eq:wide-start-quantifiers}
+\tag{4.13}\label{eq:wide-start-quantifiers}
 \]
 In particular neither $\eta$ nor $\sigma$ is chosen after the later local profile or scalar startup request is known.
