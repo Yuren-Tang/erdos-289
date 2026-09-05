@@ -58,6 +58,17 @@ The finite physical-boundary bases that must be checked before the structural se
 \end{equation}
 Direct comparison shows that every such bridge envelope is nonadjacent to every root envelope and that the bridge envelopes in \eqref{eq:prefix-boundary-bases} are pairwise compatible.
 
+For completeness, here is the eventual separation between successive nontrivial bridge rows.  Suppose a bridge at a previous prime-power jump has upper lcm modulus $D$, so every base in that row is at most $D$ and every complete envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
+\[
+a_k=\frac{pD}{k},
+\]
+where $k$ is least with $k(k+1)/2\ge p-1$.  Since $k<p$, the factor $p/k-1$ is positive, and
+\[
+a_k-D=D\left(\frac pk-1\right).
+\tag{PS4}\label{eq:successive-row-gap}
+\]
+If $p\to\infty$, then $k^2=O(p)$, so $p/k\to\infty$.  If $p$ stays bounded along later prime-power jumps, then $k$ is fixed while $D\to\infty$.  Thus the right side of \eqref{eq:successive-row-gap} tends to infinity along the nontrivial jump sequence.  After enlarging the finite boundary list \eqref{eq:prefix-boundary-bases} if necessary, every new complete envelope starts at least two unused vertices beyond the previous row.  Hence the full bridge tower is genuinely mutually compatible, not merely internally separated row by row.
+
 For the resource margin, the largest root value is $5/6$.  For the four finite seed bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ has total
 \[
 \frac3{12}+\frac3{20}+\frac3{30}+\frac3{60}
@@ -66,7 +77,7 @@ For the resource margin, the largest root value is $5/6$.  For the four finite s
 Hence the finite seed is bounded by
 \[
 \frac56+\frac{11}{20}<\frac32.
-\tag{PS4}\label{eq:finite-seed-bound}
+\tag{PS5}\label{eq:finite-seed-bound}
 \]
 
 For a later universal bridge at lower modulus $D$, let $k$ be least with $k(k+1)/2\ge p-1$.  Minimality gives
@@ -78,18 +89,18 @@ At base $a_r=pD/r$, every binary or ternary alternative has reciprocal mass $<3/
 <\sum_{r=1}^k\frac{3r}{pD}
 =\frac{3T_k}{pD}
 <\frac6D.
-\tag{PS5}\label{eq:future-row-bound}
+\tag{PS6}\label{eq:future-row-bound}
 \]
 After the finite seed the first lower modulus is at least $60$, and successive nontrivial lcm jumps multiply the lower modulus by at least two.  Therefore the whole accumulated future bridge has branch mass
 \[
 <\sum_{j\ge0}\frac6{60\,2^j}
 =\frac15<\frac14.
-\tag{PS6}\label{eq:future-bridge-total}
+\tag{PS7}\label{eq:future-bridge-total}
 \]
 Combining \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total},
 \[
 \frac32+\frac14<2,
-\tag{PS7}
+\tag{PS8}
 \]
 leaving a fixed positive margin before the arbitrarily small neutral-cube cost is added.
 
