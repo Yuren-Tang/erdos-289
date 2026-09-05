@@ -1,107 +1,102 @@
-\section{Finite Prefix seed certificate}
+\section{Finite initialization certificate}
 \label{app:prefix-seed}
 
-The WideStart construction uses one finite early certificate.  Its numerical coordinates are proof data only; this appendix records enough exact arithmetic to make the finite input independently checkable.
+This appendix is proof data, not a third conceptual input alongside the prime-supply and fixed-rank theorems.  Its sole purpose is to enter the uniform bridge regime of Section~\ref{sec:wide-start}.  The particular integers below are one explicit witness; no minimality, uniqueness, or arithmetic significance is claimed for them.
 
 Put
 \[
 P(m)=\frac1m+\frac1{m+1}.
 \]
-The empty state together with the following five strict binary states gives the six residue values in $H_6$:
-\[
-\frac16=
-\sum_{m\in\{35,56,90,119,152,170,455,494,714\}}P(m),
-\]
-\[
-\frac13=
-\sum_{m\in\{17,35,44,84,104,119,132,170,272,285,455,494,560,714,935\}}P(m),
-\]
-\[
-\frac12=
-\sum_{m\in\{9,17,34,44,77,84,90\}}P(m),
-\]
-\[
-\frac23=
-\sum_{m\in\{7,16,34,44,51,65,77,119,132,153,170,272,285,455,494\}}P(m),
-\]
-\[
-\frac56=P(2).
-\tag{PS1}\label{eq:prefix-root-identities}
-\]
-Their grades are
-\[
-0,9,15,7,15,1.
-\tag{PS2}
-\]
-Direct rational summation verifies \eqref{eq:prefix-root-identities}; every displayed start set has gaps at least three, so the states are physical.  Since $\operatorname{lcm}(1,2,3)=6$, these six values exhaust the first affine $H_6$-fibre.
 
-The two early quotient bridges used before the uniform bridge regime have lower/upper moduli
+\begin{lemma}[Finite Prefix initialization]\label{lem:finite-prefix-initialization}
+There exists a finite family of physical states with the following properties.
+\begin{enumerate}
+\item Their residues exhaust the zero-centred $H_6$-fibre.
+\item Their grades have a finite spread independent of every later current.
+\item They are compatible with the finite exceptional bridge rows preceding the uniform separation regime.
+\item The reciprocal value of every initialized branch, together with the whole future universal bridge tower, is bounded by a constant strictly smaller than $2$.
+\end{enumerate}
+Consequently all concrete coordinates used to verify this lemma may be forgotten before the asymptotic WideStart construction begins.
+\end{lemma}
+
+\begin{proof}
+One witness is recorded below.  The first three assertions are finite exact checks.  The fourth follows from the explicit seed bound \eqref{eq:finite-seed-bound} and the uniform future-bridge estimate \eqref{eq:future-bridge-total}.
+\end{proof}
+
+\subsection*{One explicit witness}
+
+The empty state gives residue $0$.  The following table gives five further states; the third column lists the starts of their binary components $[m,m+1]$.
 \[
-6\to12,
+\begin{array}{c|c|l}
+\text{residue}&\text{grade}&\text{component starts}\
+\hline
+\frac16&9&35,56,90,119,152,170,455,494,714\\
+\frac13&15&17,35,44,84,104,119,132,170,272,285,455,494,560,714,935\\
+\frac12&7&9,17,34,44,77,84,90\\
+\frac23&15&7,16,34,44,51,65,77,119,132,153,170,272,285,455,494\\
+\frac56&1&2
+\end{array}
+\tag{PS1}\label{eq:prefix-root-table}
+\]
+Equivalently, the reciprocal identities are
+\[
+\frac j6=\sum_{m\in M_j}P(m)
+\qquad(j=1,2,3,4,5),
+\]
+where $M_j$ is the corresponding row of the table.  Exact rational summation verifies these identities; every displayed start set has gaps at least three, so every row is a physical state.  Together with the empty state the six residues exhaust $H_6$.
+
+The two quotient jumps before the fully uniform bridge regime are
+\[
+6\longrightarrow12,
 \qquad
-12\to60.
+12\longrightarrow60.
 \]
-For $p=2$ use coefficient set $\{1\}$, giving bridge base $12$.  For $p=5$ use coefficients $\{1,2,3\}$, giving bases
-\[
-60,30,20.
-\]
-Their subset sums are surjective modulo $2$ and $5$ respectively; for $p=5$ the residues $0,1,2,3,4$ are witnessed by
+For $p=2$ use coefficient set $\{1\}$, giving bridge base $12$.  For $p=5$ use $\{1,2,3\}$, giving bases $60,30,20$.  Their subset sums cover $\mathbf Z/2\mathbf Z$ and $\mathbf Z/5\mathbf Z$; for $p=5$, residues $0,1,2,3,4$ are witnessed by
 \[
 \varnothing,\quad\{1\},\quad\{2\},\quad\{3\},\quad\{1,3\}.
 \]
-The bridge identity is the same as in Section~\ref{sec:wide-start}: at lower modulus $D$ and quotient prime $p$, the alternatives at base $a=pD/r$ differ in reciprocal value by $r/(pD)$.
+The bridge identity is the uniform identity of Section~\ref{sec:wide-start}: at lower modulus $D$ and quotient prime $p$, the alternatives at base $a=pD/r$ differ in reciprocal value by $r/(pD)$ and have equal grade.
 
-The finite physical-boundary bases that must be checked before the structural separation argument takes over are
+There remains only a finite boundary before the eventual separation argument becomes automatic.  One sufficient list of bridge bases to check is
 \begin{equation}\label{eq:prefix-boundary-bases}
 12,20,30,60,140,210,420,840,1260,2520.
-\tag{PS3}
+\tag{PS2}
 \end{equation}
-Direct comparison shows that every such bridge envelope is nonadjacent to every root envelope and that the bridge envelopes in \eqref{eq:prefix-boundary-bases} are pairwise compatible.
+Direct comparison shows that these bridge envelopes are compatible with the root envelopes and with one another whenever they coexist in the finite initialization.  Again, the list is certificate data rather than a canonical sequence.
 
-For completeness, here is the eventual separation between successive nontrivial bridge rows.  Suppose a bridge at a previous prime-power jump has upper lcm modulus $D$, so every base in that row is at most $D$ and every complete envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
+\subsection*{Why the finite certificate never returns}
+
+After the boundary in \eqref{eq:prefix-boundary-bases}, separation is structural.  Suppose a previous prime-power jump has upper lcm modulus $D$, so every base in that row is at most $D$ and every complete envelope ends by $D+2$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
 \[
 a_k=\frac{pD}{k},
 \]
-where $k$ is least with $k(k+1)/2\ge p-1$.  Since $k<p$, the factor $p/k-1$ is positive, and
+where $k$ is least with $k(k+1)/2\ge p-1$.  Since $k<p$,
 \[
 a_k-D=D\left(\frac pk-1\right).
-\tag{PS4}\label{eq:successive-row-gap}
+\tag{PS3}\label{eq:successive-row-gap}
 \]
-If $p\to\infty$, then $k^2=O(p)$, so $p/k\to\infty$.  If $p$ stays bounded along later prime-power jumps, then $k$ is fixed while $D\to\infty$.  Thus the right side of \eqref{eq:successive-row-gap} tends to infinity along the nontrivial jump sequence.  After enlarging the finite boundary list \eqref{eq:prefix-boundary-bases} if necessary, every new complete envelope starts at least two unused vertices beyond the previous row.  Hence the full bridge tower is genuinely mutually compatible, not merely internally separated row by row.
+If $p\to\infty$, then $k^2=O(p)$ and $p/k\to\infty$; if $p$ stays bounded along later prime-power jumps, then $k$ is fixed while $D\to\infty$.  Thus the right side tends to infinity along the nontrivial jump sequence.  Beyond the finite boundary every new complete envelope therefore starts at least two unused vertices beyond the preceding row.
 
-For the resource margin, the largest root value is $5/6$.  For the four finite seed bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ has total
-\[
-\frac3{12}+\frac3{20}+\frac3{30}+\frac3{60}
-=\frac{11}{20}.
-\]
-Hence the finite seed is bounded by
-\[
-\frac56+\frac{11}{20}<\frac32.
-\tag{PS5}\label{eq:finite-seed-bound}
-\]
-
-For a later universal bridge at lower modulus $D$, let $k$ be least with $k(k+1)/2\ge p-1$.  Minimality gives
-\[
-T_k=\frac{k(k+1)}2<2p.
-\]
-At base $a_r=pD/r$, every binary or ternary alternative has reciprocal mass $<3/a_r$.  Thus an entire branch of the bridge row has mass
+The same distinction holds for resource.  The largest root value is $5/6$.  For the four finite seed bridge bases $12,20,30,60$, the crude envelope bound $<3/a$ gives
+\begin{equation}\label{eq:finite-seed-bound}
+\frac56+rac3{12}+rac3{20}+rac3{30}+rac3{60}
+=\frac56+\frac{11}{20}<\frac32.
+\tag{PS4}
+\end{equation}
+For every later universal bridge, with lower modulus $D$ and $k$ least such that $T_k=k(k+1)/2\ge p-1$, minimality gives $T_k<2p$.  At base $a_r=pD/r$, every alternative has reciprocal mass $<3/a_r$, so an entire bridge branch has mass
 \[
 <\sum_{r=1}^k\frac{3r}{pD}
 =\frac{3T_k}{pD}
 <\frac6D.
-\tag{PS6}\label{eq:future-row-bound}
+\tag{PS5}\label{eq:future-row-bound}
 \]
-After the finite seed the first lower modulus is at least $60$, and successive nontrivial lcm jumps multiply the lower modulus by at least two.  Therefore the whole accumulated future bridge has branch mass
-\[
+After the finite seed the first lower modulus is at least $60$, and successive nontrivial lcm jumps multiply the lower modulus by at least two.  Hence
+\begin{equation}\label{eq:future-bridge-total}
+\sum_{\text{future rows}}\text{branch mass}
 <\sum_{j\ge0}\frac6{60\,2^j}
 =\frac15<\frac14.
-\tag{PS7}\label{eq:future-bridge-total}
-\]
-Combining \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total},
-\[
-\frac32+\frac14<2,
-\tag{PS8}
-\]
-leaving a fixed positive margin before the arbitrarily small neutral-cube cost is added.
+\tag{PS6}
+\end{equation}
+Combining \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total} leaves a fixed positive margin below $2$ before the arbitrarily small neutral-cube cost is added.
 
-All finite statements in the first part of this appendix are exact-rational checks.  The repository accompanying the manuscript contains a short replay script for the identities and compatibility lists; the proof above does not use the script as a mathematical oracle.
+Thus the actual mathematical output of this appendix is Lemma~\ref{lem:finite-prefix-initialization}.  The residue representatives, bridge bases, and boundary list are discarded immediately after that lemma has supplied a finite starting object.  The repository accompanying the manuscript contains a short exact-rational replay of the finite table; the proof does not use the script as a mathematical oracle.
