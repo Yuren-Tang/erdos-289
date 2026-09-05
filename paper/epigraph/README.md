@@ -26,16 +26,42 @@ The four candidates differ only in:
 All use 10.5/16 and `fontspec` `LetterSpace=8`.  Kerning is not disabled or
 manually altered.  No synthetic bolding is used.
 
-## 3. Final publication asset
+## 3. Generate the selected fixed-line asset
 
-After one candidate is selected, generate one fixed-line PDF/vector asset on the
-licensed desktop and commit only that generated asset.  Do **not** commit,
-package, copy, or redistribute the Trajan font software.
+`asset.tex` produces a tightly cropped one-line PDF at the final 10.5 pt size.
+The two switches are supplied on the XeLaTeX command line.
 
-Adobe Fonts expressly permits creating PDFs and vector artwork with activated
-fonts, including converting type to outlines, and permits properly embedded font
-data in PDFs for viewing/printing.  The intended publication source therefore
-contains only the fixed generated output, never the font file.
+Regular, no punctuation:
+
+```sh
+xelatex -jobname=epigraph-final asset.tex
+```
+
+Regular, interpuncts:
+
+```sh
+xelatex -jobname=epigraph-final '\def\EpigraphInterpuncts{1}\input{asset.tex}'
+```
+
+Semibold, no punctuation:
+
+```sh
+xelatex -jobname=epigraph-final '\def\EpigraphSemibold{1}\input{asset.tex}'
+```
+
+Semibold, interpuncts:
+
+```sh
+xelatex -jobname=epigraph-final '\def\EpigraphSemibold{1}\def\EpigraphInterpuncts{1}\input{asset.tex}'
+```
+
+The generated `epigraph-final.pdf` is the only Trajan-bearing publication asset
+that needs to be committed.  A properly subset-embedded PDF is already within
+Adobe Fonts' stated PDF embedding permission, so converting the line to outlines
+is optional rather than required.  Outlining may still be used if we want the
+asset to contain no embedded font program at all.
+
+Do **not** commit, package, copy, or redistribute the Trajan font software itself.
 
 ## 4. Build policy
 
