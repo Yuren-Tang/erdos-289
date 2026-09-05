@@ -58,7 +58,7 @@ Phase I freezes the successful E306/current-manuscript parameters:
 
 - exact wording and comma: `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
 - 10.5 pt on 16 pt;
-- tracking 8 (the Trajan control retains the manuscript's exact `soul` setup);
+- tracking 8;
 - existing 8 pt / 12 pt vertical spacing;
 - normal OpenType kerning, no manual kerning, no synthetic emboldening.
 
@@ -72,12 +72,29 @@ open context-*.pdf
 
 The six proofs are:
 
-1. `context-00-trajan-control.pdf` — exact current manuscript control;
+1. `context-00-trajan-control.pdf` — Trajan at the same optical target as the
+   current manuscript;
 2. `context-01-cinzel-regular.pdf`;
 3. `context-02-cinzel-bold.pdf`;
 4. `context-03-marcellus-regular.pdf`;
 5. `context-04-cormorant-medium.pdf`;
 6. `context-05-cormorant-semibold.pdf`.
+
+### Trajan control implementation
+
+The publication manuscript currently implements Trajan tracking through
+`soul`/`\sodef`.  With current TeX Live 2026 (`soul` 3.2), that path can fail
+under XeTeX with `Package soul Error: Reconstruction failed` when the
+reconstruction pass encounters the font switch.  This is an implementation
+failure, not a change in the desired typography.
+
+For the context proof only, the Trajan control therefore uses `microtype`
+`\textls*[80]{...}`.  Microtype tracking is measured in thousandths of an em,
+so 80 reproduces the intended 0.08 em tracking target; the starred form avoids
+adding boundary kerns.  Thus the visual control remains anchored at the E306
+parameter while avoiding the fragile `soul` reconstruction mechanism.  The
+publication manuscript is deliberately left untouched until the final display
+face is chosen.
 
 Judge the **whole first page**, not the epigraph line in isolation: optical
 weight against the title, line width, relation to the ETbb page texture, and
