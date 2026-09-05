@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - paper/publication-rewrite
+      - paper/epigraph-specimen
   workflow_dispatch:
 
 env:
@@ -86,8 +87,6 @@ jobs:
             kpsewhich newtxmath.sty
             kpsewhich microtype.sty
             kpsewhich fontspec.sty
-            kpsewhich trajan.sty
-            kpsewhich soul.sty
             kpsewhich binhex.tex
           '
 
