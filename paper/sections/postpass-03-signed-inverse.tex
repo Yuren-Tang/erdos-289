@@ -7,9 +7,9 @@ Fix the integer $\Lambda$ from Proposition~\ref{prop:prime-supply-main} and put
 \[
 B_{\mathrm{car}}=\Lambda+1.
 \]
-Let $Q=p^e$ and define the integer cutoff
+Let $Q=p^e$ and define
 \[
-X_Q=Q\operatorname{div}B_{\mathrm{car}}.
+X_Q=\left\lfloor\frac{Q}{B_{\mathrm{car}}}\right\rfloor.
 \tag{3.1}\label{eq:carrier-base}
 \]
 Choose carrier primes
@@ -34,7 +34,7 @@ For $X_Q\ge1$ one also has
 \[
 B_{\mathrm{car}}X_Q\le Q<2B_{\mathrm{car}}X_Q,
 \]
-so $X_Q\asymp Q$.  Proposition~\ref{prop:prime-supply-main}, applied at the integer cutoff $X_Q$, therefore gives $\asymp Q/\log Q$ possible carriers; imposing $(b,Q)=1$ removes at most the prime $p$.
+so $X_Q\asymp Q$.  Proposition~\ref{prop:prime-supply-main}, applied at $X_Q$, therefore gives $\asymp Q/\log Q$ possible carriers; imposing $(b,Q)=1$ removes at most the prime $p$.
 
 For each carrier $b$, let $c_+\in\{1,\ldots,Q-1\}$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and write
 \[
@@ -103,7 +103,7 @@ If $Q=p$ is prime, retain all coefficients.  Let $\mathcal A_Q$ be the resulting
 
 \subsection{The simple-quotient value}
 
-Modulo $F_{<Q}$, the companion reciprocal has only smaller prime-power stages, so the class contributed by $I(Q,b)$ is the class of $1/(Qk)$.  Choose $u\in\mathbf Z$ with
+Modulo $F_{<Q}$, the companion reciprocal has only smaller prime-power stages, so the class contributed by $I(Q,b)$ is the class of $1/(Qk)$.  Choose $u\in\Z$ with
 \[
 uk\equiv1\pmod p,
 \qquad uk=1+pt.
@@ -125,6 +125,8 @@ is therefore
 \]
 The interval $I(Q,b)$ itself recovers $Q$ and $k$: exactly one of its two denominators has largest prime-power stage $Q$, namely $Qk$.  Thus the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
 
+For compatibility estimates, by an \emph{interval envelope} we mean a finite interval $J\subset\N_{>0}$ together with the one-step exclusion zone required for nonadjacency.  A member of $\mathcal A_Q$ is said to meet the envelope if its support intersects this exclusion zone.
+
 \begin{proposition}[Uniform estimates for the signed-inverse families]\label{prop:signed-inverse-capabilities}
 There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold.
 \begin{enumerate}
@@ -138,14 +140,14 @@ There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold
 |\phi_Q^{-1}(s)|\le Q/p.
 \tag{3.14}\label{eq:fibre-bound}
 \]
-\item The incompatibility graph on $\bigcup_{Q\ge Q_0}\mathcal A_Q$ has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an arbitrary interval envelope of cardinality at most $L$ is incompatible with at most $C_L$ members of the union.
+\item The incompatibility graph on $\bigcup_{Q\ge Q_0}\mathcal A_Q$ has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an interval envelope of cardinality at most $L$ meets at most $C_L$ members of the union.
 \item Every support point $z$ of a member of $\mathcal A_Q$ satisfies
 \[
 c\frac{Q^2}{\log Q}\le z\le2Q^2
 \tag{3.15}\label{eq:support-window}
 \]
 for a fixed $c>0$.  If $Q$ is prime then $z\gg Q^2$.
-\item There are nonnegative numbers $\omega_Q$ such that every local correspondence formed from the family $\mathcal A_Q$ below has reciprocal mass at most $\omega_Q$, and
+\item There are nonnegative numbers $\omega_Q$ such that every local correspondence formed from $\mathcal A_Q$ below has reciprocal mass at most $\omega_Q$, and
 \[
 \sum_Q\omega_Q<\infty.
 \tag{3.16}\label{eq:role-summable}
@@ -156,7 +158,7 @@ for a fixed $c>0$.  If $Q$ is prime then $z\gg Q^2$.
 \begin{proof}
 The first assertion follows from the carrier count, the bounded exceptional set, bounded coefficient multiplicity and, for $e\ge2$, the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple-quotient values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among $1\le k<Q=p^e$, and the deterministic deduplication retains at most one interval for each coefficient.
 
-For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an external envelope has cardinality at most $L$, every incompatible member has its distinguished point in a fixed one-step enlargement of that envelope.  The enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.
+For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an envelope has cardinality at most $L$, every member meeting it has distinguished point in a fixed one-step enlargement of the envelope.  This enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.
 
 The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, a prime family has $O(p/\log p)$ intervals, each of reciprocal mass $O(p^{-2})$, so one may take
 \[
