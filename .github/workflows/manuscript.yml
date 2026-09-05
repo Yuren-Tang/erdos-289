@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  ARXIV_TEX_IMAGE: texlive/texlive:TL2025-2025-08-03
+  ARXIV_TEX_IMAGE: registry.gitlab.com/islandoftex/images/texlive:TL2025-2025-08-03
 
 jobs:
   build:
