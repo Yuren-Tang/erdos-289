@@ -43,10 +43,28 @@ TEXMFHOME=/tmp/e289-empty-texmf \
 open specimen.pdf
 ```
 
-The sheet compares Cinzel Regular/Bold, Marcellus Regular, and Cormorant
-Garamond Medium/Semibold, with punctuation variants where useful.
+## 3. What the E306 baseline actually is
 
-## 3. Phase-I decision gate: real first-page context
+Do not conflate the current E289 manuscript setting with E306.
+
+The current successful E306 manuscript uses, for its Greek dedication:
+
+- Gentium Book Medium;
+- 10.5 pt on 16 pt;
+- `fontspec` `LetterSpace=9`;
+- 8 pt / 12 pt vertical spacing.
+
+In `fontspec`, `LetterSpace=9` means an additive 9% of the font size between
+letters, i.e. 0.09 em. This is a useful optical starting point for an all-caps
+display line, not a universal typographic law.
+
+An earlier accepted E306 checkpoint used Artemisia at 10/15 with no added
+tracking. Therefore there is no timeless rule "E306 = 0.08 em".
+
+The 0.08 em value belongs instead to the **current E289 manuscript**, where the
+TeX Live Trajan line is defined through `soul`/`\sodef`.
+
+## 4. Phase-I decision gate: real first-page context
 
 The actual family/weight decision is made with `context-specimen.tex`. This is
 a controlled copy of the real E289 first-page environment: the same `amsart`
@@ -54,16 +72,18 @@ class, ETbb text face, NewTX mathematics, title, author, ORCID, abstract, and th
 actual beginning of the Introduction. The publication manuscript itself is not
 modified.
 
-Phase I freezes the successful E306/current-manuscript parameters:
+For the normalized family/weight gate, freeze:
 
-- exact wording and comma: `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
-- 10.5 pt on 16 pt;
-- tracking 8 / 0.08 em;
-- existing 8 pt / 12 pt vertical spacing;
-- normal OpenType kerning for the OpenType candidates, no manual kerning, no
-  synthetic emboldening.
+- the E289 Latin wording and comma:
+  `CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO`;
+- E306-current geometry: 10.5/16 and 8 pt / 12 pt vertical spacing;
+- E306-current tracking target: 0.09 em / `LetterSpace=9`;
+- normal OpenType kerning for OpenType candidates;
+- no manual kerning and no synthetic emboldening.
 
-Only **family and weight** vary. Build the complete matrix with:
+Only **family and weight** vary inside the normalized gate.
+
+Build with:
 
 ```sh
 cd paper/epigraph
@@ -74,60 +94,55 @@ open context-*.pdf
 `build-context.sh` performs a preflight and prints the exact `tlmgr install`
 command if this BasicTeX installation lacks a manuscript or proof dependency.
 
-The six proofs are:
+The seven proofs are:
 
-1. `context-00-trajan-control.pdf` — exact legacy Trajan+soul control line,
-   embedded in the real XeTeX first-page context;
-2. `context-01-cinzel-regular.pdf`;
-3. `context-02-cinzel-bold.pdf`;
-4. `context-03-marcellus-regular.pdf`;
-5. `context-04-cormorant-medium.pdf`;
-6. `context-05-cormorant-semibold.pdf`.
+1. `context-00-trajan-current-08.pdf` — historical E289-current Trajan at
+   0.08 em; reference only, not part of the normalized gate;
+2. `context-01-trajan-normalized-09.pdf` — the same Trajan family normalized
+   to the E306-current 0.09 em tracking target;
+3. `context-02-cinzel-regular.pdf`;
+4. `context-03-cinzel-bold.pdf`;
+5. `context-04-marcellus-regular.pdf`;
+6. `context-05-cormorant-medium.pdf`;
+7. `context-06-cormorant-semibold.pdf`.
 
-### Trajan control implementation
+Thus variants 1--6 are directly comparable at the same tracking target, while
+variant 0 records what the present E289 manuscript actually does.
 
-The TeX Live `trajan` family is a legacy Type 1/METAFONT font. The publication
-manuscript currently selects it through the classic LaTeX package and applies
-tracking through `soul`/`\sodef`. Directly reproducing that mechanism inside the
-XeTeX context proof is not robust: current `soul` can fail its reconstruction
-pass, `microtype` cannot letterspace the legacy T1 face under XeTeX, and
-`xdvipdfmx` may then fail to emit a physical font.
+### Trajan reference implementation
 
-The control is therefore rendered in two stages without changing its historical
-typography:
+The TeX Live `trajan` family is a legacy Type 1/METAFONT font. Rather than force
+it through XeTeX, `build-context.sh` renders two tiny reference PDFs with
+pdfLaTeX+soul and embeds them at natural size into the XeLaTeX first-page proof.
 
-1. `trajan-control-asset.tex` is run with **pdfLaTeX**, using the actual TeX Live
-   Trajan package, the actual `soul` `\sodef` definition, 10.5/16, and 0.08 em
-   tracking;
-2. the resulting `trajan-control-line.pdf` is embedded at natural size in
-   variant 0 of the XeLaTeX context proof, with a 10.5/16 strut supplying the
-   same line metrics as the live candidates.
-
-Thus variant 0 preserves the legacy control rather than approximating it with a
-different XeTeX tracking mechanism. The publication manuscript remains
-untouched until the final display face is chosen.
+The tracked text is deliberately written **literally** inside the `soul`
+command. Passing the whole line through an unregistered macro can make soul's
+reconstruction pass fail with `Reconstruction failed`, even under pdfLaTeX.
+This was the cause of the previous failed control build; it was not evidence
+that 0.08 em itself or the Trajan font was invalid.
 
 Judge the **whole first page**, not the epigraph line in isolation: optical
 weight against the title, line width, relation to the ETbb page texture, and
 whether the epigraph reads as part of the title matter rather than as a separate
-decoration. Do not tune punctuation, tracking, size, or vertical spacing until
-a family/weight shortlist survives this gate.
+decoration.
 
-## 4. Phase II: local optical tuning
+## 5. Phase II: local optical tuning
 
-Only the Phase-I survivors should be tested further. Starting from the frozen
-E306 control, vary one optical parameter at a time, in this order unless the
-page gives a strong reason otherwise:
+Only the Phase-I survivors should be tuned further. Start from the E306-current
+0.09 em gate, but treat that value as a prior rather than a rule. Vary one
+parameter at a time:
 
 1. punctuation treatment (comma versus inscriptional interpuncts or none);
-2. small tracking adjustments around 8;
-3. only if still necessary, a small weight or size adjustment;
+2. small tracking adjustments around 9;
+3. only if necessary, a small weight or size adjustment;
 4. vertical spacing last.
 
-This keeps the experiment identifiable: a rejected page should have a clear
-reason rather than several simultaneous changes.
+A family may legitimately prefer less or more tracking than E306 because its
+native sidebearings, cap proportions and weight are different. The purpose of
+Phase I is merely to avoid confounding family choice with simultaneous optical
+tuning.
 
-## 5. Publication choice
+## 6. Publication choice
 
 Cinzel is the closest free first candidate: it was explicitly designed from
 first-century Roman inscriptional proportions and is all-caps. Marcellus gives
@@ -136,10 +151,9 @@ literary control rather than a Trajan substitute. These are priors only: the
 real-page Phase-I proof decides.
 
 Once a family/weight/punctuation treatment is selected, the publication
-manuscript can use the TeX Live font directly. There is then no proprietary-font
-asset, no font upload, and no separate licensing workflow.
+manuscript can use the TeX Live font directly.
 
-## 6. Build policy
+## 7. Build policy
 
 - Fast local iteration: any current TeX Live installation is sufficient.
 - Publication parity gate: rebuild the complete manuscript against arXiv's
