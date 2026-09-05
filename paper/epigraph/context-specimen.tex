@@ -4,6 +4,7 @@
 \usepackage{amsmath,amssymb,amscd,mathtools}
 \usepackage{newtxmath}
 \usepackage[no-math]{fontspec}
+\usepackage{graphicx}
 
 % Candidate display families.  Capture their NFSS names before restoring the
 % manuscript text face; loading a candidate must not change the page context.
@@ -21,7 +22,6 @@
   BoldItalicFont=ETbb-BoldItalic.otf,
   Ligatures=TeX
 ]
-\usepackage{trajan}
 \usepackage{microtype}
 \setlength{\emergencystretch}{2em}
 \usepackage{enumitem}
@@ -77,15 +77,16 @@
    \EpigraphText}%
 }
 
-% The publication manuscript currently uses soul's \sodef for the TeX-Live
-% Trajan face.  soul 3.2 can fail its reconstruction pass under XeTeX when the
-% tracked material involves font switching.  For this visual control only, use
-% microtype's native XeTeX letterspacing instead: 80/1000 em = 0.08 em, i.e.
-% the same E306 tracking target.  The starred form adds no extra boundary kern.
-% This changes the mechanism, not the intended optical parameter.
+% TeX Live's trajan face is a legacy Type 1/METAFONT family.  XeTeX cannot
+% reliably letterspace or emit it through xdvipdfmx.  The build script therefore
+% renders the exact legacy Trajan+soul line first with pdfLaTeX and embeds that
+% tiny PDF here at natural size.  A 10.5/16 strut supplies the same line metrics
+% as the live candidates; lowering the asset by the strut depth restores a
+% conventional baseline rather than making the PDF box sit wholly above it.
 \newcommand{\TrajanControl}{%
-  {\trjnfamily\mdseries\upshape\fontsize{10.5}{16}\selectfont
-   \textls*[80]{\EpigraphText}}%
+  {\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
+   \setbox0=\hbox{\strut}%
+   \raisebox{-\dp0}[\ht0][\dp0]{\includegraphics{trajan-control-line.pdf}}}%
 }
 
 \newcommand{\ContextEpigraph}{%
