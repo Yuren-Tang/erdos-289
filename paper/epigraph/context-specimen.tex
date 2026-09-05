@@ -1,0 +1,133 @@
+\documentclass[11pt,a4paper,reqno]{amsart}
+
+\usepackage[british]{babel}
+\usepackage{amsmath,amssymb,amscd,mathtools}
+\usepackage{newtxmath}
+\usepackage[no-math]{fontspec}
+
+% Candidate display families.  Capture their NFSS names before restoring the
+% manuscript text face; loading a candidate must not change the page context.
+\usepackage{cinzel}
+\edef\CinzelFamily{\rmdefault}
+\usepackage{marcellus}
+\edef\MarcellusFamily{\rmdefault}
+\usepackage{CormorantGaramond}
+\edef\CormorantFamily{\rmdefault}
+
+% Exact E289 manuscript text face.
+\setmainfont{ETbb-Regular.otf}[
+  BoldFont=ETbb-Bold.otf,
+  ItalicFont=ETbb-Italic.otf,
+  BoldItalicFont=ETbb-BoldItalic.otf,
+  Ligatures=TeX
+]
+\usepackage{trajan}
+\usepackage{microtype}
+\usepackage{soul}
+\sodef\trajantrack{\trjnfamily}{.08em}{.413em}{.413em}
+\setlength{\emergencystretch}{2em}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=nyt,
+  sortcites=true,
+  giveninits=true,
+  maxbibnames=99,
+  doi=true,
+  url=true,
+  eprint=true
+]{biblatex}
+\addbibresource{../references.bib}
+\AtEveryBibitem{%
+  \iffieldundef{doi}
+    {\iffieldundef{eprint}
+       {}
+       {\clearfield{url}}}
+    {\clearfield{url}}}
+\renewcommand*{\bibfont}{\small}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\im}{\operatorname{im}}
+\numberwithin{equation}{section}
+
+% Phase I deliberately freezes every non-family variable at the successful
+% E306/current-manuscript control: wording and comma, 10.5/16, tracking 8,
+% and the existing 8pt/12pt vertical spacing.  Only family and weight vary.
+\providecommand{\EpigraphVariant}{0}
+\newcommand{\EpigraphText}{CARPE DIEM, QVAM MINIMVM CREDVLA POSTERO}
+
+\newcommand{\TrackedCandidate}[2]{%
+  {\fontfamily{#1}\fontseries{#2}\upshape\selectfont
+   \addfontfeatures{LetterSpace=8}%
+   \fontsize{10.5}{16}\selectfont
+   \EpigraphText}%
+}
+
+\newcommand{\ContextEpigraph}{%
+  \ifcase\EpigraphVariant
+    % 0: exact current Trajan control.
+    {\normalfont\mdseries\upshape\fontsize{10.5}{16}\selectfont
+     \trajantrack{\EpigraphText}}%
+  \or
+    \TrackedCandidate{\CinzelFamily}{m}%
+  \or
+    \TrackedCandidate{\CinzelFamily}{b}%
+  \or
+    \TrackedCandidate{\MarcellusFamily}{m}%
+  \or
+    \TrackedCandidate{\CormorantFamily}{mb}%
+  \or
+    \TrackedCandidate{\CormorantFamily}{sb}%
+  \else
+    \PackageError{e289-context}{Unknown EpigraphVariant \EpigraphVariant}%
+      {Use an integer from 0 through 5.}%
+  \fi
+}
+
+\title[Reciprocal Sums over Separated Intervals]{Reciprocal Sums over Separated Integer Intervals}
+\author{Yuren Tang}
+\thanks{ORCID: \href{https://orcid.org/0009-0006-0847-3330}{0009-0006-0847-3330}.}
+\renewcommand{\shortauthors}{Yuren Tang}
+\date{}
+\dedicatory{%
+  \vspace{8pt}%
+  \ContextEpigraph
+  \vspace{12pt}%
+}
+
+\subjclass[2020]{Primary 11D68; Secondary 11B75}
+\keywords{unit fractions, reciprocal sums, integer intervals, additive combinatorics, torsion filtrations, Erd\H{o}s problems}
+\hypersetup{
+  pdftitle={E289 epigraph context proof},
+  pdfauthor={Yuren Tang}
+}
+
+\begin{document}
+
+\begin{abstract}
+We prove that every sufficiently large integer $k$ is the number of connected components of a finite set $S\subset\N_{>0}$ whose components are pairwise nonadjacent integer intervals of cardinality $2$ or $3$ and whose reciprocal sum is $1$.  This settles the strengthened disjoint, nonadjacent formulation currently listed as Erd\H{o}s Problem 289.  The proof uses the prime-power torsion filtration of $\Q/\Z$.  Signed-inverse interval families give uniform simple-quotient control, while reciprocal-neutral switches create wide component-count intervals.  A dense-restriction transfer theorem converts these local data into a scalar process in which prime gains dominate the accumulated loss at composite prime powers.  Haxell's independent-transversal theorem is applied only after a finite terminal cutoff has been chosen; a final pullback at residue zero then forces the reciprocal sum to equal one.
+\end{abstract}
+
+\maketitle
+
+% Use the actual introduction so the first page has the same lower-page mass and
+% paragraph texture as the manuscript.  Later pages are irrelevant to this proof.
+\input{../sections/00-introduction}
+
+\end{document}
