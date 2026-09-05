@@ -1,0 +1,76 @@
+\section{Restricted fixed-rank sums in a prime cyclic group}
+\label{app:restricted-fold}
+
+We record the additive-combinatorial input used by the local response theorem.  The proof is the standard polynomial-method argument, included to keep the arithmetic dependency explicit.
+
+\begin{theorem}[Restricted fixed-rank fold]\label{thm:restricted-fold}
+Let $S$ be a cyclic group of prime order $p$, let $A\subseteq S$ with $|A|=r$, and let $0\le h\le r$.  If
+\[
+\Sigma_h:\operatorname{FinSub}_h(A)\longrightarrow S,
+\qquad O\longmapsto\sum_{a\in O}a,
+\]
+then
+\[
+|\operatorname{im}\Sigma_h|
+\ge \min\{p,h(r-h)+1\}.
+\]
+In particular, if $h(r-h)+1\ge p$, then $\Sigma_h$ is surjective.
+\end{theorem}
+
+\begin{proof}
+The endpoint cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose a proof-local identification $S\simeq\mathbf F_p$; the final statement is invariant under this choice.
+
+Put
+\[
+M=\min\{p-1,h(r-h)\}.
+\]
+Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\mathbf F_p$ of cardinality exactly $M$.  Consider
+\[
+P(x_1,\ldots,x_h)
+=
+\prod_{c\in C}\left(\sum_{i=1}^h x_i-c\right)
+\prod_{1\le i<j\le h}(x_j-x_i).
+\tag{RF1}\label{eq:rf-polynomial}
+\]
+The polynomial vanishes on $A^h$: repeated coordinates kill the Vandermonde factor, while distinct coordinates have sum in the image of $\Sigma_h$, hence in $C$.
+
+We use two elementary coefficient facts.  First, if a polynomial $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
+\[
+[x_1^{d_1}\cdots x_h^{d_h}]F\ne0,
+\]
+and if finite sets $A_i$ satisfy $|A_i|>d_i$, then $F$ is nonzero somewhere on $\prod_iA_i$.  This follows by tensoring the one-variable Lagrange coefficient-extraction functionals.
+
+Second, for distinct nonnegative integers $k_1,\ldots,k_h$ and
+\[
+m=\sum_i k_i-\frac{h(h-1)}2,
+\]
+one has
+\[
+[x_1^{k_1}\cdots x_h^{k_h}]
+(x_1+\cdots+x_h)^m
+\prod_{i<j}(x_j-x_i)
+=
+m!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
+\tag{RF2}\label{eq:rf-vandermonde}
+\]
+Indeed, expand the Vandermonde determinant; the remaining alternating sum is a determinant of falling factorials, hence the ordinary Vandermonde determinant.
+
+For every $0\le m\le h(r-h)$ one may choose distinct
+\[
+0\le k_1<\cdots<k_h\le r-1
+\]
+with
+\[
+\sum_i k_i=m+\frac{h(h-1)}2.
+\tag{RF3}
+\]
+To see this, write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.
+
+Apply this with $m=M$.  In the highest-degree part of \eqref{eq:rf-polynomial}, equation \eqref{eq:rf-vandermonde} gives a nonzero coefficient at $x_1^{k_1}\cdots x_h^{k_h}$.  It is nonzero modulo $p$ because $M\le p-1$ and $0\le k_i\le r-1\le p-1$.  The coefficient detector therefore contradicts the vanishing of $P$ on $A^h$.
+
+Hence $|\operatorname{im}\Sigma_h|>M$, which is exactly
+\[
+|\operatorname{im}\Sigma_h|\ge\min\{p,h(r-h)+1\}.
+\]
+Transporting the conclusion back across the proof-local identification $S\simeq\mathbf F_p$ shows that no basis or generator survives in the theorem statement.
+\end{proof}
