@@ -120,7 +120,11 @@ There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold
 c\frac{Q^2}{\log Q}\le z\le2Q^2
 \end{equation}
 for a fixed $c>0$.  If $Q$ is prime then $z\gg Q^2$.
-\item There are nonnegative numbers $\omega_Q$ such that every local labelled relation formed from $\mathcal A_Q$ below has reciprocal mass at most $\omega_Q$, and
+\item There are nonnegative numbers $\omega_Q$ such that, whenever $O\subseteq\mathcal A_Q$ has $|O|\le p$ and its literal union belongs to $\mathcal C$,
+\[
+W\!\left(\bigcup_{I\in O}I\right)\le\omega_Q,
+\]
+and
 \begin{equation}\label{eq:role-summable}
 \sum_Q\omega_Q<\infty.
 \end{equation}
@@ -132,17 +136,13 @@ The first assertion follows from the carrier count, the bounded exceptional set,
 
 For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an envelope has cardinality at most $L$, every member meeting it has distinguished point in a fixed one-step enlargement of the envelope.  This enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.
 
-The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, a prime family has $O(p/\log p)$ intervals, each of reciprocal mass $O(p^{-2})$, so one may take
-\[
-\omega_p=O\!\left(\frac1{p\log p}\right).
-\]
-Summing over the fixed geometric prime bands from Proposition~\ref{prop:prime-supply-main} converges.  For $Q=p^e$, $e\ge2$, a local labelled relation uses at most $p$ intervals, each of mass $O(\log Q/Q^2)$, so
+The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, a prime family has $O(p/\log p)$ intervals, each of reciprocal mass $O(p^{-2})$, so the total mass of the whole family is $O(1/(p\log p))$; this may be used for $\omega_p$.  For $Q=p^e$, $e\ge2$, each interval has mass $O(\log Q/Q^2)$, so every compatible union of at most $p$ members has mass at most
 \[
 \omega_{p^e}
 =O\!\left(\frac{p\log Q}{Q^2}\right)
 =O\!\left(\frac{e\log p}{p^{2e-1}}\right).
 \]
-The sum over $e\ge2$ and then over $p$ is bounded by a constant multiple of $\sum_p p^{-2}$.
+The prime terms are summable by grouping primes into the fixed geometric bands of Proposition~\ref{prop:prime-supply-main}; the composite terms are bounded by a constant multiple of $\sum_p p^{-2}$ after summing over $e\ge2$.  Hence \eqref{eq:role-summable} holds.
 \end{proof}
 
 In particular, for every $\varepsilon>0$ there is $Q_1$ such that every finite set of prime-power steps of rank at least $Q_1$ has total reciprocal-mass bound below $\varepsilon$.
