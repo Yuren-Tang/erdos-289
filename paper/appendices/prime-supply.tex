@@ -25,26 +25,43 @@ and every summand is $0$ or $1$; if the sum is $e$, then some nonzero summand ha
 
 Since the central binomial coefficient is maximal in its row,
 \[
-4^n\le(2n+1)\binom{2n}{n},
+4^n\le(2n+1)\binom{2n}{n}.
 \]
-hence
+The divisibility above therefore gives
+\[
+\psi(2n+1)
+\ge\log\binom{2n}{n}
+\ge n\log4-\log(2n+1).
+\]
+Taking $n=\lfloor(x-1)/2\rfloor$ and using monotonicity of $\psi$ shows that, for some $c_\psi>0$,
 \[
 \psi(x)\ge c_\psi x
 \]
-eventually.  On the other hand, every prime $n<p\le2n$ divides $\binom{2n}{n}$, so dyadic telescoping gives
+for all sufficiently large $x$.
+
+On the other hand, every prime $n<p\le2n$ divides $\binom{2n}{n}$, so
 \[
-\theta(x)\le C_\theta x.
+\theta(2n)-\theta(n)
+\le\log\binom{2n}{n}
+\le2n\log2.
 \]
-Because
+Dyadic telescoping gives $\theta(x)\le C_\theta x$ for a fixed $C_\theta$.  Since
 \[
 \psi(x)=\sum_{m\ge1}\theta(x^{1/m}),
 \]
-the higher-power contribution is $O(\sqrt x\log x)=o(x)$, and therefore
+there are only $O(\log x)$ nonzero terms with $m\ge2$, and the upper bound for $\theta$ gives
+\[
+0\le\psi(x)-\theta(x)
+=\sum_{m\ge2}\theta(x^{1/m})
+=O(\sqrt x\log x)
+=o(x).
+\]
+Subtracting this from the lower bound for $\psi$ yields, after increasing the threshold if necessary,
 \[
 c_\theta x\le\theta(x)\le C_\theta x
 \tag{P1}\label{eq:chebyshev-linear}
 \]
-eventually.
+for some $c_\theta>0$.
 
 Choose an integer $\Lambda\ge2$ such that $C_\theta<c_\theta\Lambda$.  Then
 \[

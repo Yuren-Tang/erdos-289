@@ -50,7 +50,7 @@ For all sufficiently large jumps the right-hand side is at least $4$, so every a
 
 The successive nontrivial lower moduli grow at least geometrically, so the total reciprocal mass of the future bridge sequence is finite.  Together with the finite initialization this leaves a fixed positive margin below $2$.
 
-\subsection{A bounded-spread affine cover}
+\subsection{Bounded-spread affine cover}
 
 Fix the finite initialization from Lemma~\ref{lem:finite-prefix-initialization} and compose it with one bridge at every subsequent prime-power jump up to a cutoff $B$.  On residues, finite induction gives a full affine $E_B$-fibre.  Let $\mathcal B_B\subset\mathcal C$ be the finite set of interval labels occurring in this affine cover.  Since every bridge adds the same number of components to every label, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that
 \begin{equation}\label{eq:ragged-spread}
@@ -81,7 +81,15 @@ The lower endpoint of \eqref{eq:future-window}, together with $a_r\le pD$, gives
 \[
 D\gg\frac{Q^2}{(\log Q)^2}.
 \]
-Hence the relevant lower moduli lie in a multiplicative window of polylogarithmic width.  Since every nontrivial least-common-multiple jump multiplies the modulus by at least two, only $O(\log\log Q)$ bridge stages can meet the support window.  Each contains
+Thus there are fixed constants $c_1,c_2>0$ such that every relevant lower modulus satisfies
+\[
+c_1\frac{Q^2}{(\log Q)^2}\le D\le c_2Q^2.
+\]
+Consequently the ratio between the largest and smallest relevant lower moduli is $O((\log Q)^2)$.  If $D_1<\cdots<D_t$ are the relevant lower moduli in chronological order, every nontrivial least-common-multiple jump gives $D_{j+1}\ge2D_j$.  Hence
+\[
+2^{t-1}\le O((\log Q)^2),
+\]
+so $t=O(\log\log Q)$.  Therefore only $O(\log\log Q)$ bridge stages can meet the support window.  Each contains
 \[
 k=O(\sqrt p)=O(\sqrt{\log Q})
 \]

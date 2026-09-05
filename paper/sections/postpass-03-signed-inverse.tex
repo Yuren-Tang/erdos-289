@@ -62,13 +62,25 @@ k\ge b/2>X_Q/2\gg p.
 
 The distinguished denominator $Qk$ has largest prime-power stage exactly $Q$: the coefficient $k$ is a $p$-unit, and every prime-power factor contributed by $k$ has rank below $Q$ because $k<Q$.
 
-For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  Hence a new prime-power factor of rank at least $Q$ can occur only if $b\mid c_\pm$.  Equivalently $b^2\mid Qk\pm1$.  Write $c_\pm=\ell b$.  From $c_\pm<Q<B_{\mathrm{car}}b$ one obtains $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+\begin{lemma}[Carrier transversality and coefficient multiplicity]\label{lem:carrier-transversality}
+For all sufficiently large prime powers $Q=p^e$ the following hold.
+\begin{enumerate}
+\item All but $O_{B_{\mathrm{car}}}(1)$ carrier primes have companion denominator with no prime-power factor of rank at least $Q$.
+\item A fixed coefficient $k$ is produced by at most four carrier primes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  A prime-power factor of rank at least $Q$ can therefore occur only for the carrier prime $b$, and then necessarily $b\mid c_\pm$.  Write $c_\pm=\ell b$.  Since $c_\pm<Q<B_{\mathrm{car}}b$, one has $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
 \begin{equation}\label{eq:bad-carrier}
 \ell b^2\equiv\pm1\pmod Q.
 \end{equation}
-For fixed $(\ell,\pm)$ this congruence has uniformly boundedly many unit roots modulo $p^e$: at most two when $p$ is odd and at most four when $p=2$.  Thus only $O_{B_{\mathrm{car}}}(1)$ carriers fail transversality.
+Fix $(\ell,\pm)$.  If $p\mid\ell$, the congruence has no solution because its right-hand side is a unit modulo $p$.  Otherwise it reduces to a unit square congruence modulo $p^e$, which has at most two roots for odd $p$ and at most four roots for $p=2$.  There are only $2(B_{\mathrm{car}}-1)$ choices of $(\ell,\pm)$, proving the first assertion.
 
-Different carriers can produce the same coefficient $k$.  Every carrier producing that coefficient divides one of $Qk-1,Qk+1$, both below $Q^2$.  If $Q>B_{\mathrm{car}}^3$, no one of these integers can contain three distinct carrier primes, because each carrier exceeds $Q/B_{\mathrm{car}}$.  Thus the multiplicity of a coefficient is uniformly bounded.  Keep, for each coefficient, the occurrence with least carrier.  The resulting coefficient set still has cardinality
+Now fix a coefficient $k$.  Every carrier producing it divides one of $Qk-1$ and $Qk+1$.  Since $1\le k<Q$, both integers are smaller than $Q^2$.  Every carrier satisfies $b>Q/B_{\mathrm{car}}$ by \eqref{eq:carrier-base} and \eqref{eq:carrier-band}.  If $Q>B_{\mathrm{car}}^3$, a number below $Q^2$ cannot contain three distinct carrier primes, because their product would exceed $Q^3/B_{\mathrm{car}}^3>Q^2$.  Thus each of $Qk-1$ and $Qk+1$ contains at most two possible carriers, giving multiplicity at most four.
+\end{proof}
+
+Discard the bounded exceptional set from Lemma~\ref{lem:carrier-transversality}.  Different remaining carriers can still produce the same coefficient $k$; keep, for each coefficient, the occurrence with least carrier.  The multiplicity bound in the lemma shows that the resulting coefficient set still has cardinality
 \[
 \asymp Q/\log Q.
 \]

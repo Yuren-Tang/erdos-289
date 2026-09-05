@@ -73,6 +73,7 @@ E\subseteq\mathcal A_Q:
 |E|\ge \rho\frac Q{\log Q}
 \right\}.
 \end{equation}
+For large $Q$ this collection is nonempty, since \eqref{eq:family-size} and \eqref{eq:rho-choice} place $\mathcal A_Q$ itself in $\mathcal D_\rho(Q)$.
 
 Fix $E\in\mathcal D_\rho(Q)$ and restrict $\phi_Q$ to $E$.  If
 \[
@@ -165,6 +166,7 @@ By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
 \begin{equation}\label{eq:mint-prime}
 \mu_\rho(q)\gg_\rho q/\log q.
 \end{equation}
+Increase $Q_{\mathrm{tr}}$ once more, if necessary, so that $\mu_\rho(q)>0$ for every prime $q\ge Q_{\mathrm{tr}}$.
 
 \begin{theorem}[Uniform simple-quotient transfer]\label{thm:uniform-profile}
 Let $Q\ge Q_{\mathrm{tr}}$ and $E\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then
@@ -181,3 +183,36 @@ S_q\times
 \Gamma_{\phi_q|_E}+(\{0\}\times[A_0,B_0]).
 \]
 \end{theorem}
+
+\begin{proof}
+First suppose that $Q=p^e$ is composite.  If $E$ is in the large-image case, put $a=a(E)$ and $r=|\operatorname{im}(\phi_Q|_E)|$.  By definition $a\le\delta_\rho(Q)$, while $a\le r$.  Hence
+\[
+[A_0+\delta_\rho(Q),B_0]
+\subseteq
+[A_0+a,B_0+r-a],
+\]
+and the required inclusion follows from \eqref{eq:rich-rectangle}.  If $E$ is in the heavy-fibre case, then $p-1\le\delta_\rho(Q)$ and therefore
+\[
+[A_0+\delta_\rho(Q),B_0]
+\subseteq
+[A_0+p-1,B_0],
+\]
+so \eqref{eq:poor-rectangle} applies.  The width hypothesis ensures that the displayed target interval is nonempty in either case.
+
+Now let $Q=q$ be prime.  The large-image case is forced.  Write $a=a(E)$ and $r_E=|\operatorname{im}(\phi_q|_E)|$.  By the definition of the common demand,
+\[
+a\le\delta_\rho(q),
+\]
+and by the definition of the common mint,
+\[
+\mu_\rho(q)
+\le r_E-a-\delta_\rho(q).
+\]
+Thus
+\[
+[A_0+\delta_\rho(q),\,B_0+\delta_\rho(q)+\mu_\rho(q)]
+\subseteq
+[A_0+a,B_0+r_E-a].
+\]
+The prime assertion follows again from \eqref{eq:rich-rectangle}.
+\end{proof}
