@@ -167,13 +167,17 @@ By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
 \end{equation}
 
 \begin{theorem}[Uniform simple-quotient transfer]\label{thm:uniform-profile}
-Let $Q\ge Q_{\mathrm{tr}}$ and $A\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then the observable relation contains
+Let $Q\ge Q_{\mathrm{tr}}$ and $A\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then
 \[
-S_Q\times[A_0+\delta_\rho(Q),B_0].
+S_Q\times[A_0+\delta_\rho(Q),B_0]
+\subseteq
+\Gamma_{\phi_Q|_A}+(\{0\}\times[A_0,B_0]).
 \]
-If $Q=q$ is prime, then it contains
+If $Q=q$ is prime, then
 \[
 S_q\times
-[A_0+\delta_\rho(q),\,B_0+\delta_\rho(q)+\mu_\rho(q)].
+[A_0+\delta_\rho(q),\,B_0+\delta_\rho(q)+\mu_\rho(q)]
+\subseteq
+\Gamma_{\phi_q|_A}+(\{0\}\times[A_0,B_0]).
 \]
 \end{theorem}
