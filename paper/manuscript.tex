@@ -1,78 +1,93 @@
-\documentclass[11pt]{article}
+\documentclass[11pt,a4paper,reqno]{amsart}
 
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm,amscd,mathtools}
-\usepackage{tikz-cd}
-\usepackage{hyperref}
-\hypersetup{
-  hidelinks,
-  pdftitle={Exact Reciprocal Interval Counts: A proof of Erdős Problem 289},
-  pdfauthor={Yuren Tang}
-}
+\usepackage[british]{babel}
+\usepackage{amsmath,amssymb,amscd,mathtools}
+\usepackage{newtxmath}
+\usepackage[no-math]{fontspec}
+\setmainfont{ETbb-Regular.otf}[
+  BoldFont=ETbb-Bold.otf,
+  ItalicFont=ETbb-Italic.otf,
+  BoldItalicFont=ETbb-BoldItalic.otf,
+  Ligatures=TeX
+]
 \usepackage{microtype}
+\setlength{\emergencystretch}{2em}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage{tikz-cd}
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=nyt,
+  sortcites=true,
+  giveninits=true,
+  maxbibnames=99,
+  doi=true,
+  url=true,
+  eprint=true
+]{biblatex}
+\addbibresource{references.bib}
+\AtEveryBibitem{%
+  \iffieldundef{doi}
+    {\iffieldundef{eprint}
+       {}
+       {\clearfield{url}}}
+    {\clearfield{url}}}
+\renewcommand*{\bibfont}{\small}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\newcommand{\N}{\mathbf N}
-\newcommand{\Q}{\mathbf Q}
-\newcommand{\Z}{\mathbf Z}
-\newcommand{\F}{\mathbf F}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
 \newcommand{\im}{\operatorname{im}}
 
-\title{Exact Reciprocal Interval Counts\\
-\large A proof of Erd\H{o}s Problem 289}
+\numberwithin{equation}{section}
+
+\title[Reciprocal Sums over Separated Intervals]{Reciprocal Sums over Separated Integer Intervals}
 \author{Yuren Tang}
-\date{5 September 2026}
+\thanks{ORCID: \href{https://orcid.org/0009-0006-0847-3330}{0009-0006-0847-3330}.}
+\renewcommand{\shortauthors}{Yuren Tang}
+\date{}
+
+% The final inscriptional dedicatory is deliberately deferred until the
+% publication PDF is sealed, so that the review source does not depend on a
+% proprietary display font.
+
+\subjclass[2020]{Primary 11D68; Secondary 11B75}
+\keywords{unit fractions, reciprocal sums, integer intervals, additive combinatorics, torsion filtrations, Erd\H{o}s problems}
+\hypersetup{
+  pdftitle={Reciprocal Sums over Separated Integer Intervals},
+  pdfauthor={Yuren Tang},
+  pdfsubject={Reciprocal sums over separated integer intervals and Erdős Problem 289},
+  pdfkeywords={unit fractions, reciprocal sums, integer intervals, additive combinatorics, Erdős Problem 289}
+}
 
 \begin{document}
-\maketitle
 
 \begin{abstract}
-We prove Erd\H{o}s Problem 289: every sufficiently large integer occurs as the number of pairwise disjoint, nonadjacent intervals of positive integers, each of length at least two, whose reciprocal sum is exactly one.  The construction in fact uses only intervals of lengths two and three.
+We prove that every sufficiently large integer $k$ is the number of connected components of a finite set $S\subset\mathbf N_{>0}$ whose components are pairwise nonadjacent integer intervals, each of cardinality $2$ or $3$, and whose reciprocal sum satisfies
+\[
+  \sum_{n\in S}\frac1n=1.
+\]
+This settles the strengthened disjoint, nonadjacent formulation currently listed as Erd\H{o}s Problem 289.
 
-The proof separates target dynamics from physical realization.  Finite torsion in $\Q/\Z$ provides a prime-power filtration with one-dimensional simple factors.  Deterministic signed-inverse binary rows have size $\asymp Q/\log Q$, bounded physical conflict degree, exact simple-value fibre bound $Q/p$, and summable reciprocal resource.  A finite affine Prefix together with one remote reciprocal-neutral Boolean cube gives a cofinal WideStart with arbitrary $o(B/\log B)$ grade width while preserving a fixed positive fraction of every later row.  On each simple factor, a diversity/redundancy dichotomy yields one profile valid for every sufficiently dense restriction of the original row.  Prime currents mint width of order $q/\log q$, while total composite debt through $X$ is $O(\sqrt X\log^3X)$; comparable earlier prime sponsors therefore force a final ray of target grades.  Only after a finite first-hit horizon is fixed do we apply Haxell's independent-transversal theorem once.  The resulting physical response has reciprocal value below two.  A final pullback at residue zero and the exact sequence $0\to\Z\to\Q\to\Q/\Z\to0$ then force reciprocal value exactly one.
+The proof separates a structural correspondence calculus from its arithmetic inputs.  Prime-power torsion stages of $\mathbf Q/\mathbf Z$ have one-dimensional simple quotients.  Signed-inverse interval blocks give dense finite families at these stages, with uniform simple-quotient fibres, bounded incompatibility and summable reciprocal mass.  A finite affine initialization together with reciprocal-neutral switches produces arbitrarily wide component-count intervals while preserving a positive fraction of every later family.  A restricted fixed-cardinality sum theorem yields a transfer statement uniform over every sufficiently dense restriction.  Earlier prime steps then compensate the total loss at composite prime powers and force eventual coverage of all component counts.  Only after a finite terminal cutoff is chosen do we use Haxell's independent-transversal theorem to realize the target by literal intervals.  A final pullback at residue zero and the exact sequence $0\to\mathbf Z\to\mathbf Q\to\mathbf Q/\mathbf Z\to0$ force the reciprocal sum to equal one.
 \end{abstract}
 
-\section{Introduction}
-\label{sec:introduction}
+\maketitle
 
-For a finite set $S\subset\N_{>0}$ define
-\[
-W(S)=\sum_{n\in S}\frac1n.
-\]
-Erd\H{o}s Problem 289 asks whether, for every sufficiently large integer $k$, there are exactly $k$ pairwise disjoint and nonadjacent finite intervals of positive integers, each of length at least $2$, whose reciprocal weights sum to $1$.
-
-\begin{theorem}[Erd\H{o}s Problem 289]\label{thm:main}
-For every sufficiently large integer $k$, there exist exactly $k$ pairwise disjoint and nonadjacent finite intervals of positive integers, each of length at least $2$, such that the sum of the reciprocals of all integers in the intervals is $1$.
-\end{theorem}
-
-We prove the theorem in the subsystem in which every component has length $2$ or $3$.  The proof is organized so that all target-level choices are completed before a physical packing witness is selected.  Its dependency spine is
-\[
-\begin{tikzcd}[column sep=small,row sep=large]
-& \text{signed-inverse arithmetic rows} \arrow[dl] \arrow[d] \arrow[dr] & \\
-\text{prepared WideStart} & \text{uniform dense-restriction profile} & \text{resource/conflict control} \\
-\text{} & \text{scalar final ray} \arrow[d] & \text{finite physical realization} \arrow[d] \\
-& \text{target terminal set} \arrow[dr] & \text{realization cover} \arrow[d] \\
-&& \text{terminal pullback} \arrow[d] \\
-&& \operatorname{res}=0,\quad g=k,\quad 0<W<2 \arrow[d] \\
-&& W=1.
-\end{tikzcd}
-\]
-
-The separation is load-bearing.  The local profile is proved for \emph{all} sufficiently dense subrows of the original deterministic arithmetic family, before either a WideStart witness or a Haxell packing exists.  The scalar first-hit horizon is then determined from this universal profile.  Only for that finite horizon is one global independent packing chosen and lifted physically.  No coherent infinite packing, compactness argument, or selected family of representatives is used.
-
-\subsection*{Proof hierarchy}
-The argument has five conceptual levels.  Section~\ref{sec:states-filtration} is the structural layer: physical multiplication, observations, quotient torsors, current steps, and every later base-change or strictification live there.  Section~\ref{sec:auxiliary-inputs} and Appendices~\ref{app:prime-supply}--\ref{app:restricted-fold} supply the ordinary arithmetic and combinatorial leaves.  Sections~\ref{sec:signed-inverse} and~\ref{sec:wide-start} are the two arithmetic providers: the first produces late current rows, while the second produces one prepared affine start.  Sections~\ref{sec:local-profile} and~\ref{sec:scalar-finality} forget physical witnesses and compress the providers to a target-only scalar process.  Finally Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} return once to finite physical data and then descend by pullback to a literal state of reciprocal value one.
-
-Appendix~\ref{app:prefix-seed} has a different status from Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold}.  It contains no asymptotic or conceptual input: it is a single finite initialization certificate used only to enter the uniform bridge regime.  Its displayed integers are one explicit witness, not canonical constants and not parameters of the later proof; they disappear at the finite-seed boundary.
-
-The only external combinatorial input is Haxell's independent-transversal theorem, used through an elementary fixed-quota corollary.  The restricted fixed-cardinality additive theorem needed at a prime simple factor is proved in Appendix~\ref{app:restricted-fold}; comparable prime supply is proved by Chebyshev estimates in Appendix~\ref{app:prime-supply}; the finite early Prefix seed is certified in Appendix~\ref{app:prefix-seed}.
-
+\input{sections/00-introduction}
 \input{sections/postpass-01-states-and-filtration}
 \input{sections/postpass-02-auxiliary-inputs}
 \input{sections/postpass-03-signed-inverse}
@@ -87,12 +102,9 @@ The only external combinatorial input is Haxell's independent-transversal theore
 \input{appendices/restricted-fold}
 \input{appendices/prefix-seed}
 
-\section*{Proof assurance and computational status}
-During preparation, independent reviewers reconstructed the mathematical argument from isolated proof materials.  Their reports identified, at different stages, a quantifier-order defect and several exact-interface ambiguities; the current proof incorporates the resulting repairs, including the natural-number carrier cutoff, the positive-rational neutral resource budget, and the explicit top-homogeneous coefficient bridge in Appendix~\ref{app:restricted-fold}.  This review history is not a substitute for ordinary mathematical scrutiny, and the present manuscript itself remains subject to independent reading.
+\section*{Acknowledgements}
+Generative AI systems assisted mathematical exploration, proof development, source and citation checking, and editorial revision. The author takes full responsibility for the mathematics, citations, and text.
 
-A Lean formalization is a separate work in progress and is not claimed here to be a complete formal verification of Theorem~\ref{thm:main}.  Large-language-model systems were used extensively during proof exploration, normalization, source checking, and manuscript preparation; the author remains responsible for the mathematical claims, citations, and presentation.
-
-\bibliographystyle{plain}
-\bibliography{references}
+\printbibliography
 
 \end{document}
