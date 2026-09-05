@@ -19,7 +19,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             latexmk biber poppler-utils \
             texlive-bibtex-extra texlive-fonts-extra texlive-fonts-recommended \
-            texlive-latex-extra texlive-pictures texlive-xetex
+            texlive-latex-extra texlive-pictures texlive-plain-generic texlive-xetex
 
       - name: Verify typography dependencies
         working-directory: paper
@@ -29,6 +29,7 @@ jobs:
           kpsewhich ETbb-Italic.otf
           kpsewhich ETbb-BoldItalic.otf
           kpsewhich newtxmath.sty
+          kpsewhich binhex.tex
 
       - name: Build manuscript
         working-directory: paper
