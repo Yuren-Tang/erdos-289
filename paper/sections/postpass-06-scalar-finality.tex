@@ -1,64 +1,55 @@
 \section{Eventual coverage of component counts}
 \label{sec:scalar-finality}
 
-We now discard the interval labels entirely.  The only information retained from Theorem~\ref{thm:uniform-profile} is the required incoming width $\delta_\rho(Q)$ and, at prime steps, the positive width increment $\mu_\rho(q)$.  The goal is to prove eventual coverage of all component counts before choosing an independent set of intervals.
+Theorem~\ref{thm:uniform-profile} leaves only two scalar quantities at a prime-power step: the required incoming width $\delta_\rho(Q)$ and, at prime steps, the positive width increment $\mu_\rho(q)$.
 
 Enumerate the prime powers
 \[
 \{Q=p^e:Q\ge Q_{\mathrm{tr}}\}
 \]
 in increasing order.  For an integer interval $I=[A,B]$ write $w(I)=B-A$.  At a prime $q$, Theorem~\ref{thm:uniform-profile} gives
-\[
+\begin{equation}\label{eq:prime-action}
 [A,B]\longmapsto
 [A+\delta_\rho(q),\,B+\delta_\rho(q)+\mu_\rho(q)],
-\tag{6.1}\label{eq:prime-action}
-\]
+\end{equation}
 so the width increases by $\mu_\rho(q)$.  At a composite prime power $Q=p^e$, $e\ge2$, it gives
-\[
+\begin{equation}\label{eq:composite-action}
 [A,B]\longmapsto[A+\delta_\rho(Q),B],
-\tag{6.2}\label{eq:composite-action}
-\]
-so the width decreases by $\delta_\rho(Q)$.  A step is available whenever the incoming width is at least $\delta_\rho(Q)$; in that case the old and new integer intervals overlap.
+\end{equation}
+so the width decreases by $\delta_\rho(Q)$.  A step is available whenever the incoming width is at least $\delta_\rho(Q)$; then the old and new integer intervals overlap.
 
 Put
 \[
 \Phi(X)=\frac X{\log X}.
 \]
-Define the maximal required width
+Define
 \[
 \Delta(X)=\max_{Q\le X}\delta_\rho(Q)
 \]
-over the displayed prime-power domain, and the accumulated composite loss
-\[
+over the displayed prime-power domain, and
+\begin{equation}\label{eq:cumulative-debt}
 \mathcal L(X)=
 \sum_{\substack{p^e\le X\\ e\ge2}}\delta_\rho(p^e).
-\tag{6.3}\label{eq:cumulative-debt}
-\]
+\end{equation}
 By \eqref{eq:d-composite},
-\[
+\begin{equation}\label{eq:max-demand-subscale}
 \Delta(X)=O_\rho((\log X)^2)=o(\Phi(X)).
-\tag{6.4}\label{eq:max-demand-subscale}
-\]
+\end{equation}
 The number of prime powers $p^e\le X$ with $e\ge2$ is $O(\sqrt X\log X)$, so
-\[
-\boxed{
-\mathcal L(X)=O_\rho(\sqrt X\,\log^3X)
-=o(\Phi(X)).}
-\tag{6.5}\label{eq:debt-subscale}
-\]
+\begin{equation}\label{eq:debt-subscale}
+\mathcal L(X)=O_\rho(\sqrt X\,\log^3X)=o(\Phi(X)).
+\end{equation}
 
 \subsection{Bounded-lag prime compensation}
 
-Let $\Lambda\ge2$ be the multiplier in Proposition~\ref{prop:prime-supply-main}.  Put
-\[
+Let $\Lambda\ge2$ be the multiplier in Proposition~\ref{prop:prime-supply-main} and put
+\begin{equation}\label{eq:sponsor-lag}
 \Lambda_s=4\Lambda.
-\tag{6.6}\label{eq:sponsor-lag}
-\]
+\end{equation}
 Every sufficiently large prime-power rank $Q$ admits an earlier prime $q$ such that
-\[
+\begin{equation}\label{eq:sponsor-bounded-lag}
 q<Q\le\Lambda_s q.
-\tag{6.7}\label{eq:sponsor-bounded-lag}
-\]
+\end{equation}
 Indeed, let
 \[
 Y=\left\lfloor\frac{Q}{2\Lambda}\right\rfloor.
@@ -72,42 +63,55 @@ shows $q<Q$ and, for $Y\ge1$,
 \[
 Q<2\Lambda(Y+1)\le4\Lambda Y<4\Lambda q.
 \]
-After enlarging the onset, $q$ also lies above $Q_{\mathrm{tr}}$.
-
-By \eqref{eq:mint-prime},
-\[
+After enlarging the onset, $q\ge Q_{\mathrm{tr}}$ as well.  By \eqref{eq:mint-prime},
+\begin{equation}\label{eq:sponsor-mint}
 \mu_\rho(q)
 \gg_\rho\frac q{\log q}
 \asymp_{\rho,\Lambda_s}\frac Q{\log Q}
-=\Theta(\Phi(Q)).
-\tag{6.8}\label{eq:sponsor-mint}
-\]
-Thus every sufficiently large step has a preceding prime step, at bounded multiplicative distance, whose positive width increment is of order $Q/\log Q$.
+=\Theta_{\rho,\Lambda_s}(\Phi(Q)).
+\end{equation}
 
 \subsection{Initial width and continuation}
 
 Let $B_\dagger$ be any prescribed lower cutoff.  Define
-\[
+\begin{equation}\label{eq:startup-request}
 R(B)=\Delta(\Lambda_sB)+\mathcal L(\Lambda_sB).
-\tag{6.9}\label{eq:startup-request}
-\]
+\end{equation}
 By \eqref{eq:max-demand-subscale} and \eqref{eq:debt-subscale},
-\[
+\begin{equation}\label{eq:startup-subscale-scalar}
 R(B)=o(B/\log B).
-\tag{6.10}\label{eq:startup-subscale-scalar}
-\]
-Proposition~\ref{prop:wide-start} can therefore be applied with $L(B)=R(B)$.  Choose $B$ large enough that $B\ge B_\dagger$, $B\ge Q_{\mathrm{tr}}$, and all preceding asymptotic conclusions hold, and fix one wide affine initial cover with component-count interval of width at least $R(B)$ and centre $\gamma_B$.
+\end{equation}
+Apply Proposition~\ref{prop:wide-start} with $L(B)=R(B)$.  Choose $B$ large enough that $B\ge B_\dagger$, $B\ge Q_{\mathrm{tr}}$, and all preceding asymptotic conclusions hold, and fix the resulting affine initial cover with component-count interval of width $R(B)$ and centre $\gamma_B$.
 
-If the bounded-lag prime associated with a step $Q$ lies at or before $B$, then $Q\le\Lambda_sB$.  Ignoring all positive increments in this finite transition, the initial width $R(B)$ covers both the largest single requirement and the total composite loss through $\Lambda_sB$.
+\begin{lemma}[Continuation]\label{lem:component-count-continuation}
+After increasing $B$ if necessary, every prime-power step $Q>B$ is available.  Moreover, immediately before every step $Q>\Lambda_sB$ one has
+\begin{equation}\label{eq:sponsored-width}
+w(Q)\ge\mu_\rho(q)-\mathcal L(Q)
+\end{equation}
+for a prime $q$ satisfying \eqref{eq:sponsor-bounded-lag}.
+\end{lemma}
 
-After the associated prime always lies in the post-$B$ sequence, keep only the positive increment from that prime and subtract all composite losses up to the current step.  Immediately before a step of rank $Q$,
+\begin{proof}
+We induct through the prime powers in increasing order.
+
+First suppose $B<Q\le\Lambda_sB$.  Discarding all positive prime increments, the width immediately before $Q$ is at least
 \[
-w(Q)\ge\mu_\rho(q)-\mathcal L(Q).
-\tag{6.11}\label{eq:sponsored-width}
+R(B)-\mathcal L(Q)
+\ge
+\Delta(\Lambda_sB)
+\ge
+\delta_\rho(Q).
 \]
-Equations \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale} give $w(Q)\gg\Phi(Q)$, whereas the required incoming width is $o(\Phi(Q))$ by \eqref{eq:max-demand-subscale}.  Hence all sufficiently large steps are available; together with the finite transition above, the entire sequence after $B$ is defined.
+Hence every step in this finite transition is available.
 
-Successive component-count intervals overlap.  Their upper endpoints are unbounded because the positive increments at prime steps are unbounded.  Hence their union contains a final ray in $\N$.
+Now let $Q>\Lambda_sB$ and assume all earlier steps have been taken.  Choose $q$ as in \eqref{eq:sponsor-bounded-lag}.  Since $Q\le\Lambda_s q$, we have $q>Q/\Lambda_s>B$, so the prime step $q$ has already occurred after the initial cutoff.  Keeping only its positive increment and discarding every other prime increment gives
+\[
+w(Q)\ge\mu_\rho(q)-\mathcal L(Q),
+\]
+which is \eqref{eq:sponsored-width}.  By \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale}, the right-hand side is $\gg\Phi(Q)$ for large $Q$, whereas \eqref{eq:max-demand-subscale} gives $\delta_\rho(Q)=o(\Phi(Q))$.  Thus the step $Q$ is available.
+\end{proof}
+
+Successive component-count intervals overlap by construction.  Their upper endpoints are unbounded because the positive increments at prime steps tend to infinity.  Hence their union contains a final ray in $\N$.
 
 \subsection{Vanishing of the affine centre}
 
@@ -115,27 +119,24 @@ The initial affine fibre has centre
 \[
 \gamma_B\in A/E_B.
 \]
-Each later prime-power step transports this class along the quotient maps of the endpoint filtration.  By cofinality of $(E_X)$, there is a finite cutoff after which the image of $\gamma_B$ in $A/E_X$ is zero.  Removing a finite initial segment does not change the final-ray conclusion.
+Each later prime-power step transports this class along the quotient maps of the endpoint filtration.  By cofinality of $(E_X)$, the image of $\gamma_B$ in $A/E_X$ is zero for all sufficiently large $X$.
 
 Let
-\[
+\begin{equation}\label{eq:cutoff-base}
 \mathcal H_B=\{X\in\N:X\ge B\}.
-\tag{6.12}\label{eq:cutoff-base}
-\]
+\end{equation}
 For $X\in\mathcal H_B$, let $I_X$ be the component-count interval obtained after all prime-power steps of rank at most $X$ have been processed.  For $k\in\N$ define
-\[
+\begin{equation}\label{eq:term-k}
 \mathcal X_k=
 \{X\in\mathcal H_B:
 \gamma_B\mapsto0\text{ in }A/E_X,
 \quad k\in I_X\}.
-\tag{6.13}\label{eq:term-k}
-\]
+\end{equation}
 
 \begin{theorem}[Eventual component-count coverage]\label{thm:scalar-terminality}
-For every lower cutoff $B_\dagger$ one can choose $B\ge B_\dagger$ and a wide affine initial cover at $B$ such that
+For every lower cutoff $B_\dagger$ one can choose $B\ge B_\dagger$ and an affine initial cover at $B$ such that
 \[
 \exists k_0\ \forall k\ge k_0:
 \qquad \mathcal X_k\ne\varnothing.
 \]
-The theorem is entirely observable: it uses no incompatibility graph, independent transversal, joint interval union, or reciprocal-mass tail from the later realization.
 \end{theorem}
