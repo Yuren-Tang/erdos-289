@@ -1,23 +1,20 @@
 \section{Uniform transfer on the simple quotients}
 \label{sec:local-profile}
 
-This section is entirely at the observable level.  It makes no choice of an affine initial cover and no use of Haxell's theorem.  The result is uniform over every sufficiently dense restriction of the original family $\mathcal A_Q$.
-
 Let $S$ be a cyclic group of prime order $p$, let $A$ be a finite set, and let
 \[
 f:A\longrightarrow S^\times.
 \]
 Define the component-count graded subset-sum support
-\[
+\begin{equation}\label{eq:gamma-f}
 \Gamma_f=
 \left\{
 \left(\sum_{x\in O}f(x),|O|\right):
 O\subseteq A,\ |O|\le p
 \right\}
-\subseteq S\times\mathbf N.
-\tag{5.1}\label{eq:gamma-f}
-\]
-If $I\subset\mathbf N$ is an incoming interval of component counts, the induced target support is
+\subseteq S\times\N.
+\end{equation}
+If $I\subset\N$ is an incoming interval of component counts, the induced target support is
 \[
 \Gamma_f+(\{0\}\times I).
 \]
@@ -29,7 +26,7 @@ Put
 B=\operatorname{im}f,
 \qquad r=|B|.
 \]
-For $0\le h\le r$, the full occurrence relation from $h$-element subsets of $B$ to $h$ distinct elements of $A$ is surjective: each value fibre is nonempty, and distinct values require distinct occurrences.  Hence Theorem~\ref{thm:restricted-fold} applies without a section $B\to A$.
+For $0\le h\le r$, the occurrence relation from $h$-element subsets of $B$ to $h$ distinct elements of $A$ is surjective: each value fibre is nonempty, and distinct values require distinct occurrences.  Hence Theorem~\ref{thm:restricted-fold} applies directly.
 
 Let
 \[
@@ -37,56 +34,45 @@ I_D(p,r)=\{h:h(r-h)+1\ge p\}.
 \]
 If this set is nonempty and $a=\min I_D(p,r)$, symmetry and unimodality give
 \[
-I_D(p,r)=[a,r-a]\cap\mathbf N,
+I_D(p,r)=[a,r-a]\cap\N,
 \]
 and
-\[
+\begin{equation}\label{eq:rich-demand}
 a<\frac{2p}{r}+1.
-\tag{5.2}\label{eq:rich-demand}
-\]
+\end{equation}
 Thus the large-image case gives
-\[
+\begin{equation}\label{eq:rich-rectangle}
 S\times[A_0+a,B_0+r-a]
 \subseteq
 \Gamma_f+(\{0\}\times[A_0,B_0]).
-\tag{5.3}\label{eq:rich-rectangle}
-\]
+\end{equation}
 
 The complementary mechanism uses a heavy fibre.  If some $c\in S^\times$ has at least $p-1$ preimages, then for every $0\le j<p$ the full family of $j$-element subsets of $f^{-1}(c)$ gives
 \[
 (jc,j)\in\Gamma_f.
 \]
 Since $j\mapsto jc$ bijects $\{0,\ldots,p-1\}$ with $S$, one obtains
-\[
+\begin{equation}\label{eq:poor-rectangle}
 S\times[A_0+p-1,B_0]
 \subseteq
 \Gamma_f+(\{0\}\times[A_0,B_0])
-\tag{5.4}\label{eq:poor-rectangle}
-\]
+\end{equation}
 whenever the incoming interval has width at least $p-1$.
 
-The two constructions are kept distinct; only their common rectangle conclusion is used below.
-
-\subsection{Uniformity under every dense restriction}
+\subsection{Uniformity under dense restriction}
 
 Let $\kappa$ be the constant in \eqref{eq:family-size}, let $\sigma$ be the compatibility fraction in Proposition~\ref{prop:wide-start}, and let $\rho_P$ be the constant in Proposition~\ref{prop:haxell-quota}.  Fix
-\[
+\begin{equation}\label{eq:rho-choice}
 0<\rho<\kappa\sigma\rho_P.
-\tag{5.5}\label{eq:rho-choice}
-\]
-These are theorem-level constants; no initial cover or independent set has yet been chosen.
-
-For every sufficiently large prime power $Q=p^e$, define the family of dense restrictions
-\[
-\boxed{
+\end{equation}
+For every sufficiently large prime power $Q=p^e$, define
+\begin{equation}\label{eq:adm-universal}
 \mathcal D_\rho(Q)=
 \left\{
 A\subseteq\mathcal A_Q:
 |A|\ge \rho\frac Q{\log Q}
-\right\}.}
-\tag{5.6}\label{eq:adm-universal}
-\]
-This depends only on the deterministic family $\mathcal A_Q$.
+\right\}.
+\end{equation}
 
 Fix $A\in\mathcal D_\rho(Q)$ and restrict $\phi_Q$ to $A$.  If
 \[
@@ -95,35 +81,30 @@ M=\max_s|\phi_Q^{-1}(s)\cap A|,
 r=|\operatorname{im}(\phi_Q|_A)|,
 \]
 then \eqref{eq:fibre-bound} gives $M\le Q/p$, and therefore
-\[
+\begin{equation}\label{eq:image-lower}
 r\gg_\rho\frac p{\log Q}.
-\tag{5.7}\label{eq:image-lower}
-\]
+\end{equation}
 
 If $I_D(p,r)$ is nonempty, \eqref{eq:rich-demand} gives
-\[
+\begin{equation}\label{eq:rich-demand-log}
 a(A)=O_\rho(\log Q).
-\tag{5.8}\label{eq:rich-demand-log}
-\]
+\end{equation}
 If $I_D(p,r)$ is empty, then $r^2<4p$, and \eqref{eq:image-lower} yields
-\[
+\begin{equation}\label{eq:poor-p-bound}
 p=O_\rho((\log Q)^2).
-\tag{5.9}\label{eq:poor-p-bound}
-\]
+\end{equation}
 Moreover some nonzero simple-quotient value has at least
-\[
+\begin{equation}\label{eq:heavy-fibre}
 \frac{|A|}{r}
 \gg_\rho\frac{Q}{\sqrt p\,\log Q}
-\tag{5.10}\label{eq:heavy-fibre}
-\]
+\end{equation}
 preimages.  If $Q=p^e$ with $e\ge2$, this is eventually larger than $p-1$ uniformly in $p$ and $e$, because after division by $p$ the relevant ratio is
-\[
+\begin{equation}\label{eq:heavy-ratio}
 \frac{Q}{p^{3/2}\log Q}
 =
 \frac{p^{e-3/2}}{e\log p}.
-\tag{5.11}\label{eq:heavy-ratio}
-\]
-For $p\to\infty$ the smallest case is $e=2$, giving $\sqrt p/(2\log p)\to\infty$; for bounded $p$ and $e\to\infty$ the ratio grows exponentially.  Thus the heavy-fibre rectangle \eqref{eq:poor-rectangle} applies to every sufficiently large composite prime power, with required incoming width
+\end{equation}
+For $p\to\infty$ the smallest case is $e=2$, giving $\sqrt p/(2\log p)\to\infty$; for bounded $p$ and $e\to\infty$ the ratio grows exponentially.  Thus \eqref{eq:poor-rectangle} applies to every sufficiently large composite prime power, with required incoming width
 \[
 p-1=O_\rho((\log Q)^2).
 \]
@@ -137,18 +118,17 @@ The alternative $I_D(q,r)=\varnothing$ would imply $r^2<4q$, contradicting
 r^2\ge \rho^2\frac{q^2}{(\log q)^2}>4q
 \]
 for sufficiently large $q$.  Hence the large-image case is forced at prime steps and
-\[
+\begin{equation}\label{eq:prime-rich}
 r\gg_\rho q/\log q,
 \qquad
 a(A)=O_\rho(\log q).
-\tag{5.12}\label{eq:prime-rich}
-\]
+\end{equation}
 
 \subsection{Uniform loss and prime gain}
 
 Choose $Q_{\mathrm{tr}}$ large enough that all preceding statements hold for every prime power $Q\ge Q_{\mathrm{tr}}$.
 
-For $A\in\mathcal D_\rho(Q)$ define the required incoming width
+For $A\in\mathcal D_\rho(Q)$ define
 \[
 \delta(Q,A)=
 \begin{cases}
@@ -156,42 +136,35 @@ a(A),&\text{in the large-image case},\\
 p-1,&\text{in the heavy-fibre case}.
 \end{cases}
 \]
-Set
-\[
-\boxed{
+and then set
+\begin{equation}\label{eq:common-demand}
 \delta_\rho(Q)=
-\max_{A\in\mathcal D_\rho(Q)}\delta(Q,A).}
-\tag{5.13}\label{eq:common-demand}
-\]
-Then
-\[
+\max_{A\in\mathcal D_\rho(Q)}\delta(Q,A).
+\end{equation}
+Thus
+\begin{equation}\label{eq:d-composite}
 \delta_\rho(Q)=O_\rho((\log Q)^2)
-\tag{5.14}\label{eq:d-composite}
-\]
+\end{equation}
 for every sufficiently large prime power, while
-\[
+\begin{equation}\label{eq:d-prime}
 \delta_\rho(q)=O_\rho(\log q)
-\tag{5.15}\label{eq:d-prime}
-\]
+\end{equation}
 when $q$ is prime.
 
 For a prime $q$ and $A\in\mathcal D_\rho(q)$ put
 \[
 r_A=|\operatorname{im}(\phi_q|_A)|.
 \]
-Only after $\delta_\rho(q)$ has been fixed define the uniform prime gain
-\[
-\boxed{
+With $\delta_\rho(q)$ now fixed, define
+\begin{equation}\label{eq:common-mint}
 \mu_\rho(q)=
 \min_{A\in\mathcal D_\rho(q)}
-\bigl(r_A-a(A)-\delta_\rho(q)\bigr).}
-\tag{5.16}\label{eq:common-mint}
-\]
+\bigl(r_A-a(A)-\delta_\rho(q)\bigr).
+\end{equation}
 By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
-\[
+\begin{equation}\label{eq:mint-prime}
 \mu_\rho(q)\gg_\rho q/\log q.
-\tag{5.17}\label{eq:mint-prime}
-\]
+\end{equation}
 
 \begin{theorem}[Uniform simple-quotient transfer]\label{thm:uniform-profile}
 Let $Q\ge Q_{\mathrm{tr}}$ and $A\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then the observable relation contains
@@ -204,5 +177,3 @@ S_q\times
 [A_0+\delta_\rho(q),\,B_0+\delta_\rho(q)+\mu_\rho(q)].
 \]
 \end{theorem}
-
-Thus the local statement is uniform under every sufficiently dense restriction of the original arithmetic family.  Compatibility is imposed only later, after a finite terminal cutoff has been selected.
