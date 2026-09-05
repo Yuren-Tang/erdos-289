@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:introduction}
 
-Let $\mathcal C$ denote the family of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph on $\N_{>0}$ have cardinality $2$ or $3$.  Write
+We use $\N=\Z_{\ge0}$ and $\N_{>0}=\{1,2,\ldots\}$.  Let $\mathcal C$ denote the family of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph on $\N_{>0}$ have cardinality $2$ or $3$.  Write
 \[
 \nu(S)=|\pi_0(S)|,
 \qquad
@@ -18,6 +18,8 @@ W(S)=1.
 \end{theorem}
 
 Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
+
+The basic reduction is elementary in spirit.  It is enough to construct a nonempty interval configuration with $0<W<2$ and $W\equiv0\pmod{\Z}$, because then $W$ must equal $1$.  We therefore work modulo $1$ until the final step.  The least-common-multiple filtration of $\Q/\Z$ changes only at prime powers: prime stages can be made to enlarge the available interval of component counts by order $q/\log q$, whereas the accumulated loss at higher prime powers is only $o(X/\log X)$.  The remaining task is to realize this residue-and-count calculation by literal compatible intervals without exhausting the fixed reciprocal-mass margin.
 
 The proof separates a structural calculus from its arithmetic inputs.
 
