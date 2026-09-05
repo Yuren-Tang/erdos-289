@@ -67,7 +67,13 @@ k\ge b/2>X_Q/2\gg p.
 
 \subsection{Transversality and deterministic deduplication}
 
-The distinguished denominator $Qk$ has maximal current exactly $Q$: the chosen coefficient is a $p$-unit, and every prime-power factor contributed by $k$ has smaller rank because $k<Q$.  The only possible obstruction is that the carrier $b$ also divides the companion denominator.  Then $c_\pm=\ell b$ for some integer $\ell\ge1$.  Since $c_\pm<Q<B_{\mathrm{car}}b$ by \eqref{eq:carrier-exact}, one has $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+The distinguished denominator $Qk$ has maximal current exactly $Q$: the chosen coefficient is a $p$-unit, and every prime-power factor contributed by $k$ has smaller rank because $k<Q$.
+
+For the companion denominator $bc_\pm=Qk\pm1$, both $b$ and $c_\pm$ are $<Q$.  Hence every prime-power factor is automatically of rank $<Q$, except possibly when the carrier prime occurs again inside $c_\pm$.  Thus the only possible new large prime-power obstruction is
+\[
+b\mid c_\pm,
+\]
+equivalently $b^2\mid Qk\pm1$.  In that case write $c_\pm=\ell b$.  Since $c_\pm<Q<B_{\mathrm{car}}b$ by \eqref{eq:carrier-exact}, one has $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
 \[
 \ell b^2\equiv\pm1\pmod Q.
 \tag{3.8}\label{eq:bad-carrier}
@@ -134,7 +140,7 @@ There is a late-current threshold beyond which the families $A_Q$ satisfy the fo
 |sv_Q^{-1}(s)|\le Q/p.
 \tag{3.14}\label{eq:fibre-bound}
 \]
-\item The conflict graph on the union of all late rows has uniformly bounded degree.
+\item The atom--atom conflict graph on the union of all late rows has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is a constant $C_L$ such that any external interval envelope of cardinality at most $L$ conflicts with at most $C_L$ retained atoms, uniformly across all late currents.
 \item Every support vertex $z$ of a retained atom satisfies
 \[
 c\frac{Q^2}{\log Q}\le z\le2Q^2
@@ -152,7 +158,7 @@ for a fixed $c>0$.  At prime currents one has the stronger lower scale $z\gg Q^2
 \begin{proof}
 The cardinality statement follows from the carrier count, bounded exceptional set, bounded coefficient multiplicity, and the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among the integers $1\le k<Q=p^e$; deterministic deduplication keeps at most one atom per coefficient.
 
-For the conflict bound, each atom occupies two adjacent vertices around its globally injective centre $Qk$.  An interval envelope of bounded length can conflict only with centres in a fixed bounded enlargement of that envelope, so it conflicts with only $O(1)$ retained atoms across all currents.
+For the conflict statements, each atom occupies two adjacent vertices around its globally injective centre $Qk$.  If an external interval envelope has cardinality at most $L$, any conflicting atom has centre in a fixed one-vertex enlargement of that envelope.  That enlargement contains $O(L)$ integer sites, and global centre injectivity leaves at most one retained atom per site.  Taking $L=2$ gives the atom--atom degree bound; fixed larger $L$ gives the stated external-envelope bound.
 
 The support window follows from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, prime rows have $O(p/\log p)$ atoms of individual mass $O(p^{-2})$, so
 \[
