@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-# Build six context proofs. Run from paper/epigraph or from any directory.
+# Build seven context proofs. Run from paper/epigraph or from any directory.
 HERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 cd "$HERE"
 
@@ -9,9 +9,9 @@ TEXMFHOME=${TEXMFHOME:-/tmp/e289-empty-texmf}
 export TEXMFHOME
 mkdir -p "$TEXMFHOME"
 
-# BasicTeX is intentionally small. Before starting a six-proof build, detect
+# BasicTeX is intentionally small. Before starting the proof matrix, detect
 # all TeX Live components used by the real E289 first-page environment and by
-# the isolated legacy Trajan control asset.
+# the isolated legacy Trajan reference assets.
 missing=""
 need_tex() {
   file=$1
@@ -56,13 +56,15 @@ if [ -n "$missing" ]; then
   exit 2
 fi
 
-# The TeX-Live Trajan family is legacy Type 1/METAFONT. XeTeX/x­dvipdfmx is
-# not a reliable route for this control, so render the exact historical
-# Trajan+soul line with pdfLaTeX first and embed that tiny PDF at natural size
-# into variant 0. Candidates remain live OpenType text under XeLaTeX.
-rm -f trajan-control-line.pdf context-*.pdf
+# TeX Live Trajan is legacy Type 1/METAFONT. Render two literal-text reference
+# assets with pdfLaTeX+soul: 0.08 em reproduces the current E289 manuscript;
+# 0.09 em normalizes Trajan to the current successful E306 LetterSpace=9 gate.
+rm -f trajan-control-08.pdf trajan-control-09.pdf context-*.pdf
 pdflatex -interaction=nonstopmode -halt-on-error \
-  -jobname=trajan-control-line trajan-control-asset.tex
+  -jobname=trajan-control-08 trajan-control-asset.tex
+pdflatex -interaction=nonstopmode -halt-on-error \
+  -jobname=trajan-control-09 \
+  '\def\TrajanNormalized{1}\input{trajan-control-asset.tex}'
 
 build_one() {
   variant=$1
@@ -75,17 +77,21 @@ build_one() {
   xelatex -interaction=nonstopmode -halt-on-error -jobname="$job" "$src"
 }
 
-build_one 0 context-00-trajan-control
-build_one 1 context-01-cinzel-regular
-build_one 2 context-02-cinzel-bold
-build_one 3 context-03-marcellus-regular
-build_one 4 context-04-cormorant-medium
-build_one 5 context-05-cormorant-semibold
+# Variant 0 is historical reference only. Variants 1--6 are the normalized
+# family/weight gate at the E306-current 0.09 em tracking target.
+build_one 0 context-00-trajan-current-08
+build_one 1 context-01-trajan-normalized-09
+build_one 2 context-02-cinzel-regular
+build_one 3 context-03-cinzel-bold
+build_one 4 context-04-marcellus-regular
+build_one 5 context-05-cormorant-medium
+build_one 6 context-06-cormorant-semibold
 
 printf '\nBuilt context proofs:\n'
-printf '  %s\n' context-00-trajan-control.pdf \
-  context-01-cinzel-regular.pdf \
-  context-02-cinzel-bold.pdf \
-  context-03-marcellus-regular.pdf \
-  context-04-cormorant-medium.pdf \
-  context-05-cormorant-semibold.pdf
+printf '  %s\n' context-00-trajan-current-08.pdf \
+  context-01-trajan-normalized-09.pdf \
+  context-02-cinzel-regular.pdf \
+  context-03-cinzel-bold.pdf \
+  context-04-marcellus-regular.pdf \
+  context-05-cormorant-medium.pdf \
+  context-06-cormorant-semibold.pdf
