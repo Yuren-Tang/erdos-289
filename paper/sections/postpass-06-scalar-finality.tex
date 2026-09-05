@@ -53,18 +53,42 @@ N(X)=O_\rho(\sqrt X\,\log^3X)
 
 \subsection{Earlier prime sponsors}
 
-Let $\Lambda$ be the fixed constant from Proposition~\ref{prop:prime-supply-main}.  For every sufficiently large event rank $Q$, apply the comparable-prime theorem at $X=Q/\Lambda^2$.  There is a prime
+Let $\Lambda\ge2$ be the integer multiplier from Proposition~\ref{prop:prime-supply-main}.  There is a fixed integer
 \[
-\frac{Q}{\Lambda^2}<q\le\frac Q\Lambda.
-\tag{6.6}\label{eq:sponsor-band}
+\Lambda_s=4\Lambda
+\tag{6.6}\label{eq:sponsor-lag}
 \]
-This prime current occurs earlier than $Q$, and by \eqref{eq:mint-prime},
+such that every sufficiently large event rank $Q$ has an earlier prime sponsor $q$ satisfying
+\[
+q<Q\le\Lambda_s q.
+\tag{6.7}\label{eq:sponsor-bounded-lag}
+\]
+Indeed, put
+\[
+Y=Q\operatorname{div}(2\Lambda).
+\]
+For $Q$ sufficiently large, $Y$ is in the range of Proposition~\ref{prop:prime-supply-main}, so there is a prime
+\[
+Y<q\le\Lambda Y.
+\]
+Euclidean division gives
+\[
+Q=(2\Lambda)Y+r,
+\qquad 0\le r<2\Lambda.
+\]
+Thus $q\le\Lambda Y<2\Lambda Y\le Q$, while for $Y\ge1$,
+\[
+Q<2\Lambda(Y+1)\le4\Lambda Y<4\Lambda q.
+\]
+Hence \eqref{eq:sponsor-bounded-lag}.  Enlarging the onset so that $Q>\Lambda_sQ_{\mathrm{prof}}$ also forces $q>Q_{\mathrm{prof}}$, so the sponsor belongs to the same late event subtype.
+
+By \eqref{eq:mint-prime} and \eqref{eq:sponsor-bounded-lag},
 \[
 m_\rho(q)
 \gg_\rho \frac q{\log q}
-\asymp_{\rho,\Lambda}\frac Q{\log Q}
+\asymp_{\rho,\Lambda_s}\frac Q{\log Q}
 =\Theta(\Phi(Q)).
-\tag{6.7}\label{eq:sponsor-mint}
+\tag{6.8}\label{eq:sponsor-mint}
 \]
 Thus every sufficiently late event has a bounded-multiplicative-lag earlier prime sponsor whose positive width increment is macroscopic on the scale $\Phi(Q)$.
 
@@ -72,13 +96,13 @@ Thus every sufficiently late event has a bounded-multiplicative-lag earlier prim
 
 The scalar theorem will be used above an arbitrarily prescribed lower cutoff $B_\dagger$.  Define the startup request
 \[
-R(B)=A(\Lambda^2B)+N(\Lambda^2B).
-\tag{6.8}\label{eq:startup-request}
+R(B)=A(\Lambda_sB)+N(\Lambda_sB).
+\tag{6.9}\label{eq:startup-request}
 \]
 By \eqref{eq:max-demand-subscale}, \eqref{eq:debt-subscale}, and fixed-scale stability of $\Phi$,
 \[
 R(B)=o(B/\log B).
-\tag{6.9}
+\tag{6.10}
 \]
 Hence Proposition~\ref{prop:wide-start} applies to this particular request.  Choose $B$ sufficiently large so that
 \[
@@ -88,16 +112,16 @@ B\ge Q_{\mathrm{prof}},
 \]
 and so that all asymptotic statements above and the WideStart conclusion hold.  Fix one resulting WideStart with grade interval of width at least $R(B)$ and full centre $\gamma_B$ from \eqref{eq:full-centre}.
 
-If an event $Q$ has its chosen sponsor $q$ at or before the start $B$, then \eqref{eq:sponsor-band} implies
+If an event $Q$ has its chosen sponsor $q$ at or before the start $B$, then \eqref{eq:sponsor-bounded-lag} implies
 \[
-Q<\Lambda^2B.
+Q\le\Lambda_sB.
 \]
-Pessimistically discard every positive mint in this finite transition.  The initial width $R(B)$ covers both the largest individual demand and all negative variation through $\Lambda^2B$.
+Pessimistically discard every positive mint in this finite transition.  The initial width $R(B)$ covers both the largest individual demand and all negative variation through $\Lambda_sB$.
 
 After every sponsor lies inside the post-start chain, retain only the positive increment of one sponsor and subtract all negative variation through the current event.  Immediately before an event of rank $Q$ we have the lower bound
 \[
 w(Q)\ge m_\rho(q)-N(Q).
-\tag{6.10}\label{eq:sponsored-width}
+\tag{6.11}\label{eq:sponsored-width}
 \]
 By \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale},
 \[
@@ -121,7 +145,7 @@ For a grade $k$ define
 \{X\ge B:
 \gamma_B\mapsto0\text{ in }A/E_X,
 \quad k\in I_X\},
-\tag{6.11}\label{eq:term-k}
+\tag{6.12}\label{eq:term-k}
 \]
 where $I_X$ is the scalar grade interval after processing all late currents through $X$.
 
