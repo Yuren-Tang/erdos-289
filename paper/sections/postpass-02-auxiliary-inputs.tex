@@ -1,7 +1,7 @@
 \section{Auxiliary inputs}
 \label{sec:auxiliary-inputs}
 
-We record four ordinary inputs.  Three are proved here or in the appendices; the fourth is a standard consequence of Haxell's independent-transversal theorem.
+We record four inputs used below.  Three are proved here or in the appendices; the fourth is a standard consequence of Haxell's independent-transversal theorem.
 
 \subsection{Reciprocal-neutral component switches}
 
@@ -36,11 +36,11 @@ For each coordinate, the union of the component envelopes occurring in its two a
 \end{lemma}
 
 \begin{proof}
-Choose the coordinates inductively.  At stage $i$, enlarge the finite forbidden region by all components occurring in the alternatives already chosen.  Take $a$ so large that both new alternatives lie beyond this region by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives mutual compatibility and total reciprocal value below $\varepsilon$.  The two alternatives contain respectively two and three components, so at most five component envelopes occur in one coordinate.  Finally the Hamming-weight map
+Choose the coordinates inductively.  At stage $i$, enlarge the finite forbidden region by all components occurring in the alternatives already chosen.  Take $a$ so large that both new alternatives lie beyond this region by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives mutual compatibility and total reciprocal value below $\varepsilon$.  The two alternatives contain respectively two and three components, so at most five component envelopes occur in one coordinate.  The Hamming-weight map
 \[
 \{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}
 \]
-realizes every component-count increment, with no choice of a distinguished point in a fibre.
+realizes every component-count increment.
 \end{proof}
 
 Whenever a later estimate supplies a positive real reciprocal-mass tolerance, we first choose a smaller positive rational tolerance and apply the lemma.
@@ -62,11 +62,11 @@ C_\Pi\frac X{\log X}.
 
 \subsection{Fixed-cardinality sums in a prime cyclic group}
 
-The additive-combinatorial input is Theorem~\ref{thm:restricted-fold} from Appendix~\ref{app:restricted-fold}.  In the form used below, if $S$ is cyclic of prime order $p$, $A\subseteq S$ has cardinality $r$, and
+The additive-combinatorial input is the Dias da Silva--Hamidoune theorem \cite{DiasDaSilvaHamidoune1994}, proved in the required form as Theorem~\ref{thm:restricted-fold} in Appendix~\ref{app:restricted-fold}.  Thus if $S$ is cyclic of prime order $p$, $A\subseteq S$ has cardinality $r$, and
 \[
 h(r-h)+1\ge p,
 \]
-then every element of $S$ is the sum of an $h$-element subset of $A$.  The theorem is intrinsic to the cyclic group; an identification $S\simeq\mathbf F_p$ is used only inside its proof.
+then every element of $S$ is the sum of an $h$-element subset of $A$.
 
 \subsection{Independent thinning with a uniform quota}
 
@@ -89,5 +89,5 @@ For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each class into as ma
 \[
 \left\lfloor\frac n{L_P}\right\rfloor\ge\frac{n}{2L_P},
 \]
-so $\rho_P=1/(2L_P)$ suffices.  No numerical value of $L_P$ or $\rho_P$ is used later.
+so $\rho_P=1/(2L_P)$ suffices.
 \end{proof}
