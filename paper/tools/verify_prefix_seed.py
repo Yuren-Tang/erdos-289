@@ -53,8 +53,8 @@ assert {
 } == set(range(5))
 
 # A bridge at base a has alternatives supported in [a+1,a+2] and [a,a+2];
-# the larger interval [a,a+2] is therefore a sufficient envelope for both.
-bridge_envelopes: list[tuple[int, int]] = []
+# the larger support interval [a,a+2] therefore contains both alternatives.
+bridge_supports: list[tuple[int, int]] = []
 for stage in BRIDGE_STAGES:
     current = [(a, a + 2) for a in stage]
 
@@ -67,8 +67,8 @@ for stage in BRIDGE_STAGES:
     # the current stage and with all preceding stages.
     assert all(compatible(a, b) for a, b in combinations(current, 2))
     for bridge in current:
-        assert all(compatible(bridge, old) for old in bridge_envelopes)
-    bridge_envelopes.extend(current)
+        assert all(compatible(bridge, old) for old in bridge_supports)
+    bridge_supports.extend(current)
 
 # Bridge reciprocal differences used in Appendix C.
 for p, D, coefficients in [(2, 6, [1]), (5, 12, [1, 2, 3])]:
