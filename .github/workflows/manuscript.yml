@@ -6,6 +6,9 @@ on:
       - paper/publication-rewrite
   workflow_dispatch:
 
+env:
+  ARXIV_TEX_IMAGE: gcr.io/arxiv-development/arxiv-texlive/arxiv-texlive-base-2025-2025-08-03
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -65,27 +68,42 @@ jobs:
         working-directory: paper
         run: python3 tools/verify_prefix_seed.py
 
-      - name: Install TeX toolchain
+      - name: Pull exact arXiv TeX Live 2025 image
+        run: docker pull "$ARXIV_TEX_IMAGE"
+
+      - name: Verify arXiv TeX identity and typography dependencies
+        run: |
+          docker run --rm "$ARXIV_TEX_IMAGE" bash -lc '
+            set -euo pipefail
+            xelatex --version | head -n 2
+            biber --version | head -n 1
+            latexmk -v | head -n 2
+            kpsewhich ETbb-Regular.otf
+            kpsewhich ETbb-Bold.otf
+            kpsewhich ETbb-Italic.otf
+            kpsewhich ETbb-BoldItalic.otf
+            kpsewhich newtxmath.sty
+            kpsewhich microtype.sty
+            kpsewhich fontspec.sty
+            kpsewhich trajan.sty
+            kpsewhich soul.sty
+            kpsewhich binhex.tex
+          '
+
+      - name: Build manuscript in exact arXiv TeX Live 2025 image
+        run: |
+          docker run --rm \
+            --user "$(id -u):$(id -g)" \
+            -e HOME=/tmp \
+            -v "$PWD:/workspace" \
+            -w /workspace/paper \
+            "$ARXIV_TEX_IMAGE" \
+            bash -lc 'latexmk -xelatex -interaction=nonstopmode -halt-on-error manuscript.tex'
+
+      - name: Install PDF diagnostics only
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            latexmk biber poppler-utils \
-            texlive-bibtex-extra texlive-fonts-extra texlive-fonts-recommended \
-            texlive-latex-extra texlive-pictures texlive-plain-generic texlive-xetex
-
-      - name: Verify typography dependencies
-        working-directory: paper
-        run: |
-          kpsewhich ETbb-Regular.otf
-          kpsewhich ETbb-Bold.otf
-          kpsewhich ETbb-Italic.otf
-          kpsewhich ETbb-BoldItalic.otf
-          kpsewhich newtxmath.sty
-          kpsewhich binhex.tex
-
-      - name: Build manuscript
-        working-directory: paper
-        run: latexmk -xelatex -interaction=nonstopmode -halt-on-error manuscript.tex
+          sudo apt-get install -y --no-install-recommends poppler-utils
 
       - name: Extract PDF diagnostics
         working-directory: paper
