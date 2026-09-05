@@ -59,7 +59,11 @@ Every sufficiently large prime-power rank $Q$ admits an earlier prime $q$ such t
 q<Q\le\Lambda_s q.
 \tag{6.7}\label{eq:sponsor-bounded-lag}
 \]
-Indeed, let $Y=Q\operatorname{div}(2\Lambda)$.  For large $Q$, Proposition~\ref{prop:prime-supply-main} gives a prime $Y<q\le\Lambda Y$.  Writing
+Indeed, let
+\[
+Y=\left\lfloor\frac{Q}{2\Lambda}\right\rfloor.
+\]
+For large $Q$, Proposition~\ref{prop:prime-supply-main} gives a prime $Y<q\le\Lambda Y$.  Writing
 \[
 Q=(2\Lambda)Y+r,
 \qquad0\le r<2\Lambda,
@@ -103,7 +107,7 @@ w(Q)\ge\mu_\rho(q)-\mathcal L(Q).
 \]
 Equations \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale} give $w(Q)\gg\Phi(Q)$, whereas the required incoming width is $o(\Phi(Q))$ by \eqref{eq:max-demand-subscale}.  Hence all sufficiently large steps are available; together with the finite transition above, the entire sequence after $B$ is defined.
 
-Successive component-count intervals overlap.  Their upper endpoints are unbounded because the positive increments at prime steps are unbounded.  Hence their union contains a final ray in $\mathbf N$.
+Successive component-count intervals overlap.  Their upper endpoints are unbounded because the positive increments at prime steps are unbounded.  Hence their union contains a final ray in $\N$.
 
 \subsection{Vanishing of the affine centre}
 
@@ -115,10 +119,10 @@ Each later prime-power step transports this class along the quotient maps of the
 
 Let
 \[
-\mathcal H_B=\{X\in\mathbf N:X\ge B\}.
+\mathcal H_B=\{X\in\N:X\ge B\}.
 \tag{6.12}\label{eq:cutoff-base}
 \]
-For $X\in\mathcal H_B$, let $I_X$ be the component-count interval obtained after all prime-power steps of rank at most $X$ have been processed.  For $k\in\mathbf N$ define
+For $X\in\mathcal H_B$, let $I_X$ be the component-count interval obtained after all prime-power steps of rank at most $X$ have been processed.  For $k\in\N$ define
 \[
 \mathcal X_k=
 \{X\in\mathcal H_B:
