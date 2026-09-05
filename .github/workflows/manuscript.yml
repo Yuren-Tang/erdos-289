@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - paper/publication-rewrite
+      - paper/epigraph-specimen
   workflow_dispatch:
 
 env:
