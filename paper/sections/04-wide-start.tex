@@ -69,6 +69,16 @@ Let $Q>B$ be a later prime-power step.  Proposition~\ref{prop:signed-inverse-cap
 \end{equation}
 up to a fixed endpoint enlargement.
 
+\begin{lemma}[Sparse bridge interaction]\label{lem:sparse-bridge-interaction}
+Uniformly for later prime-power steps $Q>B$, the fixed seed and the bridge stages used in the affine cover contribute only
+\[
+O(\sqrt{\log Q}\,\log\log Q)
+=o(Q/\log Q)
+\]
+bounded-size exclusion envelopes capable of meeting $\mathcal A_Q$.
+\end{lemma}
+
+\begin{proof}
 Suppose a bridge at a jump $n=p^e$, with lower modulus $D=L_{n-1}$, can meet this interval.  Since its bases are $a_r=pD/r$, the upper endpoint gives
 \[
 D=O(Q^2).
@@ -98,7 +108,10 @@ bounded-size exclusion envelopes.  The total number of bridge envelopes capable 
 O(\sqrt{\log Q}\,\log\log Q)
 =o(Q/\log Q).
 \end{equation}
-By Proposition~\ref{prop:signed-inverse-capabilities}, these envelopes are incompatible with only $o(Q/\log Q)$ members of $\mathcal A_Q$.  The fixed finite seed contributes only $O(1)$ further bounded-size exclusion envelopes, and hence excludes only $O(1)$ additional members of $\mathcal A_Q$.
+The fixed finite seed contributes only $O(1)$ further bounded-size exclusion envelopes.  This proves the lemma.
+\end{proof}
+
+By Proposition~\ref{prop:signed-inverse-capabilities}, the envelopes in Lemma~\ref{lem:sparse-bridge-interaction} are incompatible with only $o(Q/\log Q)$ members of $\mathcal A_Q$.
 
 \subsection{The neutral Hamming pullback}
 

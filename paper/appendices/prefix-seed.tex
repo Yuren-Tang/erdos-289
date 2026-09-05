@@ -25,7 +25,7 @@ One witness is recorded below.  The first three assertions are finite exact chec
 \subsection*{One explicit witness}
 
 The empty configuration gives residue $0$.  The following table gives five further configurations; the third column lists the starts of their binary components $[m,m+1]$.
-\[
+\begin{equation}\label{eq:prefix-root-table}
 \begin{array}{c|c|l}
 \text{residue}&\text{component count}&\text{component starts}\\
 \hline
@@ -37,8 +37,7 @@ The empty configuration gives residue $0$.  The following table gives five furth
 &&132,153,170,272,285,455,494\\
 \frac56&1&2
 \end{array}
-\tag{PS1}\label{eq:prefix-root-table}
-\]
+\end{equation}
 Equivalently,
 \[
 \frac j6=\sum_{m\in M_j}P(m)
@@ -61,7 +60,6 @@ The bridge identity is exactly \eqref{eq:bridge-switch}: at lower modulus $D$ an
 Only a finite boundary remains before the separation estimate becomes automatic.  One sufficient list of bridge bases is
 \begin{equation}\label{eq:prefix-boundary-bases}
 12,20,30,60,140,210,420,840,1260,2520.
-\tag{PS2}
 \end{equation}
 Direct comparison shows that the bridge component supports determined by these bases are compatible with the five displayed configurations and with one another whenever they occur simultaneously.  The list is part of this particular finite witness, not a canonical sequence.
 
@@ -76,7 +74,6 @@ a_k=\frac{pD}{k},
 where $k$ is least with $k(k+1)/2\ge p-1$.  Thus
 \begin{equation}\label{eq:successive-row-gap}
 a_k-D=D\left(\frac pk-1\right).
-\tag{PS3}
 \end{equation}
 In fact
 \[
@@ -104,21 +101,18 @@ The reciprocal-mass estimate is likewise uniform.  The largest initial reciproca
 \begin{equation}\label{eq:finite-seed-bound}
 \frac56+\frac3{12}+\frac3{20}+\frac3{30}+\frac3{60}
 =\frac56+\frac{11}{20}<\frac32.
-\tag{PS4}
 \end{equation}
 For every later bridge, with lower modulus $D$ and $k$ least such that $T_k=k(k+1)/2\ge p-1$, minimality gives $T_k<2p$.  At base $a_r=pD/r$, every alternative has reciprocal mass below $3/a_r$, so an entire branch has mass
-\[
+\begin{equation}\label{eq:future-row-bound}
 <\sum_{r=1}^k\frac{3r}{pD}
 =\frac{3T_k}{pD}
 <\frac6D.
-\tag{PS5}\label{eq:future-row-bound}
-\]
+\end{equation}
 After the finite initialization the first lower modulus is at least $60$, and successive nontrivial least-common-multiple jumps multiply the lower modulus by at least two.  Hence
 \begin{equation}\label{eq:future-bridge-total}
 \sum_{\text{later bridge stages}}\text{reciprocal mass}
 <\sum_{j\ge0}\frac6{60\,2^j}
 =\frac15<\frac14.
-\tag{PS6}
 \end{equation}
 Together with \eqref{eq:finite-seed-bound} this leaves a fixed positive margin below $2$ before the arbitrarily small neutral contribution is added.
 

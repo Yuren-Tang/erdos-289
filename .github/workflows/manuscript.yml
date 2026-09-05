@@ -30,12 +30,16 @@ jobs:
               Path(name + ".tex")
               for name in re.findall(r"\\input\{(sections/[^}]+)\}", root_text)
           ]
-          files = [root, *active_section_paths]
+          active_appendix_paths = [
+              Path(name + ".tex")
+              for name in re.findall(r"\\input\{(appendices/[^}]+)\}", root_text)
+          ]
+          files = [root, *active_section_paths, *active_appendix_paths]
           corpus = "\n".join(p.read_text(encoding="utf-8") for p in files)
 
-          numeric_tags = re.findall(r"\\tag\{\d+\.\d+\}", corpus)
-          if numeric_tags:
-              raise SystemExit("Manual numeric equation tags are forbidden in the active main text: " + repr(numeric_tags))
+          manual_tags = re.findall(r"\\tag\{[^}]+\}", corpus)
+          if manual_tags:
+              raise SystemExit("Manual equation tags are forbidden in publication source: " + repr(manual_tags))
 
           labels = re.findall(r"\\label\{([^}]+)\}", corpus)
           duplicates = sorted({x for x in labels if labels.count(x) > 1})
@@ -44,22 +48,13 @@ jobs:
 
           refs = re.findall(r"\\(?:eqref|ref)\{([^}]+)\}", corpus)
           missing = sorted(set(refs) - set(labels))
-          appendix_targets = {
-              "app:prime-supply",
-              "app:restricted-fold",
-              "app:prefix-seed",
-              "thm:restricted-fold",
-              "lem:finite-prefix-initialization",
-              "eq:finite-seed-bound",
-              "eq:future-bridge-total",
-          }
-          missing = [x for x in missing if x not in appendix_targets]
           if missing:
               raise SystemExit("References without active-source targets: " + repr(missing))
 
           print(
               f"Active-source guard PASS: {len(active_section_paths)} sections, "
-              f"{len(labels)} unique labels, no manual numeric tags."
+              f"{len(active_appendix_paths)} appendices, {len(labels)} unique labels, "
+              "no manual equation tags."
           )
           PY
 
@@ -96,7 +91,7 @@ jobs:
             -v "$PWD:/workspace" \
             -w /workspace/paper \
             "$ARXIV_TEX_IMAGE" \
-            bash -lc 'latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex'
+            bash -lc 'set -o pipefail; latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex 2>&1 | tee build.log'
 
       - name: Install PDF diagnostics only
         run: |
@@ -128,6 +123,10 @@ jobs:
           fi
           if grep -E "(^|[[:space:]])(WARN|ERROR) -" main.blg; then
             echo "Biber reported a warning or error."
+            exit 1
+          fi
+          if grep -E 'xdvipdfmx:warning: Object @[^ ]+ already defined|destination with the same identifier|duplicate destination' build.log; then
+            echo "Duplicate PDF destination/object detected."
             exit 1
           fi
           if grep -q "Type 3" main-fonts.txt; then

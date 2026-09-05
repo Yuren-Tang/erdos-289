@@ -11,6 +11,19 @@ Choose also $B_{\mathrm{pack}}$ so large that every compatible subfamily $\mathc
 \begin{equation}\label{eq:global-start-cutoff}
 B_\dagger=\max\{B_{\mathrm{mass}},B_{\mathrm{pack}}\}.
 \end{equation}
+The dependency order used below is
+\begin{equation}\label{eq:realization-dependency}
+\begin{CD}
+(B_{\mathrm{mass}},B_{\mathrm{pack}}) @>>> B @>>> X\\
+@. @. @VVV\\
+@. @. P_X\\
+@. @. @VVV\\
+@. @. \{\mathscr L_X(Q):B<Q\le X\}\\
+@. @. @VVV\\
+@. @. R_X.
+\end{CD}
+\end{equation}
+Here $B$ comes from scalar terminality, a finite $X$ is fixed before Haxell is invoked, $P_X$ is then chosen by Haxell, the uniform local theorem is replayed on the surviving rows to form the $\mathscr L_X(Q)$, and joint compatibility finally strictifies their composite to $R_X$.
 
 Fix $X\in\mathcal H_B$.  Only finitely many prime-power steps lie between $B$ and $X$.  For each such $Q$, Proposition~\ref{prop:wide-start} gives
 \begin{equation}\label{eq:survivor-density}
@@ -33,7 +46,13 @@ for every step through $X$.
 
 \subsection{From the simple quotient to observable translation}
 
-The local theorem concerns $S_Q=F_Q/F_{<Q}$, while the global induction concerns affine fibres in $A=\Q/\Z$.  The connection is the pullback square
+The local theorem concerns $S_Q=F_Q/F_{<Q}$, while the global induction concerns affine fibres in $A=\Q/\Z$.  The quotient map sits in the short exact sequence
+\begin{equation}\label{eq:simple-extension}
+\begin{CD}
+0 @>>> S_Q @>>> A/F_{<Q} @>>> A/F_Q @>>> 0.
+\end{CD}
+\end{equation}
+Thus the fibre of $A/F_{<Q}\to A/F_Q$ is canonically an $S_Q$-torsor.  The same fact is expressed by the pullback square
 \begin{equation}\label{eq:simple-factor-pullback}
 \begin{CD}
 F_Q @>>> A\\

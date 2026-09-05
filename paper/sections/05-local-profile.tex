@@ -105,7 +105,23 @@ preimages.  If $Q=p^e$ with $e\ge2$, this is eventually larger than $p-1$ unifor
 =
 \frac{p^{e-3/2}}{e\log p}.
 \end{equation}
-For $p\to\infty$ the smallest case is $e=2$, giving $\sqrt p/(2\log p)\to\infty$; for bounded $p$ and $e\to\infty$ the ratio grows exponentially.  Thus \eqref{eq:poor-rectangle} applies to every sufficiently large composite prime power, with required incoming width
+The required uniformity can be made explicit.
+
+\begin{lemma}[Uniform heavy-fibre threshold]\label{lem:uniform-heavy-fibre}
+For every fixed $\rho>0$ there is $Q_{\mathrm{hf}}(\rho)$ such that, whenever $Q=p^e\ge Q_{\mathrm{hf}}(\rho)$ is composite and $E\in\mathcal D_\rho(Q)$ lies in the heavy-fibre case, some nonzero simple-quotient value has at least $p-1$ preimages in $E$.
+\end{lemma}
+
+\begin{proof}
+Since $e\ge2$, one has $p\le Q^{1/2}$.  Consequently
+\[
+\frac{Q}{p^{3/2}\log Q}
+\ge\frac{Q^{1/4}}{\log Q}
+\longrightarrow\infty.
+\]
+Together with \eqref{eq:heavy-fibre}, this gives a single threshold, independent of $p$ and $e$, beyond which the heavy fibre has size at least $p-1$.
+\end{proof}
+
+Thus \eqref{eq:poor-rectangle} applies to every sufficiently large composite prime power, with required incoming width
 \[
 p-1=O_\rho((\log Q)^2).
 \]

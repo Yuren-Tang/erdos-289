@@ -71,11 +71,11 @@ For all sufficiently large prime powers $Q=p^e$ the following hold.
 \end{lemma}
 
 \begin{proof}
-For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  A prime-power factor of rank at least $Q$ can therefore occur only for the carrier prime $b$, and then necessarily $b\mid c_\pm$.  Write $c_\pm=\ell b$.  Since $c_\pm<Q<B_{\mathrm{car}}b$, one has $1\le\ell<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  Suppose that a prime power $\ell^r\ge Q$ divides $bc_\pm$.  If $\ell\ne b$, then the primality of $b$ forces $\ell^r\mid c_\pm$, contradicting $c_\pm<Q$.  Hence $\ell=b$.  Since also $b<Q$, one has $r\ge2$, and therefore $b\mid c_\pm$.  Write $c_\pm=\ell_0 b$.  Since $c_\pm<Q<B_{\mathrm{car}}b$, one has $1\le\ell_0<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
 \begin{equation}\label{eq:bad-carrier}
-\ell b^2\equiv\pm1\pmod Q.
+\ell_0 b^2\equiv\pm1\pmod Q.
 \end{equation}
-Fix $(\ell,\pm)$.  If $p\mid\ell$, the congruence has no solution because its right-hand side is a unit modulo $p$.  Otherwise it reduces to a unit square congruence modulo $p^e$, which has at most two roots for odd $p$ and at most four roots for $p=2$.  There are only $2(B_{\mathrm{car}}-1)$ choices of $(\ell,\pm)$, proving the first assertion.
+Fix $(\ell_0,\pm)$.  If $p\mid\ell_0$, the congruence has no solution because its right-hand side is a unit modulo $p$.  Otherwise it reduces to a unit square congruence modulo $p^e$, which has at most two roots for odd $p$ and at most four roots for $p=2$.  There are only $2(B_{\mathrm{car}}-1)$ choices of $(\ell_0,\pm)$, proving the first assertion.
 
 Now fix a coefficient $k$.  Every carrier producing it divides one of $Qk-1$ and $Qk+1$.  Since $1\le k<Q$, both integers are smaller than $Q^2$.  Every carrier satisfies $b>Q/B_{\mathrm{car}}$ by \eqref{eq:carrier-base} and \eqref{eq:carrier-band}.  If $Q>B_{\mathrm{car}}^3$, a number below $Q^2$ cannot contain three distinct carrier primes, because their product would exceed $Q^3/B_{\mathrm{car}}^3>Q^2$.  Thus each of $Qk-1$ and $Qk+1$ contains at most two possible carriers, giving multiplicity at most four.
 \end{proof}

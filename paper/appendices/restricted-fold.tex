@@ -25,13 +25,12 @@ Put
 M=\min\{p-1,h(r-h)\}.
 \]
 Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\F_p$ of cardinality exactly $M$ and consider
-\[
+\begin{equation}\label{eq:rf-polynomial}
 P(x_1,\ldots,x_h)
 =
 \prod_{c\in C}\left(\sum_{i=1}^h x_i-c\right)
 \prod_{1\le i<j\le h}(x_j-x_i).
-\tag{RF1}\label{eq:rf-polynomial}
-\]
+\end{equation}
 The polynomial vanishes on $A^h$: repeated coordinates kill the Vandermonde factor, while distinct coordinates have sum in $\operatorname{im}\Sigma_h\subseteq C$.
 
 We use two coefficient facts.  First, if $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
@@ -45,14 +44,13 @@ Second, for distinct nonnegative integers $k_1,\ldots,k_h$ and
 m=\sum_i k_i-\frac{h(h-1)}2,
 \]
 one has
-\[
+\begin{equation}\label{eq:rf-vandermonde}
 [x_1^{k_1}\cdots x_h^{k_h}]
 (x_1+\cdots+x_h)^m
 \prod_{i<j}(x_j-x_i)
 =
 m!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
-\tag{RF2}\label{eq:rf-vandermonde}
-\]
+\end{equation}
 Indeed, expanding the Vandermonde determinant reduces the alternating sum to a determinant of falling factorials, hence to the ordinary Vandermonde determinant.
 
 For every $0\le m\le h(r-h)$ one may choose distinct
@@ -60,10 +58,9 @@ For every $0\le m\le h(r-h)$ one may choose distinct
 0\le k_1<\cdots<k_h\le r-1
 \]
 with
-\[
+\begin{equation}\label{eq:rf-exponents}
 \sum_i k_i=m+\frac{h(h-1)}2.
-\tag{RF3}\label{eq:rf-exponents}
-\]
+\end{equation}
 Write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.  If $q=R$, then $m\le hR$ forces $s=0$.
 
 It remains to connect \eqref{eq:rf-vandermonde} with the polynomial \eqref{eq:rf-polynomial}.  Put
@@ -73,29 +70,26 @@ H_C(T)=\prod_{c\in C}(T-c),
 V(x)=\prod_{i<j}(x_j-x_i).
 \]
 Since $|C|=M$, the polynomial $H_C$ is monic of degree $M$:
-\[
+\begin{equation}\label{eq:rf-top-homogeneous}
 H_C(T)=T^M+R_C(T),
 \qquad \deg R_C<M.
-\tag{RF4}\label{eq:rf-top-homogeneous}
-\]
+\end{equation}
 The Vandermonde is homogeneous of degree $h(h-1)/2$.  Hence every monomial of
 \[
 R_C(x_1+\cdots+x_h)V(x)
 \]
 has total degree strictly below $M+h(h-1)/2$.  Therefore, for every multi-index $k$ of that total degree,
-\[
+\begin{equation}\label{eq:rf-coefficient-bridge}
 [x^k]P
 =
 [x^k](x_1+\cdots+x_h)^M V(x).
-\tag{RF5}\label{eq:rf-coefficient-bridge}
-\]
+\end{equation}
 Thus the lower homogeneous terms of $H_C$ cannot contribute to the coefficient used below.
 
 Apply \eqref{eq:rf-exponents} with $m=M$.  By \eqref{eq:rf-coefficient-bridge} and \eqref{eq:rf-vandermonde}, the corresponding coefficient of $P$ is
-\[
+\begin{equation}\label{eq:rf-nonzero-coefficient}
 M!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
-\tag{RF6}\label{eq:rf-nonzero-coefficient}
-\]
+\end{equation}
 It is nonzero in $\F_p$: $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so the factorials are nonzero, and the distinct $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient criterion contradicts the vanishing of $P$ on $A^h$.
 
 Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.  The statement is invariant under the temporary identification $S\simeq\F_p$.
