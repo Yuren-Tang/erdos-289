@@ -1,103 +1,119 @@
-\section{Interval configurations, labelled correspondences, and torsion}
+\section{Interval configurations, labelled relations, and torsion}
 \label{sec:states-filtration}
 
 Let $\mathcal C$ be the set of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Put
-\[
+\begin{equation}\label{eq:observations}
 W(S)=\sum_{n\in S}\frac1n,
 \qquad
 \nu(S)=|\pi_0(S)|,
 \qquad
 \overline W(S)=[W(S)]\in A:=\Q/\Z.
-\tag{2.1}\label{eq:observations}
-\]
+\end{equation}
 For $n\ge1$, let
 \[
 D_n\subseteq\mathcal C^n
 \]
 be the joint-compatibility domain: $(S_1,\ldots,S_n)\in D_n$ when the supports are pairwise disjoint and their literal union is again an element of $\mathcal C$.  On $D_n$ the partial product is simply union.  Hence
-\[
+\begin{equation}\label{eq:additive-observations}
 W\!\left(\bigcup_iS_i\right)=\sum_iW(S_i),
 \quad
 \nu\!\left(\bigcup_iS_i\right)=\sum_i\nu(S_i),
 \quad
 \overline W\!\left(\bigcup_iS_i\right)=\sum_i\overline W(S_i).
-\tag{2.2}\label{eq:additive-observations}
-\]
+\end{equation}
 Equivalently, for binary compatible unions the diagram
-\[
+\begin{equation}\label{eq:observation-square}
 \begin{CD}
 D_2 @>{\cup}>> \mathcal C\\
 @V{(\Omega\pi_1,\Omega\pi_2)}VV @VV{\Omega}V\\
-(A\times\N)^2 @>{+}>> A\times\N,
+(A\times\N)^2 @>{+}>> A\times\N
 \end{CD}
 \qquad
-\Omega=(\overline W,\nu),
-\tag{2.3}\label{eq:observation-square}
-\]
-commutes.  This is the basic structural square of the proof.
+\Omega=(\overline W,\nu)
+\end{equation}
+commutes.
 
-\subsection{Labelled finite correspondences and the relation 2-cell}
+\subsection{The locally posetal 2-category of labelled relations}
 
-We use the standard locally posetal $2$-category $\mathbf{Rel}$: its objects are sets, its $1$-morphisms are relations, and a $2$-cell is inclusion of relations.  No higher-categorical structure beyond this convention is needed.
+For finite sets $X,Y$, a \emph{labelled finite relation} $R:X\rightsquigarrow Y$ is a finite subset
+\[
+R\subseteq X\times\mathcal C\times Y.
+\]
+It is \emph{covering} if its projection to $Y$ is surjective.  Thus covering is a property of a labelled relation, not part of the definition of the class of morphisms.
 
-Let $X$ and $Y$ be finite sets.  A \emph{labelled correspondence} from $X$ to $Y$ is a finite subset
+For labelled relations $R:X\rightsquigarrow Y$ and $S:Y\rightsquigarrow Z$, define $S\odot R:X\rightsquigarrow Z$ by
 \[
-R\subseteq X\times\mathcal C\times Y
+(x,L,z)\in S\odot R
 \]
-whose projection to $Y$ is surjective.  Its underlying relation is
+if and only if there are $y\in Y$ and labels $L_1,L_2\in\mathcal C$ such that
 \[
-U(R)=\{(x,y):\exists S\in\mathcal C,\ (x,S,y)\in R\}\subseteq X\times Y,
-\tag{2.4}\label{eq:underlying-relation}
-\]
-and its reciprocal-mass bound is
-\[
-\omega(R)=\max\{W(S):(x,S,y)\in R\},
-\tag{2.5}\label{eq:response-mass}
-\]
-with $\omega(\varnothing)=0$.
-
-Suppose $R_1,\ldots,R_n$ form a finite composable string, and let $P_n$ be the ordinary fibre product of their edge sets over the intermediate target sets.  Restrict $P_n$ to those tuples whose interval labels are jointly compatible; replace such a tuple of labels by its literal union; and then take the image in the first and last target sets together with the union label.  We denote the resulting labelled correspondence by
-\[
-R_n\odot\cdots\odot R_1.
-\]
-Thus $\odot$ is not an additional abstract composition law: it is the ordinary fibre-product construction followed by the partial union \eqref{eq:additive-observations} and image.
-
-Forgetting labels before this construction may admit witnesses whose labels are not jointly compatible.  Consequently there is in general only a canonical inclusion
-\[
-U(R_n\odot\cdots\odot R_1)
-\subseteq
-U(R_n)\circ\cdots\circ U(R_1).
-\tag{2.6}\label{eq:oplax-inclusion}
-\]
-In $\mathbf{Rel}$ the inclusion itself is the comparison $2$-cell
-\[
-U(R_n\odot\cdots\odot R_1)
-\xRightarrow{\;\vartheta\;}
-U(R_n)\circ\cdots\circ U(R_1),
+(x,L_1,y)\in R,
 \qquad
-\vartheta\;\equiv\;\text{relation inclusion}.
-\tag{2.7}\label{eq:oplax-2cell}
+(y,L_2,z)\in S,
+\qquad
+(L_1,L_2)\in D_2,
+\qquad
+L=L_1\cup L_2.
 \]
-Thus the double arrow is standard $2$-categorical notation; it introduces no additional kind of morphism.
+Equivalently, $S\odot R$ is obtained from the fibre product of the two edge sets over $Y$, restricted to compatible label pairs, by applying literal union to the labels and then taking the image.  Put
+\[
+1_X=\{(x,\varnothing,x):x\in X\}.
+\]
 
-The comparison becomes an identity exactly in the situation used later: if the label map
+\begin{lemma}\label{lem:labelled-relation-category}
+The operation $\odot$ is associative and $1_X$ is a two-sided identity.  With inclusions of labelled relations as $2$-cells, finite sets and labelled finite relations therefore form a locally posetal $2$-category, denoted $\mathbf{Rel}_{\mathcal C}$.
+\end{lemma}
+
+\begin{proof}
+The empty configuration is compatible with every label, so $1_X$ is an identity.  For three composable labelled relations, either parenthesization selects exactly the same triples of edges whose three labels have jointly compatible literal union, and assigns that union as the composite label.  Since literal union is associative, the two composites coincide.  Monotonicity under inclusion is immediate from the definition.
+\end{proof}
+
+The underlying unlabelled relation is
+\begin{equation}\label{eq:underlying-relation}
+U(R)=\{(x,y):\exists L\in\mathcal C,\ (x,L,y)\in R\}\subseteq X\times Y.
+\end{equation}
+For $R\ne\varnothing$ put
 \[
-P_n\longrightarrow\mathcal C^n
+\omega(R)=\max\{W(L):(x,L,y)\in R\},
 \]
-factors through $D_n$, then every relationally composable witness is jointly compatible, and
+and set $\omega(\varnothing)=0$.
+
+For every composable pair there is a canonical inclusion
+\begin{equation}\label{eq:oplax-inclusion}
+U(S\odot R)\subseteq U(S)\circ U(R).
+\end{equation}
+Thus $U$ preserves identities strictly and carries composition to the comparison $2$-cell
+\begin{equation}\label{eq:oplax-2cell}
+U(S\odot R)
+\xRightarrow{\;\vartheta_{S,R}\;}
+U(S)\circ U(R),
+\end{equation}
+where a $2$-cell in $\mathbf{Rel}$ is inclusion of relations.  Associativity of $\odot$ makes these comparisons coherent automatically; in other words,
 \[
+U:\mathbf{Rel}_{\mathcal C}\longrightarrow\mathbf{Rel}
+\]
+is a normal oplax $2$-functor.
+
+For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets.  The labels define a map $\ell:P_n\to\mathcal C^n$.  The obstruction to strictness is exactly whether $\ell$ lands in $D_n$:
+\begin{equation}\label{eq:compatibility-factorization}
+\begin{CD}
+& P_n &\\
+@V{\widetilde\ell}VV @VV{\ell}V\\
+D_n @>{\iota}>> \mathcal C^n .
+\end{CD}
+\end{equation}
+Whenever such a factorization exists, every relationally composable witness is jointly compatible, and hence
+\begin{equation}\label{eq:rel-strictification}
 U(R_n\odot\cdots\odot R_1)
 =
 U(R_n)\circ\cdots\circ U(R_1).
-\tag{2.8}\label{eq:rel-strictification}
-\]
-We shall use \eqref{eq:rel-strictification} only after the factorization through $D_n$ has been proved.  The reciprocal mass is then subadditive:
-\[
+\end{equation}
+Moreover, for every composable string,
+\begin{equation}\label{eq:mass-subadditive}
 \omega(R_n\odot\cdots\odot R_1)
-\le\sum_{i=1}^n\omega(R_i).
-\tag{2.9}\label{eq:mass-subadditive}
-\]
-Thus the structural calculus consists of ordinary fibre products and images, together with the single oplax comparison \eqref{eq:oplax-inclusion}; joint compatibility turns the latter into strict composition.
+\le\sum_{i=1}^n\omega(R_i),
+\end{equation}
+because reciprocal value is additive on jointly compatible unions.
 
 \subsection{Finite torsion in \texorpdfstring{$\Q/\Z$}{Q/Z}}
 
@@ -137,22 +153,16 @@ aL/m+bL/n=1.
 Dividing by $L$ gives $[1/L]\in H_m+H_n$, whence $H_m\vee H_n=H_L$.  The join-irreducibles of the divisibility lattice are precisely the prime powers.
 \end{proof}
 
-Accordingly we index the nontrivial steps by prime powers
-\[
-Q=p^e.
-\]
-Let $F_Q$ be the join of all prime-power stages of rank at most $Q$, and $F_{<Q}$ the join of those of smaller rank.  The simple quotient
-\[
+Accordingly we index the nontrivial steps by prime powers $Q=p^e$.  Let $F_Q$ be the join of all prime-power stages of rank at most $Q$, and $F_{<Q}$ the join of those of smaller rank.  The simple quotient
+\begin{equation}\label{eq:simple-quotient}
 S_Q=F_Q/F_{<Q}
-\tag{2.10}\label{eq:simple-quotient}
-\]
+\end{equation}
 has order $p$: the $p$-adic valuation of the lower least common multiple is $e-1$, and adjoining $p^e$ raises it by one.  Thus $S_Q$ is canonically a one-dimensional $\F_p$-object.
 
 For $X\ge1$ define the endpoint stage
-\[
+\begin{equation}\label{eq:endpoint-stage}
 E_X=H_{\operatorname{lcm}(1,\ldots,\lfloor X\rfloor)}.
-\tag{2.11}\label{eq:endpoint-stage}
-\]
+\end{equation}
 Every class $[a/b]\in A$ belongs to $H_b$, so the filtration $(E_X)$ is cofinal and every fixed class of $A$ becomes zero in $A/E_X$ for all sufficiently large $X$.
 
 Finally, if $Q$ is a prime-power step, then
