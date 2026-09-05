@@ -26,24 +26,27 @@ P(C)-P(C+1)+P(C/2)=\frac{2(2C+3)}{C(C+2)}.
 For $a\ge3$ the two sides of \eqref{eq:neutral-identity} are physical states with respectively two and three pairwise nonadjacent binary components.  Their reciprocal values agree and their grades differ by one.  As $a\to\infty$, all support vertices tend to infinity and the common reciprocal value tends to zero.
 
 \begin{lemma}[Remote neutral cube]\label{lem:neutral-cube}
-Let $\mathcal O$ be a finite family of physical obstacles, let $\varepsilon>0$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every obstacle in $\mathcal O$, such that the sum of their common reciprocal costs is less than $\varepsilon$.
+Let $\mathcal O$ be a finite family of physical obstacles, let $\varepsilon\in\Q_{>0}$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every obstacle in $\mathcal O$, such that the sum of their common reciprocal costs is less than $\varepsilon$.
 
 The resulting Boolean selector has one common reciprocal value and one common residue translation, while its possible grade shifts are exactly
 \[
 0,1,\ldots,L.
 \]
+Moreover, for each coordinate the union of the complete component-envelope families of its two alternatives has cardinality at most $5$.
 \end{lemma}
 
 \begin{proof}
-Construct the coordinates inductively.  At stage $i$, enlarge the finite obstacle by both alternatives from all preceding coordinates.  Choose $a$ so large that both new alternatives lie beyond this finite support by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives compatibility with all previous choices and total cost $<\varepsilon$.  The Hamming-weight map $\{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}$ gives the grade shifts without choosing a distinguished selector in any fibre.
+Construct the coordinates inductively.  At stage $i$, enlarge the finite obstacle by both alternatives from all preceding coordinates.  Choose $a$ so large that both new alternatives lie beyond this finite support by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives compatibility with all previous choices and total cost $<\varepsilon$.  The two alternatives in one coordinate have respectively two and three complete component envelopes, so their combined envelope complexity is at most $5$.  The Hamming-weight map $\{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}$ gives the grade shifts without choosing a distinguished selector in any fibre.
 \end{proof}
+
+Whenever a later argument is stated with a positive real resource tolerance, we first choose a positive rational tolerance below it and apply the lemma.  Thus no change of tolerance field is hidden at the neutral-cube interface.
 
 \subsection{Comparable prime bands}
 
 We use the elementary Chebyshev consequence proved in Appendix~\ref{app:prime-supply}.
 
 \begin{proposition}[Comparable prime supply]\label{prop:prime-supply-main}
-There are constants $\Lambda>1$ and $c_\Pi,C_\Pi>0$ such that, for every sufficiently large $X$,
+There are an integer $\Lambda\ge2$ and constants $c_\Pi,C_\Pi>0$ such that, for every sufficiently large integer $X$,
 \[
 c_\Pi\frac X{\log X}
 \le
