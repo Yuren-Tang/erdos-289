@@ -137,7 +137,15 @@ p-1=O_\rho((\log Q)^2)
 \]
 by \eqref{eq:poor-p-bound}.
 
-For a prime current $Q=q$, the exact fibre capacity is $Q/p=1$, hence the simple-value map is injective and the poor branch is impossible.  Thus
+For a prime current $Q=q$, the exact fibre capacity is $Q/p=1$, so the simple-value map is injective and hence
+\[
+r=|A|\ge \rho q/\log q.
+\]
+If the diversity set were empty, then $r^2<4q$; but
+\[
+r^2\ge \rho^2\frac{q^2}{(\log q)^2}>4q
+\]
+for all sufficiently large $q$, a contradiction.  Thus the poor branch is eventually impossible at prime currents, and \eqref{eq:rich-demand} gives
 \[
 r=|A|\gg_\rho q/\log q,
 \qquad
@@ -176,6 +184,10 @@ d_\rho(q)=O_\rho(\log q)
 \]
 for prime currents.
 
+For a prime current $q$ and $A\in\operatorname{Adm}_\rho(q)$, write
+\[
+r_A=|\operatorname{im}(sv_q|_A)|.
+\]
 Only after $d_\rho(q)$ is fixed do we define the prime mint
 \[
 \boxed{
