@@ -44,24 +44,24 @@ S_Q=F_Q/F_{<Q} @>>> A/F_{<Q}
 where the bottom arrow is the natural inclusion.
 
 \begin{lemma}[Affine lifting across one prime-power step]\label{lem:affine-current-lift}
-Let $Q$ be a prime power.  Suppose a covering labelled relation has target
+Let $Q$ be a prime power, and let
 \[
-\operatorname{Tor}_{F_{<Q}}(\alpha)\times I,
-\qquad \alpha\in A/F_{<Q},
+R:X_0\rightsquigarrow
+\operatorname{Tor}_{F_{<Q}}(\alpha)\times I
 \]
-and let $\bar\alpha\in A/F_Q$ be the image of $\alpha$.  Suppose a finite local relation has residues in $F_Q$ and, for every $s\in S_Q$ and $k'\in I'$, contains a label $L$ and $i\in I$ satisfying
+be a covering labelled relation, with $\alpha\in A/F_{<Q}$.  Let $\bar\alpha\in A/F_Q$ be the image of $\alpha$.  Suppose a finite local labelled relation has residues in $F_Q$ and, for every $s\in S_Q$ and $k'\in I'$, contains an edge labelled by $L$ together with some $i\in I$ satisfying
 \[
 [\overline W(L)]_{S_Q}=s,
 \qquad i+\nu(L)=k'.
 \]
-If the incoming and local labels are jointly compatible, their composite is covering with target
+If the incoming and local labels are jointly compatible, their composite is covering onto
 \[
 \operatorname{Tor}_{F_Q}(\bar\alpha)\times I'.
 \]
 \end{lemma}
 
 \begin{proof}
-Fix $(y,k')$ in the target fibre and choose $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, their difference belongs to $F_Q$.  Let $s$ be its class in $S_Q$ and choose a local solution $(L,i)$ of simple class $s$ and component-count increment $k'-i$.  The pullback property \eqref{eq:simple-factor-pullback} gives
+Fix $(y,k')$ in the target fibre and choose $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, their difference belongs to $F_Q$.  Let $s$ be its class in $S_Q$, and choose $L$ and $i$ with simple class $s$ and $i+\nu(L)=k'$.  The pullback property \eqref{eq:simple-factor-pullback} gives
 \[
 y-\overline W(L)-x_0\in F_{<Q}.
 \]
@@ -80,7 +80,7 @@ Let $S_0$ be a label of the affine initial cover.  Let $Q_1,\ldots,Q_m\le X$ be 
 \end{lemma}
 
 \begin{proof}
-All interval components selected from the sets $P_X(Q_i)$ belong to the single independent set $P_X$, so they are pairwise disjoint and nonadjacent.  Each of them lies in $\mathcal A_{Q_i}(B)$ and is therefore compatible with every initial-cover label, in particular with $S_0$.  Their literal union with $S_0$ is consequently an element of $\mathcal C$.
+All interval components selected from the sets $P_X(Q_i)$ belong to the single independent set $P_X$, so they are pairwise disjoint and nonadjacent.  Each lies in $\mathcal A_{Q_i}(B)$ and is therefore compatible with every initial-cover label, in particular with $S_0$.  Their literal union with $S_0$ is consequently an element of $\mathcal C$.
 \end{proof}
 
 Let $P_n$ be the fibre product of the edge sets in the finite chain through $X$.  Every local edge label is a union of a finite subset of one $P_X(Q)$, so Lemma~\ref{lem:joint-compatibility} gives the factorization
@@ -88,14 +88,18 @@ Let $P_n$ be the fibre product of the edge sets in the finite chain through $X$.
 \begin{CD}
 P_n @>{\ell}>> \mathcal C^n\\
 @V{\widetilde\ell}VV @AA{\iota}A\\
-D_n @= D_n .
+D_n @= D_n
 \end{CD}
 \end{equation}
-Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  At each prime-power step, Theorem~\ref{thm:uniform-profile} gives the simple-quotient rectangle and Lemma~\ref{lem:affine-current-lift} lifts it to the next endpoint fibre.  Finite induction therefore produces a covering labelled relation $R_X$ with target
+Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  At each prime-power step, Theorem~\ref{thm:uniform-profile} gives the simple-quotient rectangle and Lemma~\ref{lem:affine-current-lift} lifts it to the next endpoint fibre.  Finite induction therefore produces a finite set $X_0(X)$ and a covering labelled relation
+\[
+R_X:X_0(X)\rightsquigarrow T_X,
+\]
+where
 \begin{equation}\label{eq:finite-response}
-T_X:=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X,
+T_X:=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X
 \end{equation}
-where $\gamma_X$ is the image of $\gamma_B$ under the endpoint quotient map.
+and $\gamma_X$ is the image of $\gamma_B$ under the endpoint quotient map.
 
 \subsection{Reciprocal-mass control}
 
@@ -107,9 +111,9 @@ W(S)
 \end{equation}
 
 \begin{proposition}[Finite realization through a cutoff]\label{prop:finite-realization}
-For every $X\in\mathcal H_B$ there exists a finite covering labelled relation
+For every $X\in\mathcal H_B$ there are a finite set $X_0(X)$ and a labelled relation
 \[
-R_X\rightsquigarrow T_X
+R_X:X_0(X)\rightsquigarrow T_X
 \]
-with target $T_X$ as in \eqref{eq:finite-response}, and every edge label $S$ of $R_X$ satisfies $W(S)<2$.
+whose target projection is surjective, where $T_X$ is given by \eqref{eq:finite-response}.  Every edge label $S$ of $R_X$ satisfies $W(S)<2$.
 \end{proposition}
