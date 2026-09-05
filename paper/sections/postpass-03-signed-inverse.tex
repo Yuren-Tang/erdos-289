@@ -101,7 +101,12 @@ is therefore
 \end{equation}
 The interval $I(Q,b)$ itself recovers $Q$ and $k$: exactly one of its two denominators has largest prime-power stage $Q$, namely $Qk$.  Thus the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
 
-For compatibility estimates, by an \emph{interval envelope} we mean a finite interval $J\subset\N_{>0}$ together with the one-step exclusion zone required for nonadjacency.  A member of $\mathcal A_Q$ is said to meet the envelope if its support intersects this exclusion zone.
+For an integer interval $J=[u,v]\subset\N_{>0}$ define its \emph{exclusion envelope}
+\[
+\operatorname{Env}(J)
+=\{n\in\N_{>0}:\operatorname{dist}(n,J)\le1\}.
+\]
+Thus another interval component is incompatible with $J$ exactly when its support meets $\operatorname{Env}(J)$.  A member of some $\mathcal A_Q$ is said to meet an exclusion envelope if its support intersects that envelope.
 
 \begin{proposition}[Uniform estimates for the signed-inverse families]\label{prop:signed-inverse-capabilities}
 There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold.
@@ -114,7 +119,7 @@ There is $Q_0$ such that for every prime power $Q=p^e\ge Q_0$ the following hold
 \begin{equation}\label{eq:fibre-bound}
 |\phi_Q^{-1}(s)|\le Q/p.
 \end{equation}
-\item The incompatibility graph on $\bigcup_{Q\ge Q_0}\mathcal A_Q$ has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an interval envelope of cardinality at most $L$ meets at most $C_L$ members of the union.
+\item The incompatibility graph on $\bigcup_{Q\ge Q_0}\mathcal A_Q$ has uniformly bounded degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an exclusion envelope of cardinality at most $L$ meets at most $C_L$ members of the union.
 \item Every support point $z$ of a member of $\mathcal A_Q$ satisfies
 \begin{equation}\label{eq:support-window}
 c\frac{Q^2}{\log Q}\le z\le2Q^2
@@ -134,7 +139,7 @@ and
 \begin{proof}
 The first assertion follows from the carrier count, the bounded exceptional set, bounded coefficient multiplicity and, for $e\ge2$, the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple-quotient values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among $1\le k<Q=p^e$, and the deterministic deduplication retains at most one interval for each coefficient.
 
-For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an envelope has cardinality at most $L$, every member meeting it has distinguished point in a fixed one-step enlargement of the envelope.  This enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.
+For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an exclusion envelope has cardinality at most $L$, every member meeting it has distinguished point in a fixed one-step enlargement of the envelope.  This enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.
 
 The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  Finally, a prime family has $O(p/\log p)$ intervals, each of reciprocal mass $O(p^{-2})$, so the total mass of the whole family is $O(1/(p\log p))$; this may be used for $\omega_p$.  For $Q=p^e$, $e\ge2$, each interval has mass $O(\log Q/Q^2)$, so every compatible union of at most $p$ members has mass at most
 \[
