@@ -1,0 +1,87 @@
+\section{Terminal exactification and the proof of Erdős Problem 289}
+\label{sec:terminalization}
+
+Only Set-level base change remains.  Let
+\[
+\mathcal T=
+\sum_{X\in\operatorname{Horizon}_B}
+\operatorname{Tor}_{E_X}(\gamma_X)\times I_X
+\]
+be the total target bundle.  If $\ell\in\operatorname{Lift}(X)$, its finite response $R_X$ covers the corresponding target fibre.  Define the universal edge object
+\[
+\mathcal E=
+\{(X,\ell,t,e):
+\ell\in\operatorname{Lift}(X),\
+t\in T_X,\
+e\in R_X\text{ lands at }t\}.
+\]
+By construction there is a surjection
+\begin{equation}\label{eq:universal-edge-surjection}
+\mathcal E
+\twoheadrightarrow
+\operatorname{Real}\times_{\operatorname{Horizon}_B}\mathcal T.
+\end{equation}
+Every physical label in $\mathcal E$ has reciprocal value $<2$ by \eqref{eq:physical-W-less-2}.
+
+Fix a sufficiently large grade $k$.  Theorem~\ref{thm:scalar-terminality} gives the nonempty terminal set
+\[
+\operatorname{Term}_k
+=
+\{X\in\operatorname{Horizon}_B:
+\gamma_X=0,\ k\in I_X\}.
+\]
+Pull the realization surjection \eqref{eq:real-surjection} back along
+\[
+\operatorname{Term}_k\hookrightarrow\operatorname{Horizon}_B.
+\]
+Since surjections in $\mathbf{Set}$ are stable under pullback, we obtain
+\[
+\operatorname{Real}_k\twoheadrightarrow\operatorname{Term}_k.
+\tag{8.1}\label{eq:real-k}
+\]
+For every $X\in\operatorname{Term}_k$, the target point
+\[
+(0,k)\in\operatorname{Tor}_{E_X}(0)\times I_X
+\]
+is canonical.  Pull \eqref{eq:universal-edge-surjection} back along this target section and \eqref{eq:real-k}.  Cartesian pasting gives a surjection
+\[
+\mathcal E_k\twoheadrightarrow\operatorname{Real}_k.
+\tag{8.2}\label{eq:terminal-edge-cover}
+\]
+Since $\operatorname{Term}_k$ is nonempty, so is $\mathcal E_k$.  Any point of this finite solution object gives a literal physical state $S$ with
+\begin{equation}\label{eq:terminal-state}
+\operatorname{res}(S)=0,
+\qquad
+g(S)=k,
+\qquad
+W(S)<2.
+\end{equation}
+No coherent choice over different $k$ is asserted or needed.
+
+The observations fit into the commutative square
+\[
+\begin{CD}
+\operatorname{Phys} @>{W}>> \mathbf Q\\
+@V{\operatorname{res}}VV @VV{q_{\mathbf Z}}V\\
+\mathbf Q/\mathbf Z @= \mathbf Q/\mathbf Z.
+\end{CD}
+\tag{8.3}\label{eq:value-residue-square}
+\]
+Thus $\operatorname{res}(S)=0$ implies
+\[
+W(S)\in\ker(q_{\mathbf Z})=\mathbf Z.
+\]
+Because $g(S)=k>0$, the state is nonempty, so $W(S)>0$.  Together with \eqref{eq:terminal-state},
+\[
+0<W(S)<2,
+\qquad W(S)\in\mathbf Z,
+\]
+and therefore
+\[
+W(S)=1.
+\]
+The $k$ connected components of $S$ are pairwise disjoint, nonadjacent finite intervals of positive integers, each of length $2$ or $3$.  We have proved the public theorem.
+
+\begin{theorem}\label{thm:erdos289}
+For every sufficiently large integer $k$, there exist exactly $k$ pairwise disjoint and nonadjacent finite intervals of positive integers, each of length at least $2$, such that the sum of the reciprocals of all integers in these intervals is $1$.
+\end{theorem}
