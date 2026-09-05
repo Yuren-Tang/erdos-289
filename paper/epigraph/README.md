@@ -1,7 +1,9 @@
 # E289 epigraph proof workflow
 
-This directory is an isolated typography experiment. The publication manuscript
-is not changed while the epigraph display face is being selected.
+This directory records the isolated typography experiment that selected and
+validated the E289 epigraph treatment. The optical search is closed. The selected
+specification has now been integrated into `paper/manuscript.tex` on the
+`paper/epigraph-specimen` branch and passed the full publication parity gate.
 
 ## 1. Exact E306 reference
 
@@ -121,7 +123,7 @@ separate element.
 
 ## 6. Closed optical specification
 
-The optical experiment is now closed at:
+The optical experiment is closed at:
 
 ```text
 text           CARPE DIEM QVAM MINIMVM CREDVLA POSTERO
@@ -141,21 +143,52 @@ values inside the observed perceptual-equivalence bands.
 
 ## 7. Local build and remote parity
 
-Local builds are the normal iteration path and have been demonstrated to work
+Local specimen builds demonstrated that the selected OpenType treatment works
 without the legacy Trajan chain. Because the Owner's Mac has stale files in
-`~/Library/texmf`, the scripts use an empty temporary `TEXMFHOME` by default.
+`~/Library/texmf`, the specimen scripts use an empty temporary `TEXMFHOME` by
+default.
 
-`.github/workflows/epigraph-context.yml` is retained only as a manual
-`workflow_dispatch` TeX Live 2025/arXiv-parity utility. It does not block optical
-iteration.
+`.github/workflows/epigraph-context.yml` remains only as a manual specimen-parity
+utility. The authoritative integrated build is the ordinary publication
+`manuscript.yml` workflow using the fixed TeX Live 2025-08-03 full snapshot.
 
-Legacy TeX-Live Trajan remains outside the decision gate: repairing its old
-Type-1/map/PK fallback chain would add environment noise without improving this
-OpenType comparison.
+Legacy TeX-Live Trajan is outside the selected path. The publication workflow no
+longer treats `trajan.sty` or `soul.sty` as typography dependencies; it verifies
+`EBGaramond-Medium.otf` directly.
 
-## 8. Publication boundary
+## 8. Bounded publication integration
 
-No experiment in this directory has changed `paper/manuscript.tex`. The next step,
-if authorized, is a separate bounded integration of the closed optical
-specification into the publication manuscript, followed by the ordinary
-full-manuscript TeX Live/arXiv parity gates.
+The closed specification was integrated into `paper/manuscript.tex` in commit
+`d17303db92c1887495459856fb75873bcb0100e1`. The bounded change:
+
+- removes the legacy `trajan` / `soul` path and `\trajantrack` definition;
+- declares `EBGaramond-Medium.otf` as the epigraph OpenType face;
+- installs the punctuation-free locked text at `LetterSpace=9`, 10.5/16,
+  11 pt before and 12 pt after;
+- does not change the mathematical text, abstract, references, metadata or body
+  typography.
+
+The full publication workflow was then run on the integration branch in GitHub
+Actions run `33989122234`. Every gate passed: active-source guard, finite-prefix
+replay, fixed TeX Live snapshot, XeLaTeX/Biber build, reference/glyph checks,
+no overfull hboxes, and no Type 3 fonts. The resulting manuscript remains 27 A4
+pages and embeds EB Garamond Medium as a CID Type 0C font.
+
+The small increase in title-matter height causes ordinary text reflow through the
+first six pages, after which the pagewise text distribution rejoins the previous
+publication build. Page count is unchanged and no bad section break was observed.
+
+## 9. No-background integrated blind review
+
+After engineering integration, the next and final gate is deliberately not a
+parameter comparison. A reviewer with no access to this design history receives
+only the finished integrated first page and a neutral whole-page review rubric.
+The rubric does not identify the epigraph as the tested element and does not
+mention E306, Trajan, family candidates, tracking, punctuation experiments or
+spacing values.
+
+The reviewer is asked first for an unprompted whole-page impression and then for
+specific evidence of any stylistic foreignness, grouping ambiguity, spacing or
+rhythm defect. The acceptance criterion is asymmetric: an already coherent page
+should be accepted unchanged rather than subjected to invented micro-adjustments.
+See `PHASE22_INTEGRATED_BLIND_REVIEW_PROTOCOL.md`.
