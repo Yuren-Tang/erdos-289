@@ -119,7 +119,23 @@ The initial affine fibre has centre
 \[
 \gamma_B\in A/E_B.
 \]
-Each later prime-power step transports this class along the quotient maps of the endpoint filtration.  By cofinality of $(E_X)$, the image of $\gamma_B$ in $A/E_X$ is zero for all sufficiently large $X$.
+For every $X\ge B$, let
+\[
+\pi_{B,X}:A/E_B\longrightarrow A/E_X
+\]
+be the quotient map.  Its compatibility with the quotient maps from $A$ is the commutative square
+\begin{equation}\label{eq:centre-transport-square}
+\begin{CD}
+A @>{q_{E_B}}>> A/E_B\\
+@V{q_{E_X}}VV @VV{\pi_{B,X}}V\\
+A/E_X @= A/E_X.
+\end{CD}
+\end{equation}
+Thus each later prime-power step transports the centre by the canonical quotient map.  Choose a representative $a\in A$ with $q_{E_B}(a)=\gamma_B$.  By cofinality of $(E_X)$, one has $a\in E_X$ for all sufficiently large $X$.  The square \eqref{eq:centre-transport-square} then gives
+\[
+\pi_{B,X}(\gamma_B)=q_{E_X}(a)=0
+\]
+for all sufficiently large $X$.
 
 Let
 \begin{equation}\label{eq:cutoff-base}

@@ -75,7 +75,7 @@ For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are 
 \begin{equation}\label{eq:bad-carrier}
 \ell_0 b^2\equiv\pm1\pmod Q.
 \end{equation}
-Fix $(\ell_0,\pm)$.  If $p\mid\ell_0$, the congruence has no solution because its right-hand side is a unit modulo $p$.  Otherwise it reduces to a unit square congruence modulo $p^e$, which has at most two roots for odd $p$ and at most four roots for $p=2$.  There are only $2(B_{\mathrm{car}}-1)$ choices of $(\ell_0,\pm)$, proving the first assertion.
+Fix $(\ell_0,\pm)$.  If $p\mid\ell_0$, the congruence has no solution because its right-hand side is a unit modulo $p$.  Otherwise it reduces to a unit square congruence modulo $p^e$, which has at most two roots for odd $p$ and at most four roots for $p=2$.  For the latter assertion, when $e\ge3$ the quotient of any two unit roots is a solution of $u^2\equiv1\pmod{2^e}$, of which there are four; the cases $e\le2$ are immediate.  There are only $2(B_{\mathrm{car}}-1)$ choices of $(\ell_0,\pm)$, proving the first assertion.
 
 Now fix a coefficient $k$.  Every carrier producing it divides one of $Qk-1$ and $Qk+1$.  Since $1\le k<Q$, both integers are smaller than $Q^2$.  Every carrier satisfies $b>Q/B_{\mathrm{car}}$ by \eqref{eq:carrier-base} and \eqref{eq:carrier-band}.  If $Q>B_{\mathrm{car}}^3$, a number below $Q^2$ cannot contain three distinct carrier primes, because their product would exceed $Q^3/B_{\mathrm{car}}^3>Q^2$.  Thus each of $Qk-1$ and $Qk+1$ contains at most two possible carriers, giving multiplicity at most four.
 \end{proof}
@@ -103,15 +103,19 @@ Then
 \frac{u}{Q}-\frac1{Qk}
 =\frac{t}{p^{e-1}k}.
 \end{equation}
-Every prime-power factor of the denominator on the right has rank below $Q$: the $p$-part is at most $p^{e-1}$, and every factor coming from $k$ is below $Q$.  Hence the difference belongs to $F_{<Q}$.  Relative to the canonical generator represented by $1/Q$, the simple-quotient map
-\[
-\phi_Q:\mathcal A_Q\longrightarrow S_Q^\times
-\]
-is therefore
+Every prime-power factor of the denominator on the right has rank below $Q$: the $p$-part is at most $p^{e-1}$, and every factor coming from $k$ is below $Q$.  Hence the difference belongs to $F_{<Q}$.  In particular,
+\begin{equation}\label{eq:signed-label-filtration}
+\overline W(I(Q,b))\in F_Q,
+\end{equation}
+and, relative to the canonical generator represented by $1/Q$, its image in $S_Q=F_Q/F_{<Q}$ is
 \begin{equation}\label{eq:simple-value}
 \phi_Q(I(Q,b))=k^{-1}\pmod p.
 \end{equation}
-The interval $I(Q,b)$ itself recovers $Q$ and $k$: exactly one of its two denominators has largest prime-power stage $Q$, namely $Qk$.  Thus the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
+Thus the simple-quotient map
+\[
+\phi_Q:\mathcal A_Q\longrightarrow S_Q^\times
+\]
+is well defined.  The interval $I(Q,b)$ itself recovers $Q$ and $k$: exactly one of its two denominators has largest prime-power stage $Q$, namely $Qk$.  Thus the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
 
 For an integer interval $J=[u,v]\subset\N_{>0}$ define its \emph{exclusion envelope}
 \[
