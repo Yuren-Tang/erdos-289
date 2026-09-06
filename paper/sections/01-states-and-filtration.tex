@@ -1,6 +1,8 @@
 \section{Interval configurations, observable relations, and torsion}
 \label{sec:states-filtration}
 
+This section supplies the semantic kernel used by every later construction: compatible interval configurations, observable labelled relations and their strictification, the affine torsor extension principle, and the prime-power torsion filtration.  Later sections only have to certify the hypotheses of these abstract cells.
+
 Let $\mathcal C$ be the set of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Put
 \begin{equation}\label{eq:observations}
 W(S)=\sum_{n\in S}\frac1n,
@@ -173,7 +175,7 @@ Moreover, for every composable string,
 \end{equation}
 because reciprocal value is additive on jointly compatible unions.
 
-\subsection{Finite torsion in \texorpdfstring{$\Q/\Z$}{Q/Z}}
+\subsection{Finite torsion and affine fibres in \texorpdfstring{$\Q/\Z$}{Q/Z}}
 
 For $n\ge1$ put
 \[
@@ -188,6 +190,141 @@ be the quotient map, and for $\alpha\in A/H$ write
 \operatorname{Tor}_H(\alpha)=q_H^{-1}(\alpha)
 \]
 for the corresponding affine torsor fibre.  When $H$ is finite, this fibre is a coset of $H$ and hence is finite.  In particular, every set $\operatorname{Tor}_H(\alpha)\times I$ used below, with $H$ one of the finite filtration stages and $I\subset\N$ a finite integer interval, is a finite subset of $M$ and therefore an object of $\mathbf{Rel}_{\mathcal C}^{\Omega}$.
+
+\subsection{Affine extension across a subgroup inclusion}
+
+Let $H\le K\le A$ be finite subgroups.  Write
+\[
+\pi_{H,K}:A/H\longrightarrow A/K
+\]
+for the quotient map.  The subgroup inclusion is encoded by the exact sequence
+\begin{equation}\label{eq:affine-extension-exact}
+\begin{CD}
+0 @>>> K/H @>>> A/H @>{\pi_{H,K}}>> A/K @>>> 0
+\end{CD}
+\end{equation}
+and by the pullback square
+\begin{equation}\label{eq:affine-extension-pullback}
+\begin{CD}
+K @>>> A\\
+@V{q}VV @VV{q_H}V\\
+K/H @>>> A/H,
+\end{CD}
+\end{equation}
+where the bottom arrow is the natural inclusion.
+
+\begin{lemma}[Affine torsor extension principle]\label{lem:affine-torsor-extension}
+Let $\alpha\in A/H$ and $\beta\in A$.  Let $X,Y$ be finite sets with maps
+\[
+r:X\to A,
+\qquad
+d:Y\to A
+\]
+such that
+\[
+r(X)=\operatorname{Tor}_H(\alpha),
+\qquad d(y)-\beta\in K\quad(y\in Y),
+\]
+and the difference-class map
+\[
+Y\longrightarrow K/H,
+\qquad
+y\longmapsto[d(y)-\beta]
+\]
+is surjective.  Put
+\[
+\alpha^+=\pi_{H,K}(\alpha)+q_K(\beta)\in A/K.
+\]
+Then
+\[
+X\times Y\longrightarrow A,
+\qquad
+(x,y)\longmapsto r(x)+d(y)
+\]
+has image exactly $\operatorname{Tor}_K(\alpha^+)$.
+\end{lemma}
+
+\begin{proof}
+Every displayed sum maps to $\alpha^+$ in $A/K$.  Conversely fix $z\in\operatorname{Tor}_K(\alpha^+)$ and choose $x_0\in X$.  Then
+\[
+z-r(x_0)-\beta\in K.
+\]
+Choose $y\in Y$ whose difference class agrees with that of $z-r(x_0)-\beta$ in $K/H$.  Hence
+\[
+z-d(y)-r(x_0)\in H,
+\]
+so $z-d(y)\in\operatorname{Tor}_H(\alpha)$.  Since $r(X)$ is the full $H$-torsor, choose $x\in X$ with $r(x)=z-d(y)$.  Then $r(x)+d(y)=z$.
+\end{proof}
+
+\begin{corollary}[Compatible affine extension]\label{cor:compatible-affine-extension}
+Let $\mathscr S,\mathscr B\subseteq\mathcal C$ be finite, let $\alpha\in A/H$, and suppose
+\[
+\{\overline W(S):S\in\mathscr S\}
+=\operatorname{Tor}_H(\alpha).
+\]
+Fix $B^\circ\in\mathscr B$ and put $\beta=\overline W(B^\circ)$.  Suppose every $S\in\mathscr S$ is compatible with every $B\in\mathscr B$, every difference $\overline W(B)-\beta$ lies in $K$, and
+\[
+\mathscr B\longrightarrow K/H,
+\qquad
+B\longmapsto[\overline W(B)-\beta]
+\]
+is surjective.  Then the compatible unions $S\cup B$ cover
+\[
+\operatorname{Tor}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr).
+\]
+If $\nu$ is constant with value $c$ on $\mathscr B$, then the set of component counts of these unions is obtained from that of $\mathscr S$ by adding $c$; in particular its spread is unchanged.
+\end{corollary}
+
+\begin{proof}
+Apply Lemma~\ref{lem:affine-torsor-extension} with $r=\overline W|_{\mathscr S}$ and $d=\overline W|_{\mathscr B}$.  Compatibility gives $S\cup B\in\mathcal C$ and additivity of $\overline W$ and $\nu$ on each union.
+\end{proof}
+
+\begin{corollary}[Graded affine translation]\label{cor:graded-affine-translation}
+Let $I,I'\subseteq\N$ be finite, let $\alpha\in A/H$ and $\beta\in A$, and let $\mathscr L\subseteq\mathcal C$ be finite with
+\[
+\overline W(L)-\beta\in K
+\qquad(L\in\mathscr L).
+\]
+Suppose that for every $s\in K/H$ and every $k'\in I'$ there are $L\in\mathscr L$ and $i\in I$ such that
+\[
+[\overline W(L)-\beta]=s\quad\text{in }K/H,
+\qquad
+i+\nu(L)=k'.
+\]
+Put
+\[
+T^-=\operatorname{Tor}_H(\alpha)\times I,
+\qquad
+T^+=\operatorname{Tor}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr)\times I'.
+\]
+Then the translation relation
+\begin{equation}\label{eq:graded-local-translation}
+\operatorname{Tr}_{\mathscr L}(T^-,T^+)
+=
+\left\{
+((x,i),L,(x+\overline W(L),i+\nu(L))):
+\substack{(x,i)\in T^-,\ L\in\mathscr L,\\
+(x+\overline W(L),i+\nu(L))\in T^+}
+\right\}
+\end{equation}
+is a covering observable labelled relation $T^-\rightsquigarrow T^+$.
+\end{corollary}
+
+\begin{proof}
+Fix $k'\in I'$ and put
+\[
+Y_{k'}=\{(L,i)\in\mathscr L\times I:i+\nu(L)=k'\}.
+\]
+By hypothesis the difference-class map
+\[
+Y_{k'}\longrightarrow K/H,
+\qquad
+(L,i)\longmapsto[\overline W(L)-\beta]
+\]
+is surjective.  Apply Lemma~\ref{lem:affine-torsor-extension} with $X=\operatorname{Tor}_H(\alpha)$, with $r$ the inclusion, and with $d(L,i)=\overline W(L)$.  It follows that the edges of \eqref{eq:graded-local-translation} with target count $k'$ cover the whole affine $K$-torsor in $T^+$.  Since $k'$ was arbitrary, the relation is covering.
+\end{proof}
+
+\subsection{The prime-power filtration}
 
 \begin{lemma}\label{lem:torsion-filtration}
 For $m,n\ge1$,

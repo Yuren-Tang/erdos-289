@@ -29,23 +29,58 @@ W(S)\equiv0\pmod{\Z}
 \]
 must have $W(S)=1$.  We therefore work modulo $1$ through most of the construction and retain a fixed margin below reciprocal mass $2$.
 
-The proof is driven by three constructions.  First, at each sufficiently large prime-power stage $Q=p^e$, a signed-inverse construction produces $\gg Q/\log Q$ short intervals whose residues in the new simple quotient of $\Q/\Z$ are controlled, while their mutual incompatibility and total reciprocal cost remain bounded.  Second, a reciprocal-neutral identity replaces two components by three without changing reciprocal value.  Remote copies of this identity form Boolean families that widen an interval of possible component counts at arbitrarily small reciprocal cost.  Third, restricted sumset estimates convert every sufficiently dense part of a signed-inverse family into a uniform transfer across the corresponding simple quotient.
+\subsection*{Proof architecture}
 
-These local transfers reduce the middle of the proof to one scalar variable: the width of the available interval of component counts.  At prime stages the width gains order $q/\log q$; the total loss contributed by composite prime powers up to $X$ is $o(X/\log X)$.  A bounded-lag earlier prime therefore pays for every sufficiently late step, and the successive count intervals cover a final ray.
+The proof has three phases: top-down specification, bottom-up certification of its cells, and final pasting.  Two directions should be kept distinct.  Horizontally, the construction advances through the prime-power filtration of $A=\Q/\Z$.  Vertically, it forgets information: literal interval configurations are sent to observable residue-and-count data, then to simple-quotient count supports, and finally to the scalar width of a count interval.  The lower-information layers are used only for planning; the lost information is restored by affine lifting, finite compatibility selection, and the terminal pullback.
 
-It remains to turn this residue-and-count calculation into one literal configuration of pairwise compatible intervals.  This is postponed until a finite terminal cutoff $X$ has been chosen.  The relevant interval families then form a finite bounded-degree incompatibility graph, and Haxell's independent-transversal theorem supplies dense compatible subfamilies at all stages through $X$.  The local transfer theorem was proved for every sufficiently dense subfamily, so the same scalar calculation survives this final thinning.
+The overall construction/dependency flow is
+\begin{equation}\label{eq:master-proof-flow}
+\begin{aligned}
+&\text{semantic kernel and primitive inputs}\\
+&\qquad\Downarrow\\[-1mm]
+&\mathcal A_Q\xrightarrow{\ \phi_Q\ }S_Q^\times
+\qquad\text{and}\qquad
+R_B:\{0_M\}\rightsquigarrow
+\operatorname{Tor}_{E_B}(\gamma_B)\times I_B\\
+&\qquad\Downarrow\\[-1mm]
+&\text{uniform simple-quotient transfer }(\delta_\rho,\mu_\rho)
+\quad\Longrightarrow\quad
+\text{scalar terminal plan }(X,k)\\
+&\qquad\Downarrow\\[-1mm]
+&\text{finite Haxell selection }P_X
+\quad\Longrightarrow\quad
+\text{strict covering labelled relation }R_X\\
+&\qquad\Downarrow\\[-1mm]
+&\tau_X^{-1}(0,k)\ne\varnothing
+\quad\Longrightarrow\quad
+(\overline W,\nu)=(0,k),\ 0<W<2
+\quad\Longrightarrow\quad W=1.
+\end{aligned}
+\end{equation}
+The arrows in \eqref{eq:master-proof-flow} record construction and dependency, not commutativity.  Genuine commutative diagrams are used below only where two mathematical composites are asserted to agree.
 
-The categorical language below isolates the compositional issue in this last passage.  Observable residue-and-count relations may compose even when the concrete interval labels witnessing their edges cannot coexist.  Compatible configurations form a partial commutative monoid, and
+The semantic spine is the labelled-relation calculus of Section~\ref{sec:states-filtration}.  Observable relations may compose even when the interval labels witnessing their edges cannot coexist.  Compatible configurations therefore form a partial commutative monoid, and
 \[
-\Omega=(\overline W,\nu):\mathcal C\longrightarrow(\Q/\Z)\times\N
+\Omega=(\overline W,\nu):\mathcal C\longrightarrow A\times\N
 \]
-is additive wherever the partial sum is defined.  We package labelled observable relations into a locally posetal $2$-category $\mathbf{Rel}_{\mathcal C}^{\Omega}$.  Forgetting labels gives a normal oplax $2$-functor
+is additive only on its compatibility domain.  The resulting labelled relations form a locally posetal $2$-category $\mathbf{Rel}_{\mathcal C}^{\Omega}$, and forgetting labels gives a normal oplax $2$-functor
 \[
-U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel};
+U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}.
 \]
-its comparison $2$-cell records precisely the possible loss of witnesses caused by incompatible labels.  Once Haxell's finite selection supplies joint compatibility, the comparison becomes an identity, so the local transfers compose to a genuine interval configuration.  The prime-power filtration and the passage from simple quotients to affine torsor fibres are expressed by the corresponding quotient and pullback diagrams.
+Its comparison $2$-cell measures the loss of witnesses caused by incompatible labels.  After the finite cutoff $X$ has been fixed, Section~\ref{sec:finite-realization} constructs physical covering translations $\mathscr T_1,\ldots,\mathscr T_m$ and proves the witnesswise compatibility needed for the strict pasting
+\begin{equation}\label{eq:master-strict-pasting}
+\begin{aligned}
+R_X&=\mathscr T_m\odot\cdots\odot\mathscr T_1\odot R_B,\\
+U(R_X)&=U(\mathscr T_m)\circ\cdots\circ U(\mathscr T_1)\circ U(R_B).
+\end{aligned}
+\end{equation}
+The second equality is exactly the point at which the normal oplax comparison becomes an identity.
 
-At the terminal state we obtain residue $0$, component count $k$, and reciprocal mass below $2$.  The commutative square
+A second reusable cell is the affine torsor extension principle proved in Section~\ref{sec:states-filtration}.  For finite subgroups $H\le K\le A$, covering one $H$-torsor and covering the quotient $K/H$ by increments automatically covers the corresponding $K$-torsor.  The bridge induction of Section~\ref{sec:wide-start} and the prime-power translation step of Section~\ref{sec:finite-realization} are two specializations of this single mechanism.
+
+The arithmetic leaves certify the remaining cells.  Section~\ref{sec:signed-inverse} constructs, at each sufficiently large prime-power stage $Q=p^e$, a family $\mathcal A_Q$ with controlled simple-quotient residues, density, incompatibility and reciprocal mass.  Section~\ref{sec:local-profile} proves a transfer theorem that is uniform under every sufficiently dense restriction of $\mathcal A_Q$; its only scalar outputs are the required width $\delta_\rho(Q)$ and, at prime stages, the positive gain $\mu_\rho(q)$.  Section~\ref{sec:scalar-finality} deliberately forgets the residue coordinate and solves the resulting one-dimensional continuation problem, producing for every large $k$ a finite cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.  Only then does Section~\ref{sec:finite-realization} invoke Haxell to choose mutually compatible physical representatives and lift the scalar plan back to the labelled layer.
+
+At the terminal state the categorical calculation produces residue $0$, component count $k$, and reciprocal mass below $2$.  The commutative square
 \[
 \begin{CD}
 \mathcal C @>{W}>> \Q\\

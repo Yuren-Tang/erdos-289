@@ -1,7 +1,7 @@
 \section{Finite realization by compatible intervals}
 \label{sec:finite-realization}
 
-We now return from the component-count argument to literal intervals.  Haxell's theorem is used only after a finite cutoff has been fixed.
+This section lifts the scalar terminal plan back to the physical labelled layer.  Only after the finite cutoff $X$ has been fixed do we use Haxell to select mutually compatible surviving rows.  The uniform simple-quotient supports are then lifted to covering affine translations by Corollary~\ref{cor:graded-affine-translation}, and joint compatibility strictifies their labelled composite.
 
 Let $\eta>0$ be the reciprocal-mass margin in Proposition~\ref{prop:wide-start}.  By \eqref{eq:role-summable}, choose $B_{\mathrm{mass}}$ such that
 \begin{equation}\label{eq:resource-tail}
@@ -16,10 +16,11 @@ The dependency order used below is the ordinary implication flow
 \begin{aligned}
 (B_{\mathrm{mass}},B_{\mathrm{pack}})&\longrightarrow B\longrightarrow X,\\
 X&\longrightarrow P_X\longrightarrow
-\{\mathscr L_X(Q):B<Q\le X\}\longrightarrow R_X.
+\{\mathscr L_X(Q):B<Q\le X\}\longrightarrow
+(\mathscr T_1,\ldots,\mathscr T_m)\longrightarrow R_X.
 \end{aligned}
 \end{equation}
-Here $B$ comes from Theorem~\ref{thm:scalar-terminality}, a finite $X$ is fixed before Haxell is invoked, $P_X$ is then chosen by Haxell, the uniform local theorem is replayed on the surviving rows to form the $\mathscr L_X(Q)$, and joint compatibility finally strictifies their composite to $R_X$.
+Here $B$ comes from Theorem~\ref{thm:scalar-terminality}, a finite $X$ is fixed before Haxell is invoked, $P_X$ is then chosen by Haxell, the uniform local theorem is replayed on the surviving rows to form the physical label families $\mathscr L_X(Q)$ and covering translations $\mathscr T_j$, and joint compatibility finally strictifies their composite to $R_X$.
 
 Fix $X\in\mathcal H_B$.  Only finitely many prime-power steps lie between $B$ and $X$.  For each such $Q$, Proposition~\ref{prop:wide-start} gives
 \begin{equation}\label{eq:survivor-density}
@@ -42,60 +43,21 @@ for every step through $X$.
 
 \subsection{From the simple quotient to observable translation}
 
-The local theorem concerns $S_Q=F_Q/F_{<Q}$, while the global induction concerns affine fibres in $A=\Q/\Z$.  The quotient map sits in the short exact sequence
+At a prime-power step $Q$, take
+\[
+H=F_{<Q},
+\qquad
+K=F_Q,
+\qquad
+K/H=S_Q.
+\]
+The general exact sequence \eqref{eq:affine-extension-exact} specializes to
 \begin{equation}\label{eq:simple-extension}
 \begin{CD}
 0 @>>> S_Q @>>> A/F_{<Q} @>>> A/F_Q @>>> 0.
 \end{CD}
 \end{equation}
-Thus the fibre of $A/F_{<Q}\to A/F_Q$ is canonically an $S_Q$-torsor.  The same fact is expressed by the pullback square
-\begin{equation}\label{eq:simple-factor-pullback}
-\begin{CD}
-F_Q @>>> A\\
-@V{q}VV @VV{q_{F_{<Q}}}V\\
-S_Q=F_Q/F_{<Q} @>>> A/F_{<Q},
-\end{CD}
-\end{equation}
-where the bottom arrow is the natural inclusion.
-
-\begin{lemma}[Affine lifting across one prime-power step]\label{lem:affine-current-lift}
-Let $Q$ be a prime power, let
-\[
-T^-=\operatorname{Tor}_{F_{<Q}}(\alpha)\times I,
-\qquad
-T^+=\operatorname{Tor}_{F_Q}(\bar\alpha)\times I',
-\]
-where $\bar\alpha$ is the image of $\alpha$ in $A/F_Q$.  Let $\mathscr L\subseteq\mathcal C$ be finite, with $\overline W(L)\in F_Q$ for every $L\in\mathscr L$.  Suppose that for every $s\in S_Q$ and $k'\in I'$ there are $L\in\mathscr L$ and $i\in I$ such that
-\[
-[\overline W(L)]_{S_Q}=s,
-\qquad
-i+\nu(L)=k'.
-\]
-Then the translation relation
-\begin{equation}\label{eq:local-translation}
-\operatorname{Tr}_{\mathscr L}(T^-,T^+)
-=
-\left\{
-((x,i),L,(x+\overline W(L),i+\nu(L))):
-\substack{(x,i)\in T^-,\ L\in\mathscr L,\\
-(x+\overline W(L),i+\nu(L))\in T^+}
-\right\}
-\end{equation}
-is a covering observable labelled relation $T^-\rightsquigarrow T^+$.
-\end{lemma}
-
-\begin{proof}
-The conservation law \eqref{eq:edge-conservation} holds by definition.  Fix $(y,k')\in T^+$ and choose $x_0\in\operatorname{Tor}_{F_{<Q}}(\alpha)$.  Since $y$ and $x_0$ have the same image in $A/F_Q$, the difference $y-x_0$ belongs to $F_Q$; let $s$ be its class in $S_Q$.  Choose $L\in\mathscr L$ and $i\in I$ with simple class $s$ and $i+\nu(L)=k'$.  By the pullback property \eqref{eq:simple-factor-pullback},
-\[
-y-\overline W(L)-x_0\in F_{<Q}.
-\]
-Thus $x:=y-\overline W(L)$ belongs to $\operatorname{Tor}_{F_{<Q}}(\alpha)$, and
-\[
-((x,i),L,(y,k'))
-\in\operatorname{Tr}_{\mathscr L}(T^-,T^+).
-\]
-Hence the target projection is surjective.
-\end{proof}
+Thus Corollary~\ref{cor:graded-affine-translation} is precisely the lifting cell from a simple-quotient count support to a covering observable translation between the corresponding affine torsor fibres.
 
 For each later step $B<Q=p^e\le X$, define
 \begin{equation}\label{eq:physical-local-labels}
@@ -106,11 +68,28 @@ For each later step $B<Q=p^e\le X$, define
 O\subseteq P_X(Q),\ |O|\le p
 \right\}.
 \end{equation}
-Because $P_X$ is independent, every displayed union belongs to $\mathcal C$.  Its residue lies in $F_Q$, and its image in $S_Q\times\N$ is exactly the corresponding point of
+Because $P_X$ is independent, every displayed union belongs to $\mathcal C$.  By \eqref{eq:signed-label-filtration}, its residue lies in $F_Q$, and its image in $S_Q\times\N$ is exactly the corresponding point of
 \[
 \Gamma_{\phi_Q|_{P_X(Q)}}.
 \]
-Therefore Theorem~\ref{thm:uniform-profile} gives, at every step of the scalar process through $X$, a covering translation relation of the form \eqref{eq:local-translation} between the corresponding incoming and outgoing affine fibres.
+Theorem~\ref{thm:uniform-profile} therefore supplies the quotient-and-count covering hypothesis of Corollary~\ref{cor:graded-affine-translation} with $\beta=0$.  Write
+\[
+B<Q_1<\cdots<Q_m\le X
+\]
+for the possibly empty list of processed prime-power steps.  Put
+\[
+T_0=\operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
+\]
+and for $1\le j\le m$ let
+\[
+\gamma_j=\pi_{B,Q_j}(\gamma_B),
+\qquad
+T_j=\operatorname{Tor}_{E_{Q_j}}(\gamma_j)\times I_{Q_j}.
+\]
+The filtration and the scalar interval change only at prime-power steps, so $T_m=T_X$ when $m>0$, while for $m=0$ one has $T_0=T_X$.  For each $1\le j\le m$, Corollary~\ref{cor:graded-affine-translation} gives a covering observable translation relation
+\begin{equation}\label{eq:physical-local-translation-chain}
+\mathscr T_j:T_{j-1}\rightsquigarrow T_j.
+\end{equation}
 
 \subsection{Joint compatibility and exact composition}
 
@@ -125,7 +104,11 @@ Let $S_0$ be a label of the affine initial cover.  Let $Q_1,\ldots,Q_m\le X$ be 
 All interval components occurring in the $L_i$ belong to the single independent set $P_X$, so they are pairwise disjoint and nonadjacent.  Each lies in some $\mathcal A_{Q_i}(B)$ and is therefore compatible with every initial-cover label, in particular with $S_0$.  Their literal union with $S_0$ is consequently an element of $\mathcal C$.
 \end{proof}
 
-Let $P_n$ be the fibre product of the edge sets in the finite chain consisting of the initial relation $R_B$ and the successive translation relations through $X$.  Lemma~\ref{lem:joint-compatibility} gives the factorization
+Let $P_n$ be the fibre product of the edge sets in the finite chain
+\[
+R_B,\mathscr T_1,\ldots,\mathscr T_m.
+\]
+Lemma~\ref{lem:joint-compatibility} gives the factorization
 \begin{equation}\label{eq:realization-factorization}
 \begin{CD}
 P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
@@ -133,11 +116,15 @@ P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
 \qquad
 \ell=\iota\circ\widetilde\ell.
 \end{equation}
-Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  The initial relation is covering, and every local translation relation is covering by Lemma~\ref{lem:affine-current-lift}; therefore their ordinary relational composite is covering.  Exactness of the comparison now shows that the labelled composite is a covering observable relation
-\[
-R_X:\{0_M\}\rightsquigarrow T_X,
-\]
-where
+Hence the comparison $2$-cell of \eqref{eq:oplax-2cell} is an identity by \eqref{eq:rel-strictification}.  Since $R_B$ and every $\mathscr T_j$ are covering, their ordinary relational composite is covering.  Strictification therefore gives the covering labelled composite
+\begin{equation}\label{eq:physical-master-composite}
+R_X:=\mathscr T_m\odot\cdots\odot\mathscr T_1\odot R_B:\{0_M\}\rightsquigarrow T_X,
+\end{equation}
+with
+\begin{equation}\label{eq:observable-master-composite}
+U(R_X)=U(\mathscr T_m)\circ\cdots\circ U(\mathscr T_1)\circ U(R_B).
+\end{equation}
+For $m=0$, both composites are understood to be $R_B$ and $U(R_B)$, respectively.  Here
 \begin{equation}\label{eq:finite-response}
 T_X:=\operatorname{Tor}_{E_X}(\gamma_X)\times I_X
 \end{equation}
