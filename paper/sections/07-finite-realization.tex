@@ -11,19 +11,15 @@ Choose also $B_{\mathrm{pack}}$ so large that every compatible subfamily $\mathc
 \begin{equation}\label{eq:global-start-cutoff}
 B_\dagger=\max\{B_{\mathrm{mass}},B_{\mathrm{pack}}\}.
 \end{equation}
-The dependency order used below is
+The dependency order used below is the ordinary implication flow
 \begin{equation}\label{eq:realization-dependency}
-\begin{CD}
-(B_{\mathrm{mass}},B_{\mathrm{pack}}) @>>> B @>>> X\\
-@. @. @VVV\\
-@. @. P_X\\
-@. @. @VVV\\
-@. @. \{\mathscr L_X(Q):B<Q\le X\}\\
-@. @. @VVV\\
-@. @. R_X.
-\end{CD}
+\begin{aligned}
+(B_{\mathrm{mass}},B_{\mathrm{pack}})&\longrightarrow B\longrightarrow X,\\
+X&\longrightarrow P_X\longrightarrow
+\{\mathscr L_X(Q):B<Q\le X\}\longrightarrow R_X.
+\end{aligned}
 \end{equation}
-Here $B$ comes from scalar terminality, a finite $X$ is fixed before Haxell is invoked, $P_X$ is then chosen by Haxell, the uniform local theorem is replayed on the surviving rows to form the $\mathscr L_X(Q)$, and joint compatibility finally strictifies their composite to $R_X$.
+Here $B$ comes from Theorem~\ref{thm:scalar-terminality}, a finite $X$ is fixed before Haxell is invoked, $P_X$ is then chosen by Haxell, the uniform local theorem is replayed on the surviving rows to form the $\mathscr L_X(Q)$, and joint compatibility finally strictifies their composite to $R_X$.
 
 Fix $X\in\mathcal H_B$.  Only finitely many prime-power steps lie between $B$ and $X$.  For each such $Q$, Proposition~\ref{prop:wide-start} gives
 \begin{equation}\label{eq:survivor-density}
