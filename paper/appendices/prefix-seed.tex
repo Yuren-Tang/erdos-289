@@ -19,7 +19,7 @@ There is a finite family of configurations in $\mathcal C$ with the following pr
 \end{lemma}
 
 \begin{proof}
-The explicit witness below proves the first three assertions by exact rational identities and finite separation checks, with the uniform separation estimate beginning at \eqref{eq:successive-row-gap}.  The fourth follows from \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total}.  The ancillary script independently replays the displayed finite rational identities and separation inequalities; it is not used as a proof oracle for the uniform argument.
+The explicit witness below proves the first three assertions by exact rational identities and finite separation checks, with the uniform separation estimate beginning at \eqref{eq:successive-row-gap}.  The fourth follows from \eqref{eq:finite-seed-bound} and \eqref{eq:future-bridge-total}.  The ancillary script independently checks the displayed finite rational identities and separation inequalities.  The uniform argument beyond this finite certificate is proved below.
 \end{proof}
 
 \subsection*{One explicit witness}
@@ -63,7 +63,7 @@ Only a finite boundary remains before the separation estimate becomes automatic.
 \end{equation}
 Direct comparison shows that the bridge component supports determined by these bases are compatible with the five displayed configurations and with one another whenever they occur simultaneously.  The list is part of this particular finite witness, not a canonical sequence.
 
-These finite checks are also replayed, using exact rational arithmetic, by the ancillary script \texttt{tools/verify\_prefix\_seed.py}.  The script is verification of the displayed finite certificate; the argument below supplies the uniform proof beyond it.
+These finite checks are also carried out, using exact rational arithmetic, by the ancillary script \texttt{tools/verify\_prefix\_seed.py}.  The script is verification of the displayed finite certificate; the argument below supplies the uniform proof beyond it.
 
 \subsection*{Why the numerical initialization disappears}
 
@@ -116,4 +116,4 @@ After the finite initialization the first lower modulus is at least $60$, and su
 \end{equation}
 Together with \eqref{eq:finite-seed-bound} this leaves a fixed positive margin below $2$ before the arbitrarily small neutral contribution is added.
 
-Thus the main argument consumes only Lemma~\ref{lem:finite-prefix-initialization}.  The displayed residue representatives, bridge bases and finite boundary list play no further role.
+Thus the main argument uses only Lemma~\ref{lem:finite-prefix-initialization}.  The displayed residue representatives, bridge bases and finite boundary list play no further role.

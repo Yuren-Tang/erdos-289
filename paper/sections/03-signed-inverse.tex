@@ -1,7 +1,7 @@
 \section{Signed-inverse families at prime-power steps}
 \label{sec:signed-inverse}
 
-This section certifies the local arithmetic resource cell at a prime-power stage.  For every sufficiently large $Q=p^e$ we construct a finite family $\mathcal A_Q\subset\mathcal C$, its simple-quotient map $\phi_Q:\mathcal A_Q\to S_Q^\times$, and the density, fibre, incompatibility, support and reciprocal-mass bounds consumed later.  No global choices of compatible rows are made here.
+For every sufficiently large prime power $Q=p^e$, this section constructs a finite family $\mathcal A_Q\subset\mathcal C$, its simple-quotient map $\phi_Q:\mathcal A_Q\to S_Q^\times$, and the density, fibre, incompatibility, support and reciprocal-mass estimates used later.
 
 Fix the integer $\Lambda$ from Proposition~\ref{prop:prime-supply-main} and put
 \[
@@ -163,7 +163,14 @@ The support bounds follow from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; 
 =O\!\left(\frac{p\log Q}{Q^2}\right)
 =O\!\left(\frac{e\log p}{p^{2e-1}}\right).
 \]
-The prime terms are summable by grouping primes into the fixed geometric bands of Proposition~\ref{prop:prime-supply-main}; the composite terms are bounded by a constant multiple of $\sum_p p^{-2}$ after summing over $e\ge2$.  Hence \eqref{eq:role-summable} holds.
+For the prime terms, choose $X_j=\Lambda^jX_0$ beyond the onset of Proposition~\ref{prop:prime-supply-main}.  The contribution of primes in $X_j<p\le\Lambda X_j$ is at most
+\[
+O\!\left(\frac{X_j}{\log X_j}\right)
+O\!\left(\frac1{X_j\log X_j}\right)
+=O\!\left(\frac1{(\log X_j)^2}\right)
+=O(j^{-2}),
+\]
+so the prime terms are summable.  The composite terms are bounded by a constant multiple of $\sum_p p^{-2}$ after summing over $e\ge2$.  Hence \eqref{eq:role-summable} holds.
 \end{proof}
 
 In particular, for every $\varepsilon>0$ there is $Q_1$ such that every finite set of prime-power steps of rank at least $Q_1$ has total reciprocal-mass bound below $\varepsilon$.

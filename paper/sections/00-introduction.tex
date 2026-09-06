@@ -17,7 +17,7 @@ W(S)=1.
 \]
 \end{theorem}
 
-Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  This proves the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}, and is slightly stronger in that every interval is forced to have cardinality $2$ or $3$.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
+Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  Accordingly, the theorem gives an affirmative answer to the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}, and is slightly stronger in that every interval is forced to have cardinality $2$ or $3$.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
 
 The current problem page records a simple construction for the unrestricted wording, so separation is essential to the modern formulation.  It also records an earlier separated-interval example: in the solution of Monthly problem E2689 proposed by L.-S. Hahn, Hickerson and Montgomery represented $2$ by reciprocal sums over five separated intervals.  These precedents do not address eventual realization of every sufficiently large component count at reciprocal value $1$ \cite{ErdosProblem289}.
 
@@ -31,35 +31,37 @@ must have $W(S)=1$.  We therefore work modulo $1$ through most of the constructi
 
 \subsection*{Proof architecture}
 
-The proof has three phases: top-down specification, bottom-up certification of its cells, and final pasting.  Two directions should be kept distinct.  Horizontally, the construction advances through the prime-power filtration of $A=\Q/\Z$.  Vertically, it forgets information: literal interval configurations are sent to observable residue-and-count data, then to simple-quotient count supports, and finally to the scalar width of a count interval.  The lower-information layers are used only for planning; the lost information is restored by affine lifting, finite compatibility selection, and the terminal pullback.
+Three constructions drive the proof.  Reciprocal-neutral identities vary the component count without changing reciprocal value.  Signed-inverse interval families supply controlled residues in each simple prime-power quotient.  Finally, after a finite cutoff has been fixed, Haxell's theorem selects mutually compatible physical intervals from the local choices.  The categorical setup records how these constructions compose and where information is forgotten or recovered.
+
+The proof is organized by top-down specification, bottom-up verification of the required constructions, and final pasting.  Two structures are kept distinct.  One is the prime-power filtration of $A=\Q/\Z$, along which the local transfer relations are composed.  The other is an information-forgetting chain from literal interval configurations to observable residue-and-count data, then to simple-quotient count supports, and finally to the scalar width of a count interval.  Observation and quotient maps belong to this second direction.  The lower-information layers are used for planning; affine lifting, finite compatibility selection, and the terminal pullback recover the information needed for the final configuration.
 
 The overall construction/dependency flow is
 \begin{equation}\label{eq:master-proof-flow}
-\begin{aligned}
-&\text{semantic kernel and primitive inputs}\\
-&\qquad\Downarrow\\[-1mm]
-&\mathcal A_Q\xrightarrow{\ \phi_Q\ }S_Q^\times
+\begin{gathered}
+\text{categorical setup and auxiliary inputs}\\
+\Downarrow\\[-1mm]
+\mathcal A_Q\xrightarrow{\ \phi_Q\ }S_Q^\times
 \qquad\text{and}\qquad
 R_B:\{0_M\}\rightsquigarrow
-\operatorname{Tor}_{E_B}(\gamma_B)\times I_B\\
-&\qquad\Downarrow\\[-1mm]
-&\text{uniform simple-quotient transfer }(\delta_\rho,\mu_\rho)
-\quad\Longrightarrow\quad
-\text{scalar terminal plan }(X,k)\\
-&\qquad\Downarrow\\[-1mm]
-&\text{finite Haxell selection }P_X
+\operatorname{Fib}_{E_B}(\gamma_B)\times I_B\\
+\Downarrow\\[-1mm]
+\text{uniform simple-quotient transfer }(\delta_\rho,\mu_\rho)\\
+\Downarrow\\[-1mm]
+\text{scalar continuation: }X,\ k\in I_X\\
+\Downarrow\\[-1mm]
+\text{finite Haxell selection }P_X
 \quad\Longrightarrow\quad
 \text{strict covering labelled relation }R_X\\
-&\qquad\Downarrow\\[-1mm]
-&\tau_X^{-1}(0,k)\ne\varnothing
+\Downarrow\\[-1mm]
+\tau_X^{-1}(0,k)\ne\varnothing
 \quad\Longrightarrow\quad
 (\overline W,\nu)=(0,k),\ 0<W<2
 \quad\Longrightarrow\quad W=1.
-\end{aligned}
+\end{gathered}
 \end{equation}
-The arrows in \eqref{eq:master-proof-flow} record construction and dependency, not commutativity.  Genuine commutative diagrams are used below only where two mathematical composites are asserted to agree.
+Equation~\eqref{eq:master-proof-flow} is the dependency diagram for the proof; the commutative diagrams below record equalities of mathematical composites.
 
-The semantic spine is the labelled-relation calculus of Section~\ref{sec:states-filtration}.  Observable relations may compose even when the interval labels witnessing their edges cannot coexist.  Compatible configurations therefore form a partial commutative monoid, and
+The categorical spine is the labelled-relation calculus of Section~\ref{sec:states-filtration}.  Observable relations may compose even when the interval labels witnessing their edges cannot coexist.  Compatible configurations therefore form a partial commutative monoid, and
 \[
 \Omega=(\overline W,\nu):\mathcal C\longrightarrow A\times\N
 \]
@@ -76,9 +78,9 @@ U(R_X)&=U(\mathscr T_m)\circ\cdots\circ U(\mathscr T_1)\circ U(R_B).
 \end{equation}
 The second equality is exactly the point at which the normal oplax comparison becomes an identity.
 
-A second reusable cell is the affine torsor extension principle proved in Section~\ref{sec:states-filtration}.  For finite subgroups $H\le K\le A$, covering one $H$-torsor and covering the quotient $K/H$ by increments automatically covers the corresponding $K$-torsor.  The bridge induction of Section~\ref{sec:wide-start} and the prime-power translation step of Section~\ref{sec:finite-realization} are two specializations of this single mechanism.
+A second reusable ingredient is the affine torsor extension principle proved in Section~\ref{sec:states-filtration}.  For finite subgroups $H\le K\le A$, covering one $H$-torsor and covering the quotient $K/H$ by increments automatically covers the corresponding $K$-torsor.  The bridge induction of Section~\ref{sec:wide-start} and the prime-power translation step of Section~\ref{sec:finite-realization} are two specializations of this single mechanism.
 
-The arithmetic leaves certify the remaining cells.  Section~\ref{sec:signed-inverse} constructs, at each sufficiently large prime-power stage $Q=p^e$, a family $\mathcal A_Q$ with controlled simple-quotient residues, density, incompatibility and reciprocal mass.  Section~\ref{sec:local-profile} proves a transfer theorem that is uniform under every sufficiently dense restriction of $\mathcal A_Q$; its only scalar outputs are the required width $\delta_\rho(Q)$ and, at prime stages, the positive gain $\mu_\rho(q)$.  Section~\ref{sec:scalar-finality} deliberately forgets the residue coordinate and solves the resulting one-dimensional continuation problem, producing for every large $k$ a finite cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.  Only then does Section~\ref{sec:finite-realization} invoke Haxell to choose mutually compatible physical representatives and lift the scalar plan back to the labelled layer.
+The arithmetic constructions supply the remaining inputs.  Section~\ref{sec:signed-inverse} constructs, at each sufficiently large prime-power stage $Q=p^e$, a family $\mathcal A_Q$ with controlled simple-quotient residues, density, incompatibility and reciprocal mass.  Section~\ref{sec:local-profile} proves a transfer theorem that is uniform under every sufficiently dense restriction of $\mathcal A_Q$; its only scalar outputs are the required width $\delta_\rho(Q)$ and, at prime stages, the positive gain $\mu_\rho(q)$.  Section~\ref{sec:scalar-finality} retains only the interval width and solves the resulting one-dimensional continuation problem, producing for every large $k$ a finite cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.  Only then does Section~\ref{sec:finite-realization} invoke Haxell to choose mutually compatible physical representatives and lift the resulting cutoff choice back to the labelled layer.
 
 At the terminal state the categorical calculation produces residue $0$, component count $k$, and reciprocal mass below $2$.  The commutative square
 \[

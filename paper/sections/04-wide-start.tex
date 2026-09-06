@@ -1,7 +1,7 @@
 \section{A wide affine initial cover}
 \label{sec:wide-start}
 
-This section constructs the initial global cell in the master architecture: a covering relation $R_B$ onto one full affine $E_B$-fibre, with a long interval of component counts, a positive reciprocal-mass margin, and a uniform surviving fraction of every later signed-inverse family.  The prime-power bridges below are pasted by the affine torsor extension principle of Section~\ref{sec:states-filtration}.
+This section constructs the initial covering relation $R_B$ onto one full affine $E_B$-fibre, with a long interval of component counts, a positive reciprocal-mass margin, and a uniform surviving fraction of every later signed-inverse family.  The prime-power bridges are combined using the affine torsor extension principle of Section~\ref{sec:states-filtration}.
 
 Put
 \[
@@ -62,11 +62,11 @@ B\longmapsto[\overline W(B)-\beta_n]
 \end{equation}
 is surjective.  Every branch has the same component count $k$.
 
-Thus Corollary~\ref{cor:compatible-affine-extension}, with $H=E_{n-1}$ and $K=E_n$, is exactly the bridge cell needed below: whenever an incoming family covers an affine $E_{n-1}$-fibre and is jointly compatible with all bridge branches, adjoining the bridge covers the corresponding affine $E_n$-fibre and leaves the component-count spread unchanged.
+Thus Corollary~\ref{cor:compatible-affine-extension}, with $H=E_{n-1}$ and $K=E_n$, is exactly the bridge form needed below: whenever an incoming family covers an affine $E_{n-1}$-fibre and is jointly compatible with all bridge branches, adjoining the bridge covers the corresponding affine $E_n$-fibre and leaves the component-count spread unchanged.
 
 \subsection{Bounded-spread affine cover}
 
-Fix the finite initialization from Lemma~\ref{lem:finite-prefix-initialization} and compose it with one bridge at every subsequent prime-power jump up to a cutoff $B$.  Applying Corollary~\ref{cor:compatible-affine-extension} at each jump and pasting the resulting affine-extension cells gives a full affine $E_B$-fibre.  Let $\mathcal B_B\subset\mathcal C$ be the finite set of interval labels occurring in this affine cover.  Since every bridge adds the same number of components to every label, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that
+Fix the finite initialization from Lemma~\ref{lem:finite-prefix-initialization} and compose it with one bridge at every subsequent prime-power jump up to a cutoff $B$.  Applying Corollary~\ref{cor:compatible-affine-extension} successively at these jumps gives a full affine $E_B$-fibre.  Let $\mathcal B_B\subset\mathcal C$ be the finite set of interval labels occurring in this affine cover.  Since every bridge adds the same number of components to every label, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that
 \begin{equation}\label{eq:ragged-spread}
 \nu(x)\in[m_B,M_B]
 \qquad(x\in\mathcal B_B),
@@ -182,7 +182,17 @@ All alternatives in a neutral coordinate have the same reciprocal value, and hen
 \gamma_B=\alpha_B+\beta_B.
 \end{equation}
 
-Let $\mathscr P_B$ be the finite pool of connected interval components that occur in at least one label of the prepared initial cover.  Its members are precisely drawn from the fixed seed, the bridge alternatives through $B$, and the neutral-coordinate alternatives.  The neutral family contributes $O(G_0+L(B))=o(B/\log B)$ bounded-size exclusion envelopes.  Since $Q/\log Q$ is eventually increasing, this is uniformly $o(Q/\log Q)$ for every $Q\ge B$.  Together with \eqref{eq:bridge-footprint}, the $O(1)$ seed contribution and \eqref{eq:family-size}, this gives constants $\sigma,\eta>0$, independent of $L$, such that the following holds.  Let
+Let $\mathscr P_B$ be the finite pool of connected interval components that occur in at least one label of the prepared initial cover.  Its members are precisely drawn from the fixed seed, the bridge alternatives through $B$, and the neutral-coordinate alternatives.  Let $\eta_0>0$ be the fixed reciprocal-mass margin below $2$ left by the finite initialization and the entire bridge sequence; its existence follows from Appendix~\ref{app:prefix-seed}.  When choosing the neutral family, require its total reciprocal mass to be less than $\eta_0/2$, and set $\eta=\eta_0/2$.  This choice is independent of $L$.
+
+For the surviving fraction, every connected component in the pool has an exclusion envelope of cardinality at most $5$.  Let $C_5$ be the uniform bound from Proposition~\ref{prop:signed-inverse-capabilities} for such envelopes.  By Lemma~\ref{lem:sparse-bridge-interaction} and the bound $C_5$, after increasing the absolute onset the seed and relevant bridges delete at most
+\[
+\frac{\kappa}{4}\frac Q{\log Q}
+\]
+members of $\mathcal A_Q$.  The neutral family contributes at most $5N_B=5(G_0+L(B))$ component envelopes.  Since $L(B)=o(B/\log B)$, for each fixed $L\in\mathfrak L$ one may increase $B_0(L)$ so that
+\[
+5C_5N_B\le\frac{\kappa}{4}\frac B{\log B}.
+\]
+As $Q/\log Q$ is eventually increasing, the same bound with $B$ replaced by $Q$ holds for every $Q\ge B$.  Hence the total number of deleted members is at most $\frac{\kappa}{2}Q/\log Q$, while \eqref{eq:family-size} gives $|\mathcal A_Q|\ge\kappa Q/\log Q$.  Thus one may take $\sigma=1/2$, independently of $L$.  Let
 \begin{equation}\label{eq:compatible-subfamily}
 \mathcal A_Q(B)
 =
@@ -196,7 +206,7 @@ for every later prime-power step $Q>B$, and every label of the initial cover has
 
 For each prepared label $S$, take the edge $(0_M,S,\Omega(S))$.  The residue and component-count conclusions above say exactly that these edges cover
 \[
-\operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
+\operatorname{Fib}_{E_B}(\gamma_B)\times I_B,
 \]
 and \eqref{eq:edge-conservation} holds by construction.
 
@@ -204,7 +214,7 @@ and \eqref{eq:edge-conservation} holds by construction.
 There exist $\eta,\sigma>0$ such that, for every $L\in\mathfrak L$, there is $B_0(L)$ with the following property.  For every $B\ge B_0(L)$ there is a covering observable labelled relation
 \[
 R_B:\{0_M\}\rightsquigarrow
-\operatorname{Tor}_{E_B}(\gamma_B)\times I_B,
+\operatorname{Fib}_{E_B}(\gamma_B)\times I_B,
 \]
 where $I_B$ is the interval in \eqref{eq:common-count-interval} and every edge label has reciprocal value below $2-\eta$.  Moreover every later prime-power family satisfies
 \[

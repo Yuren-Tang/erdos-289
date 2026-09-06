@@ -1,7 +1,7 @@
 \section{Interval configurations, observable relations, and torsion}
 \label{sec:states-filtration}
 
-This section supplies the semantic kernel used by every later construction: compatible interval configurations, observable labelled relations and their strictification, the affine torsor extension principle, and the prime-power torsion filtration.  Later sections only have to certify the hypotheses of these abstract cells.
+This section develops the categorical setup used later: compatible interval configurations, observable labelled relations and their strictification, the affine torsor extension principle, and the prime-power torsion filtration.
 
 Let $\mathcal C$ be the set of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Put
 \begin{equation}\label{eq:observations}
@@ -40,6 +40,10 @@ M^2 @>{+}>> M
 \end{CD}
 \end{equation}
 commutes.  Thus $\mathcal C$, with unit $\varnothing$ and compatible union as partial addition, is a partial commutative monoid, and $\Omega$ is additive wherever that partial sum is defined.
+
+\begin{remark}[Abstract scope]\label{rem:abstract-labelled-relations}
+The labelled-relation construction in the next subsection is formal for any partial commutative monoid $\mathscr C$, with its induced finite compatibility domains $D_n$, equipped with an additive map $\Omega:\mathscr C\to M$ to a commutative monoid.  The interval model above is used only to verify the partial-sum axioms and, later, the application-specific compatibility and mass estimates.  Thus the categorical statements on composition, forgetting labels and strictification hold verbatim in that abstract setting; the rest of the paper specializes them to the present $\mathcal C$.
+\end{remark}
 
 \subsection{The locally posetal 2-category of observable labelled relations}
 
@@ -119,7 +123,7 @@ where $\mathbf{Rel}$ is the locally posetal $2$-category of finite sets, binary 
 \[
 U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}
 \]
-is a normal oplax $2$-functor.
+is a normal oplax $2$-functor.  Here and throughout, \emph{oplax} refers to the comparison direction displayed in \eqref{eq:oplax-2cell}, namely $U(S\odot R)\Rightarrow U(S)\circ U(R)$.
 
 For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets, let $\ell:P_n\to\mathcal C^n$ be the label map, and let
 \[
@@ -187,9 +191,9 @@ q_H:A\longrightarrow A/H
 \]
 be the quotient map, and for $\alpha\in A/H$ write
 \[
-\operatorname{Tor}_H(\alpha)=q_H^{-1}(\alpha)
+\operatorname{Fib}_H(\alpha)=q_H^{-1}(\alpha)
 \]
-for the corresponding affine torsor fibre.  When $H$ is finite, this fibre is a coset of $H$ and hence is finite.  In particular, every set $\operatorname{Tor}_H(\alpha)\times I$ used below, with $H$ one of the finite filtration stages and $I\subset\N$ a finite integer interval, is a finite subset of $M$ and therefore an object of $\mathbf{Rel}_{\mathcal C}^{\Omega}$.
+for the corresponding affine torsor fibre.  When $H$ is finite, this fibre is a coset of $H$ and hence is finite.  In particular, every set $\operatorname{Fib}_H(\alpha)\times I$ used below, with $H$ one of the finite filtration stages and $I\subset\N$ a finite integer interval, is a finite subset of $M$ and therefore an object of $\mathbf{Rel}_{\mathcal C}^{\Omega}$.
 
 \subsection{Affine extension across a subgroup inclusion}
 
@@ -222,7 +226,7 @@ d:Y\to A
 \]
 such that
 \[
-r(X)=\operatorname{Tor}_H(\alpha),
+r(X)=\operatorname{Fib}_H(\alpha),
 \qquad d(y)-\beta\in K\quad(y\in Y),
 \]
 and the difference-class map
@@ -241,11 +245,11 @@ X\times Y\longrightarrow A,
 \qquad
 (x,y)\longmapsto r(x)+d(y)
 \]
-has image exactly $\operatorname{Tor}_K(\alpha^+)$.
+has image exactly $\operatorname{Fib}_K(\alpha^+)$.
 \end{lemma}
 
 \begin{proof}
-Every displayed sum maps to $\alpha^+$ in $A/K$.  Conversely fix $z\in\operatorname{Tor}_K(\alpha^+)$ and choose $x_0\in X$.  Then
+Every displayed sum maps to $\alpha^+$ in $A/K$.  Conversely fix $z\in\operatorname{Fib}_K(\alpha^+)$ and choose $x_0\in X$.  Then
 \[
 z-r(x_0)-\beta\in K.
 \]
@@ -253,14 +257,14 @@ Choose $y\in Y$ whose difference class agrees with that of $z-r(x_0)-\beta$ in $
 \[
 z-d(y)-r(x_0)\in H,
 \]
-so $z-d(y)\in\operatorname{Tor}_H(\alpha)$.  Since $r(X)$ is the full $H$-torsor, choose $x\in X$ with $r(x)=z-d(y)$.  Then $r(x)+d(y)=z$.
+so $z-d(y)\in\operatorname{Fib}_H(\alpha)$.  Since $r(X)$ is the full $H$-torsor, choose $x\in X$ with $r(x)=z-d(y)$.  Then $r(x)+d(y)=z$.
 \end{proof}
 
 \begin{corollary}[Compatible affine extension]\label{cor:compatible-affine-extension}
 Let $\mathscr S,\mathscr B\subseteq\mathcal C$ be finite, let $\alpha\in A/H$, and suppose
 \[
 \{\overline W(S):S\in\mathscr S\}
-=\operatorname{Tor}_H(\alpha).
+=\operatorname{Fib}_H(\alpha).
 \]
 Fix $B^\circ\in\mathscr B$ and put $\beta=\overline W(B^\circ)$.  Suppose every $S\in\mathscr S$ is compatible with every $B\in\mathscr B$, every difference $\overline W(B)-\beta$ lies in $K$, and
 \[
@@ -270,7 +274,7 @@ B\longmapsto[\overline W(B)-\beta]
 \]
 is surjective.  Then the compatible unions $S\cup B$ cover
 \[
-\operatorname{Tor}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr).
+\operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr).
 \]
 If $\nu$ is constant with value $c$ on $\mathscr B$, then the set of component counts of these unions is obtained from that of $\mathscr S$ by adding $c$; in particular its spread is unchanged.
 \end{corollary}
@@ -293,9 +297,9 @@ i+\nu(L)=k'.
 \]
 Put
 \[
-T^-=\operatorname{Tor}_H(\alpha)\times I,
+T^-=\operatorname{Fib}_H(\alpha)\times I,
 \qquad
-T^+=\operatorname{Tor}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr)\times I'.
+T^+=\operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr)\times I'.
 \]
 Then the translation relation
 \begin{equation}\label{eq:graded-local-translation}
@@ -321,7 +325,7 @@ Y_{k'}\longrightarrow K/H,
 \qquad
 (L,i)\longmapsto[\overline W(L)-\beta]
 \]
-is surjective.  Apply Lemma~\ref{lem:affine-torsor-extension} with $X=\operatorname{Tor}_H(\alpha)$, with $r$ the inclusion, and with $d(L,i)=\overline W(L)$.  It follows that the edges of \eqref{eq:graded-local-translation} with target count $k'$ cover the whole affine $K$-torsor in $T^+$.  Since $k'$ was arbitrary, the relation is covering.
+is surjective.  Apply Lemma~\ref{lem:affine-torsor-extension} with $X=\operatorname{Fib}_H(\alpha)$, with $r$ the inclusion, and with $d(L,i)=\overline W(L)$.  It follows that the edges of \eqref{eq:graded-local-translation} with target count $k'$ cover the whole affine $K$-torsor in $T^+$.  Since $k'$ was arbitrary, the relation is covering.
 \end{proof}
 
 \subsection{The prime-power filtration}

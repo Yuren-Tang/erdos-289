@@ -1,7 +1,7 @@
 \section{Eventual coverage of component counts}
 \label{sec:scalar-finality}
 
-This section passes to the lowest-information shadow of the proof.  It forgets the residue coordinate and uses only the scalar demand and gain supplied by Theorem~\ref{thm:uniform-profile}; no physical interval representatives are chosen.  Its output is a finite terminal plan: for every sufficiently large component count $k$, a cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.
+This section retains only the scalar width of the component-count interval and uses the demand and gain supplied by Theorem~\ref{thm:uniform-profile}.  For every sufficiently large component count $k$, it produces a finite cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.
 
 Theorem~\ref{thm:uniform-profile} leaves only two scalar quantities at a prime-power step: the required incoming width $\delta_\rho(Q)$ and, at prime steps, the positive width increment $\mu_\rho(q)$.
 
@@ -24,15 +24,18 @@ Put
 \[
 \Phi(X)=\frac X{\log X}.
 \]
-Define
+Define, for every $X\ge1$,
 \[
-\Delta(X)=\max_{Q\le X}\delta_\rho(Q)
+\Delta(X)=
+\max\Bigl(\{0\}\cup
+\{\delta_\rho(Q):Q_{\mathrm{tr}}\le Q\le X,\ Q\text{ a prime power}\}\Bigr),
 \]
-over the displayed prime-power domain, and
+and
 \begin{equation}\label{eq:cumulative-debt}
 \mathcal L(X)=
-\sum_{\substack{p^e\le X\\ e\ge2}}\delta_\rho(p^e).
+\sum_{\substack{Q_{\mathrm{tr}}\le p^e\le X\\ e\ge2}}\delta_\rho(p^e).
 \end{equation}
+Thus both functions are defined on all positive integers; below the transfer threshold they are $0$.
 By \eqref{eq:d-composite},
 \begin{equation}\label{eq:max-demand-subscale}
 \Delta(X)=O_\rho((\log X)^2)=o(\Phi(X)).

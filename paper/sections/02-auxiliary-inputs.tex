@@ -1,7 +1,7 @@
 \section{Auxiliary inputs}
 \label{sec:auxiliary-inputs}
 
-This section records the four primitive leaf certificates consumed by the later cells: a reciprocal-neutral count switch, comparable prime supply, restricted sums in a prime cyclic group, and a finite independent-transversal quota.  These are the primitive leaves of the proof architecture.  Three inputs are proved here or in the appendices; the fourth is a standard consequence of Haxell's independent-transversal theorem.
+This section records four auxiliary inputs used later: a reciprocal-neutral count switch, comparable prime supply, restricted sums in a prime cyclic group, and a finite independent-transversal quota.  Three are proved here or in the appendices; the fourth is a standard consequence of Haxell's independent-transversal theorem.
 
 \subsection{Reciprocal-neutral component switches}
 
@@ -85,7 +85,7 @@ Consequently there is $\rho_P>0$ such that, whenever $|R_i|\ge L_P$,
 \end{proposition}
 
 \begin{proof}
-For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each class into as many full blocks of size $2\Delta$ as possible and discard the remainder.  Haxell's theorem applied to these blocks gives one independent vertex from every block, so one may take $L_P=2\Delta$.  For $n\ge L_P$,
+For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each class into as many full blocks of size $2\Delta$ as possible and discard the remainder.  Let $G'$ be the subgraph induced by the union of the retained blocks; its maximum degree is still at most $\Delta$.  Haxell's theorem applied in $G'$ to the partition by these blocks gives one independent vertex from every block, so one may take $L_P=2\Delta$.  For $n\ge L_P$,
 \[
 \left\lfloor\frac n{L_P}\right\rfloor\ge\frac{n}{2L_P},
 \]
