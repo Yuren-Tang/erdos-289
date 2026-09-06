@@ -1,9 +1,9 @@
 \section{Eventual coverage of component counts}
 \label{sec:scalar-finality}
 
-This section retains only the scalar width of the component-count interval and uses the demand and gain supplied by Theorem~\ref{thm:uniform-profile}.  For every sufficiently large component count $k$, it produces a finite cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.
+This section is the scalar shadow of the categorical transfer.  It retains only the width of the component-count interval and works fibrewise over the full prepared-start and sponsor parameter objects.
 
-Theorem~\ref{thm:uniform-profile} leaves only two scalar quantities at a prime-power step: the required incoming width $\delta_\rho(Q)$ and, at prime steps, the positive width increment $\mu_\rho(q)$.
+Let $0<\sigma<1$ and $0<\rho<\kappa\sigma\rho_P$ be arbitrary parameters as in Section~\ref{sec:local-profile}.  Theorem~\ref{thm:uniform-profile} leaves two scalar quantities at a prime-power step: the required incoming width $\delta_\rho(Q)$ and, at prime steps, the positive width increment $\mu_\rho(q)$.
 
 Enumerate the prime powers
 \[
@@ -24,7 +24,7 @@ Put
 \[
 \Phi(X)=\frac X{\log X}.
 \]
-Define, for every $X\ge1$,
+For every $X\ge1$ define
 \[
 \Delta(X)=
 \max\Bigl(\{0\}\cup
@@ -35,8 +35,7 @@ and
 \mathcal L(X)=
 \sum_{\substack{Q_{\mathrm{tr}}\le p^e\le X\\ e\ge2}}\delta_\rho(p^e).
 \end{equation}
-Thus both functions are defined on all positive integers; below the transfer threshold they are $0$.
-By \eqref{eq:d-composite},
+Thus both functions are defined on all positive integers and vanish below the transfer threshold.  By \eqref{eq:d-composite},
 \begin{equation}\label{eq:max-demand-subscale}
 \Delta(X)=O_\rho((\log X)^2)=o(\Phi(X)).
 \end{equation}
@@ -45,127 +44,166 @@ The number of prime powers $p^e\le X$ with $e\ge2$ is $O(\sqrt X\log X)$, so
 \mathcal L(X)=O_\rho(\sqrt X\,\log^3X)=o(\Phi(X)).
 \end{equation}
 
-\subsection{Bounded-lag prime compensation}
+\subsection{Bounded-lag prime compensation as a sponsor object}
 
 Let $\Lambda\ge2$ be the multiplier in Proposition~\ref{prop:prime-supply-main} and put
 \begin{equation}\label{eq:sponsor-lag}
 \Lambda_s=4\Lambda.
 \end{equation}
-Every sufficiently large prime-power rank $Q$ admits an earlier prime $q$ such that
+For a sufficiently large prime-power rank $Q$ define the finite sponsor object
 \begin{equation}\label{eq:sponsor-bounded-lag}
-q<Q\le\Lambda_s q.
+\operatorname{Sp}(Q)=
+\{q\ge Q_{\mathrm{tr}}:q\text{ prime},\ q<Q\le\Lambda_s q\}.
 \end{equation}
-Indeed, let
+Proposition~\ref{prop:prime-supply-main} implies that $\operatorname{Sp}(Q)$ is nonempty for every sufficiently large $Q$: with
 \[
-Y=\left\lfloor\frac{Q}{2\Lambda}\right\rfloor.
+Y=\left\lfloor\frac{Q}{2\Lambda}\right\rfloor,
 \]
-For large $Q$, Proposition~\ref{prop:prime-supply-main} gives a prime $Y<q\le\Lambda Y$.  Writing
+the prime band $(Y,\Lambda Y]$ maps into \eqref{eq:sponsor-bounded-lag} after a fixed onset.
+
+Define the lower sponsor gain by the universal lower envelope
 \[
-Q=(2\Lambda)Y+r,
-\qquad0\le r<2\Lambda,
+\underline\mu_\rho(Q)=
+\min_{q\in\operatorname{Sp}(Q)}\mu_\rho(q).
 \]
-shows $q<Q$ and, for $Y\ge1$,
-\[
-Q<2\Lambda(Y+1)\le4\Lambda Y<4\Lambda q.
-\]
-After enlarging the onset, $q\ge Q_{\mathrm{tr}}$ as well.  By \eqref{eq:mint-prime},
+Every $q\in\operatorname{Sp}(Q)$ satisfies $Q/\Lambda_s\le q<Q$.  Hence \eqref{eq:mint-prime} gives
 \begin{equation}\label{eq:sponsor-mint}
-\mu_\rho(q)
-\gg_\rho\frac q{\log q}
-\asymp_{\rho,\Lambda_s}\frac Q{\log Q}
+\underline\mu_\rho(Q)
+\gg_{\rho,\Lambda_s}\frac Q{\log Q}
 =\Theta_{\rho,\Lambda_s}(\Phi(Q)).
 \end{equation}
+The compensation estimate is therefore a property of the whole sponsor object.
 
-\subsection{Initial width and continuation}
+\subsection{Prepared starts and continuation}
 
-Let $B_\dagger$ be any prescribed lower cutoff.  Define
+Define
 \begin{equation}\label{eq:startup-request}
-R(B)=\Delta(\Lambda_sB)+\mathcal L(\Lambda_sB).
+R_\rho(B)=\Delta(\Lambda_sB)+\mathcal L(\Lambda_sB).
 \end{equation}
 By \eqref{eq:max-demand-subscale} and \eqref{eq:debt-subscale},
 \begin{equation}\label{eq:startup-subscale-scalar}
-R(B)=o(B/\log B).
+R_\rho(B)=o(B/\log B),
 \end{equation}
-Apply Proposition~\ref{prop:wide-start} with $L(B)=R(B)$.  Choose $B$ large enough that $B\ge B_\dagger$, $B\ge Q_{\mathrm{tr}}$, and all preceding asymptotic conclusions hold, and fix the resulting affine initial cover with component-count interval of width $R(B)$ and centre $\gamma_B$.
+so $R_\rho\in\mathfrak L$.
+
+Let $0<\eta<\eta_0$ be arbitrary.  Proposition~\ref{prop:wide-start} says that the set of $B$ for which
+\[
+\mathfrak W_B(\eta,\sigma,R_\rho)\ne\varnothing
+\]
+contains a final segment.  For every $\xi\in\mathfrak W_B(\eta,\sigma,R_\rho)$ write
+\[
+R_B^\xi:\{0_M\}\rightsquigarrow
+\operatorname{Fib}_{E_B}(\gamma_B^\xi)\times I_B^\xi
+\]
+for its covering correspondence; the interval $I_B^\xi$ has width $R_\rho(B)$.
+
+Starting from $I_B^\xi$, apply the scalar interval maps \eqref{eq:prime-action} and \eqref{eq:composite-action} in increasing prime-power order.  Let $I_X^\xi$ denote the interval after all steps of rank at most $X$ have been processed whenever those steps are available.
+
+Define $\mathcal B_{\mathrm{cont}}(\rho)$ to be the set of integers $B$ for which, for every admissible $\eta,\sigma$, every $\xi\in\mathfrak W_B(\eta,\sigma,R_\rho)$ and every prime-power step $Q>B$, all steps through $Q$ are available and, whenever $Q>\Lambda_sB$,
+\begin{equation}\label{eq:sponsored-width}
+w(Q)\ge\underline\mu_\rho(Q)-\mathcal L(Q).
+\end{equation}
 
 \begin{lemma}[Continuation]\label{lem:component-count-continuation}
-After increasing $B$ if necessary, every prime-power step $Q>B$ is available.  Moreover, immediately before every step $Q>\Lambda_sB$ one has
-\begin{equation}\label{eq:sponsored-width}
-w(Q)\ge\mu_\rho(q)-\mathcal L(Q)
-\end{equation}
-for a prime $q$ satisfying \eqref{eq:sponsor-bounded-lag}.
+The set $\mathcal B_{\mathrm{cont}}(\rho)$ contains a final segment of $\N$.
 \end{lemma}
 
 \begin{proof}
-We induct through the prime powers in increasing order.
-
-First suppose $B<Q\le\Lambda_sB$.  Discarding all positive prime increments, the width immediately before $Q$ is at least
+The proof is independent of the prepared start because only the initial width $R_\rho(B)$ is used.  For $B<Q\le\Lambda_sB$, discarding all positive prime increments gives
 \[
-R(B)-\mathcal L(Q)
+w(Q)\ge
+R_\rho(B)-\mathcal L(Q)
 \ge
 \Delta(\Lambda_sB)
 \ge
-\delta_\rho(Q).
+\delta_\rho(Q),
 \]
-Hence every step in this finite transition is available.
+so every step in the initial transition is available.
 
-Now let $Q>\Lambda_sB$ and assume all earlier steps have been taken.  Choose $q$ as in \eqref{eq:sponsor-bounded-lag}.  Since $Q\le\Lambda_s q$, we have $q>Q/\Lambda_s>B$, so the prime step $q$ has already occurred after the initial cutoff.  Keeping only its positive increment and discarding every other prime increment gives
+For $Q>\Lambda_sB$, all $q\in\operatorname{Sp}(Q)$ satisfy $q>Q/\Lambda_s>B$.  Once the preceding steps are available, all sponsor prime steps have therefore occurred.  The current width contains every accumulated positive prime gain and loses at most $\mathcal L(Q)$ through composite prime powers, so
 \[
-w(Q)\ge\mu_\rho(q)-\mathcal L(Q),
+w(Q)\ge\mu_\rho(q)-\mathcal L(Q)
+\qquad(q\in\operatorname{Sp}(Q)).
 \]
-which is \eqref{eq:sponsored-width}.  The estimate is a lower bound for the current total width rather than an allocation of disjoint increments, and the same earlier prime may therefore be used in more than one stagewise lower bound.  By \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale}, the right-hand side is $\gg\Phi(Q)$ for large $Q$, whereas \eqref{eq:max-demand-subscale} gives $\delta_\rho(Q)=o(\Phi(Q))$.  Thus the step $Q$ is available.
+Taking the minimum over the sponsor object gives \eqref{eq:sponsored-width}.  By \eqref{eq:sponsor-mint} and \eqref{eq:debt-subscale}, its right-hand side is $\gg\Phi(Q)$ for large $Q$, whereas \eqref{eq:max-demand-subscale} gives $\delta_\rho(Q)=o(\Phi(Q))$.  Hence all sufficiently large $B$ belong to $\mathcal B_{\mathrm{cont}}(\rho)$.
 \end{proof}
 
-Successive component-count intervals overlap by construction.  For completeness, the union of the first $m$ such integer intervals is itself an integer interval, by induction on $m$ using the successive overlap.  Their upper endpoints are unbounded because the positive increments at prime steps tend to infinity.  The increasing union is therefore an integer interval unbounded above, and hence contains a final ray in $\N$.
+For $B\in\mathcal B_{\mathrm{cont}}(\rho)$ and every prepared start $\xi$, successive intervals overlap by construction and their upper endpoints are unbounded because the positive prime increments tend to infinity.  Thus the increasing union of the intervals $I_X^\xi$ contains a final ray in $\N$.
 
-\subsection{Vanishing of the affine centre}
+\subsection{Vanishing of the affine centre and cutoff incidence}
 
-The initial affine fibre has centre
-\[
-\gamma_B\in A/E_B.
-\]
-For every $X\ge B$, let
+For $X\ge B$ let
 \[
 \pi_{B,X}:A/E_B\longrightarrow A/E_X
 \]
-be the quotient map.  Its compatibility with the quotient maps from $A$ is the commutative square
+be the quotient map and put
+\[
+\gamma_X^\xi=\pi_{B,X}(\gamma_B^\xi).
+\]
+The quotient maps form the commuting system
 \begin{equation}\label{eq:centre-transport-square}
 \begin{CD}
-A @>{q_{E_B}}>> A/E_B\\
-@V{q_{E_X}}VV @VV{\pi_{B,X}}V\\
-A/E_X @= A/E_X.
+A/E_B @>{\pi_{B,X}}>> A/E_X\\
+@V{\pi_{B,Y}}VV @VV{\pi_{X,Y}}V\\
+A/E_Y @= A/E_Y
 \end{CD}
+\qquad(B\le X\le Y).
 \end{equation}
-Thus each later prime-power step transports the centre by the canonical quotient map.  Choose a representative $a\in A$ with $q_{E_B}(a)=\gamma_B$.  By cofinality of $(E_X)$, one has $a\in E_X$ for all sufficiently large $X$.  The square \eqref{eq:centre-transport-square} then gives
+By \eqref{eq:centre-kernel-union}, the vanishing set
 \[
-\pi_{B,X}(\gamma_B)=q_{E_X}(a)=0
+\mathcal V_\xi=
+\{X\ge B:\gamma_X^\xi=0\}
 \]
-for all sufficiently large $X$.
+is a nonempty final segment of $\N$.
 
 Let
-\begin{equation}\label{eq:cutoff-base}
-\mathcal H_B=\{X\in\N:X\ge B\}.
-\end{equation}
-For $X\in\mathcal H_B$, let $I_X$ be the component-count interval obtained after all prime-power steps of rank at most $X$ have been processed.  For $k\in\N$ define
+\[
+\mathcal H_B=\{X\in\N:X\ge B\}
+\]
+and define the cutoff--count incidence object
 \begin{equation}\label{eq:term-k}
-\mathcal X_k=
-\{X\in\mathcal H_B:
-\gamma_B\mapsto0\text{ in }A/E_X,
-\quad k\in I_X\}.
+\mathfrak X_\xi=
+\{(k,X)\in\N_{>0}\times\mathcal H_B:
+X\in\mathcal V_\xi,\ k\in I_X^\xi\},
+\end{equation}
+with projection
+\[
+p_\xi:\mathfrak X_\xi\longrightarrow\N_{>0},
+\qquad
+(k,X)\longmapsto k.
+\]
+Retain the whole object of admissible scalar thresholds
+\begin{equation}\label{eq:scalar-threshold-object}
+\mathfrak K_\xi=
+\{k_0\in\N_{>0}:[k_0,\infty)\cap\N\subseteq\operatorname{im}(p_\xi)\}.
 \end{equation}
 
-\begin{theorem}[Eventual component-count coverage]\label{thm:scalar-terminality}
-For every lower cutoff $B_\dagger$ one can choose $B\ge B_\dagger$ and an affine initial cover at $B$ such that
+Define the scalar-good start object
+\begin{equation}\label{eq:scalar-good-start-object}
+\mathfrak G_{\mathrm{sc}}(\eta,\sigma,\rho)
+=
+\{(B,\xi):B\in\mathcal B_{\mathrm{cont}}(\rho),\
+\xi\in\mathfrak W_B(\eta,\sigma,R_\rho),\
+\mathfrak K_\xi\ne\varnothing\},
+\end{equation}
+with projection $b_{\mathrm{sc}}(B,\xi)=B$.
+
+\begin{theorem}[Scalar finality]\label{thm:scalar-terminality}
+For every admissible $(\eta,\sigma,\rho)$, the regular image of
 \[
-\exists k_0\ \forall k\ge k_0:
-\qquad \mathcal X_k\ne\varnothing.
+b_{\mathrm{sc}}:
+\mathfrak G_{\mathrm{sc}}(\eta,\sigma,\rho)
+\longrightarrow\N
 \]
+is cofinite.  Equivalently, every sufficiently large $B$ supports prepared starts whose cutoff--count projection has cofinite image; indeed every prepared start over such a $B$ has this property.
 \end{theorem}
 
 \begin{proof}
-Choose $B$ and the affine initial cover by the construction above.  By cofinality, there is $X_0\ge B$ such that the image of $\gamma_B$ in $A/E_X$ is zero for every $X\ge X_0$.  The intervals $I_X$ for $X\ge X_0$ form a tail of the same sequence of successive overlapping intervals, and their upper endpoints are still unbounded.  Hence
+Proposition~\ref{prop:wide-start} and Lemma~\ref{lem:component-count-continuation} show that, for all sufficiently large $B$, the prepared-start object is nonempty and $B\in\mathcal B_{\mathrm{cont}}(\rho)$.  For every $\xi$ over such a $B$, the vanishing set $\mathcal V_\xi$ is a final segment, while the successive-overlap sequence $(I_X^\xi)$ has unbounded upper endpoints.  Hence
 \[
-\bigcup_{X\ge X_0} I_X
+\operatorname{im}(p_\xi)
+=
+\bigcup_{X\in\mathcal V_\xi}I_X^\xi
 \]
-contains $[k_0,\infty)\cap\N$ for some $k_0$.  For any $k\ge k_0$, choose $X\ge X_0$ with $k\in I_X$.  At this $X$ the affine centre has vanished and $k\in I_X$, so $X\in\mathcal X_k$ by \eqref{eq:term-k}.
+contains a final ray, which is exactly the nonemptiness of \eqref{eq:scalar-threshold-object}.  Thus every sufficiently large $B$ lies in $\operatorname{im}(b_{\mathrm{sc}})$.
 \end{proof}

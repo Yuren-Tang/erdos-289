@@ -1,7 +1,7 @@
-\section{Interval configurations, observable relations, and torsion}
+\section{Universal relational calculus and torsion}
 \label{sec:states-filtration}
 
-This section develops the categorical setup used later: compatible interval configurations, observable labelled relations and their strictification, the affine torsor extension principle, and the prime-power torsion filtration.
+This section isolates the categorical part of the argument.  The basic objects are compatible interval configurations, their additive observations, finite labelled correspondences, and affine fibres in the prime-power filtration.  The organizing principle is to retain witness objects and regular epimorphisms rather than replace them by chosen sections.
 
 Let $\mathcal C$ be the set of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Put
 \begin{equation}\label{eq:observations}
@@ -31,7 +31,7 @@ W\!\left(\bigcup_iS_i\right)=\sum_iW(S_i),
 \quad
 \overline W\!\left(\bigcup_iS_i\right)=\sum_i\overline W(S_i).
 \end{equation}
-Equivalently, for binary compatible unions the diagram
+Equivalently, for binary compatible unions the square
 \begin{equation}\label{eq:observation-square}
 \begin{CD}
 D_2 @>{\cup}>> \mathcal C\\
@@ -39,113 +39,151 @@ D_2 @>{\cup}>> \mathcal C\\
 M^2 @>{+}>> M
 \end{CD}
 \end{equation}
-commutes.  Thus $\mathcal C$, with unit $\varnothing$ and compatible union as partial addition, is a partial commutative monoid, and $\Omega$ is additive wherever that partial sum is defined.
+commutes.  Thus $\mathcal C$, with unit $\varnothing$ and compatible union as partial addition, is a partial commutative monoid, and $\Omega$ is additive on its domain of definition.
 
 \begin{remark}[Abstract scope]\label{rem:abstract-labelled-relations}
-The labelled-relation construction in the next subsection is formal for any partial commutative monoid $\mathscr C$, with its induced finite compatibility domains $D_n$, equipped with an additive map $\Omega:\mathscr C\to M$ to a commutative monoid.  The interval model above is used only to verify the partial-sum axioms and, later, the application-specific compatibility and mass estimates.  Thus the categorical statements on composition, forgetting labels and strictification hold verbatim in that abstract setting; the rest of the paper specializes them to the present $\mathcal C$.
+Everything in the next two subsections is formal for a partial commutative monoid $\mathscr C$ equipped with an additive map $\Omega:\mathscr C\to M$ to a commutative monoid.  The interval model enters only through the verification of the partial-sum axioms and, later, through the arithmetic estimates and the incompatibility graph.
 \end{remark}
 
-\subsection{The locally posetal 2-category of observable labelled relations}
+\subsection{Relations, base change, and witness objects}
 
-The objects used below are finite subsets $X\subseteq M$.  For finite $X,Y\subseteq M$, a \emph{labelled finite relation}
+We use the standard double category of sets, maps and relations.  Its vertical arrows are maps, its horizontal arrows are relations, and a square
+\[
+\begin{array}{ccc}
+X & \overset{R}{\rightsquigarrow} & Y\\[-1mm]
+{\scriptstyle f}\downarrow && \downarrow{\scriptstyle g}\\[-1mm]
+X' & \overset{S}{\rightsquigarrow} & Y'
+\end{array}
+\quad\Downarrow\alpha
+\]
+means
+\[
+R\subseteq(f\times g)^{-1}(S).
+\]
+Horizontal composition is ordinary relational composition.  Every map $f:X\to Y$ has its graph companion
+\[
+f_* = \{(x,f(x)):x\in X\}:X\rightsquigarrow Y
+\]
+and converse conjoint $f^*:Y\rightsquigarrow X$; in this sense the double category is the standard relation equipment.  We use only this elementary map--relation calculus and its base-change squares; its horizontal bicategory is denoted $\mathbf{Rel}$.
+
+Existence is kept in the same form.  In $\mathbf{Set}$, and hence in finite sets, a surjection is a regular epimorphism; regular epimorphisms are stable under pullback and finite products, compose, and remain epimorphic after taking a coproduct over a nonempty index set.  Thus a family of witnesses is represented by a map $E\to B$, and ``there is a witness over every $b\in B$'' is recorded as a regular epimorphism
+\[
+E\twoheadrightarrow B,
+\]
+not by selecting a section $B\to E$.  This convention will be used throughout the proof.
+
+\subsection{Labelled correspondences and compatible pasting}
+
+Let $X,Y\subseteq M$ be finite.  A \emph{labelled finite correspondence}
 \[
 R:X\rightsquigarrow Y
 \]
-is a finite subset $R\subseteq X\times\mathcal C\times Y$ satisfying the observable conservation law
+consists of a finite edge object $E_R$ and maps
+\[
+s_R:E_R\to X,
+\qquad
+\ell_R:E_R\to\mathcal C,
+\qquad
+t_R:E_R\to Y
+\]
+satisfying the observable conservation law
 \begin{equation}\label{eq:edge-conservation}
-y=x+\Omega(L)
-\qquad\text{for every }(x,L,y)\in R.
+t_R(e)=s_R(e)+\Omega(\ell_R(e))
+\qquad(e\in E_R).
 \end{equation}
-If $\ell:R\to\mathcal C$ is the label map and $\pi_X,\pi_Y$ are the endpoint projections, this is exactly the commutative square
+Equivalently, the square
 \begin{equation}\label{eq:edge-conservation-square}
 \begin{CD}
-R @>{(\pi_X,\ell)}>> X\times\mathcal C\\
-@V{\pi_Y}VV @VV{(x,L)\mapsto x+\Omega(L)}V\\
-Y @>>> M,
+E_R @>{(s_R,\ell_R)}>> X\times\mathcal C\\
+@V{t_R}VV @VV{(x,L)\mapsto x+\Omega(L)}V\\
+Y @>>> M
 \end{CD}
 \end{equation}
-where the bottom arrow is inclusion.  The relation is \emph{covering} if its projection to $Y$ is surjective.
+commutes, where the bottom arrow is inclusion.  The correspondence is \emph{covering} when $t_R:E_R\twoheadrightarrow Y$ is a regular epimorphism.
 
-For labelled relations $R:X\rightsquigarrow Y$ and $S:Y\rightsquigarrow Z$, define $S\odot R:X\rightsquigarrow Z$ by
+For correspondences $R:X\rightsquigarrow Y$ and $S:Y\rightsquigarrow Z$, first form the path pullback
+\begin{equation}\label{eq:path-pullback}
+\begin{CD}
+P(S,R) @>{\mathrm{pr}_S}>> E_S\\
+@V{\mathrm{pr}_R}VV @VV{s_S}V\\
+E_R @>{t_R}>> Y.
+\end{CD}
+\end{equation}
+The pair of label maps gives
 \[
-(x,L,z)\in S\odot R
+(\ell_R\mathrm{pr}_R,\ell_S\mathrm{pr}_S):P(S,R)\longrightarrow\mathcal C^2.
 \]
-if and only if there are $y\in Y$ and labels $L_1,L_2\in\mathcal C$ such that
-\[
-(x,L_1,y)\in R,
-\qquad
-(y,L_2,z)\in S,
-\qquad
-(L_1,L_2)\in D_2,
-\qquad
-L=L_1\cup L_2.
-\]
-The conservation law is preserved because
-\[
-z=y+\Omega(L_2)
-=x+\Omega(L_1)+\Omega(L_2)
-=x+\Omega(L_1\cup L_2)
-\]
-by \eqref{eq:observation-square}.  Put
-\[
-1_X=\{(x,\varnothing,x):x\in X\}.
-\]
+The compatible path object is the pullback
+\begin{equation}\label{eq:compatibility-pullback}
+\begin{CD}
+P^{\mathrm{comp}}(S,R) @>>> D_2\\
+@VVV @VVV\\
+P(S,R) @>{(\ell_R\mathrm{pr}_R,\ell_S\mathrm{pr}_S)}>> \mathcal C^2.
+\end{CD}
+\end{equation}
+Define $S\odot R$ to have edge object $P^{\mathrm{comp}}(S,R)$, source $s_R\mathrm{pr}_R$, target $t_S\mathrm{pr}_S$, and label obtained from the upper map in \eqref{eq:compatibility-pullback} followed by union $D_2\to\mathcal C$.  The conservation square for $S\odot R$ is the pasted composite of \eqref{eq:observation-square}, \eqref{eq:path-pullback}, and the two conservation squares of $R$ and $S$.
+
+The identity correspondence $1_X$ has edge object $X$, source and target both $1_X$, and constant label $\varnothing$.  A $2$-cell between correspondences with fixed endpoints is a map of edge objects commuting with source, target and label maps.
 
 \begin{lemma}\label{lem:labelled-relation-category}
-The operation $\odot$ is associative and $1_X$ is a two-sided identity.  With inclusions of labelled relations as $2$-cells, finite subsets of $M$ and observable labelled finite relations form a locally posetal $2$-category, denoted $\mathbf{Rel}_{\mathcal C}^{\Omega}$.
+Compatible pasting makes the finite state sets and labelled correspondences into a bicategory $\mathbf{Corr}_{\mathcal C}^{\Omega}$.  More precisely, both parenthesizations of any finite composite are canonically represented by the same compatible path object
+\[
+P_n^{\mathrm{comp}}
+=
+P_n\times_{\mathcal C^n}D_n,
+\]
+where $P_n$ is the iterated fibre product of the edge objects over the intermediate state sets.  We henceforth suppress these canonical pullback associators.
 \end{lemma}
 
 \begin{proof}
-The empty configuration is compatible with every label and has $\Omega(\varnothing)=0_M$, so $1_X$ is an identity.  Suppose $L_1,L_2,L_3\in\mathcal C$ are pairwise disjoint and their total union belongs to $\mathcal C$.  No component of one $L_i$ can be adjacent to a component of another: such two components each have cardinality at least $2$, so their union would lie in one connected component of cardinality at least $4$.  Hence every partial union of the $L_i$ also belongs to $\mathcal C$.  Either parenthesization of a triple composite therefore selects exactly the same triples of edges, and both assign the literal union $L_1\cup L_2\cup L_3$ as label.  Thus $\odot$ is associative.  Monotonicity under inclusion is immediate.
+The iterated path object $P_n$ is characterized by the universal property of the fibre product, independently of parenthesization.  Pulling it back along $D_n\hookrightarrow\mathcal C^n$ imposes joint compatibility in one step.  On this object every partial union exists and the total label is the literal union of all labels, independent of parenthesization.  The identity statement follows from the universal property of the pullback with the empty label.  The canonical pullback isomorphisms satisfy the usual coherence because they are uniquely determined by their projections.
 \end{proof}
 
-The underlying unlabelled relation is
+The underlying unlabelled relation is the regular image
 \begin{equation}\label{eq:underlying-relation}
-U(R)=\{(x,y):\exists L\in\mathcal C,\ (x,L,y)\in R\}\subseteq X\times Y.
+U(R)=\operatorname{im}(s_R,t_R)\subseteq X\times Y.
 \end{equation}
-For $R\ne\varnothing$ put
+For $E_R\ne\varnothing$ put
 \[
-\omega(R)=\max\{W(L):(x,L,y)\in R\},
+\omega(R)=\max\{W(\ell_R(e)):e\in E_R\},
 \]
-and set $\omega(\varnothing)=0$.
+and set $\omega(R)=0$ when $E_R=\varnothing$.
 
-For every composable pair there is a canonical inclusion
+Since \eqref{eq:compatibility-pullback} is a subobject of the unrestricted path pullback, every composable pair has a canonical comparison
 \begin{equation}\label{eq:oplax-inclusion}
-U(S\odot R)\subseteq U(S)\circ U(R).
+U(S\odot R)\subseteq U(S)\circ U(R),
 \end{equation}
-Thus $U$ preserves identities strictly and carries composition to the comparison $2$-cell
+or equivalently a $2$-cell in the relation equipment
 \begin{equation}\label{eq:oplax-2cell}
 U(S\odot R)
 \xRightarrow{\;\vartheta_{S,R}\;}
-U(S)\circ U(R),
+U(S)\circ U(R).
 \end{equation}
-where $\mathbf{Rel}$ is the locally posetal $2$-category of finite sets, binary relations, and inclusions of relations.  Associativity of $\odot$ makes these comparisons coherent automatically; in other words,
+Thus
 \[
-U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}
+U:\mathbf{Corr}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}
 \]
-is a normal oplax $2$-functor.  Here and throughout, \emph{oplax} refers to the comparison direction displayed in \eqref{eq:oplax-2cell}, namely $U(S\odot R)\Rightarrow U(S)\circ U(R)$.
+is a normal oplax homomorphism of bicategories.  Here \emph{oplax} refers to the displayed comparison direction.
 
-For a finite composable string $R_1,\ldots,R_n$, let $P_n$ be the fibre product of the edge sets over the intermediate sets, let $\ell:P_n\to\mathcal C^n$ be the label map, and let
+For a finite composable string $R_1,\ldots,R_n$, let
 \[
 \pi_{0,n}:P_n\longrightarrow X_0\times X_n
 \]
-be the endpoint projection.  Put
-\[
-P_n^{\mathrm{comp}}=\ell^{-1}(D_n).
-\]
-Then
+be the endpoint map and let $\ell:P_n\to\mathcal C^n$ be the label map.  Then
 \begin{equation}\label{eq:strictness-endpoint-images}
 U(R_n\odot\cdots\odot R_1)
-=\pi_{0,n}(P_n^{\mathrm{comp}}),
+=\operatorname{im}\bigl(\pi_{0,n}|_{P_n^{\mathrm{comp}}}\bigr),
 \qquad
 U(R_n)\circ\cdots\circ U(R_1)
-=\pi_{0,n}(P_n).
+=\operatorname{im}(\pi_{0,n}).
 \end{equation}
-Hence the comparison $2$-cell is an identity precisely when
+Hence the comparison is an identity precisely when
 \begin{equation}\label{eq:strictness-endpoint-criterion}
-\pi_{0,n}(P_n^{\mathrm{comp}})=\pi_{0,n}(P_n).
+\operatorname{im}\bigl(\pi_{0,n}|_{P_n^{\mathrm{comp}}}\bigr)
+=
+\operatorname{im}(\pi_{0,n}).
 \end{equation}
-The distinction between witness-level and endpoint-level loss is displayed by the commutative square
+The information loss is displayed by the commuting image square
 \begin{equation}\label{eq:strictness-information-square}
 \begin{CD}
 P_n^{\mathrm{comp}} @>>> P_n\\
@@ -154,11 +192,7 @@ U(R_n\odot\cdots\odot R_1) @>>>
 U(R_n)\circ\cdots\circ U(R_1),
 \end{CD}
 \end{equation}
-whose horizontal arrows are inclusions.  A stronger witnesswise sufficient condition is
-\[
-P_n^{\mathrm{comp}}=P_n,
-\]
-equivalently that $\ell$ factor through the joint-compatibility domain:
+where the lower objects denote the corresponding regular images.  A stronger witnesswise condition is that the path-label map factor through the compatibility domain:
 \begin{equation}\label{eq:compatibility-factorization}
 \begin{CD}
 P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
@@ -166,7 +200,11 @@ P_n @>{\widetilde\ell}>> D_n @>{\iota}>> \mathcal C^n,
 \qquad
 \ell=\iota\circ\widetilde\ell.
 \end{equation}
-Whenever this factorization exists, every relationally composable witness is jointly compatible, so \eqref{eq:strictness-endpoint-criterion} holds and hence
+By the universal property of \eqref{eq:compatibility-pullback}, this factorization is equivalent to the canonical map
+\[
+P_n^{\mathrm{comp}}\longrightarrow P_n
+\]
+being an isomorphism.  It therefore implies
 \begin{equation}\label{eq:rel-strictification}
 U(R_n\odot\cdots\odot R_1)
 =
@@ -177,7 +215,7 @@ Moreover, for every composable string,
 \omega(R_n\odot\cdots\odot R_1)
 \le\sum_{i=1}^n\omega(R_i),
 \end{equation}
-because reciprocal value is additive on jointly compatible unions.
+because the label of a compatible path is the literal union of its labels and reciprocal value is additive there.
 
 \subsection{Finite torsion and affine fibres in \texorpdfstring{$\Q/\Z$}{Q/Z}}
 
@@ -193,11 +231,11 @@ be the quotient map, and for $\alpha\in A/H$ write
 \[
 \operatorname{Fib}_H(\alpha)=q_H^{-1}(\alpha)
 \]
-for the corresponding affine torsor fibre.  When $H$ is finite, this fibre is a coset of $H$ and hence is finite.  In particular, every set $\operatorname{Fib}_H(\alpha)\times I$ used below, with $H$ one of the finite filtration stages and $I\subset\N$ a finite integer interval, is a finite subset of $M$ and therefore an object of $\mathbf{Rel}_{\mathcal C}^{\Omega}$.
+for the corresponding affine torsor fibre.  When $H$ is finite, this fibre is a finite coset of $H$.  In particular, every set $\operatorname{Fib}_H(\alpha)\times I$ used below is a finite state object.
 
-\subsection{Affine extension across a subgroup inclusion}
+\subsection{Affine extension as a pullback of regular epimorphisms}
 
-Let $H\le K\le A$ be finite subgroups.  Write
+Let $H\le K\le A$ be finite subgroups and write
 \[
 \pi_{H,K}:A/H\longrightarrow A/K
 \]
@@ -211,121 +249,133 @@ and by the pullback square
 \begin{equation}\label{eq:affine-extension-pullback}
 \begin{CD}
 K @>>> A\\
-@V{q}VV @VV{q_H}V\\
-K/H @>>> A/H,
+@V{q_H|_K}VV @VV{q_H}V\\
+K/H @>>> A/H.
 \end{CD}
 \end{equation}
-where the bottom arrow is the natural inclusion.
+For $\beta\in A/K$ put
+\[
+\operatorname{Fib}_{\pi_{H,K}}(\beta)
+=\pi_{H,K}^{-1}(\beta)\subseteq A/H.
+\]
+Translation by $\alpha\in A/H$ gives a canonical torsor isomorphism
+\begin{equation}\label{eq:fibre-translation-isomorphism}
+\operatorname{Fib}_{\pi_{H,K}}(\beta)
+\xrightarrow{\;u\mapsto\alpha+u\;}
+\operatorname{Fib}_{\pi_{H,K}}\!\bigl(\pi_{H,K}(\alpha)+\beta\bigr).
+\end{equation}
 
 \begin{lemma}[Affine torsor extension principle]\label{lem:affine-torsor-extension}
-Let $\alpha\in A/H$ and $\beta\in A$.  Let $X,Y$ be finite sets with maps
+Let $\alpha\in A/H$ and $\beta\in A/K$.  Let $d:Y\to A$ be a map such that $q_Kd$ is constantly $\beta$ and
+\begin{equation}\label{eq:affine-increment-regular-epi}
+q_Hd:Y\twoheadrightarrow\operatorname{Fib}_{\pi_{H,K}}(\beta)
+\end{equation}
+is a regular epimorphism.  Put
 \[
-r:X\to A,
+F^- = \operatorname{Fib}_H(\alpha),
 \qquad
-d:Y\to A
+F^+ = \operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+\beta\bigr).
 \]
-such that
+Then the square
+\begin{equation}\label{eq:affine-extension-universal-square}
+\begin{CD}
+F^-\times Y @>{(x,y)\mapsto x+d(y)}>> F^+\\
+@V{\mathrm{pr}_Y}VV @VV{q_H}V\\
+Y @>{y\mapsto\alpha+q_Hd(y)}>>
+\operatorname{Fib}_{\pi_{H,K}}\!\bigl(\pi_{H,K}(\alpha)+\beta\bigr)
+\end{CD}
+\end{equation}
+is a pullback.  Consequently its upper horizontal map is a regular epimorphism.  More generally, if $r:X\twoheadrightarrow F^-$ is any regular epimorphism, then
 \[
-r(X)=\operatorname{Fib}_H(\alpha),
-\qquad d(y)-\beta\in K\quad(y\in Y),
-\]
-and the difference-class map
-\[
-Y\longrightarrow K/H,
-\qquad
-y\longmapsto[d(y)-\beta]
-\]
-is surjective.  Put
-\[
-\alpha^+=\pi_{H,K}(\alpha)+q_K(\beta)\in A/K.
-\]
-Then
-\[
-X\times Y\longrightarrow A,
+X\times Y\longrightarrow F^+,
 \qquad
 (x,y)\longmapsto r(x)+d(y)
 \]
-has image exactly $\operatorname{Fib}_K(\alpha^+)$.
+is a regular epimorphism.
 \end{lemma}
 
 \begin{proof}
-Every displayed sum maps to $\alpha^+$ in $A/K$.  Conversely fix $z\in\operatorname{Fib}_K(\alpha^+)$ and choose $x_0\in X$.  Then
+The lower arrow in \eqref{eq:affine-extension-universal-square} is the composite of the regular epimorphism \eqref{eq:affine-increment-regular-epi} with the isomorphism \eqref{eq:fibre-translation-isomorphism}.  The square is a pullback: for $y\in Y$ and $z\in F^+$ with
 \[
-z-r(x_0)-\beta\in K.
+q_H(z)=\alpha+q_Hd(y),
 \]
-Choose $y\in Y$ whose difference class agrees with that of $z-r(x_0)-\beta$ in $K/H$.  Hence
-\[
-z-d(y)-r(x_0)\in H,
-\]
-so $z-d(y)\in\operatorname{Fib}_H(\alpha)$.  Since $r(X)$ is the full $H$-torsor, choose $x\in X$ with $r(x)=z-d(y)$.  Then $r(x)+d(y)=z$.
+the element $x=z-d(y)$ belongs to $F^-$ and is the unique point mapping to $(y,z)$.  Hence the upper map is the pullback of a regular epimorphism and is therefore a regular epimorphism.  The final assertion follows by composing it with the product regular epimorphism $r\times1_Y$.
 \end{proof}
 
 \begin{corollary}[Compatible affine extension]\label{cor:compatible-affine-extension}
-Let $\mathscr S,\mathscr B\subseteq\mathcal C$ be finite, let $\alpha\in A/H$, and suppose
+Let $\mathscr S$ and $\mathscr B$ be finite parameter sets with label maps
 \[
-\{\overline W(S):S\in\mathscr S\}
-=\operatorname{Fib}_H(\alpha).
-\]
-Fix $B^\circ\in\mathscr B$ and put $\beta=\overline W(B^\circ)$.  Suppose every $S\in\mathscr S$ is compatible with every $B\in\mathscr B$, every difference $\overline W(B)-\beta$ lies in $K$, and
-\[
-\mathscr B\longrightarrow K/H,
+\lambda_{\mathscr S}:\mathscr S\to\mathcal C,
 \qquad
-B\longmapsto[\overline W(B)-\beta]
+\lambda_{\mathscr B}:\mathscr B\to\mathcal C,
 \]
-is surjective.  Then the compatible unions $S\cup B$ cover
+and suppose every pair of labels $\lambda_{\mathscr S}(s)$ and $\lambda_{\mathscr B}(b)$ is compatible.  Suppose
 \[
-\operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr).
+\overline W\lambda_{\mathscr S}:\mathscr S\twoheadrightarrow\operatorname{Fib}_H(\alpha)
 \]
-If $\nu$ is constant with value $c$ on $\mathscr B$, then the set of component counts of these unions is obtained from that of $\mathscr S$ by adding $c$; in particular its spread is unchanged.
+is a regular epimorphism, $q_K\overline W\lambda_{\mathscr B}$ is constant with value $\beta\in A/K$, and
+\begin{equation}\label{eq:compatible-affine-quotient-epi}
+q_H\overline W\lambda_{\mathscr B}:\mathscr B\twoheadrightarrow
+\operatorname{Fib}_{\pi_{H,K}}(\beta)
+\end{equation}
+is a regular epimorphism.  Then the compatible-union map
+\[
+\mathscr S\times\mathscr B\longrightarrow\mathcal C,
+\qquad
+(s,b)\longmapsto\lambda_{\mathscr S}(s)\cup\lambda_{\mathscr B}(b)
+\]
+has residue image exactly
+\[
+\operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+\beta\bigr).
+\]
+If $\nu\lambda_{\mathscr B}$ is constant with value $c$, the component-count set is translated by $c$, so its spread is unchanged.
 \end{corollary}
 
 \begin{proof}
-Apply Lemma~\ref{lem:affine-torsor-extension} with $r=\overline W|_{\mathscr S}$ and $d=\overline W|_{\mathscr B}$.  Compatibility gives $S\cup B\in\mathcal C$ and additivity of $\overline W$ and $\nu$ on each union.
+Apply Lemma~\ref{lem:affine-torsor-extension} to the regular epimorphism $\overline W\lambda_{\mathscr S}$ and the increment map $d=\overline W\lambda_{\mathscr B}$.  Compatibility makes the union map defined on the whole product, and \eqref{eq:observation-square} identifies its residue map with addition.
 \end{proof}
 
 \begin{corollary}[Graded affine translation]\label{cor:graded-affine-translation}
-Let $I,I'\subseteq\N$ be finite, let $\alpha\in A/H$ and $\beta\in A$, and let $\mathscr L\subseteq\mathcal C$ be finite with
+Let $I,I'\subseteq\N$ be finite intervals, let $\alpha\in A/H$ and $\beta\in A/K$, and let $\mathscr L$ be a finite label-parameter set with a map
 \[
-\overline W(L)-\beta\in K
-\qquad(L\in\mathscr L).
+\lambda:\mathscr L\longrightarrow\mathcal C
 \]
-Suppose that for every $s\in K/H$ and every $k'\in I'$ there are $L\in\mathscr L$ and $i\in I$ such that
+such that $q_K\overline W\lambda$ is constantly $\beta$.  Put
 \[
-[\overline W(L)-\beta]=s\quad\text{in }K/H,
+Y_{I'}=
+\{(L,i)\in\mathscr L\times I:i+\nu(\lambda(L))\in I'\}.
+\]
+Suppose the map
+\begin{equation}\label{eq:graded-quotient-regular-epi}
+Y_{I'}\longrightarrow
+\operatorname{Fib}_{\pi_{H,K}}(\beta)\times I',
 \qquad
-i+\nu(L)=k'.
-\]
-Put
+(L,i)\longmapsto\bigl(q_H\overline W(\lambda(L)),i+\nu(\lambda(L))\bigr)
+\end{equation}
+is a regular epimorphism.  Put
 \[
 T^-=\operatorname{Fib}_H(\alpha)\times I,
 \qquad
-T^+=\operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+q_K(\beta)\bigr)\times I'.
+T^+=\operatorname{Fib}_K\!\bigl(\pi_{H,K}(\alpha)+\beta\bigr)\times I'.
 \]
-Then the translation relation
+Then the edge object
 \begin{equation}\label{eq:graded-local-translation}
-\operatorname{Tr}_{\mathscr L}(T^-,T^+)
+E_{\mathscr L}(T^-,T^+)
 =
 \left\{
-((x,i),L,(x+\overline W(L),i+\nu(L))):
+((x,i),L):
 \substack{(x,i)\in T^-,\ L\in\mathscr L,\\
-(x+\overline W(L),i+\nu(L))\in T^+}
+(x+\overline W(\lambda(L)),i+\nu(\lambda(L)))\in T^+}
 \right\}
 \end{equation}
-is a covering observable labelled relation $T^-\rightsquigarrow T^+$.
+with label map $((x,i),L)\mapsto\lambda(L)$ and the evident source and target maps is a covering labelled correspondence
+\[
+\operatorname{Tr}_{\mathscr L}(T^-,T^+):T^-\rightsquigarrow T^+.
+\]
 \end{corollary}
 
 \begin{proof}
-Fix $k'\in I'$ and put
-\[
-Y_{k'}=\{(L,i)\in\mathscr L\times I:i+\nu(L)=k'\}.
-\]
-By hypothesis the difference-class map
-\[
-Y_{k'}\longrightarrow K/H,
-\qquad
-(L,i)\longmapsto[\overline W(L)-\beta]
-\]
-is surjective.  Apply Lemma~\ref{lem:affine-torsor-extension} with $X=\operatorname{Fib}_H(\alpha)$, with $r$ the inclusion, and with $d(L,i)=\overline W(L)$.  It follows that the edges of \eqref{eq:graded-local-translation} with target count $k'$ cover the whole affine $K$-torsor in $T^+$.  Since $k'$ was arbitrary, the relation is covering.
+The map in \eqref{eq:graded-quotient-regular-epi} is a regular epimorphism simultaneously over all target counts.  Pulling it back over each point of $I'$ and applying Lemma~\ref{lem:affine-torsor-extension} gives a regular epimorphism onto the corresponding affine $K$-fibre.  Their finite coproduct is the target map of \eqref{eq:graded-local-translation}, so that target map is a regular epimorphism.
 \end{proof}
 
 \subsection{The prime-power filtration}
@@ -362,7 +412,17 @@ For $X\ge1$ define the endpoint stage
 \begin{equation}\label{eq:endpoint-stage}
 E_X=H_{\operatorname{lcm}(1,\ldots,\lfloor X\rfloor)}.
 \end{equation}
-Every class $[a/b]\in A$ belongs to $H_b$, so the filtration $(E_X)$ is cofinal and every fixed class of $A$ becomes zero in $A/E_X$ for all sufficiently large $X$.
+Every class $[a/b]\in A$ belongs to $H_b$, so
+\begin{equation}\label{eq:cofinal-union}
+A=\bigcup_{X\ge1}E_X.
+\end{equation}
+Equivalently, for every $B$ the quotient system satisfies
+\begin{equation}\label{eq:centre-kernel-union}
+A/E_B
+=
+\bigcup_{X\ge B}\ker\!\left(\pi_{B,X}:A/E_B\to A/E_X\right).
+\end{equation}
+Thus every affine centre dies along a final segment of the endpoint filtration without choosing a representative in $A$.
 
 Finally, if $Q$ is a prime-power step, then
 \begin{equation}\label{eq:endpoint-current-step}

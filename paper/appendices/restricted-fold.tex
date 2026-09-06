@@ -18,7 +18,7 @@ In particular, if $h(r-h)+1\ge p$, then $\Sigma_h$ is surjective.
 \end{theorem}
 
 \begin{proof}
-The cases $h=0,r$ are immediate, so assume $0<h<r$.  Choose an identification $S\simeq\F_p$ for the duration of the proof.  Since $A\subseteq\F_p$, one has $r\le p$.
+The cases $h=0,r$ are immediate, so assume $0<h<r$.  The assertion is invariant under group isomorphism, so it suffices to prove it for $S=\F_p$.  Thus $A\subseteq\F_p$ and $r\le p$.
 
 Put
 \[
@@ -53,7 +53,7 @@ m!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
 \end{equation}
 Indeed, expanding the Vandermonde determinant reduces the alternating sum to a determinant of falling factorials, hence to the ordinary Vandermonde determinant.
 
-For every $0\le m\le h(r-h)$ one may choose distinct
+For every $0\le m\le h(r-h)$ the following construction gives distinct
 \[
 0\le k_1<\cdots<k_h\le r-1
 \]
@@ -61,7 +61,17 @@ with
 \begin{equation}\label{eq:rf-exponents}
 \sum_i k_i=m+\frac{h(h-1)}2.
 \end{equation}
-Write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Take a nondecreasing sequence $\lambda_i\in[0,R]$ with $h-s$ copies of $q$ and $s$ copies of $q+1$, and put $k_i=i-1+\lambda_i$.  If $q=R$, then $m\le hR$ forces $s=0$.
+Write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Define
+\[
+\lambda_i=
+\begin{cases}
+q,&1\le i\le h-s,\\
+q+1,&h-s<i\le h,
+\end{cases}
+\qquad
+k_i=i-1+\lambda_i.
+\]
+If $q=R$, then $m\le hR$ forces $s=0$; hence always $0\le\lambda_i\le R$.  The sequence $(\lambda_i)$ is nondecreasing, so the $k_i$ are strictly increasing and lie in $[0,r-1]$.
 
 It remains to connect \eqref{eq:rf-vandermonde} with the polynomial \eqref{eq:rf-polynomial}.  Put
 \[
@@ -92,5 +102,5 @@ M!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
 \end{equation}
 It is nonzero in $\F_p$: $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so the factorials are nonzero, and the distinct $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient criterion contradicts the vanishing of $P$ on $A^h$.
 
-Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.  The statement is invariant under the temporary identification $S\simeq\F_p$.
+Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.
 \end{proof}

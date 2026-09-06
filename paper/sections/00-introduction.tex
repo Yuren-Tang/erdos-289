@@ -7,17 +7,29 @@ We use $\N=\Z_{\ge0}$ and $\N_{>0}=\{1,2,\ldots\}$.  Let $\mathcal C$ denote the
 \qquad
 W(S)=\sum_{n\in S}\frac1n.
 \]
+Define the solution object
+\begin{equation}\label{eq:solution-object}
+\mathscr S
+=
+\{(k,S):k\in\N_{>0},\ S\in\mathcal C,\ \nu(S)=k,\ W(S)=1\},
+\end{equation}
+with projection
+\[
+\pi_{\mathrm{sol}}:\mathscr S\longrightarrow\N_{>0},
+\qquad
+(k,S)\longmapsto k.
+\]
 
 \begin{theorem}\label{thm:main}
-For every sufficiently large integer $k$ there exists $S\in\mathcal C$ such that
-\[
-\nu(S)=k,
-\qquad
-W(S)=1.
-\]
+The regular image
+\begin{equation}\label{eq:main-regular-image}
+\operatorname{im}(\pi_{\mathrm{sol}})
+\hookrightarrow\N_{>0}
+\end{equation}
+is cofinite.
 \end{theorem}
 
-Thus every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  Accordingly, the theorem gives an affirmative answer to the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}, and is slightly stronger in that every interval is forced to have cardinality $2$ or $3$.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
+Equivalently, every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, all of length $2$ or $3$.  Accordingly, the theorem gives an affirmative answer to the strengthened formulation currently listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}, and is slightly stronger in that every interval is forced to have cardinality $2$ or $3$.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  The current problem list records the strengthened version used here \cite{ErdosProblem289}.
 
 The current problem page records a simple construction for the unrestricted wording, so separation is essential to the modern formulation.  It also records an earlier separated-interval example: in the solution of Monthly problem E2689 proposed by L.-S. Hahn, Hickerson and Montgomery represented $2$ by reciprocal sums over five separated intervals.  These precedents do not address eventual realization of every sufficiently large component count at reciprocal value $1$ \cite{ErdosProblem289}.
 
@@ -27,69 +39,60 @@ The final reduction is elementary.  A nonempty configuration with
 \qquad
 W(S)\equiv0\pmod{\Z}
 \]
-must have $W(S)=1$.  We therefore work modulo $1$ through most of the construction and retain a fixed margin below reciprocal mass $2$.
+must have $W(S)=1$.  We therefore work modulo $1$ through most of the construction and retain a positive margin below reciprocal mass $2$.
 
-\subsection*{Proof architecture}
+\subsection*{Three mechanisms}
 
-Three constructions drive the proof.  Reciprocal-neutral identities vary the component count without changing reciprocal value.  Signed-inverse interval families supply controlled residues in each simple prime-power quotient.  Finally, after a finite cutoff has been fixed, Haxell's theorem selects mutually compatible physical intervals from the local choices.  The categorical setup records how these constructions compose and where information is forgotten or recovered.
+Three constructions carry the proof.  First, the reciprocal-neutral identity of Section~\ref{sec:auxiliary-inputs} replaces two components by three without changing reciprocal value; its Boolean powers therefore create component-count width.  Second, the signed-inverse families of Section~\ref{sec:signed-inverse} realize controlled residues in each simple prime-power quotient while keeping incompatibility and reciprocal mass uniformly sparse.  Third, local representability is separated from simultaneous physical compatibility: the additive-combinatorial argument is uniform under dense restriction, and Haxell's theorem is used only over a finite horizon to produce a common compatible physical family.
 
-The proof is organized by top-down specification, bottom-up verification of the required constructions, and final pasting.  Two structures are kept distinct.  One is the prime-power filtration of $A=\Q/\Z$, along which the local transfer relations are composed.  The other is an information-forgetting chain from literal interval configurations to observable residue-and-count data, then to simple-quotient count supports, and finally to the scalar width of a count interval.  Observation and quotient maps belong to this second direction.  The lower-information layers are used for planning; affine lifting, finite compatibility selection, and the terminal pullback recover the information needed for the final configuration.
+The categorical role of the proof is to make these mechanisms composable without discarding their witnesses.  The central distinction is between a horizontal transfer and a vertical change of observation.  Transfers are composed by pullback and compatible pasting; observations, quotients and regular images form the transverse direction.  Concrete arithmetic proves the nontrivial cells between these layers, while universal properties propagate them.
 
-The overall construction/dependency flow is
+\subsection*{Typed proof architecture}
+
+Section~\ref{sec:states-filtration} uses the standard relation equipment together with a bicategory of labelled correspondences.  A generic prime-power step has the schematic type
 \begin{equation}\label{eq:master-proof-flow}
-\begin{gathered}
-\text{categorical setup and auxiliary inputs}\\
-\Downarrow\\[-1mm]
-\mathcal A_Q\xrightarrow{\ \phi_Q\ }S_Q^\times
-\qquad\text{and}\qquad
-R_B:\{0_M\}\rightsquigarrow
-\operatorname{Fib}_{E_B}(\gamma_B)\times I_B\\
-\Downarrow\\[-1mm]
-\text{uniform simple-quotient transfer }(\delta_\rho,\mu_\rho)\\
-\Downarrow\\[-1mm]
-\text{scalar continuation: }X,\ k\in I_X\\
-\Downarrow\\[-1mm]
-\text{finite Haxell selection }P_X
-\quad\Longrightarrow\quad
-\text{strict covering labelled relation }R_X\\
-\Downarrow\\[-1mm]
-\tau_X^{-1}(0,k)\ne\varnothing
-\quad\Longrightarrow\quad
-(\overline W,\nu)=(0,k),\ 0<W<2
-\quad\Longrightarrow\quad W=1.
-\end{gathered}
+\begin{array}{ccccc}
+\text{physical witness data}
+& \overset{\text{compatible transfer}}{\rightsquigarrow}
+& \text{physical witness data}\\[1mm]
+{\scriptstyle\text{observation}}\downarrow
+& \underset{\text{implementation cell}}{\Downarrow}
+& \downarrow{\scriptstyle\text{observation}}\\[1mm]
+\text{residue--count state}
+& \overset{\text{affine transfer}}{\rightsquigarrow}
+& \text{residue--count state}\\[1mm]
+{\scriptstyle\text{quotient/forget}}\downarrow
+& \underset{\text{scalar cell}}{\Downarrow}
+& \downarrow{\scriptstyle\text{quotient/forget}}\\[1mm]
+\text{count interval}
+& \longrightarrow
+& \text{count interval}.
+\end{array}
 \end{equation}
-Equation~\eqref{eq:master-proof-flow} is the dependency diagram for the proof; the commutative diagrams below record equalities of mathematical composites.
+The vertical arrows in \eqref{eq:master-proof-flow} are maps or quotient/forgetful operations, the horizontal arrows are relations or processes, and the displayed cells are theorems comparing their two composites.  Strict commutativity is one special case.  Horizontal pasting over successive prime-power stages gives the global transfer; vertical pasting records the passage to the scalar width calculation.  Thus the proof is a typed pasting complex rather than a single untyped diagram.
 
-The categorical spine is the labelled-relation calculus of Section~\ref{sec:states-filtration}.  Observable relations may compose even when the interval labels witnessing their edges cannot coexist.  Compatible configurations therefore form a partial commutative monoid, and
+At the physical layer, a labelled correspondence retains its edge object together with source, target and interval label.  Composition is the universal path pullback followed by base change along the joint-compatibility domain and literal union.  Forgetting labels gives a normal oplax comparison
 \[
-\Omega=(\overline W,\nu):\mathcal C\longrightarrow A\times\N
+U(S\odot R)\Longrightarrow U(S)\circ U(R).
 \]
-is additive only on its compatibility domain.  The resulting labelled relations form a locally posetal $2$-category $\mathbf{Rel}_{\mathcal C}^{\Omega}$, and forgetting labels gives a normal oplax $2$-functor
-\[
-U:\mathbf{Rel}_{\mathcal C}^{\Omega}\longrightarrow\mathbf{Rel}.
-\]
-Its comparison $2$-cell measures the loss of witnesses caused by incompatible labels.  After the finite cutoff $X$ has been fixed, Section~\ref{sec:finite-realization} constructs physical covering translations $\mathscr T_1,\ldots,\mathscr T_m$ and proves the witnesswise compatibility needed for the strict pasting
-\begin{equation}\label{eq:master-strict-pasting}
-\begin{aligned}
-R_X&=\mathscr T_m\odot\cdots\odot\mathscr T_1\odot R_B,\\
-U(R_X)&=U(\mathscr T_m)\circ\cdots\circ U(\mathscr T_1)\circ U(R_B).
-\end{aligned}
-\end{equation}
-The second equality is exactly the point at which the normal oplax comparison becomes an identity.
+Haxell's theorem eventually makes the full path object factor through the compatibility domain, so that this comparison becomes an identity.
 
-A second reusable ingredient is the affine torsor extension principle proved in Section~\ref{sec:states-filtration}.  For finite subgroups $H\le K\le A$, covering one $H$-torsor and covering the quotient $K/H$ by increments automatically covers the corresponding $K$-torsor.  The bridge induction of Section~\ref{sec:wide-start} and the prime-power translation step of Section~\ref{sec:finite-realization} are two specializations of this single mechanism.
+The same principle governs existence.  Surjections are retained as regular epimorphisms rather than replaced by sections.  Affine extension is obtained by pulling back a regular epimorphism.  Hamming coordination is a pullback of the Hamming-weight epimorphism.  Haxell contributes the full nonempty parameter object of admissible independent sets, and all corresponding strict composites are retained by coproduct.  The scalar argument produces a cutoff--count incidence object, not a function assigning a cutoff to each count.
 
-The arithmetic constructions supply the remaining inputs.  Section~\ref{sec:signed-inverse} constructs, at each sufficiently large prime-power stage $Q=p^e$, a family $\mathcal A_Q$ with controlled simple-quotient residues, density, incompatibility and reciprocal mass.  Section~\ref{sec:local-profile} proves a transfer theorem that is uniform under every sufficiently dense restriction of $\mathcal A_Q$; its only scalar outputs are the required width $\delta_\rho(Q)$ and, at prime stages, the positive gain $\mu_\rho(q)$.  Section~\ref{sec:scalar-finality} retains only the interval width and solves the resulting one-dimensional continuation problem, producing for every large $k$ a finite cutoff $X$ at which the affine centre has vanished and $k$ lies in the available count interval.  Only then does Section~\ref{sec:finite-realization} invoke Haxell to choose mutually compatible physical representatives and lift the resulting cutoff choice back to the labelled layer.
-
-At the terminal state the categorical calculation produces residue $0$, component count $k$, and reciprocal mass below $2$.  The commutative square
-\[
+At the top level the terminal argument retains the total parameter object of all admissible asymptotic parameters, prepared starts, scalar thresholds and cutoff incidences.  Its projection to $\N_{>0}$ has a nonempty upward-closed regular image $J$, hence a cofinite image.  Over this incidence object, the universal finite realizations are assembled into a single target regular epimorphism and pulled back along the universal terminal-point map:
+\begin{equation}\label{eq:master-terminal-pullback}
 \begin{CD}
-\mathcal C @>{W}>> \Q\\
-@V{\overline W}VV @VV{q_{\Z}}V\\
-\Q/\Z @= \Q/\Z
+\mathfrak E_* @>>> \mathfrak R_*\\
+@VVV @VVV\\
+\mathfrak X_* @>>> \mathfrak T_*.
 \end{CD}
+\end{equation}
+The left vertical map is again a regular epimorphism.  Pasting with the image factorization $\mathfrak X_*\twoheadrightarrow J$ gives
+\[
+\mathfrak E_*\twoheadrightarrow J.
 \]
-then shows that the positive reciprocal value is an integer strictly below $2$, and hence equals $1$.
+The label map from $\mathfrak E_*$ factors through the solution object \eqref{eq:solution-object}; consequently $J\subseteq\operatorname{im}(\pi_{\mathrm{sol}})$.  Since $J$ is cofinite, this factorization proves \eqref{eq:main-regular-image}.
 
-Section~\ref{sec:states-filtration} develops the labelled-relation calculus and the torsion filtration.  Section~\ref{sec:auxiliary-inputs} records the auxiliary inputs.  Sections~\ref{sec:signed-inverse}--\ref{sec:scalar-finality} construct the arithmetic families, the wide affine start, the uniform transfer, and the scalar continuation.  Sections~\ref{sec:finite-realization} and~\ref{sec:terminalization} realize the finite compatible configuration and recover the exact reciprocal sum.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} prove the two auxiliary estimates used in the main text, while Appendix~\ref{app:prefix-seed} records the finite initialization.
+A second reusable structure is the affine torsor extension principle.  For $H\le K\le A=\Q/\Z$, the relevant affine-extension square is a pullback of a regular epimorphism onto a quotient fibre.  The bridge induction of Section~\ref{sec:wide-start} and every prime-power translation in Section~\ref{sec:finite-realization} are specializations of that single universal square.
+
+The remaining sections certify the cells in this architecture.  Section~\ref{sec:signed-inverse} supplies the local arithmetic families.  Section~\ref{sec:wide-start} constructs the full parameter object of wide affine starts.  Section~\ref{sec:local-profile} proves the uniform simple-quotient transfer.  Section~\ref{sec:scalar-finality} takes its scalar shadow and proves that the total cutoff--count incidence has cofinite image.  Section~\ref{sec:finite-realization} forms the full Haxell parameter object and the coproduct of all strict physical composites.  Section~\ref{sec:terminalization} performs the final base change and factors the resulting regular epimorphism through the solution object.  Appendices~\ref{app:prime-supply} and~\ref{app:restricted-fold} prove the two auxiliary estimates used in the main text, while Appendix~\ref{app:prefix-seed} records the finite initialization.

@@ -1,50 +1,154 @@
-\section{Terminal pullback and exact reciprocal sum}
+\section{Terminal base change and the solution regular image}
 \label{sec:terminalization}
 
-This section completes the proof.  The preceding sections have produced a finite strict covering relation $R_X$ and a cutoff for which $(0,k)$ lies in its target.  Pulling back that target point extracts a physical configuration, and the value-residue square turns residue zero together with the mass bound into the exact reciprocal value $1$.
+This section completes the proof over the total parameter object.  Coproducts retain all admissible data, regular images express existential projection, and pullbacks perform the terminal base change.
 
-Fix a sufficiently large integer $k$.  By Theorem~\ref{thm:scalar-terminality}, choose
+Define the admissible parameter object
+\begin{equation}\label{eq:terminal-parameter-object}
+\mathfrak P
+=
+\left\{(\eta,\sigma,\rho):
+0<\eta<\eta_0,\quad
+0<\sigma<1,\quad
+0<\rho<\kappa\sigma\rho_P
+\right\}.
+\end{equation}
+It is nonempty.  For $a=(\eta,\sigma,\rho)\in\mathfrak P$, write
 \[
-X\in\mathcal X_k.
+R_a=R_\rho,
+\qquad
+\mathcal B_{\mathrm{phys}}(a)
+=\mathcal B_{\mathrm{phys}}(\eta,\sigma,\rho),
 \]
-Then the image $\gamma_X$ of the affine centre is zero in $A/E_X$ and $k\in I_X$.  Hence
-\[
-(0,k)\in T_X
-=\operatorname{Fib}_{E_X}(\gamma_X)\times I_X.
-\]
+and define the physically admissible scalar-start object
+\begin{equation}\label{eq:terminal-good-start-object}
+\mathfrak G_a
+=
+\left\{(B,\xi):
+(B,\xi)\in\mathfrak G_{\mathrm{sc}}(\eta,\sigma,\rho),\quad
+B\in\mathcal B_{\mathrm{phys}}(\eta,\sigma,\rho)
+\right\}.
+\end{equation}
+Theorem~\ref{thm:scalar-terminality} says that the $B$-image of $\mathfrak G_{\mathrm{sc}}(\eta,\sigma,\rho)$ is cofinite, whereas \eqref{eq:global-start-cutoff} contains a final segment.  Their intersection is therefore nonempty, so every $\mathfrak G_a$ is nonempty.  Hence the coproduct
+\begin{equation}\label{eq:terminal-total-start-object}
+\mathfrak G
+=
+\coprod_{a\in\mathfrak P}\mathfrak G_a
+\end{equation}
+projects by a regular epimorphism to $\mathfrak P$.
 
-By Proposition~\ref{prop:finite-realization}, choose a covering observable labelled relation
+For $g=(a,B,\xi)\in\mathfrak G$, retain the entire nonempty scalar-threshold object $\mathfrak K_\xi$ from \eqref{eq:scalar-threshold-object}.  Form
+\begin{equation}\label{eq:terminal-threshold-object}
+\mathfrak K
+=
+\coprod_{g=(a,B,\xi)\in\mathfrak G}\mathfrak K_\xi.
+\end{equation}
+The projection $\mathfrak K\twoheadrightarrow\mathfrak G$ is a regular epimorphism.
+
+Above the total threshold object form its universal tail
+\begin{equation}\label{eq:terminal-threshold-tail}
+\mathfrak T_{\mathfrak K}
+=
+\{(g,k_0,k):(g,k_0)\in\mathfrak K,\ k\ge k_0\}.
+\end{equation}
+The projection $\mathfrak T_{\mathfrak K}\twoheadrightarrow\mathfrak K$ is a regular epimorphism; its fibre over $(g,k_0)$ contains the canonical diagonal count $k=k_0$.  Now retain all cutoff witnesses over this tail:
+\begin{equation}\label{eq:universal-cutoff-incidence}
+\mathfrak X_*
+=
+\{(g,k_0,k,X):(g,k_0,k)\in\mathfrak T_{\mathfrak K},\ (k,X)\in\mathfrak X_\xi\},
+\end{equation}
+where $g=(a,B,\xi)$.  By the defining property of $k_0\in\mathfrak K_\xi$, the projection
+\begin{equation}\label{eq:cutoff-threshold-regular-epi}
+r_*:\mathfrak X_*\twoheadrightarrow\mathfrak T_{\mathfrak K},
+\qquad
+(g,k_0,k,X)\longmapsto(g,k_0,k)
+\end{equation}
+is a regular epimorphism.  The structural existence maps therefore paste to the regular-epimorphism chain
+\begin{equation}\label{eq:terminal-existence-chain}
+\mathfrak X_*
+\mathrel{\twoheadrightarrow}
+\mathfrak T_{\mathfrak K}
+\mathrel{\twoheadrightarrow}
+\mathfrak K
+\mathrel{\twoheadrightarrow}
+\mathfrak G
+\mathrel{\twoheadrightarrow}
+\mathfrak P
+\mathrel{\twoheadrightarrow}
+\{*\}.
+\end{equation}
+Thus every parameter object in \eqref{eq:terminal-existence-chain} is nonempty, and the existential structure is carried by the regular epimorphisms themselves.
+
+Let
 \[
-R_X:\{0_M\}\rightsquigarrow T_X
+c:\mathfrak T_{\mathfrak K}\longrightarrow\N_{>0},
+\qquad
+(g,k_0,k)\longmapsto k,
 \]
-all of whose edge labels have reciprocal value below $2$.  Let
+and let
+\begin{equation}\label{eq:terminal-count-image}
+J=\operatorname{im}(c)\hookrightarrow\N_{>0}
+\end{equation}
+be its regular image.  By construction every threshold point contributes its entire upper tail, so $J$ is upward closed; by \eqref{eq:terminal-existence-chain} it is nonempty.  Hence $J$ is a final segment and in particular is cofinite.  The image factorization of $c$, pasted with \eqref{eq:cutoff-threshold-regular-epi}, gives
+\begin{equation}\label{eq:cutoff-count-regular-epi}
+\bar p_*:\mathfrak X_*\twoheadrightarrow J.
+\end{equation}
+
+An element $x=(g,k_0,k,X)\in\mathfrak X_*$ contains $g=(a,B,\xi)$ and satisfies
 \[
-\tau_X:R_X\longrightarrow T_X
+\gamma_X^\xi=0,
+\qquad
+k\in I_X^\xi.
 \]
-be the target projection.  Pull it back along the point $(0,k):\{*\}\to T_X$:
+Consequently
+\[
+(0,k)\in
+T_X^\xi
+=
+\operatorname{Fib}_{E_X}(0)\times I_X^\xi.
+\]
+Moreover $B\in\mathcal B_{\mathrm{phys}}(a)$, so Proposition~\ref{prop:finite-realization} supplies the universal covering correspondence
+\[
+R_{X,\xi}^{\mathrm{univ}}:\{0_M\}\rightsquigarrow T_X^\xi.
+\]
+Form the total edge and target objects over the whole cutoff incidence:
+\[
+\mathfrak R_*
+=
+\coprod_{x=(g,k_0,k,X)\in\mathfrak X_*}
+E_{R_{X,\xi}^{\mathrm{univ}}},
+\qquad
+\mathfrak T_*
+=
+\coprod_{x=(g,k_0,k,X)\in\mathfrak X_*}T_X^\xi.
+\]
+The target maps assemble to a regular epimorphism
+\[
+\tau_*:\mathfrak R_*\twoheadrightarrow\mathfrak T_*.
+\]
+There is a canonical point-of-the-fibre map
+\[
+j_*:\mathfrak X_*\longrightarrow\mathfrak T_*,
+\qquad
+(g,k_0,k,X)\longmapsto(g,k_0,k,X;(0,k)).
+\]
+Define the total terminal edge object by the cartesian square
 \begin{equation}\label{eq:terminal-edge-pullback}
 \begin{CD}
-E_{X,k} @>>> R_X\\
-@VVV @VV{\tau_X}V\\
-\{*\} @>{(0,k)}>> T_X.
+\mathfrak E_* @>>> \mathfrak R_*\\
+@V{e_*}VV @VV{\tau_*}V\\
+\mathfrak X_* @>{j_*}>> \mathfrak T_*.
 \end{CD}
 \end{equation}
-Since $\tau_X$ is surjective, the left vertical map is surjective, so $E_{X,k}$ is nonempty.  Choose an edge
+Since regular epimorphisms are stable under pullback,
 \[
-(0_M,S,(0,k))\in R_X
+e_*:\mathfrak E_*\twoheadrightarrow\mathfrak X_*
 \]
-lying over the point $(0,k)$.  The conservation law \eqref{eq:edge-conservation} gives
-\[
-(0,k)=0_M+\Omega(S)=\bigl(\overline W(S),\nu(S)\bigr).
-\]
-Together with the reciprocal-mass bound on $R_X$,
-\begin{equation}\label{eq:terminal-state}
-\overline W(S)=0,
-\qquad
-\nu(S)=k,
-\qquad
-W(S)<2.
+is a regular epimorphism.  Pasting with \eqref{eq:cutoff-count-regular-epi} gives
+\begin{equation}\label{eq:terminal-witness-regular-epi}
+\bar p_*e_*:\mathfrak E_*\twoheadrightarrow J.
 \end{equation}
+This regular epimorphism is the existential content of the proof.
 
 Let
 \[
@@ -58,14 +162,38 @@ be the quotient map.  By definition of $\overline W$, the square
 \Q/\Z @= \Q/\Z
 \end{CD}
 \end{equation}
-commutes.  Hence $\overline W(S)=0$ implies
+commutes.  The total edge object has a label map
 \[
-W(S)\in\ker q_{\Z}=\Z.
+\ell_*:\mathfrak E_*\longrightarrow\mathcal C.
 \]
-Since $\nu(S)=k>0$, the configuration is nonempty and $W(S)>0$.  Together with \eqref{eq:terminal-state},
+For every $e\in\mathfrak E_*$ lying over a cutoff incidence of count $k$, the pullback \eqref{eq:terminal-edge-pullback} and the conservation square \eqref{eq:edge-conservation-square} give
 \[
-0<W(S)<2,
+\overline W(\ell_*(e))=0,
 \qquad
-W(S)\in\Z,
+\nu(\ell_*(e))=k.
 \]
-so $W(S)=1$.  The $k$ connected components of $S$ are pairwise nonadjacent intervals of cardinality $2$ or $3$.  This terminal pullback completes the construction specified in \eqref{eq:master-proof-flow}; the categorical pasting itself is the strict composite \eqref{eq:physical-master-composite}--\eqref{eq:observable-master-composite}.  This proves Theorem~\ref{thm:main}.
+Proposition~\ref{prop:finite-realization} gives $W(\ell_*(e))<2$.  Since $k>0$, the label is nonempty and its reciprocal value is positive.  The square \eqref{eq:value-residue-square} therefore gives
+\[
+0<W(\ell_*(e))<2,
+\qquad
+W(\ell_*(e))\in\ker q_{\Z}=\Z,
+\]
+and hence $W(\ell_*(e))=1$.
+
+Thus the map
+\[
+e\longmapsto\bigl(\bar p_*e_*(e),\ell_*(e)\bigr)
+\]
+factors through the solution object $\mathscr S$ of \eqref{eq:solution-object}.  We obtain the commuting triangle
+\begin{equation}\label{eq:solution-factorization}
+\begin{CD}
+\mathfrak E_* @>>> \mathscr S\\
+@V{\bar p_*e_*}VV @VV{\pi_{\mathrm{sol}}}V\\
+J @>>> \N_{>0},
+\end{CD}
+\end{equation}
+where the lower arrow is the regular-image inclusion.  The left vertical map is a regular epimorphism, so
+\[
+J\subseteq\operatorname{im}(\pi_{\mathrm{sol}}).
+\]
+Since $J$ is cofinite, the regular image of $\pi_{\mathrm{sol}}$ is cofinite.  This is Theorem~\ref{thm:main}.

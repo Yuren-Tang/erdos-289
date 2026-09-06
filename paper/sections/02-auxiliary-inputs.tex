@@ -26,7 +26,7 @@ P(C)-P(C+1)+P(C/2)=\frac{2(2C+3)}{C(C+2)}.
 For $a\ge3$ the two sides of \eqref{eq:neutral-identity} belong to $\mathcal C$, with respectively two and three connected components.  Their reciprocal values agree, while their component counts differ by one.  As $a\to\infty$, their supports move arbitrarily far to the right and their common reciprocal value tends to zero.
 
 \begin{lemma}[Remote neutral Boolean family]\label{lem:neutral-cube}
-Let $\mathcal O$ be a finite family of interval components, let $\varepsilon\in\Q_{>0}$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every component in $\mathcal O$, such that the sum of their common reciprocal values is less than $\varepsilon$.
+Let $\mathcal O$ be a finite family of interval components, let $\varepsilon>0$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every component in $\mathcal O$, such that the sum of their common reciprocal values is less than $\varepsilon$.
 
 The resulting Boolean family has a common reciprocal value and hence a common residue translation, while its possible increments in component count are exactly
 \[
@@ -36,14 +36,13 @@ For each coordinate, at most five component intervals occur across its two alter
 \end{lemma}
 
 \begin{proof}
-Choose the coordinates inductively.  At stage $i$, enlarge the finite forbidden region by all components occurring in the alternatives already chosen.  Take $a$ so large that both new alternatives lie beyond this region by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  This gives mutual compatibility and total reciprocal value below $\varepsilon$.  The two alternatives contain respectively two and three components, so at most five component intervals occur in one coordinate.  The Hamming-weight map
+Define the coordinates recursively.  At stage $i$, let $F_i$ be the finite union of the components already constructed together with $\mathcal O$, and let $a_i$ be the least integer $a\ge3$ for which both alternatives in \eqref{eq:neutral-identity} lie strictly to the right of $F_i$ by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  Such integers exist because the supports tend to infinity and the common reciprocal value tends to zero.  This canonical recursion gives mutual compatibility and total reciprocal value below $\varepsilon$.  The two alternatives contain respectively two and three components, so at most five component intervals occur in one coordinate.  The Hamming-weight map
 \[
 \{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}
 \]
 realizes every component-count increment.
 \end{proof}
 
-Whenever a later estimate supplies a positive real reciprocal-mass tolerance, we first choose a smaller positive rational tolerance and apply the lemma.
 
 \subsection{Comparable prime bands}
 
@@ -73,21 +72,38 @@ then every element of $S$ is the sum of an $h$-element subset of $A$.
 We use the sharp $2\Delta$ form of Haxell's independent-transversal theorem; see \cite[Theorem~2]{Haxell2001}, together with its earlier hypergraph form \cite{Haxell1995}.
 
 \begin{proposition}[Independent quota lemma]\label{prop:haxell-quota}
-For every integer $\Delta\ge0$ there is an integer $L_P\ge1$ such that the following holds.  Let $G$ be a finite graph of maximum degree at most $\Delta$, and partition its vertices into finite classes $R_i$.  Then there is an independent set $P$ such that
+For a finite graph $G$ whose vertices are partitioned into finite classes $R_i$, and for an integer $L\ge1$, put
 \[
-|P\cap R_i|\ge \left\lfloor\frac{|R_i|}{L_P}\right\rfloor
-\qquad\text{for every }i.
+\operatorname{IQ}_L(G;(R_i))=
+\left\{
+P\subseteq V(G):
+\begin{array}{l}
+P\text{ is independent, and}\\[-1mm]
+|P\cap R_i|\ge\left\lfloor |R_i|/L\right\rfloor\text{ for every }i
+\end{array}
+\right\}.
 \]
-Consequently there is $\rho_P>0$ such that, whenever $|R_i|\ge L_P$,
+For every integer $\Delta\ge0$ define canonically
+\begin{equation}\label{eq:haxell-canonical-parameters}
+L_P(\Delta)=\max\{1,2\Delta\},
+\qquad
+\rho_P(\Delta)=\frac1{2L_P(\Delta)}.
+\end{equation}
+Whenever $G$ has maximum degree at most $\Delta$,
+\begin{equation}\label{eq:independent-quota-nonempty}
+\operatorname{IQ}_{L_P(\Delta)}(G;(R_i))\ne\varnothing.
+\end{equation}
+Moreover every $P\in\operatorname{IQ}_{L_P(\Delta)}(G;(R_i))$ satisfies, whenever $|R_i|\ge L_P(\Delta)$,
 \[
-|P\cap R_i|\ge \rho_P|R_i|.
+|P\cap R_i|\ge \rho_P(\Delta)|R_i|.
 \]
 \end{proposition}
 
 \begin{proof}
-For $\Delta=0$ take the whole graph.  If $\Delta>0$, split each class into as many full blocks of size $2\Delta$ as possible and discard the remainder.  Let $G'$ be the subgraph induced by the union of the retained blocks; its maximum degree is still at most $\Delta$.  Haxell's theorem applied in $G'$ to the partition by these blocks gives one independent vertex from every block, so one may take $L_P=2\Delta$.  For $n\ge L_P$,
+For $\Delta=0$ the full vertex set belongs to $\operatorname{IQ}_1(G;(R_i))$.  Suppose $\Delta>0$.  Split each class into as many full blocks of size $2\Delta$ as possible and discard the remainder, and let $G'$ be the subgraph induced by the union of the retained blocks.  Its maximum degree is still at most $\Delta$.  Haxell's theorem applied in $G'$ to the partition by these blocks implies that the set of independent transversals of the block partition is nonempty.  Every such transversal belongs to $\operatorname{IQ}_{2\Delta}(G;(R_i))$.  Finally, for $n\ge L_P(\Delta)$,
 \[
-\left\lfloor\frac n{L_P}\right\rfloor\ge\frac{n}{2L_P},
+\left\lfloor\frac n{L_P(\Delta)}\right\rfloor
+\ge\frac{n}{2L_P(\Delta)}
+=\rho_P(\Delta)n.
 \]
-so $\rho_P=1/(2L_P)$ suffices.
 \end{proof}

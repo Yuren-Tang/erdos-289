@@ -1,7 +1,7 @@
 \section{Comparable prime supply}
 \label{app:prime-supply}
 
-This appendix proves the ordinary analytic input used in Sections~\ref{sec:signed-inverse} and~\ref{sec:scalar-finality}: one fixed-ratio prime band containing $\asymp X/\log X$ primes.  The multiplier is chosen to be an integer so that every later cutoff remains on the natural-number scale.
+This appendix proves the ordinary analytic input used in Sections~\ref{sec:signed-inverse} and~\ref{sec:scalar-finality}: one fixed-ratio prime band containing $\asymp X/\log X$ primes.  The multiplier is taken canonically to be the least admissible integer, so every later cutoff remains on the natural-number scale.
 
 Put
 \[
@@ -62,7 +62,11 @@ c_\theta x\le\theta(x)\le C_\theta x
 \end{equation}
 for some $c_\theta>0$.
 
-Choose an integer $\Lambda\ge2$ such that $C_\theta<c_\theta\Lambda$.  Then
+The set
+\[
+\{m\in\N:m\ge2,\ C_\theta<c_\theta m\}
+\]
+is nonempty.  Let $\Lambda$ be its least element.  Then
 \[
 \theta(\Lambda X)-\theta(X)
 \ge(c_\theta\Lambda-C_\theta)X,

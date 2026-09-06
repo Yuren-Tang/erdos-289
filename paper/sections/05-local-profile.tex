@@ -63,10 +63,15 @@ whenever the incoming interval has width at least $p-1$.
 
 \subsection{Uniformity under dense restriction}
 
-Let $\kappa$ be the constant in \eqref{eq:family-size}, let $\sigma$ be the compatibility fraction in Proposition~\ref{prop:wide-start}, and let $\rho_P$ be the constant in Proposition~\ref{prop:haxell-quota}.  Fix
+Let $\kappa$ be the density constant in \eqref{eq:family-size}, and let $L_P,\rho_P$ be the canonical packing constants in \eqref{eq:packing-constants}.  Let
+\[
+0<\sigma<1
+\]
+be arbitrary, and let $\rho$ be an arbitrary parameter satisfying
 \begin{equation}\label{eq:rho-choice}
 0<\rho<\kappa\sigma\rho_P.
 \end{equation}
+All estimates below are uniform for each such fixed pair $(\sigma,\rho)$; later sections use the same $\sigma$ in Proposition~\ref{prop:wide-start}.
 For every sufficiently large prime power $Q=p^e$, define
 \begin{equation}\label{eq:adm-universal}
 \mathcal D_\rho(Q)=
@@ -77,7 +82,7 @@ E\subseteq\mathcal A_Q:
 \end{equation}
 For large $Q$ this collection is nonempty, since \eqref{eq:family-size} and \eqref{eq:rho-choice} place $\mathcal A_Q$ itself in $\mathcal D_\rho(Q)$.
 
-Fix $E\in\mathcal D_\rho(Q)$ and restrict $\phi_Q$ to $E$.  If
+Let $E\in\mathcal D_\rho(Q)$ be arbitrary and restrict $\phi_Q$ to $E$.  If
 \[
 m_E=\max_s|\phi_Q^{-1}(s)\cap E|,
 \qquad
@@ -145,7 +150,7 @@ a(E)=O_\rho(\log q).
 
 \subsection{Uniform loss and prime gain}
 
-Choose $Q_{\mathrm{tr}}$ large enough that all preceding statements hold for every prime power $Q\ge Q_{\mathrm{tr}}$.
+Let $Q_{\mathrm{tr}}$ be the least integer beyond which all preceding uniform statements hold for every prime power $Q\ge Q_{\mathrm{tr}}$.
 
 For $E\in\mathcal D_\rho(Q)$ define
 \[
@@ -184,7 +189,7 @@ By \eqref{eq:prime-rich} and \eqref{eq:d-prime},
 \begin{equation}\label{eq:mint-prime}
 \mu_\rho(q)\gg_\rho q/\log q.
 \end{equation}
-Increase $Q_{\mathrm{tr}}$ once more, if necessary, so that $\mu_\rho(q)>0$ for every prime $q\ge Q_{\mathrm{tr}}$.
+Replacing $Q_{\mathrm{tr}}$ by the least larger onset if necessary, we may and do require $\mu_\rho(q)>0$ for every prime $q\ge Q_{\mathrm{tr}}$.
 
 \begin{theorem}[Uniform simple-quotient transfer]\label{thm:uniform-profile}
 Let $Q\ge Q_{\mathrm{tr}}$ and $E\in\mathcal D_\rho(Q)$.  If $Q$ is composite and the incoming component-count interval is $[A_0,B_0]$ of width at least $\delta_\rho(Q)$, then
