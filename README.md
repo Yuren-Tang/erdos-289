@@ -3,7 +3,7 @@
 **Yuren Tang**  
 ORCID: [0009-0006-0847-3330](https://orcid.org/0009-0006-0847-3330)
 
-This repository contains the manuscript, source, and finite-certificate checker for *Reciprocal Sums over Separated Integer Intervals*.
+This repository contains the manuscript, source, and exact-arithmetic verifier for *Reciprocal Sums over Separated Integer Intervals*.
 
 The paper proves that, for every sufficiently large integer $k$, there is a finite set of positive integers whose path-graph connected components are exactly $k$ pairwise nonadjacent intervals, each of cardinality 2 or 3, and whose reciprocal sum is 1. In particular, it gives an affirmative answer to the strengthened disjoint, nonadjacent formulation of [Erdős Problem 289](https://www.erdosproblems.com/289).
 
@@ -17,7 +17,7 @@ The paper proves that, for every sufficiently large integer $k$, there is a fini
 
 ## Build
 
-The manuscript is built with XeLaTeX and BibLaTeX/Biber via `latexmk`. Its TeX packages and OpenType fonts are standard TeX Live components; the GitHub Actions workflow records a tested package set.
+The manuscript is built with XeLaTeX and BibLaTeX/Biber via `latexmk`. Its TeX packages and OpenType fonts are standard TeX Live components; the manuscript workflow records a tested package set.
 
 On POSIX systems, the complete publication build can be run with
 
@@ -39,23 +39,19 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
 
 which produces `main.pdf`. `build.sh` additionally copies that output to the title-named publication-facing artifact tracked in the repository.
 
-## Verification
+The GitHub Actions workflow `.github/workflows/manuscript.yml` performs the same build from a clean checkout and checks the title, author, and 40-page layout of the resulting publication artifact.
 
-Appendix C contains an exact finite initialization certificate. Its rational and polynomial checks can be reproduced with Python 3 using only the standard library:
+## Exact arithmetic
+
+Appendix C gives an explicit finite initialization, and Equation (3.1) gives the reciprocal-neutral identity used in the construction. Their exact rational and polynomial arithmetic can be recomputed with Python 3 using only the standard library:
 
 ```sh
-python3 verification/check_finite_certificate.py
+python3 verification/verify_exact_arithmetic.py
 ```
 
-The checker verifies only the finite certificate and the reciprocal-neutral polynomial identity. It does **not** verify the infinite argument, asymptotic estimates, external theorems, or the paper as a whole.
+The verifier checks the five seed identities and common-denominator certificates, the displayed finite separation data and exceptional bridge arithmetic, the rational mass bounds, and the polynomial identity (3.1). All of these calculations are stated in the manuscript; the script provides an independently executable recomputation for reader convenience.
 
-The GitHub Actions workflow `.github/workflows/manuscript.yml` performs, from a clean checkout:
-
-1. the finite-certificate check;
-2. a complete XeLaTeX/Biber build via `build.sh`;
-3. a check that the publication-facing PDF is produced and has 40 pages.
-
-A green workflow therefore certifies the release build pipeline and the finite certificate, not the correctness of the mathematical proof as a whole.
+The GitHub Actions workflow `.github/workflows/exact-arithmetic.yml` runs this verifier independently from the manuscript build.
 
 ## License
 
