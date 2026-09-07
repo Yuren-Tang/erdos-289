@@ -27,6 +27,7 @@ jobs:
             poppler-utils \
             texlive-bibtex-extra \
             texlive-fonts-extra \
+            texlive-fonts-recommended \
             texlive-latex-extra \
             texlive-pictures \
             texlive-plain-generic \
