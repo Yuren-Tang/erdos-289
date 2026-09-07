@@ -1,0 +1,22 @@
+name: Exact arithmetic
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Run exact arithmetic verifier
+        run: python3 verification/verify_exact_arithmetic.py
