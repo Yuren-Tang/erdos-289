@@ -61,8 +61,6 @@ The GitHub Actions workflow `.github/workflows/manuscript.yml` performs, from a 
 
 A green workflow therefore certifies the release build pipeline and the finite certificate, not the correctness of the mathematical proof as a whole.
 
-## Repository scope
-
-Only publication-facing manuscript material is kept on the main line of this repository. Historical drafts, review notes, audit ledgers, and private working artifacts are intentionally excluded.
+## License
 
 No repository-wide license has yet been selected. Copyright therefore remains with the author except where otherwise stated.
