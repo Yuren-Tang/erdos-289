@@ -1,0 +1,241 @@
+\section{Signed-inverse families at prime-power steps}
+\label{sec:signed-inverse}
+
+For every prime power $Q=p^e$, this section defines a finite family $\mathcal A_Q\subset\mathcal C$ and its simple-quotient map $\phi_Q:\mathcal A_Q\to S_Q^\times$.  The construction is allowed to be empty at small $Q$; the density, fibre, incompatibility, support and reciprocal-mass estimates used later are eventual.  A single onset $Q_{\mathrm{si}}$ for all of those later capabilities is fixed at the end of the section.
+
+Let $\Lambda$ be the integer supplied by Proposition~\ref{prop:prime-supply-main}, and put
+\[
+B_{\mathrm{car}}=\Lambda+1.
+\]
+Let $Q=p^e$ and define
+\begin{equation}\label{eq:carrier-base}
+X_Q=\left\lfloor\frac{Q}{B_{\mathrm{car}}}\right\rfloor.
+\end{equation}
+Define the carrier set
+\begin{equation}\label{eq:carrier-band}
+\mathscr B_Q=
+\{b\text{ prime}:X_Q<b\le\Lambda X_Q,\ (b,Q)=1\}.
+\end{equation}
+Writing
+\[
+Q=B_{\mathrm{car}}X_Q+r,
+\qquad 0\le r<B_{\mathrm{car}},
+\]
+shows that every $b\in\mathscr B_Q$ satisfies
+\begin{equation}\label{eq:carrier-exact}
+B_{\mathrm{car}}b>Q,
+\qquad
+b\le\Lambda X_Q<B_{\mathrm{car}}X_Q\le Q.
+\end{equation}
+For $X_Q\ge1$ one also has
+\[
+B_{\mathrm{car}}X_Q\le Q<2B_{\mathrm{car}}X_Q,
+\]
+so $X_Q\asymp Q$.  Once $X_Q$ lies beyond the onset in Proposition~\ref{prop:prime-supply-main}, that proposition gives $\asymp Q/\log Q$ possible carriers; imposing $(b,Q)=1$ removes at most the prime $p$.
+
+For each $b\in\mathscr B_Q$, let $c_+\in\{1,\ldots,Q-1\}$ be the inverse of $b$ modulo $Q$, put $c_-=Q-c_+$, and write
+\begin{equation}\label{eq:signed-inverse}
+bc_+=Qk_++1,
+\qquad
+bc_-=Qk_--1.
+\end{equation}
+Then
+\[
+1\le k_\pm<b<Q,
+\qquad
+k_++k_-=b.
+\]
+Since $p\nmid b$, the two coefficients cannot both be divisible by $p$.  Define a sign deterministically: if $e=1$, use the sign with larger coefficient, breaking a tie in favour of $+$; if $e\ge2$, use $+$ unless $p\mid k_+$, and use $-$ otherwise.  Let $k=k(Q,b)$ be the coefficient determined by this rule, and define
+\begin{equation}\label{eq:signed-block}
+I(Q,b)=
+\begin{cases}
+[Qk,Qk+1],&+,\\
+[Qk-1,Qk],&-.
+\end{cases}
+\end{equation}
+If $Q=p$ is prime, this rule gives
+\begin{equation}\label{eq:atomic-k-lower}
+k\ge b/2>X_Q/2\gg p.
+\end{equation}
+
+\subsection{Transversality and deterministic deduplication}
+
+The distinguished denominator $Qk$ has largest prime-power stage exactly $Q$: the coefficient $k$ is a $p$-unit, and every prime-power factor contributed by $k$ has rank below $Q$ because $k<Q$.
+
+\begin{lemma}[Carrier transversality and coefficient multiplicity]\label{lem:carrier-transversality}
+For all sufficiently large prime powers $Q=p^e$ the following hold.
+\begin{enumerate}
+\item All but $O_{B_{\mathrm{car}}}(1)$ carrier primes have companion denominator with no prime-power factor of rank at least $Q$.
+\item A fixed coefficient $k$ is produced by at most four carrier primes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For the companion denominator $bc_\pm=Qk\pm1$, both factors $b$ and $c_\pm$ are below $Q$.  Suppose that a prime power $\ell^r\ge Q$ divides $bc_\pm$.  If $\ell\ne b$, then the primality of $b$ forces $\ell^r\mid c_\pm$, contradicting $c_\pm<Q$.  Hence $\ell=b$.  Since also $b<Q$, one has $r\ge2$, and therefore $b\mid c_\pm$.  Write $c_\pm=\ell_0 b$.  Since $c_\pm<Q<B_{\mathrm{car}}b$, one has $1\le\ell_0<B_{\mathrm{car}}$, and \eqref{eq:signed-inverse} gives
+\begin{equation}\label{eq:bad-carrier}
+\ell_0 b^2\equiv\pm1\pmod Q.
+\end{equation}
+For any $(\ell_0,\pm)$, if $p\mid\ell_0$, the congruence has no solution because its right-hand side is a unit modulo $p$.  Otherwise it reduces to a unit square congruence modulo $p^e$, which has at most two roots for odd $p$ and at most four roots for $p=2$.  For the latter assertion, when $e\ge3$ the quotient of any two unit roots is a solution of $u^2\equiv1\pmod{2^e}$, of which there are four; the cases $e\le2$ are immediate.  There are only $2(B_{\mathrm{car}}-1)$ choices of $(\ell_0,\pm)$, proving the first assertion.
+
+For any coefficient $k$, every carrier producing it divides one of $Qk-1$ and $Qk+1$.  Since $1\le k<Q$, both integers are smaller than $Q^2$.  Every carrier satisfies $b>Q/B_{\mathrm{car}}$ by \eqref{eq:carrier-base} and \eqref{eq:carrier-band}.  If $Q>B_{\mathrm{car}}^3$, a number below $Q^2$ cannot contain three distinct carrier primes, because their product would exceed $Q^3/B_{\mathrm{car}}^3>Q^2$.  Thus each of $Qk-1$ and $Qk+1$ contains at most two possible carriers, giving multiplicity at most four.
+\end{proof}
+
+For every $Q$, discard exactly those carriers whose companion denominator has a prime-power factor of rank at least $Q$.  Lemma~\ref{lem:carrier-transversality} shows that this deletes only $O_{B_{\mathrm{car}}}(1)$ carriers once $Q$ is sufficiently large.  Different remaining carriers can still produce the same coefficient $k$; keep, for each coefficient, the occurrence with least carrier.  The eventual multiplicity bound in the lemma shows that, for sufficiently large $Q$, the resulting coefficient set has cardinality
+\[
+\asymp Q/\log Q.
+\]
+
+If $e\ge2$, order the remaining coefficients $k_1<\cdots<k_N$ and retain the upper half.  Since $k_i\ge i$, every retained coefficient then satisfies
+\begin{equation}\label{eq:coef-lower}
+k\gg Q/\log Q.
+\end{equation}
+If $Q=p$ is prime, retain all coefficients.  Let $\mathcal A_Q$ be the resulting family of intervals \eqref{eq:signed-block}.
+
+\begin{lemma}[Top-stage recovery]\label{lem:top-stage-recovery}
+For every $I\in\mathcal A_Q$, exactly one of its two denominators has largest prime-power stage $Q$, namely the distinguished denominator $Qk$.  Consequently $I$ determines its stage $Q$ and coefficient $k$; in particular the families $\mathcal A_Q$ for distinct $Q$ are disjoint.
+\end{lemma}
+
+\begin{proof}
+The distinguished denominator has top stage $Q$ because $k$ is a $p$-unit and $k<Q$.  The transversality deletion removes every carrier for which the companion denominator has a prime-power factor of rank at least $Q$.  Hence the companion has strictly smaller top stage.
+\end{proof}
+
+\subsection{The simple-quotient value}
+
+Modulo $F_{<Q}$, the companion reciprocal has only smaller prime-power stages, so the class contributed by $I(Q,b)$ is the class of $1/(Qk)$.  Let $u\in\{1,\ldots,p-1\}$ be the unique inverse of $k$ modulo $p$, and write
+\[
+uk=1+pt.
+\]
+Then
+\begin{equation}\label{eq:simple-coordinate-calculation}
+\frac{u}{Q}-\frac1{Qk}
+=\frac{t}{p^{e-1}k}.
+\end{equation}
+Every prime-power factor of the denominator on the right has rank below $Q$: the $p$-part is at most $p^{e-1}$, and every factor coming from $k$ is below $Q$.  Hence the difference belongs to $F_{<Q}$.  In particular,
+\begin{equation}\label{eq:signed-label-filtration}
+\overline W(I(Q,b))\in F_Q,
+\end{equation}
+and, relative to the distinguished generator represented by $1/Q$, its image in $S_Q=F_Q/F_{<Q}$ is
+\begin{equation}\label{eq:simple-value}
+\phi_Q(I(Q,b))=k^{-1}\pmod p.
+\end{equation}
+Thus the simple-quotient map
+\[
+\phi_Q:\mathcal A_Q\longrightarrow S_Q^\times
+\]
+is well defined.  By Lemma~\ref{lem:top-stage-recovery}, the distinguished-point map $I(Q,b)\mapsto Qk$ is globally injective.
+
+For an integer interval $J=[u,v]\subset\N_{>0}$ define its \emph{exclusion envelope}
+\[
+\operatorname{Env}(J)
+=\{n\in\N_{>0}:\operatorname{dist}(n,J)\le1\}.
+\]
+Thus another interval component is incompatible with $J$ exactly when its support meets $\operatorname{Env}(J)$.  A member of some $\mathcal A_Q$ is said to meet an exclusion envelope if its support intersects that envelope.
+
+\begin{proposition}[Uniform estimates for the signed-inverse families]\label{prop:signed-inverse-capabilities}
+The deterministic families $\mathcal A_Q$ satisfy the following properties.
+\begin{enumerate}
+\item Their normalized density has a positive lower limit:
+\begin{equation}\label{eq:family-density-liminf}
+\kappa_\infty
+:=
+\liminf_{\substack{Q\to\infty\\Q\text{ prime power}}}
+\frac{|\mathcal A_Q|\log Q}{Q}
+>0.
+\end{equation}
+\item For every sufficiently large $Q=p^e$ and every $s\in S_Q^\times$,
+\begin{equation}\label{eq:fibre-bound}
+|\phi_Q^{-1}(s)|\le Q/p.
+\end{equation}
+\item The incompatibility graph on $\bigcup_Q\mathcal A_Q$ has finite maximum degree.  More generally, for every fixed $L\ge1$ there is $C_L$ such that an exclusion envelope of cardinality at most $L$ meets at most $C_L$ members of the union.
+\item The normalized lower support edge has positive lower limit:
+\begin{equation}\label{eq:support-liminf}
+c_\infty
+:=
+\liminf_{\substack{Q\to\infty\\Q\text{ prime power}}}
+\left(
+\min_{\substack{I\in\mathcal A_Q\\z\in I}}
+\frac{z\log Q}{Q^2}
+\right)
+>0,
+\end{equation}
+where the minimum is taken only for the eventually nonempty families.  Every support point also satisfies $z\le2Q^2$ for all sufficiently large $Q$, and if $Q$ is prime then $z\gg Q^2$.
+\item Define
+\begin{equation}\label{eq:canonical-role-mass}
+\omega_Q
+=
+\max\left(
+\{0\}\cup
+\left\{
+W\!\left(\bigcup_{I\in O}I\right):
+O\subseteq\mathcal A_Q,\ |O|\le p,\ \bigcup_{I\in O}I\in\mathcal C
+\right\}
+\right).
+\end{equation}
+Then
+\begin{equation}\label{eq:role-summable}
+\sum_Q\omega_Q<\infty.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The positive lower density follows from the carrier count, the bounded exceptional set, bounded coefficient multiplicity and, for $e\ge2$, the upper-half thinning.  For \eqref{eq:fibre-bound}, equality of simple-quotient values implies equality of $k$ modulo $p$.  A fixed nonzero residue class modulo $p$ occurs exactly $Q/p$ times among $1\le k<Q=p^e$, and the deterministic deduplication retains at most one interval for each coefficient.
+
+For incompatibility, each interval occupies two adjacent integers around its globally injective distinguished point $Qk$.  If an exclusion envelope has cardinality at most $L$, every member meeting it has distinguished point in a fixed one-step enlargement of the envelope.  This enlargement contains $O(L)$ integer sites and global injectivity leaves at most one retained interval per site.  In particular the global incompatibility graph has bounded integer degree.
+
+The positive lower support limit follows from $z=Qk+O(1)$ together with \eqref{eq:coef-lower}; the prime lower bound follows from \eqref{eq:atomic-k-lower}.  The upper bound $z\le2Q^2$ follows from $k<Q$.
+
+For the quantity \eqref{eq:canonical-role-mass}, a prime family has $O(p/\log p)$ intervals, each of reciprocal mass $O(p^{-2})$, so
+\[
+\omega_p=O\!\left(\frac1{p\log p}\right).
+\]
+For $Q=p^e$, $e\ge2$, each interval has mass $O(\log Q/Q^2)$, so
+\[
+\omega_{p^e}
+=O\!\left(\frac{p\log Q}{Q^2}\right)
+=O\!\left(\frac{e\log p}{p^{2e-1}}\right).
+\]
+For the prime terms, let $X_j=\Lambda^jX_0$, with $X_0$ beyond the onset of Proposition~\ref{prop:prime-supply-main}.  The contribution of primes in $X_j<p\le\Lambda X_j$ is at most
+\[
+O\!\left(\frac{X_j}{\log X_j}\right)
+O\!\left(\frac1{X_j\log X_j}\right)
+=O\!\left(\frac1{(\log X_j)^2}\right)
+=O(j^{-2}),
+\]
+so the prime terms in the tail are summable.  The composite tail is bounded by a constant multiple of $\sum_p p^{-2}$ after summing over $e\ge2$.  The finitely many remaining prime-power stages contribute a finite amount, hence \eqref{eq:role-summable} holds.
+\end{proof}
+
+Set the positive constants
+\begin{equation}\label{eq:canonical-density-support-constants}
+\kappa=\frac{\kappa_\infty}{2},
+\qquad
+c=\frac12\min\{1,c_\infty\}.
+\end{equation}
+Here the lower limits are allowed to take values in the extended real line; the truncation ensures that $c$ is finite even if $c_\infty=+\infty$.  The carrier upper bound makes $\kappa_\infty$ finite.  By the definitions of the lower limits, for every sufficiently large prime power $Q$ one has
+\begin{equation}\label{eq:family-size}
+|\mathcal A_Q|\ge\kappa\frac Q{\log Q}
+\end{equation}
+and every support point satisfies
+\begin{equation}\label{eq:support-window}
+c\frac{Q^2}{\log Q}\le z\le2Q^2.
+\end{equation}
+
+Choose once and for all an integer $Q_{\mathrm{si}}$ so large that, for every prime power $Q\ge Q_{\mathrm{si}}$, the carrier-transversality and coefficient-multiplicity bounds, the fibre bound \eqref{eq:fibre-bound}, the family-size estimate \eqref{eq:family-size}, and the support bounds \eqref{eq:support-window} (including the prime lower bound used above) all hold.  The objects $\mathcal A_Q$, $\phi_Q$ and $\omega_Q$ remain defined for every prime power $Q$; the finitely many stages below $Q_{\mathrm{si}}$ are simply outside the later transport regime.  Every transport onset introduced below is taken to be at least $Q_{\mathrm{si}}$.
+
+Let $G_{\infty}$ be the incompatibility graph on $\bigcup_Q\mathcal A_Q$.  Proposition~\ref{prop:signed-inverse-capabilities} shows that the bounded subset
+\[
+\{\deg_{G_{\infty}}(v):v\in V(G_{\infty})\}\subseteq\N
+\]
+has a maximum; define
+\begin{equation}\label{eq:canonical-global-degree}
+\Delta_*=\max_{v\in V(G_{\infty})}\deg_{G_{\infty}}(v).
+\end{equation}
+Abbreviate
+\begin{equation}\label{eq:packing-constants}
+L_P=L_P(\Delta_*),
+\qquad
+\rho_P=\rho_P(\Delta_*),
+\end{equation}
+with the functions of \eqref{eq:haxell-canonical-parameters}.  These constants will be used in the finite compatibility step.
+
+In particular, for every $\varepsilon>0$ there is $Q_1$ such that every finite set of prime-power steps of rank at least $Q_1$ has total reciprocal-mass bound below $\varepsilon$.

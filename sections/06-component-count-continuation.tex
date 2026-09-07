@@ -1,0 +1,217 @@
+\section{Continuation of component-count intervals}
+\label{sec:scalar-finality}
+
+Fix
+\[
+0<\eta<\eta_0,
+\qquad
+0<\sigma<1,
+\qquad
+0<\rho<\kappa\sigma\rho_P.
+\]
+The triple $(\eta,\sigma,\rho)$ is fixed before any onset, base or prepared start in this section.  Every threshold introduced below depends only on this triple and on the fixed constants from the preceding sections; a prepared start is chosen only after its base satisfies those thresholds.
+Only the count intervals and the transported affine centre are retained in this section.  Put
+\[
+Q_{\mathrm{tr}}=Q_{\mathrm{tr}}(\rho),
+\qquad
+\Phi(X)=\frac X{\log X}.
+\]
+Theorem~\ref{thm:uniform-profile} supplies, at every prime-power step $Q\ge Q_{\mathrm{tr}}$, an incoming-width demand $\delta_\rho(Q)$ and, when $Q=q$ is prime, a positive width gain $\mu_\rho(q)$.
+
+For an integer interval $I=[A,B]$ write $w(I)=B-A$.  At a prime $q$ the scalar action is
+\begin{equation}\label{eq:prime-action}
+[A,B]\longmapsto
+[A+\delta_\rho(q),\,B+\delta_\rho(q)+\mu_\rho(q)],
+\end{equation}
+while at a composite prime power $Q$ it is
+\begin{equation}\label{eq:composite-action}
+[A,B]\longmapsto[A+\delta_\rho(Q),B].
+\end{equation}
+A step is available precisely when the incoming width is at least $\delta_\rho(Q)$; in that case the old and new integer intervals overlap.
+
+Extend $\delta_\rho$ by $0$ below $Q_{\mathrm{tr}}$ and define
+\[
+\Delta_\rho(X)=
+\max\Bigl(\{0\}\cup\{\delta_\rho(Q):Q\le X,\ Q\text{ a prime power}\}\Bigr),
+\]
+\begin{equation}\label{eq:cumulative-loss}
+\mathcal L_\rho(X)=
+\sum_{\substack{Q_{\mathrm{tr}}\le p^e\le X\\e\ge2}}
+\delta_\rho(p^e).
+\end{equation}
+By \eqref{eq:d-composite},
+\begin{equation}\label{eq:max-demand-subscale}
+\Delta_\rho(X)=O_\rho((\log X)^2)=o(\Phi(X)).
+\end{equation}
+The number of non-prime prime powers at most $X$ is $O(\sqrt X\log X)$, hence
+\begin{equation}\label{eq:loss-subscale}
+\mathcal L_\rho(X)=O_\rho(\sqrt X\,\log^3X)=o(\Phi(X)).
+\end{equation}
+
+\subsection{Bounded-lag prime compensation}
+
+Let $\Lambda\ge2$ be the multiplier in Proposition~\ref{prop:prime-supply-main} and put
+\begin{equation}\label{eq:prime-lag}
+\Lambda_s=4\Lambda.
+\end{equation}
+For $Q\ge1$ define the finite bounded-lag prime set
+\begin{equation}\label{eq:bounded-lag-primes}
+\operatorname{Prev}_\rho(Q)=
+\{q:q\text{ prime},\ Q_{\mathrm{tr}}\le q<Q\le\Lambda_s q\}.
+\end{equation}
+For all sufficiently large $Q$ this set is nonempty: with $Y=\lfloor Q/(2\Lambda)\rfloor$, Proposition~\ref{prop:prime-supply-main} supplies a prime in $(Y,\Lambda Y]$, and after a fixed onset it belongs to \eqref{eq:bounded-lag-primes}.
+
+Whenever $\operatorname{Prev}_\rho(Q)\ne\varnothing$ put
+\begin{equation}\label{eq:uniform-prime-gain}
+\underline\mu_\rho(Q)
+=
+\min_{q\in\operatorname{Prev}_\rho(Q)}\mu_\rho(q).
+\end{equation}
+Since $Q/\Lambda_s\le q<Q$ throughout the bounded-lag prime set, \eqref{eq:prime-gain-scale} gives
+\begin{equation}\label{eq:uniform-prime-gain-scale}
+\underline\mu_\rho(Q)
+\gg_{\rho,\Lambda_s}\frac Q{\log Q}
+=\Theta_{\rho,\Lambda_s}(\Phi(Q)).
+\end{equation}
+
+Define the startup request
+\begin{equation}\label{eq:startup-request}
+L_\rho(B)=\Delta_\rho(\Lambda_sB)+\mathcal L_\rho(\Lambda_sB).
+\end{equation}
+Then
+\begin{equation}\label{eq:startup-subscale-scalar}
+L_\rho(B)=o(B/\log B),
+\end{equation}
+so $L_\rho\in\mathfrak L$.
+
+For a base $B$, let $\operatorname{Cont}_\rho(B)$ denote the following purely scalar condition:
+\begin{enumerate}[label=(\roman*)]
+\item $B\ge Q_{\mathrm{tr}}$;
+\item $\operatorname{Prev}_\rho(Q)\ne\varnothing$ for every prime power $Q>\Lambda_sB$;
+\item for every such $Q$,
+\begin{equation}\label{eq:continuation-inequality}
+\underline\mu_\rho(Q)-\mathcal L_\rho(Q)\ge\delta_\rho(Q).
+\end{equation}
+\end{enumerate}
+Equations \eqref{eq:uniform-prime-gain-scale}, \eqref{eq:loss-subscale} and \eqref{eq:max-demand-subscale} imply that $\operatorname{Cont}_\rho(B)$ holds for every sufficiently large $B$.
+Put
+\begin{equation}\label{eq:continuation-base-set}
+\mathcal B_{\mathrm{cont}}(\rho)=\{B\in\N:\operatorname{Cont}_\rho(B)\}.
+\end{equation}
+Thus $\mathcal B_{\mathrm{cont}}(\rho)$ contains a final segment.
+
+\subsection{Prepared starts and the first-failure argument}
+
+By Proposition~\ref{prop:wide-start}, for every sufficiently large $B$ the prepared-start object
+\[
+\mathfrak W_B(\eta,\sigma,L_\rho)
+\]
+is nonempty.  Fix a point $\xi$ of this object and write
+\[
+R_B^\xi:\{0_M\}\rightsquigarrow
+\operatorname{Fib}_{E_B}(\gamma_B^\xi)\times I_B^\xi
+\]
+for its covering correspondence.  Its initial interval has width $L_\rho(B)$.
+
+Process prime powers $Q>B$ in increasing order using \eqref{eq:prime-action} and \eqref{eq:composite-action}.  Whenever all earlier steps are available, let $I_{Q^-}^\xi$ denote the interval immediately before the $Q$-step and define its incoming width
+\begin{equation}\label{eq:incoming-width}
+w_\xi^-(Q)=w(I_{Q^-}^\xi).
+\end{equation}
+After the $Q$-step write $I_Q^\xi$ for the resulting interval; between prime powers the interval is unchanged.
+
+\begin{lemma}[Continuation]\label{lem:component-count-continuation}
+If $\operatorname{Cont}_\rho(B)$ holds, then for every $\xi\in\mathfrak W_B(\eta,\sigma,L_\rho)$ all prime-power steps after $B$ are available.  More precisely,
+\begin{align}
+B<Q\le\Lambda_sB
+&\quad\Longrightarrow\quad
+w_\xi^-(Q)\ge\delta_\rho(Q),\label{eq:startup-width-bound}\\
+Q>\Lambda_sB
+&\quad\Longrightarrow\quad
+w_\xi^-(Q)\ge
+\underline\mu_\rho(Q)-\mathcal L_\rho(Q)
+\ge\delta_\rho(Q).\label{eq:bounded-lag-width}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Suppose, for contradiction, that $Q$ is the least unavailable prime-power step.
+
+If $B<Q\le\Lambda_sB$, all earlier composite losses total at most $\mathcal L_\rho(Q)$, while discarding every positive prime gain gives
+\[
+w_\xi^-(Q)
+\ge L_\rho(B)-\mathcal L_\rho(Q)
+\ge\Delta_\rho(\Lambda_sB)
+\ge\delta_\rho(Q),
+\]
+contradicting unavailability.
+
+Now suppose $Q>\Lambda_sB$.  For every $q\in\operatorname{Prev}_\rho(Q)$ one has $B<q<Q$.  By minimality of $Q$, the $q$-step has already occurred.  Discarding every positive prime gain except the gain at $q$, and charging all composite losses up to $Q$, yields
+\[
+w_\xi^-(Q)\ge\mu_\rho(q)-\mathcal L_\rho(Q).
+\]
+Taking the minimum over $q\in\operatorname{Prev}_\rho(Q)$ and using \eqref{eq:continuation-inequality} gives \eqref{eq:bounded-lag-width}, again a contradiction.  Hence no unavailable step exists.
+\end{proof}
+
+Successive intervals overlap.  Their upper endpoints are unbounded because the positive prime gains are unbounded along the primes.  Therefore the union of the intervals after the base contains a final ray in $\N$.
+
+\subsection{The affine centre and cutoff incidence}
+
+For $X\ge B$ let
+\[
+\pi_{B,X}:A/E_B\longrightarrow A/E_X,
+\qquad
+\gamma_X^\xi=\pi_{B,X}(\gamma_B^\xi).
+\]
+For $B\le X\le Y$, write $\pi_{X,Y}:A/E_X\to A/E_Y$ for the further quotient.  Functoriality of quotient maps is the commuting triangle
+\begin{equation}\label{eq:centre-transport-square}
+\begin{tikzcd}
+A/E_B \arrow[r,"{\pi_{B,X}}"] \arrow[dr,"{\pi_{B,Y}}"']
+  & A/E_X \arrow[d,"{\pi_{X,Y}}"]\\
+  & A/E_Y.
+\end{tikzcd}
+\end{equation}
+Thus $\gamma_Y^\xi=\pi_{X,Y}(\gamma_X^\xi)$.  Equation~\eqref{eq:centre-kernel-union} gives at least one $X$ with $\gamma_X^\xi=0$, and \eqref{eq:centre-transport-square} then gives the same conclusion for every larger $Y$.  Hence
+\[
+\mathcal V_\xi=\{X\ge B:\gamma_X^\xi=0\}
+\]
+is a nonempty final segment.
+
+Let $I_X^\xi$ be the scalar interval after all prime-power steps of rank at most $X$.  Define the cutoff--count incidence object
+\begin{equation}\label{eq:term-k}
+\mathfrak X_\xi
+=
+\{(k,X)\in\N_{>0}\times\N:
+X\ge B,\ X\in\mathcal V_\xi,\ k\in I_X^\xi\},
+\end{equation}
+with projection $p_\xi(k,X)=k$, and define
+\begin{equation}\label{eq:scalar-threshold-object}
+\mathfrak K_\xi
+=
+\{k_0\in\N_{>0}:[k_0,\infty)\cap\N_{>0}\subseteq\operatorname{im}(p_\xi)\}.
+\end{equation}
+The preceding continuation and centre-vanishing statements imply $\mathfrak K_\xi\ne\varnothing$.
+
+Define
+\begin{equation}\label{eq:scalar-good-start-object}
+\mathfrak G_{\mathrm{sc}}(\eta,\sigma,\rho)
+=
+\{(B,\xi):\operatorname{Cont}_\rho(B),\ \xi\in\mathfrak W_B(\eta,\sigma,L_\rho)\}.
+\end{equation}
+
+\begin{theorem}[Eventual count coverage]\label{thm:scalar-terminality}
+For every admissible $(\eta,\sigma,\rho)$, the $B$-projection
+\[
+\mathfrak G_{\mathrm{sc}}(\eta,\sigma,\rho)\longrightarrow\N
+\]
+has cofinite image.  For every $(B,\xi)$ in this object, the cutoff--count projection $p_\xi$ has cofinite image, equivalently $\mathfrak K_\xi\ne\varnothing$.
+\end{theorem}
+
+\begin{proof}
+Both $\operatorname{Cont}_\rho(B)$ and the nonemptiness of $\mathfrak W_B(\eta,\sigma,L_\rho)$ hold for all sufficiently large $B$.  This proves the first assertion.  Fix such a prepared start.  Lemma~\ref{lem:component-count-continuation} gives overlapping intervals with unbounded upper endpoints, and $\mathcal V_\xi$ is a final segment.  Hence
+\[
+\operatorname{im}(p_\xi)
+=
+\bigcup_{X\in\mathcal V_\xi} (I_X^\xi\cap\N_{>0})
+\]
+contains a final ray.
+\end{proof}

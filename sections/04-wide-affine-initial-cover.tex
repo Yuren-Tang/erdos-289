@@ -1,0 +1,312 @@
+\section{A wide affine initial cover}
+\label{sec:wide-start}
+
+This section constructs the admissible initial covers.  Prime-power bridges are pasted by the affine pullback of Section~\ref{sec:states-filtration}; a Hamming-weight pullback then turns the bounded count spread into an interval of prescribed subscale width.
+
+Put
+\[
+L_n=\operatorname{lcm}(1,\ldots,n).
+\]
+At a prime-power jump $n=p^e$, write
+\[
+D=L_{n-1},
+\qquad
+L_n=pD.
+\]
+By Lemma~\ref{lem:torsion-filtration}, the quotient step has order $p$.
+
+\subsection{A uniform bridge across one simple quotient}
+
+Let $k$ be the least positive integer satisfying
+\[
+T_k=\frac{k(k+1)}2\ge p-1,
+\]
+and put $R_p=\{1,\ldots,k\}$.  The subset sums of $R_p$ fill $[0,T_k]$, and hence reduce surjectively modulo $p$.
+
+Minimality gives $k\le p-1$, so every $r\in R_p$ divides $D$.  Set
+\[
+a_r=\frac{pD}{r}
+\]
+and use the two alternatives
+\begin{equation}\label{eq:bridge-switch}
+[a_r+1,a_r+2]
+\longleftrightarrow
+[a_r,a_r+2].
+\end{equation}
+Their reciprocal difference is exactly $r/(pD)$.  Thus the Boolean branch object on $R_p$ maps surjectively to
+\[
+L_n^{-1}\Z/L_{n-1}^{-1}\Z
+\cong\Z/p\Z.
+\]
+Every branch contains exactly $k$ connected components, so the bridge changes the residue class without introducing any branch-dependent component-count change.
+
+Minimality also gives $k^2=O(p)$ and $T_k=O(p)$.  The total reciprocal mass of the bridge is therefore $O(D^{-1})$.  If $r<s\le k$, then
+\begin{equation}\label{eq:bridge-separation}
+a_r-a_s
+=\frac{pD(s-r)}{rs}
+\ge\frac{pD}{k^2}.
+\end{equation}
+For all sufficiently large jumps the right-hand side is at least $4$, so every alternative at one bridge base is disjoint and nonadjacent from every alternative at another base.  Lemma~\ref{lem:finite-prefix-initialization} supplies the finite initialization before this uniform separation regime begins.
+
+At each nontrivial least-common-multiple jump the next lower modulus is the present upper modulus $pD$ with $p\ge2$, so successive nontrivial lower moduli at least double.  Hence the total reciprocal mass of the future bridge sequence is finite.  Together with the finite initialization this leaves a fixed positive margin below $2$.
+
+At the jump $n=p^e$, one has $E_{n-1}=H_D$ and $E_n=H_{pD}$.  Let $\mathscr B_n$ be the finite family of all bridge labels obtained from the Boolean alternatives in \eqref{eq:bridge-switch}.  Any two branches differ by a sum of classes $r/(pD)\in E_n$, so the composite
+\[
+\mathscr B_n\xrightarrow{\overline W}A\xrightarrow{q_{E_n}}A/E_n
+\]
+is constant; denote its value by $\beta_n$.  The preceding subset-sum calculation is exactly the regular epimorphism
+\begin{equation}\label{eq:bridge-difference-surjection}
+q_{E_{n-1}}\overline W:
+\mathscr B_n\twoheadrightarrow
+\operatorname{Fib}_{\pi_{E_{n-1},E_n}}(\beta_n).
+\end{equation}
+Every branch has the same component count $k$.
+
+Thus Corollary~\ref{cor:compatible-affine-extension}, with $H=E_{n-1}$ and $K=E_n$, gives: an incoming regular epimorphism onto an affine $E_{n-1}$-fibre pastes with \eqref{eq:bridge-difference-surjection} to a regular epimorphism onto the corresponding affine $E_n$-fibre, while the component-count spread is unchanged.
+
+\subsection{Bounded-spread affine cover}
+
+Use the finite initialization of Lemma~\ref{lem:finite-prefix-initialization} and paste it with one bridge object at every subsequent prime-power jump up to a cutoff $B$.  Repeated application of Corollary~\ref{cor:compatible-affine-extension} produces a finite parameter set $\widetilde{\mathcal B}_B$, a label map
+\[
+\lambda_B:\widetilde{\mathcal B}_B\longrightarrow\mathcal C,
+\]
+a centre $\alpha_B\in A/E_B$, and a regular epimorphism
+\begin{equation}\label{eq:bounded-affine-cover}
+\overline W\lambda_B:
+\widetilde{\mathcal B}_B\twoheadrightarrow
+\operatorname{Fib}_{E_B}(\alpha_B).
+\end{equation}
+The parameter set is retained here because its points, not merely their label image in $\mathcal C$, carry the covering map used in the next pullback.  Since every bridge adds the same number of components to every label, the difference between the largest and smallest component counts remains equal to the finite initial spread.  Thus there is a constant $G_0$ and integers $m_B\le M_B$ such that
+\begin{equation}\label{eq:ragged-spread}
+\nu(\lambda_B(b))\in[m_B,M_B]
+\qquad(b\in\widetilde{\mathcal B}_B),
+\qquad
+M_B-m_B=G_0.
+\end{equation}
+The explicit integers of Appendix~\ref{app:prefix-seed} are used only to establish this finite initial cover.
+
+\subsection{Sparse interaction with later prime-power families}
+
+Let $Q>B$ be a later prime-power step.  Proposition~\ref{prop:signed-inverse-capabilities} places the support of $\mathcal A_Q$ inside
+\begin{equation}\label{eq:future-window}
+\left[c\frac{Q^2}{\log Q},\,2Q^2\right]
+\end{equation}
+up to a fixed endpoint enlargement.
+
+\begin{lemma}[Sparse bridge interaction]\label{lem:sparse-bridge-interaction}
+Uniformly for later prime-power steps $Q>B$, the fixed seed and the bridge stages used in the affine cover contribute only
+\[
+O(\sqrt{\log Q}\,\log\log Q)
+=o(Q/\log Q)
+\]
+bounded-size exclusion envelopes capable of meeting $\mathcal A_Q$.
+\end{lemma}
+
+\begin{proof}
+Suppose a bridge at a jump $n=p^e$, with lower modulus $D=L_{n-1}$, can meet this interval.  Since $1\le r\le k\le p-1$, every bridge base satisfies
+\[
+D<a_r=\frac{pD}{r}\le pD.
+\]
+Intersection with the upper endpoint of \eqref{eq:future-window} therefore gives
+\[
+D=O(Q^2).
+\]
+The primorial through $n-1$ divides $D$, so the Chebyshev estimate of Appendix~\ref{app:prime-supply} gives
+\[
+n,p=O(\log Q).
+\]
+Intersection with the lower endpoint of \eqref{eq:future-window}, together with $a_r\le pD$, gives
+\[
+D\gg\frac{Q^2}{p\log Q}
+\gg\frac{Q^2}{(\log Q)^2}.
+\]
+Thus there are fixed constants $c_1,c_2>0$ such that every relevant lower modulus satisfies
+\[
+c_1\frac{Q^2}{(\log Q)^2}\le D\le c_2Q^2.
+\]
+Consequently the ratio between the largest and smallest relevant lower moduli is $O((\log Q)^2)$.  If $D_1<\cdots<D_t$ are the relevant lower moduli in chronological order, every nontrivial least-common-multiple jump gives $D_{j+1}\ge2D_j$.  Hence
+\[
+2^{t-1}\le O((\log Q)^2),
+\]
+so $t=O(\log\log Q)$.  Therefore only $O(\log\log Q)$ bridge stages can meet the support window.  Each contains
+\[
+k=O(\sqrt p)=O(\sqrt{\log Q})
+\]
+bounded-size exclusion envelopes.  The total number of bridge envelopes capable of meeting $\mathcal A_Q$ is therefore
+\begin{equation}\label{eq:bridge-footprint}
+O(\sqrt{\log Q}\,\log\log Q)
+=o(Q/\log Q).
+\end{equation}
+The fixed finite seed contributes only $O(1)$ further bounded-size exclusion envelopes.  This proves the lemma.
+\end{proof}
+
+By Proposition~\ref{prop:signed-inverse-capabilities}, the envelopes in Lemma~\ref{lem:sparse-bridge-interaction} are incompatible with only $o(Q/\log Q)$ members of $\mathcal A_Q$.
+
+\subsection{The neutral Hamming pullback}
+
+Let
+\begin{equation}\label{eq:startup-function-class}
+\mathfrak L=
+\left\{
+L:\N_{>0}\to\N:
+\lim_{B\to\infty}\frac{L(B)\log B}{B}=0
+\right\}.
+\end{equation}
+For $L\in\mathfrak L$ put
+\[
+N_B=G_0+L(B),
+\qquad
+J_B=\{0,\ldots,L(B)\}.
+\]
+For an arbitrary $N_B$-coordinate neutral Boolean family $\mathscr N$ as in Lemma~\ref{lem:neutral-cube}, let
+\[
+\Psi_{\mathscr N}:\{0,1\}^{N_B}\longrightarrow\mathcal C
+\]
+be its configuration map.  It has constant reciprocal value and component count
+\[
+\nu(\Psi_{\mathscr N}(v))=2N_B+|v|.
+\]
+Define
+\[
+\chi_B:\widetilde{\mathcal B}_B\times J_B\longrightarrow\{0,\ldots,N_B\},
+\qquad
+\chi_B(b,j)=M_B-\nu(\lambda_B(b))+j.
+\]
+By \eqref{eq:ragged-spread}, this is well defined.  The Hamming-weight map is a regular epimorphism, and the cartesian square
+\begin{equation}\label{eq:hamming-pullback}
+\begin{tikzcd}
+\mathcal P_B(\mathscr N) \arrow[r] \arrow[d,"{p_B}"']
+  & \{0,1\}^{N_B} \arrow[d,"{|\cdot|}"]\\
+\widetilde{\mathcal B}_B\times J_B \arrow[r,"{\chi_B}"']
+  & \{0,\ldots,N_B\}
+\end{tikzcd}
+\end{equation}
+therefore makes $p_B$ a regular epimorphism.  The compatible-union map
+\[
+u_B:\mathcal P_B(\mathscr N)\longrightarrow\mathcal C,
+\qquad
+(b,j,v)\longmapsto \lambda_B(b)\cup\Psi_{\mathscr N}(v)
+\]
+has component count
+\[
+\nu(u_B(b,j,v))
+=2N_B+M_B+j.
+\]
+Consequently the count coordinate covers the interval
+\begin{equation}\label{eq:common-count-interval}
+I_B=[2N_B+M_B,\,2N_B+M_B+L(B)],
+\end{equation}
+whose width is exactly $L(B)$.
+
+Let $\tau_{\mathscr N}=\overline W(\Psi_{\mathscr N}(v))$, independent of $v$, and put
+\begin{equation}\label{eq:full-centre}
+\gamma_B=\alpha_B+q_{E_B}(\tau_{\mathscr N})\in A/E_B.
+\end{equation}
+Define
+\begin{equation}\label{eq:wide-start-target-map}
+\begin{aligned}
+\Theta_{B,\mathscr N}:\mathcal P_B(\mathscr N)
+&\longrightarrow \operatorname{Fib}_{E_B}(\gamma_B)\times I_B,\\
+(b,j,v)&\longmapsto
+\bigl(\overline W(u_B(b,j,v)),\,2N_B+M_B+j\bigr).
+\end{aligned}
+\end{equation}
+Let $t_\tau:\operatorname{Fib}_{E_B}(\alpha_B)\to\operatorname{Fib}_{E_B}(\gamma_B)$ be translation by $\tau_{\mathscr N}$ and let $s_B:J_B\to I_B$ send $j$ to $2N_B+M_B+j$.  Both maps are isomorphisms.  The defining count identity gives the factorization
+\[
+\Theta_{B,\mathscr N}
+=(t_\tau\times s_B)
+\circ\bigl((\overline W\lambda_B)\times1_{J_B}\bigr)
+\circ p_B.
+\]
+The three maps are respectively an isomorphism, a product of regular epimorphisms, and a pullback of the Hamming-weight regular epimorphism.  Hence $\Theta_{B,\mathscr N}$ is a regular epimorphism.  With source constantly $0_M$ and label map $u_B$, this defines the covering labelled correspondence
+\begin{equation}\label{eq:wide-start-correspondence}
+R_{B,\mathscr N}:\{0_M\}\rightsquigarrow
+\operatorname{Fib}_{E_B}(\gamma_B)\times I_B.
+\end{equation}
+\subsection{Uniform mass and compatibility parameters}
+
+Appendix~\ref{app:prefix-seed} gives the uniform bound $W<7/4$ for every initialized branch together with the entire subsequent bridge sequence.  Set
+\begin{equation}\label{eq:canonical-mass-margin}
+\eta_0=\frac14.
+\end{equation}
+Let
+\[
+0<\eta<\eta_0,
+\qquad
+0<\sigma<1
+\]
+be arbitrary.  Let $\mathfrak N_B(\eta)$ denote the set of all $N_B$-coordinate neutral Boolean families compatible with the seed and bridge components and having total common reciprocal value below $\eta_0-\eta$.  Lemma~\ref{lem:neutral-cube} says that $\mathfrak N_B(\eta)$ is nonempty.  For every $\mathscr N\in\mathfrak N_B(\eta)$, every edge label of \eqref{eq:wide-start-correspondence} has reciprocal value below $2-\eta$.
+
+For $\mathscr N\in\mathfrak N_B(\eta)$ let $\mathscr P_{B,\mathscr N}$ be the finite pool of connected interval components that occur in the seed, bridge alternatives through $B$, or neutral-coordinate alternatives.  For every later prime-power stage put
+\begin{equation}\label{eq:compatible-subfamily}
+\mathcal A_Q(B,\mathscr N)
+=
+\{I\in\mathcal A_Q:I\text{ is compatible with every }J\in\mathscr P_{B,\mathscr N}\}.
+\end{equation}
+Every connected component in the pool has an exclusion envelope of cardinality at most $5$.  Let $C_5$ be the uniform envelope bound from Proposition~\ref{prop:signed-inverse-capabilities}.  Put
+\[
+\varepsilon_\sigma=\frac{(1-\sigma)\kappa}{2}>0.
+\]
+By Lemma~\ref{lem:sparse-bridge-interaction}, after an absolute onset the seed and relevant bridges delete at most
+\[
+\varepsilon_\sigma\frac Q{\log Q}
+\]
+members of $\mathcal A_Q$.  The neutral family contributes at most $5N_B$ component envelopes.  Since $L(B)=o(B/\log B)$, for every fixed $L\in\mathfrak L$ and $\sigma<1$ there is $B_0(\sigma,L)$ such that
+\[
+5C_5N_B
+\le
+\varepsilon_\sigma\frac B{\log B}
+\]
+for $B\ge B_0(\sigma,L)$.  As $Q/\log Q$ is eventually increasing, the same bound holds with $B$ replaced by every $Q\ge B$.  Hence the number of deleted members is at most
+\[
+(1-\sigma)\kappa\frac Q{\log Q}
+\le
+(1-\sigma)|\mathcal A_Q|,
+\]
+and therefore
+\begin{equation}\label{eq:wide-survivor-fraction}
+|\mathcal A_Q(B,\mathscr N)|\ge\sigma|\mathcal A_Q|
+\end{equation}
+for every later prime-power step $Q>B$.
+
+A \emph{prepared start} at $B$ for $(\eta,\sigma,L)$ is the tuple
+\[
+\xi=(R_{B,\mathscr N},\gamma_B,I_B,\mathscr P_{B,\mathscr N})
+\]
+produced by a parameter $\mathscr N\in\mathfrak N_B(\eta)$ as above.  Let $\mathfrak W_B(\eta,\sigma,L)$ denote the set of all prepared starts.  For
+\[
+\xi\in\mathfrak W_B(\eta,\sigma,L)
+\]
+write $R_B^\xi$, $\gamma_B^\xi$, $I_B^\xi$ and $\mathscr P_B^\xi$ for its four components, and put
+\[
+\mathcal A_Q(\xi)
+=
+\{I\in\mathcal A_Q:I\text{ is compatible with every }J\in\mathscr P_B^\xi\}.
+\]
+
+\begin{proposition}[Wide affine initial cover]\label{prop:wide-start}
+With $\eta_0$ defined by \eqref{eq:canonical-mass-margin}, for every
+\[
+0<\eta<\eta_0,
+\qquad
+0<\sigma<1,
+\qquad
+L\in\mathfrak L
+\]
+there is $B_0(\eta,\sigma,L)$ for which
+\begin{equation}\label{eq:wide-start-regular-epi}
+\mathfrak W_B(\eta,\sigma,L)\ne\varnothing
+\qquad(B\ge B_0(\eta,\sigma,L)).
+\end{equation}
+Every $\xi\in\mathfrak W_B(\eta,\sigma,L)$ contains a covering labelled correspondence
+\[
+R_B^\xi:\{0_M\}\rightsquigarrow
+\operatorname{Fib}_{E_B}(\gamma_B^\xi)\times I_B^\xi,
+\]
+where the width of $I_B^\xi$ is $L(B)$, every edge label has reciprocal value below $2-\eta$, and every later prime-power family satisfies
+\[
+|\mathcal A_Q(\xi)|\ge\sigma|\mathcal A_Q|.
+\]
+\end{proposition}
+
+The onset is chosen before the neutral family: the survival estimate holds for every $\mathscr N\in\mathfrak N_B(\eta)$ and every $Q>B$.  This order matters because the supports of the neutral switches may lie arbitrarily far beyond $B$.

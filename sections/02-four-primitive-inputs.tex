@@ -1,0 +1,109 @@
+\section{Four primitive inputs}
+\label{sec:auxiliary-inputs}
+
+The proof has four primitive inputs: a reciprocal-neutral count switch, comparable prime supply, a restricted fixed-cardinality sum theorem, and a finite independent-transversal quota.  The first three are proved here or in the appendices in the exact form used below; the fourth is a direct finite-row consequence of Haxell's independent-transversal theorem.
+
+\subsection{Reciprocal-neutral component switches}
+
+Put
+\[
+P(n)=\frac1n+\frac1{n+1}.
+\]
+For every integer $a\ge1$ one has the exact identity
+\begin{equation}\label{eq:neutral-identity}
+P(a)+P(a^2+3a+1)
+=
+P(a+2)+P\!\left(\frac{a(a+3)}2\right)+P(a(a+3)).
+\end{equation}
+Indeed, if $C=a(a+3)$, then $(a+1)(a+2)=C+2$ and
+\[
+P(a)-P(a+2)=\frac{2(2C+3)}{C(C+2)},
+\]
+while
+\[
+P(C)-P(C+1)+P(C/2)=\frac{2(2C+3)}{C(C+2)}.
+\]
+For $a\ge3$ the two sides of \eqref{eq:neutral-identity} belong to $\mathcal C$, with respectively two and three connected components.  Indeed $C=a(a+3)$ is even, and on the right the successive starts $a+2,C/2,C$ are separated because $C/2-a-4=(a^2+a-8)/2\ge2$ and $C/2-2\ge7$; the two starts on the left are farther apart.  Their reciprocal values agree, while their component counts differ by one.  As $a\to\infty$, their supports move arbitrarily far to the right and their common reciprocal value tends to zero.
+
+\begin{lemma}[Remote neutral Boolean family]\label{lem:neutral-cube}
+Let $\mathcal O$ be a finite family of interval components, let $\varepsilon>0$, and let $L\ge0$.  There exist $L$ mutually compatible copies of \eqref{eq:neutral-identity}, all compatible with every component in $\mathcal O$, such that the sum of their common reciprocal values is less than $\varepsilon$.
+
+The resulting Boolean family has a common reciprocal value and hence a common residue translation, while its possible increments in component count are exactly
+\[
+0,1,\ldots,L.
+\]
+For each coordinate, at most five component intervals occur across its two alternatives.
+\end{lemma}
+
+\begin{proof}
+Define the coordinates recursively.  At stage $i$, let $F_i$ be the finite union of the components already constructed together with $\mathcal O$, and let $a_i$ be the least integer $a\ge3$ for which both alternatives in \eqref{eq:neutral-identity} lie strictly to the right of $F_i$ by more than one vertex and have common reciprocal value below $\varepsilon/(L+1)$.  Such integers exist because the supports tend to infinity and the common reciprocal value tends to zero.  This recursion gives mutual compatibility and total reciprocal value below $\varepsilon$.  The two alternatives contain respectively two and three components, so at most five component intervals occur in one coordinate.  The Hamming-weight map
+\[
+\{0,1\}^L\twoheadrightarrow\{0,\ldots,L\}
+\]
+realizes every component-count increment.
+\end{proof}
+
+
+\subsection{Comparable prime bands}
+
+We use the elementary Chebyshev consequence proved in Appendix~\ref{app:prime-supply}.
+
+\begin{proposition}[Comparable prime supply]\label{prop:prime-supply-main}
+There are an integer $\Lambda\ge2$ and constants $c_\Pi,C_\Pi>0$ such that, for every sufficiently large integer $X$,
+\[
+c_\Pi\frac X{\log X}
+\le
+\#\{p:X<p\le\Lambda X\}
+\le
+C_\Pi\frac X{\log X}.
+\]
+\end{proposition}
+
+\subsection{Restricted sums in a prime cyclic group}
+
+The additive-combinatorial input is the Dias da Silva--Hamidoune theorem \cite{DiasDaSilvaHamidoune1994}, proved in the required form as Theorem~\ref{thm:restricted-fold} in Appendix~\ref{app:restricted-fold}.  Thus if $S$ is cyclic of prime order $p$, $A\subseteq S$ has cardinality $r$, and
+\[
+h(r-h)+1\ge p,
+\]
+then every element of $S$ is the sum of an $h$-element subset of $A$.
+
+\subsection{Independent thinning with a uniform quota}
+
+We use the $2\Delta$ form of Haxell's independent-transversal theorem; see \cite[Theorem~2]{Haxell2001}.
+
+\begin{proposition}[Independent quota lemma]\label{prop:haxell-quota}
+For a finite graph $G$ whose vertices are partitioned into finite classes $R_i$, and for an integer $L\ge1$, put
+\[
+\operatorname{IQ}_L(G;(R_i))=
+\left\{
+P\subseteq V(G):
+\begin{array}{l}
+P\text{ is independent, and}\\[-1mm]
+|P\cap R_i|\ge\left\lfloor |R_i|/L\right\rfloor\text{ for every }i
+\end{array}
+\right\}.
+\]
+For every integer $\Delta\ge0$ set
+\begin{equation}\label{eq:haxell-canonical-parameters}
+L_P(\Delta)=\max\{1,2\Delta\},
+\qquad
+\rho_P(\Delta)=\frac1{2L_P(\Delta)}.
+\end{equation}
+Whenever $G$ has maximum degree at most $\Delta$,
+\begin{equation}\label{eq:independent-quota-nonempty}
+\operatorname{IQ}_{L_P(\Delta)}(G;(R_i))\ne\varnothing.
+\end{equation}
+Moreover every $P\in\operatorname{IQ}_{L_P(\Delta)}(G;(R_i))$ satisfies, whenever $|R_i|\ge L_P(\Delta)$,
+\[
+|P\cap R_i|\ge \rho_P(\Delta)|R_i|.
+\]
+\end{proposition}
+
+\begin{proof}
+For $\Delta=0$ the full vertex set belongs to $\operatorname{IQ}_1(G;(R_i))$.  Suppose $\Delta>0$.  Split each class into as many full blocks of size $2\Delta$ as possible and discard the remainder, and let $G'$ be the subgraph induced by the union of the retained blocks.  Its maximum degree is still at most $\Delta$.  Haxell's theorem applied in $G'$ to the partition by these blocks implies that the set of independent transversals of the block partition is nonempty.  Every such transversal belongs to $\operatorname{IQ}_{2\Delta}(G;(R_i))$.  Finally, for $n\ge L_P(\Delta)$,
+\[
+\left\lfloor\frac n{L_P(\Delta)}\right\rfloor
+\ge\frac{n}{2L_P(\Delta)}
+=\rho_P(\Delta)n.
+\]
+\end{proof}
