@@ -23,18 +23,27 @@ The manuscript uses XeLaTeX and BibLaTeX/Biber. A current complete TeX Live or M
 sh build.sh
 ```
 
-Equivalently:
+`build.sh` runs the full XeLaTeX/Biber build through `latexmk` and then writes the public manuscript artifact to
+
+```text
+Reciprocal Sums over Separated Integer Intervals.pdf
+```
+
+The intermediate `main.pdf` is ignored by Git; the title-named PDF above is the publication-facing artifact tracked in the repository.
+
+Equivalently, the build may be run manually with
 
 ```sh
 xelatex main.tex
 biber main
 xelatex main.tex
 xelatex main.tex
+cp main.pdf "Reciprocal Sums over Separated Integer Intervals.pdf"
 ```
 
 The source uses standard TeX Live packages and loads ET Bembo and EB Garamond by OpenType filename from TeX Live.
 
-## Finite certificate
+## Verification
 
 Appendix C contains an exact finite initialization certificate. Its rational and polynomial checks can be reproduced with Python 3 using only the standard library:
 
@@ -43,6 +52,14 @@ python3 verification/check_finite_certificate.py
 ```
 
 The checker verifies only the finite certificate and the reciprocal-neutral polynomial identity. It does **not** verify the infinite argument, asymptotic estimates, external theorems, or the paper as a whole.
+
+The GitHub Actions workflow `.github/workflows/manuscript.yml` performs, from a clean checkout:
+
+1. the finite-certificate check;
+2. a complete XeLaTeX/Biber build via `build.sh`;
+3. a check that the publication-facing PDF is produced and has 40 pages.
+
+A green workflow therefore certifies the release build pipeline and the finite certificate, not the correctness of the mathematical proof as a whole.
 
 ## Repository scope
 
