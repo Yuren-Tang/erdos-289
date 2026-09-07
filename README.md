@@ -31,16 +31,13 @@ sh build.sh
 Reciprocal Sums over Separated Integer Intervals.pdf
 ```
 
-The intermediate `main.pdf` is ignored by Git. On other platforms, the same toolchain may be invoked directly; the underlying compilation sequence is
+The intermediate `main.pdf` is ignored by Git. On other platforms, the TeX build may be invoked directly with
 
 ```text
-xelatex main.tex
-biber main
-xelatex main.tex
-xelatex main.tex
+latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-which produces `main.pdf`. The title-named PDF is the publication-facing artifact tracked in the repository.
+which produces `main.pdf`. `build.sh` additionally copies that output to the title-named publication-facing artifact tracked in the repository.
 
 ## Verification
 
