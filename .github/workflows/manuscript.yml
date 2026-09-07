@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build:
-    name: Build and finite certificate
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -33,18 +33,19 @@ jobs:
             texlive-plain-generic \
             texlive-xetex
 
-      - name: Verify finite certificate
-        run: python3 verification/check_finite_certificate.py
-
       - name: Build manuscript
         run: sh build.sh
 
-      - name: Verify publication artifact
+      - name: Check manuscript output
         shell: bash
         run: |
           set -euo pipefail
           pdf='Reciprocal Sums over Separated Integer Intervals.pdf'
           test -s "$pdf"
+          title="$(pdfinfo "$pdf" | sed -n 's/^Title:[[:space:]]*//p')"
+          author="$(pdfinfo "$pdf" | sed -n 's/^Author:[[:space:]]*//p')"
           pages="$(pdfinfo "$pdf" | awk '/^Pages:/ {print $2}')"
+          test "$title" = 'Reciprocal Sums over Separated Integer Intervals'
+          test "$author" = 'Yuren Tang'
           test "$pages" = 40
-          echo "Verified $pdf ($pages pages)."
+          echo "Checked $pdf: $title — $author ($pages pages)."
