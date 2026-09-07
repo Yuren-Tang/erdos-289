@@ -5,7 +5,7 @@ ORCID: [0009-0006-0847-3330](https://orcid.org/0009-0006-0847-3330)
 
 This repository contains the manuscript, source, and finite-certificate checker for *Reciprocal Sums over Separated Integer Intervals*.
 
-The paper proves that, for every sufficiently large integer \(k\), there is a finite set of positive integers whose path-graph connected components are exactly \(k\) pairwise nonadjacent intervals, each of cardinality 2 or 3, and whose reciprocal sum is 1. In particular, it gives an affirmative answer to the strengthened disjoint, nonadjacent formulation currently listed as Erdős Problem 289.
+The paper proves that, for every sufficiently large integer $k$, there is a finite set of positive integers whose path-graph connected components are exactly $k$ pairwise nonadjacent intervals, each of cardinality 2 or 3, and whose reciprocal sum is 1. In particular, it gives an affirmative answer to the strengthened disjoint, nonadjacent formulation currently listed as Erdős Problem 289.
 
 ## Manuscript
 
