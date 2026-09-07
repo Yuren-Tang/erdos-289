@@ -17,31 +17,30 @@ The paper proves that, for every sufficiently large integer \(k\), there is a fi
 
 ## Build
 
-The manuscript uses XeLaTeX and BibLaTeX/Biber. A current complete TeX Live or MacTeX installation is recommended.
+The manuscript is built with XeLaTeX and BibLaTeX/Biber via `latexmk`. Its TeX packages and OpenType fonts are standard TeX Live components; the GitHub Actions workflow records a tested package set.
+
+On POSIX systems, the complete publication build can be run with
 
 ```sh
 sh build.sh
 ```
 
-`build.sh` runs the full XeLaTeX/Biber build through `latexmk` and then writes the public manuscript artifact to
+`build.sh` invokes `latexmk` and then writes the publication-facing artifact to
 
 ```text
 Reciprocal Sums over Separated Integer Intervals.pdf
 ```
 
-The intermediate `main.pdf` is ignored by Git; the title-named PDF above is the publication-facing artifact tracked in the repository.
+The intermediate `main.pdf` is ignored by Git. On other platforms, the same toolchain may be invoked directly; the underlying compilation sequence is
 
-Equivalently, the build may be run manually with
-
-```sh
+```text
 xelatex main.tex
 biber main
 xelatex main.tex
 xelatex main.tex
-cp main.pdf "Reciprocal Sums over Separated Integer Intervals.pdf"
 ```
 
-The source uses standard TeX Live packages and loads ET Bembo and EB Garamond by OpenType filename from TeX Live.
+which produces `main.pdf`. The title-named PDF is the publication-facing artifact tracked in the repository.
 
 ## Verification
 
