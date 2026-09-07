@@ -1,0 +1,147 @@
+\section{A finite initialization}
+\label{app:prefix-seed}
+
+This appendix supplies one explicit finite seed for the uniform construction of Section~\ref{sec:wide-start}; no property of the particular numerical values is used later.
+
+Put
+\[
+P(m)=\frac1m+\frac1{m+1}.
+\]
+
+\begin{lemma}[Finite initialization]\label{lem:finite-prefix-initialization}
+There is a finite family of configurations in $\mathcal C$ with the following properties.
+\begin{enumerate}
+\item Their residues exhaust the zero-centred $H_6$-fibre.
+\item Their component counts have a finite spread independent of every later prime-power step.
+\item They are compatible with the finitely many exceptional bridge stages preceding the uniform separation regime.
+\item The reciprocal value of every initialized branch, together with the whole subsequent bridge sequence, is bounded by a constant strictly below $2$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We first give an exact finite witness for the first three assertions, and then prove the uniform separation and reciprocal-mass estimates needed for the fourth.
+
+\smallskip
+\noindent\emph{One explicit witness.}
+
+The empty configuration gives residue $0$.  The following table gives five further configurations; the third column lists the starts of their binary components $[m,m+1]$.
+\begin{equation}\label{eq:prefix-root-table}
+\renewcommand{\arraystretch}{1.2}
+\begin{array}{c|c|l}
+\text{residue}&\text{component count}&\text{component starts}\\
+\hline
+\frac16&9&35,56,90,119,152,170,455,494,714\\
+\frac13&15&17,35,44,84,104,119,132,170\\
+&&272,285,455,494,560,714,935\\
+\frac12&7&9,17,34,44,77,84,90\\
+\frac23&15&7,16,34,44,51,65,77,119\\
+&&132,153,170,272,285,455,494\\
+\frac56&1&2
+\end{array}
+\end{equation}
+Equivalently,
+\[
+\frac j6=\sum_{m\in M_j}P(m)
+\qquad(j=1,2,3,4,5),
+\]
+where $M_j$ is the corresponding row of the table.  The following common-denominator certificate records the exact arithmetic.  Writing
+\[
+L_j=\operatorname{lcm}_{m\in M_j}m(m+1),
+\qquad
+N_j=\sum_{m\in M_j}(2m+1)\frac{L_j}{m(m+1)},
+\]
+one obtains
+\begin{equation}\label{eq:prefix-rational-certificate}
+\begin{array}{c|r|r|c}
+j&L_j&N_j&N_j/L_j\\
+\hline
+1&116396280&19399380&1/6\\
+2&232792560&77597520&1/3\\
+3&3063060&1531530&1/2\\
+4&232792560&155195040&2/3\\
+5&6&5&5/6
+\end{array}
+\end{equation}
+Thus the five rational identities are exact.  The minimum difference between consecutive starts in the five rows of \eqref{eq:prefix-root-table} is respectively $18,9,6,7$ (and vacuous in the last singleton row), so every row belongs to $\mathcal C$.  Together with the empty configuration the six residues exhaust $H_6$.
+
+The two quotient jumps before the uniform bridge regime are
+\[
+6\longrightarrow12,
+\qquad
+12\longrightarrow60.
+\]
+For $p=2$ use coefficient set $\{1\}$, giving bridge base $12$.  For $p=5$ use $\{1,2,3\}$, giving bases $60,30,20$.  Their subset sums cover $\mathbf Z/2\mathbf Z$ and $\mathbf Z/5\mathbf Z$; for $p=5$, the residues $0,1,2,3,4$ are represented by
+\[
+\varnothing,\quad\{1\},\quad\{2\},\quad\{3\},\quad\{1,3\}.
+\]
+The bridge identity is exactly \eqref{eq:bridge-switch}: at lower modulus $D$ and quotient prime $p$, the alternatives at base $a=pD/r$ differ in reciprocal value by $r/(pD)$ and have the same component count.
+
+Only a finite boundary remains before the separation estimate becomes automatic.  One sufficient list of bridge bases is
+\begin{equation}\label{eq:prefix-boundary-bases}
+12,20,30,60,140,210,420,840,1260,2520.
+\end{equation}
+For completeness, the finite separation check can also be recorded numerically.  Against the worst bridge alternative $[a,a+2]$ with $a$ in \eqref{eq:prefix-boundary-bases}, the minimum number of unused integers between that interval and a seed component is respectively
+\[
+2,\ 1,\ 1,\ 1,\ 8
+\]
+for the five nonzero residue rows of \eqref{eq:prefix-root-table}; between two bridge alternatives from the displayed list the minimum is $5$.  Hence all simultaneously occurring seed and bridge components are disjoint and nonadjacent.  The list is part of this particular finite witness, not an intrinsic sequence.
+
+\smallskip
+\noindent\emph{Why the numerical initialization disappears.}
+
+Suppose a previous prime-power jump has upper least-common-multiple modulus $D$.  Every bridge base in that stage is at most $D$, so every component support ends by $D+2$ and its exclusion envelope ends by $D+3$.  At the next nontrivial jump the lower modulus is the same $D$, the quotient prime is $p$, and the smallest new base is
+\[
+a_k=\frac{pD}{k},
+\]
+where $k$ is least with $k(k+1)/2\ge p-1$.  Thus
+\begin{equation}\label{eq:successive-row-gap}
+a_k-D=D\left(\frac pk-1\right).
+\end{equation}
+In fact
+\[
+\frac pk-1\ge\frac12
+\]
+for every prime $p$.  The cases $p=2,3,5$ are immediate.  For $p\ge7$, put $m=\lfloor2p/3\rfloor$.  Since $m\ge2p/3-1$,
+\[
+\frac{m(m+1)}2
+\ge\frac{2p^2}{9}-\frac p3
+\ge p-1,
+\]
+so minimality gives $k\le m\le2p/3$.
+
+The bases in \eqref{eq:prefix-boundary-bases} are exactly those needed through the jump at $n=9$.  After that jump the next lower modulus is
+\[
+D=L_{10}=2520.
+\]
+Hence every subsequent stage satisfies
+\[
+a_k-D\ge D/2\ge1260.
+\]
+The new component supports therefore begin far beyond the preceding exclusion envelopes as well as the fixed finite seed, and the same estimate persists inductively as the lower moduli increase.  Within each new row, minimality also gives
+\[
+k(k-1)<2(p-1),\qquad k\le p-1,
+\qquad k^2<3p.
+\]
+Consequently \eqref{eq:bridge-separation} gives $a_r-a_s>D/3\ge840$ for $r<s$ in every subsequent row.  Both within-row and between-row separation therefore hold throughout the uniform regime.
+
+The reciprocal-mass estimate is likewise uniform.  The largest initial reciprocal value is $5/6$.  For the four finite bridge bases $12,20,30,60$, the crude reciprocal bound $<3/a$ gives
+\begin{equation}\label{eq:finite-seed-bound}
+\frac56+\frac3{12}+\frac3{20}+\frac3{30}+\frac3{60}
+=\frac56+\frac{11}{20}<\frac32.
+\end{equation}
+For every later bridge, with lower modulus $D$ and $k$ least such that $T_k=k(k+1)/2\ge p-1$, minimality gives $T_k<2p$.  At base $a_r=pD/r$, every alternative has reciprocal mass below $3/a_r$, so an entire branch has mass
+\begin{equation}\label{eq:future-row-bound}
+<\sum_{r=1}^k\frac{3r}{pD}
+=\frac{3T_k}{pD}
+<\frac6D.
+\end{equation}
+After the finite initialization the first lower modulus is at least $60$, and successive nontrivial least-common-multiple jumps multiply the lower modulus by at least two.  Hence
+\begin{equation}\label{eq:future-bridge-total}
+\sum_{\text{later bridge stages}}\text{reciprocal mass}
+<\sum_{j\ge0}\frac6{60\,2^j}
+=\frac15<\frac14.
+\end{equation}
+Together with \eqref{eq:finite-seed-bound} this leaves a fixed positive margin below $2$ before the arbitrarily small neutral contribution is added.  This verifies all four assertions.
+\end{proof}
+
+Thus the main argument uses only Lemma~\ref{lem:finite-prefix-initialization}.  The displayed residue representatives, bridge bases and finite boundary list play no further role.

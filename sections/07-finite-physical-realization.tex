@@ -1,0 +1,245 @@
+\section{Finite physical realization}
+\label{sec:finite-realization}
+
+This section is where simultaneous geometric compatibility is imposed.  After a finite cutoff $X$ has been fixed, Haxell's theorem produces a common independent family over the finitely many active prime-power rows.  On that family the path-label map factors through the joint-compatibility domain, so the compatible covering theorem pastes the local transfers to a covering physical correspondence.
+
+Let
+\[
+0<\eta<\eta_0,
+\qquad
+0<\sigma<1,
+\qquad
+0<\rho<\kappa\sigma\rho_P
+\]
+be arbitrary parameters as in Sections~\ref{sec:wide-start}--\ref{sec:scalar-finality}.  Define the reciprocal-mass and packing cutoff objects
+\[
+\mathcal B_{\mathrm{mass}}(\eta)
+=
+\left\{B:\sum_{Q>B}\omega_Q<\eta\right\},
+\]
+\[
+\mathcal B_{\mathrm{pack}}(\sigma)
+=
+\left\{B:
+\kappa\sigma\frac Q{\log Q}\ge L_P
+\text{ for every prime power }Q>B
+\right\}.
+\]
+By \eqref{eq:role-summable} and $Q/\log Q\to\infty$, both contain final segments of $\N$.  The physical cutoff object is their intersection with the continuation object:
+\begin{equation}\label{eq:global-start-cutoff}
+\mathcal B_{\mathrm{phys}}(\eta,\sigma,\rho)
+=
+\mathcal B_{\mathrm{mass}}(\eta)
+\cap
+\mathcal B_{\mathrm{pack}}(\sigma)
+\cap
+\mathcal B_{\mathrm{cont}}(\rho).
+\end{equation}
+It too contains a final segment.  Thus there is a common onset $B_*(\eta,\sigma,\rho)$ beyond which the continuation, packing and reciprocal-mass requirements all hold.
+
+Let $B\in\mathcal B_{\mathrm{phys}}(\eta,\sigma,\rho)$ and let
+\[
+\xi\in\mathfrak W_B(\eta,\sigma,L_\rho)
+\]
+be arbitrary.  The argument below is fibrewise in $\xi$.  Write $R_B^\xi,\gamma_B^\xi,I_B^\xi$ for its initial data and $\mathcal A_Q(\xi)$ for its surviving later families.
+
+\subsection{The Haxell parameter set}
+
+For $X\ge B$, only finitely many prime-power steps lie between $B$ and $X$.  For every such $Q$, Proposition~\ref{prop:wide-start} gives
+\begin{equation}\label{eq:survivor-density}
+|\mathcal A_Q(\xi)|
+\ge\sigma|\mathcal A_Q|
+\ge\kappa\sigma\frac Q{\log Q}.
+\end{equation}
+The classes $\mathcal A_Q(\xi)$ are pairwise disjoint by Lemma~\ref{lem:top-stage-recovery}.  Let $G_{X,\xi}$ be the incompatibility graph on their finite union, partitioned by these classes.  By the definition of $\Delta_*$ in Section~\ref{sec:signed-inverse}, the graph has maximum degree at most $\Delta_*$.  Define
+\begin{equation}\label{eq:haxell-parameter-object}
+\mathfrak P_{X,\xi}
+=
+\operatorname{IQ}_{L_P}
+\bigl(G_{X,\xi};(\mathcal A_Q(\xi))_{B<Q\le X}\bigr).
+\end{equation}
+By Proposition~\ref{prop:haxell-quota},
+\begin{equation}\label{eq:haxell-parameter-nonempty}
+\mathfrak P_{X,\xi}\ne\varnothing.
+\end{equation}
+Every $P\in\mathfrak P_{X,\xi}$ satisfies
+\begin{equation}\label{eq:packed-density}
+|P\cap\mathcal A_Q(\xi)|
+\ge\rho_P|\mathcal A_Q(\xi)|
+>\rho\frac Q{\log Q}.
+\end{equation}
+Hence
+\[
+P(Q):=P\cap\mathcal A_Q(\xi)
+\in\mathcal D_\rho(Q)
+\]
+for every prime-power step $B<Q\le X$.
+
+\subsection{Local affine translation at one prime-power step}
+
+At a prime-power step $Q$, put
+\[
+H=F_{<Q},
+\qquad
+K=F_Q.
+\]
+The general exact sequence \eqref{eq:affine-extension-exact} specializes to
+\begin{equation}\label{eq:simple-extension}
+\begin{tikzcd}[column sep=small]
+0 \arrow[r] & S_Q \arrow[r] & A/F_{<Q} \arrow[r] & A/F_Q \arrow[r] & 0,
+\end{tikzcd}
+\end{equation}
+and
+\[
+\operatorname{Fib}_{\pi_{F_{<Q},F_Q}}(0)=S_Q.
+\]
+
+For $P\in\mathfrak P_{X,\xi}$ define the finite local witness object
+\begin{equation}\label{eq:physical-local-labels}
+\mathscr O_P(Q)
+=
+\{O\subseteq P(Q):|O|\le p\}
+\end{equation}
+with label map
+\[
+\lambda_{Q,P}:\mathscr O_P(Q)\longrightarrow\mathcal C,
+\qquad
+O\longmapsto\bigcup_{I\in O}I.
+\]
+Because $P$ is independent, every displayed union belongs to $\mathcal C$.  By \eqref{eq:signed-label-filtration}, its residue lies in $F_Q$, and its image in $S_Q\times\N$ is exactly the point of
+\[
+\Gamma_{\phi_Q|_{P(Q)}}
+\]
+represented by the same subset $O$.  Thus Theorem~\ref{thm:uniform-profile} states precisely that the map \eqref{eq:graded-quotient-regular-epi}, with $\beta=0$, is a regular epimorphism onto the scalar target rectangle at this step.  Corollary~\ref{cor:graded-affine-translation} therefore turns the abstract quotient support into a covering labelled correspondence.
+
+Write
+\[
+B<Q_1<\cdots<Q_m\le X
+\]
+for the possibly empty list of processed prime-power steps.
+
+\begin{lemma}[Endpoint ladder]\label{lem:endpoint-ladder}
+If $m>0$, then
+\[
+E_B=F_{<Q_1},
+\qquad
+E_{Q_j}=F_{Q_j}=F_{<Q_{j+1}}\quad(1\le j<m),
+\qquad
+E_X=F_{Q_m}.
+\]
+Consequently the quotient used by the $Q_j$-local affine translation is exactly the consecutive endpoint quotient from the preceding target to the next one.
+\end{lemma}
+
+\begin{proof}
+By definition $Q_1$ is the first prime-power rank strictly larger than $B$, so the prime-power stages of rank at most $B$ are exactly those of rank $<Q_1$, giving $E_B=F_{<Q_1}$.  Likewise no prime-power rank lies strictly between consecutive $Q_j,Q_{j+1}$, hence $F_{Q_j}=F_{<Q_{j+1}}$.  Finally no prime-power rank lies in $(Q_m,X]$, so $E_X=F_{Q_m}$.  The identities $E_{Q_j}=F_{Q_j}$ are \eqref{eq:endpoint-current-step}.
+\end{proof}
+
+The successive affine translations therefore paste along the endpoint ladder
+\begin{equation}\label{eq:endpoint-ladder-diagram}
+\begin{tikzcd}[column sep=small]
+E_B=F_{<Q_1} \arrow[r] & E_{Q_1}=F_{Q_1} \arrow[r] & \cdots \arrow[r] & E_{Q_m}=F_{Q_m}=E_X,
+\end{tikzcd}
+\end{equation}
+with $F_{Q_j}=F_{<Q_{j+1}}$ at every intermediate junction.
+
+Put
+\[
+T_0^\xi
+=\operatorname{Fib}_{E_B}(\gamma_B^\xi)\times I_B^\xi,
+\]
+and for $1\le j\le m$ let
+\[
+\gamma_j^\xi=\pi_{B,Q_j}(\gamma_B^\xi),
+\qquad
+T_j^\xi
+=\operatorname{Fib}_{E_{Q_j}}(\gamma_j^\xi)\times I_{Q_j}^\xi.
+\]
+For each $P\in\mathfrak P_{X,\xi}$ and $1\le j\le m$, Corollary~\ref{cor:graded-affine-translation} gives a covering labelled correspondence
+\begin{equation}\label{eq:physical-local-translation-chain}
+\mathscr T_{j,P}:T_{j-1}^\xi\rightsquigarrow T_j^\xi.
+\end{equation}
+The filtration and scalar interval change only at prime-power steps, so $T_m^\xi=T_X^\xi$ when $m>0$, while $T_0^\xi=T_X^\xi$ when $m=0$.
+
+\subsection{Joint compatibility and strict pasting}
+
+\begin{lemma}[Joint compatibility]\label{lem:joint-compatibility}
+For every $P\in\mathfrak P_{X,\xi}$, the product label map formed from an edge label of $R_B^\xi$ and arbitrary local witnesses
+\[
+O_j\in\mathscr O_P(Q_j)
+\qquad(1\le j\le m)
+\]
+lands in $D_{m+1}$.
+\end{lemma}
+
+\begin{proof}
+All interval components occurring in the local labels belong to the single independent set $P$, hence are pairwise disjoint and nonadjacent.  Each belongs to some $\mathcal A_{Q_j}(\xi)$ and is therefore compatible with every component in the prepared-start pool $\mathscr P_B^\xi$, which contains every component of every label of $R_B^\xi$.  Thus every product label is jointly compatible and its literal union lies in $\mathcal C$.
+\end{proof}
+
+Put $n=m+1$.  For $P\in\mathfrak P_{X,\xi}$ let $P_n(P)$ be the path pullback of the edge objects in
+\[
+R_B^\xi,\mathscr T_{1,P},\ldots,\mathscr T_{m,P}.
+\]
+Lemma~\ref{lem:joint-compatibility} gives the factorization
+\begin{equation}\label{eq:realization-factorization}
+\begin{tikzcd}
+P_n(P) \arrow[r,"{\widetilde\ell_P}"] & D_n \arrow[r] & \mathcal C^n,
+\end{tikzcd}
+\qquad
+\ell_P=\iota\circ\widetilde\ell_P.
+\end{equation}
+Hence the compatible path pullback is canonically isomorphic to the full path pullback, and \eqref{eq:rel-strictification} gives
+\begin{equation}\label{eq:observable-master-composite}
+U(R_{X,\xi,P})
+=
+U(\mathscr T_{m,P})\circ\cdots\circ
+U(\mathscr T_{1,P})\circ U(R_B^\xi),
+\end{equation}
+where
+\begin{equation}\label{eq:physical-master-composite}
+R_{X,\xi,P}
+:=
+\mathscr T_{m,P}\odot\cdots\odot
+\mathscr T_{1,P}\odot R_B^\xi
+:\{0_M\}\rightsquigarrow T_X^\xi.
+\end{equation}
+Every factor is covering, and \eqref{eq:realization-factorization} is precisely the remaining hypothesis of Theorem~\ref{thm:compatible-covering}.  That theorem makes $R_{X,\xi,P}$ covering by pullback stability.  Equation~\eqref{eq:observable-master-composite} records the corresponding equality after passage to regular images.
+
+Define the physical composite over the Haxell parameter set by the finite coproduct
+\begin{equation}\label{eq:universal-physical-composite}
+R_{X,\xi}^{\mathrm{univ}}
+=
+\coprod_{P\in\mathfrak P_{X,\xi}}R_{X,\xi,P}.
+\end{equation}
+Because \eqref{eq:haxell-parameter-nonempty} is nonempty and every summand is covering, the target map
+\begin{equation}\label{eq:universal-realization-epi}
+t_{X,\xi}:E_{R_{X,\xi}^{\mathrm{univ}}}
+\twoheadrightarrow T_X^\xi
+\end{equation}
+is a regular epimorphism.
+
+\subsection{Reciprocal-mass control}
+
+Every label of $R_B^\xi$ has reciprocal value below $2-\eta$.  Every local label at step $Q=p^e$ is a compatible union of at most $p$ members of $\mathcal A_Q$, so Proposition~\ref{prop:signed-inverse-capabilities} bounds its reciprocal mass by $\omega_Q$.  Since $B\in\mathcal B_{\mathrm{mass}}(\eta)$, \eqref{eq:mass-subadditive} gives, uniformly in $P\in\mathfrak P_{X,\xi}$,
+\begin{equation}\label{eq:physical-W-less-2}
+W(S)
+<2-\eta+\sum_{Q>B}\omega_Q
+<2
+\end{equation}
+for every edge label $S$ of $R_{X,\xi,P}$, and hence for every edge label of the coproduct \eqref{eq:universal-physical-composite}.
+
+\begin{proposition}[Finite realization through a cutoff]\label{prop:finite-realization}
+Let $B\in\mathcal B_{\mathrm{phys}}(\eta,\sigma,\rho)$, let
+\[
+\xi\in\mathfrak W_B(\eta,\sigma,L_\rho),
+\qquad
+X\ge B.
+\]
+Then the Haxell parameter set $\mathfrak P_{X,\xi}$ is nonempty and the coproduct correspondence
+\[
+R_{X,\xi}^{\mathrm{univ}}:\{0_M\}\rightsquigarrow T_X^\xi,
+\qquad
+T_X^\xi
+=\operatorname{Fib}_{E_X}(\gamma_X^\xi)\times I_X^\xi,
+\]
+is covering.  Every edge label $S$ satisfies $W(S)<2$.
+\end{proposition}

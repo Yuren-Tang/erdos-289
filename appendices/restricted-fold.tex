@@ -1,0 +1,106 @@
+\section{Fixed-cardinality sums in a prime cyclic group}
+\label{app:restricted-fold}
+
+The theorem below is due to Dias da Silva and Hamidoune \cite{DiasDaSilvaHamidoune1994}.  Alon, Nathanson and Ruzsa later recovered it as a consequence of their polynomial method \cite{AlonNathansonRuzsa1996}.  We include a self-contained polynomial proof tailored to the form used in Section~\ref{sec:local-profile}.  For a finite set $A$, write $\binom{A}{h}$ for the set of its $h$-element subsets.
+
+\begin{theorem}[Dias da Silva--Hamidoune]\label{thm:restricted-fold}
+Let $S$ be a cyclic group of prime order $p$, let $A\subseteq S$ with $|A|=r$, and let $0\le h\le r$.  Define
+\[
+\Sigma_h:\binom{A}{h}\longrightarrow S,
+\qquad O\longmapsto\sum_{a\in O}a.
+\]
+Then
+\[
+|\operatorname{im}\Sigma_h|
+\ge \min\{p,h(r-h)+1\}.
+\]
+In particular, if $h(r-h)+1\ge p$, then $\Sigma_h$ is surjective.
+\end{theorem}
+
+\begin{proof}
+The cases $h=0,r$ are immediate, so assume $0<h<r$.  The assertion is invariant under group isomorphism, so it suffices to prove it for $S=\F_p$.  Thus $A\subseteq\F_p$ and $r\le p$.
+
+Put
+\[
+M=\min\{p-1,h(r-h)\}.
+\]
+Suppose for contradiction that $|\operatorname{im}\Sigma_h|\le M$.  Enlarge the image to a set $C\subseteq\F_p$ of cardinality exactly $M$ and consider
+\begin{equation}\label{eq:rf-polynomial}
+P(x_1,\ldots,x_h)
+=
+\prod_{c\in C}\left(\sum_{i=1}^h x_i-c\right)
+\prod_{1\le i<j\le h}(x_j-x_i).
+\end{equation}
+The polynomial vanishes on $A^h$: repeated coordinates kill the Vandermonde factor, while distinct coordinates have sum in $\operatorname{im}\Sigma_h\subseteq C$.
+
+We use two coefficient facts.  First, if $F\in K[x_1,\ldots,x_h]$ has total degree at most $\sum_i d_i$, if
+\[
+[x_1^{d_1}\cdots x_h^{d_h}]F\ne0,
+\]
+and if finite sets $A_i$ satisfy $|A_i|>d_i$, then $F$ is nonzero somewhere on $\prod_iA_i$.  This is the coefficient form of the combinatorial Nullstellensatz \cite{Alon1999}, and follows directly from the one-variable Lagrange coefficient-extraction formula.
+
+Second, for distinct nonnegative integers $k_1,\ldots,k_h$ and
+\[
+m=\sum_i k_i-\frac{h(h-1)}2,
+\]
+one has
+\begin{equation}\label{eq:rf-vandermonde}
+[x_1^{k_1}\cdots x_h^{k_h}]
+(x_1+\cdots+x_h)^m
+\prod_{i<j}(x_j-x_i)
+=
+m!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
+\end{equation}
+Indeed, expanding the Vandermonde determinant reduces the alternating sum to a determinant of falling factorials, hence to the ordinary Vandermonde determinant.
+
+For every $0\le m\le h(r-h)$ the following construction gives distinct
+\[
+0\le k_1<\cdots<k_h\le r-1
+\]
+with
+\begin{equation}\label{eq:rf-exponents}
+\sum_i k_i=m+\frac{h(h-1)}2.
+\end{equation}
+Write $R=r-h$ and $m=qh+s$ with $0\le s<h$.  Define
+\[
+\lambda_i=
+\begin{cases}
+q,&1\le i\le h-s,\\
+q+1,&h-s<i\le h,
+\end{cases}
+\qquad
+k_i=i-1+\lambda_i.
+\]
+If $q=R$, then $m\le hR$ forces $s=0$; hence always $0\le\lambda_i\le R$.  The sequence $(\lambda_i)$ is nondecreasing, so the $k_i$ are strictly increasing and lie in $[0,r-1]$.
+
+It remains to connect \eqref{eq:rf-vandermonde} with the polynomial \eqref{eq:rf-polynomial}.  Put
+\[
+H_C(T)=\prod_{c\in C}(T-c),
+\qquad
+V(x)=\prod_{i<j}(x_j-x_i).
+\]
+Since $|C|=M$, the polynomial $H_C$ is monic of degree $M$:
+\begin{equation}\label{eq:rf-top-homogeneous}
+H_C(T)=T^M+R_C(T),
+\qquad \deg R_C<M.
+\end{equation}
+The Vandermonde is homogeneous of degree $h(h-1)/2$.  Hence every monomial of
+\[
+R_C(x_1+\cdots+x_h)V(x)
+\]
+has total degree strictly below $M+h(h-1)/2$.  Therefore, for every multi-index $k$ of that total degree,
+\begin{equation}\label{eq:rf-coefficient-bridge}
+[x^k]P
+=
+[x^k](x_1+\cdots+x_h)^M V(x).
+\end{equation}
+Thus the lower homogeneous terms of $H_C$ cannot contribute to the coefficient used below.
+
+Apply \eqref{eq:rf-exponents} with $m=M$.  By \eqref{eq:rf-coefficient-bridge} and \eqref{eq:rf-vandermonde}, the corresponding coefficient of $P$ is
+\begin{equation}\label{eq:rf-nonzero-coefficient}
+M!\frac{\prod_{i<j}(k_j-k_i)}{\prod_i k_i!}.
+\end{equation}
+It is nonzero in $\F_p$: $M\le p-1$ and $0\le k_i\le r-1\le p-1$, so the factorials are nonzero, and the distinct $k_i\in\{0,\ldots,p-1\}$ have pairwise differences nonzero modulo $p$.  The coefficient criterion contradicts the vanishing of $P$ on $A^h$.
+
+Hence $|\operatorname{im}\Sigma_h|>M$, which is equivalent to the required bound.
+\end{proof}

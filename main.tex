@@ -1,0 +1,106 @@
+\documentclass[11pt,a4paper,reqno]{amsart}
+
+\usepackage[british]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{tikz-cd}
+\usepackage{newtxmath}
+\usepackage[no-math]{fontspec}
+\setmainfont{ETbb-Regular.otf}[
+  BoldFont=ETbb-Bold.otf,
+  ItalicFont=ETbb-Italic.otf,
+  BoldItalicFont=ETbb-BoldItalic.otf,
+  Ligatures=TeX
+]
+\newfontfamily\epigraphfont{EBGaramond-Medium.otf}[
+  ItalicFont=EBGaramond-Medium.otf
+]
+\usepackage{microtype}
+\setlength{\emergencystretch}{2em}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=nyt,
+  sortcites=true,
+  giveninits=true,
+  maxbibnames=99,
+  doi=true,
+  url=true,
+  eprint=true
+]{biblatex}
+\addbibresource{references.bib}
+\renewcommand*{\bibfont}{\small}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\F}{\mathbb F}
+\newcommand{\im}{\operatorname{im}}
+
+\numberwithin{equation}{section}
+
+\title[Reciprocal Sums over Separated Intervals]{Reciprocal Sums over Separated Integer Intervals}
+\author{Yuren Tang}
+\thanks{ORCID: \href{https://orcid.org/0009-0006-0847-3330}{0009-0006-0847-3330}.}
+\renewcommand{\shortauthors}{Yuren Tang}
+\date{}
+\dedicatory{%
+  \vspace{11pt}%
+  {\epigraphfont\upshape
+   \addfontfeatures{LetterSpace=9}%
+   \fontsize{10.5}{16}\selectfont
+   CARPE DIEM QVAM MINIMVM CREDVLA POSTERO}%
+  \vspace{12pt}%
+}
+
+\subjclass[2020]{Primary 11D68; Secondary 11B75}
+\keywords{unit fractions, reciprocal sums, integer intervals, additive combinatorics, torsion filtrations, Erd\H{o}s problems}
+\hypersetup{
+  pdftitle={Reciprocal Sums over Separated Integer Intervals},
+  pdfauthor={Yuren Tang},
+  pdfsubject={Reciprocal sums over separated integer intervals and Erdős Problem 289},
+  pdfkeywords={unit fractions, reciprocal sums, integer intervals, additive combinatorics, Erdős Problem 289}
+}
+
+\begin{document}
+
+\begin{abstract}
+We prove that for every sufficiently large integer $k$ there is a finite set $S\subset\N_{>0}$ that is the disjoint union of exactly $k$ pairwise nonadjacent integer intervals, each of cardinality $2$ or $3$, and satisfies $\sum_{n\in S}1/n=1$.  This gives an affirmative answer, in a slightly stronger bounded-length form, to the strengthened disjoint, nonadjacent formulation currently listed as Erd\H{o}s Problem 289.  The proof follows the prime-power filtration of $\Q/\Z$: signed-inverse interval families provide controlled local residues, while reciprocal-neutral identities provide freedom in the number of components.  Restricted-sum estimates yield eventual coverage of all sufficiently large component counts; after a finite cutoff, Haxell's independent-transversal theorem realizes the local choices by mutually compatible intervals.  Affine-fibre pullbacks and a compatible covering theorem assemble these inputs.  A final mass bound lifts residue zero to the exact reciprocal value $1$; all three-element components may be confined to a fixed finite region.
+\end{abstract}
+
+\maketitle
+
+\input{sections/00-introduction}
+\input{sections/01-correspondences-affine-fibres-torsion}
+\input{sections/02-four-primitive-inputs}
+\input{sections/03-signed-inverse-prime-power-steps}
+\input{sections/04-wide-affine-initial-cover}
+\input{sections/05-uniform-simple-quotient-transfer}
+\input{sections/06-component-count-continuation}
+\input{sections/07-finite-physical-realization}
+\input{sections/08-final-exactification}
+
+\appendix
+\input{appendices/prime-supply}
+\input{appendices/restricted-fold}
+\input{appendices/prefix-seed}
+
+\section*{Acknowledgements}
+Generative AI systems assisted mathematical exploration, proof auditing, source and citation checking, and editorial revision. The author is responsible for the mathematical claims, citations, and final text.
+
+\clearpage
+\printbibliography
+
+\end{document}

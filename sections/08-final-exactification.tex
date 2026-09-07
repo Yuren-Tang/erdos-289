@@ -1,0 +1,72 @@
+\section{Final exactification}
+\label{sec:terminalization}
+
+The final step is a base change followed by a regular-image factorization.  It uses the arithmetic only through the covering correspondences, their mass bound and the cofinite count image already established.
+
+Fix
+\[
+\eta_*=\frac{\eta_0}{2},\qquad
+\sigma_*=\frac12,\qquad
+\rho_*=\frac{\kappa\rho_P}{4}.
+\]
+These parameters satisfy all preceding hypotheses.  Theorem~\ref{thm:scalar-terminality} and the final-segment property of \eqref{eq:global-start-cutoff} supply a base $B$ and a prepared start
+\[
+\xi\in\mathfrak W_B(\eta_*,\sigma_*,L_{\rho_*}),
+\qquad B\in\mathcal B_{\mathrm{phys}}(\eta_*,\sigma_*,\rho_*).
+\]
+Fix this pair and a threshold $k_0\in\mathfrak K_\xi$.  Thus, for every $k\ge k_0$, some finite cutoff $X\ge B$ satisfies
+\[
+\gamma_X^\xi=0,\qquad k\in I_X^\xi.
+\]
+Put $J=[k_0,\infty)\cap\N$ and form the cutoff incidence set
+\begin{equation}\label{eq:universal-cutoff-incidence}
+\mathfrak X=
+\{(k,X):k\in J,\ X\ge B,\ \gamma_X^\xi=0,\ k\in I_X^\xi\}.
+\end{equation}
+The projection
+\begin{equation}\label{eq:cutoff-count-regular-epi}
+p:\mathfrak X\twoheadrightarrow J,\qquad p(k,X)=k,
+\end{equation}
+is a regular epimorphism by the defining property of $k_0$.
+
+For every integer $X\ge B$, Proposition~\ref{prop:finite-realization} gives a covering correspondence
+\[
+R_X:=R_{X,\xi}^{\mathrm{univ}}:\{0_M\}\rightsquigarrow T_X^\xi.
+\]
+The next coproduct is only a set-theoretic packaging of the separate finite-cutoff correspondences; no composite across different cutoffs is being formed.  Let $\mathscr E=\coprod_{X\ge B}E_{R_X}$ and $\mathscr T=\coprod_{X\ge B}T_X^\xi$.  The target maps assemble to a regular epimorphism $t:\mathscr E\twoheadrightarrow\mathscr T$.  For $(k,X)\in\mathfrak X$, the point $(0,k)$ belongs to $T_X^\xi$.  Pull back along these points:
+\begin{equation}\label{eq:terminal-edge-pullback}
+\begin{tikzcd}[column sep=large]
+\mathfrak E \arrow[r] \arrow[d,"{e}"'] & \mathscr E \arrow[d,"{t}"]\\
+\mathfrak X \arrow[r,"{(k,X)\mapsto(X,(0,k))}"'] & \mathscr T.
+\end{tikzcd}
+\end{equation}
+Pullback stability makes $e$ a regular epimorphism, so $pe:\mathfrak E\twoheadrightarrow J$ is a regular epimorphism as well.  This construction requires no compatible choice of witnesses as $X$ varies: each witness lies over one finite cutoff.
+
+The label maps assemble to $\ell:\mathfrak E\to\mathcal C$.  If $u\in\mathfrak E$ lies over $(k,X)$, conservation and the mass bound give
+\[
+\overline W(\ell(u))=0,\qquad
+\nu(\ell(u))=k>0,\qquad
+W(\ell(u))<2.
+\]
+Let $q_{\Z}:\Q\to\Q/\Z$ be the quotient map.  The commuting triangle
+\begin{equation}\label{eq:value-residue-square}
+\begin{tikzcd}[column sep=large]
+\mathcal C \arrow[r,"{W}"] \arrow[dr,"{\overline W}"'] & \Q \arrow[d,"{q_{\Z}}"]\\
+  & \Q/\Z
+\end{tikzcd}
+\end{equation}
+puts $W(\ell(u))$ in $\ker q_{\Z}=\Z$.  Since the label is nonempty, its reciprocal value is positive.  Thus $W(\ell(u))\in(0,2)\cap\Z=\{1\}$, and the map $u\mapsto(pe(u),\ell(u))$ factors through the solution set:
+\begin{equation}\label{eq:solution-factorization}
+\begin{tikzcd}[column sep=large]
+\mathfrak E \arrow[r,"{u\mapsto(pe(u),\ell(u))}"] \arrow[d,"{pe}"']
+  & \mathscr S \arrow[d,"{\pi_{\mathrm{sol}}}"]\\
+J \arrow[r] & \N_{>0}.
+\end{tikzcd}
+\end{equation}
+Taking regular images gives $J\subseteq\operatorname{im}(\pi_{\mathrm{sol}})$.  Since $J$ is cofinite, this proves Theorem~\ref{thm:main}.
+
+\begin{proof}[Proof of Corollary~\ref{cor:bounded-ternary}]
+Keep the same base $B$ and prepared start $\xi$ for every $k\ge k_0$.  The seed and neutral switches use only two-element components.  Every three-element component of a prefix label therefore belongs to the finite pool of bridge alternatives through $B$.  All later local labels are unions of two-element intervals, and compatible pasting cannot merge components.
+
+Let $\mathscr T_B$ be the finite set of all three-element connected components occurring in a prefix label $\lambda_B(b)$ with $b\in\widetilde{\mathcal B}_B$.  Put $C=\max\{1,|\mathscr T_B|\}$, and take $M\ge1$ containing all their support points.  Every solution obtained above has at most $C$ three-element components, all contained in $[1,M]$.  If their number is $t$, then $|S|=2\nu(S)+t=2k+t$, which proves the corollary.
+\end{proof}

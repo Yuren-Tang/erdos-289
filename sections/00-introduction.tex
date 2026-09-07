@@ -1,0 +1,83 @@
+\section{Introduction}
+\label{sec:introduction}
+
+We use $\N=\Z_{\ge0}$ and $\N_{>0}=\{1,2,\ldots\}$.  Let $\mathcal C$ be the family of finite subsets $S\subset\N_{>0}$ whose connected components in the path graph have cardinality $2$ or $3$.  Write
+\[
+\nu(S)=|\pi_0(S)|,
+\qquad
+W(S)=\sum_{n\in S}\frac1n.
+\]
+
+\begin{theorem}\label{thm:main}
+There is $k_0\in\N_{>0}$ such that for every $k\ge k_0$ there exists $S\in\mathcal C$ with
+\[
+\nu(S)=k,
+\qquad
+W(S)=1.
+\]
+Equivalently, every sufficiently large $k$ is realized by exactly $k$ pairwise disjoint, nonadjacent integer intervals, each of cardinality $2$ or $3$, whose total reciprocal sum is $1$.
+\end{theorem}
+
+This gives an affirmative answer to the strengthened formulation listed as Erd\H{o}s Problem 289 \cite{ErdosProblem289}, with the additional restriction that each interval has cardinality $2$ or $3$.  Erd\H{o}s and Graham posed the underlying interval-reciprocal problem in \cite[p.~34]{ErdosGraham1980}; their printed formulation does not explicitly impose distinctness, disjointness, or nonadjacency.  We use the strengthened formulation recorded in the current problem list.  A closely related Monthly problem of Hahn \cite[p.~47]{ElementaryProblems1978} asked for integral reciprocal sums of disjoint intervals.  In the published solution to E2689, Montgomery gave the separated five-interval representation of $2$ \cite[p.~224]{E2689Solution1979}.  Erd\H{o}s and Graham reproduce the representation and record Hickerson's independent solution \cite[p.~34]{ErdosGraham1980}.
+
+The surrounding unit-fraction literature studies different forms of localization and largeness.  Martin constructed dense Egyptian-fraction representations \cite{Martin2000}, Croot studied representations with denominators in short intervals \cite{Croot2001}, and Bloom proved the positive-upper-density conjecture of Erd\H{o}s and Graham \cite{Bloom2025}.  These results do not impose the separated-block component constraint considered here.
+
+The construction gives a further restriction on the three-element intervals.
+
+\begin{corollary}\label{cor:bounded-ternary}
+There are integers $M,C,k_0\ge1$ such that, for every $k\ge k_0$, the set $S$ in Theorem~\ref{thm:main} can be chosen with every three-element component contained in $[1,M]$ and
+\[
+0\le |S|-2k\le C.
+\]
+\end{corollary}
+
+Thus three-element intervals are needed only in a fixed finite part of the construction.  The corollary is proved at the end of Section~\ref{sec:terminalization}.
+
+\subsection*{The structural argument}
+
+The proof separates observations from their witnesses.  The observation of a configuration is
+\[
+\Omega(S)=(\overline W(S),\nu(S))\in (\Q/\Z)\times\N,
+\qquad \overline W(S)=[W(S)].
+\]
+It is additive under compatible union.  Two difficulties remain invisible at this level: local residue choices may require different component counts, and separately valid choices may use overlapping or adjacent intervals.
+
+We retain the interval configurations as labels on finite correspondences.  A covering correspondence has a surjective target map from its witness object.  Local residue--count responses lift to covering correspondences by an affine-fibre pullback.  Their finite composite is another pullback, restricted to the domain of joint compatibility.  The compatible covering theorem, Theorem~\ref{thm:compatible-covering}, says that this composite is covering once its path-label map factors through that domain.  These universal properties organize the proof; the arithmetic below verifies their hypotheses.
+
+Here is the final base change, with actual sets and maps.  At a finite cutoff $X$, write $\mathscr E_X$ for the witness object of a covering correspondence with target $T_X\subseteq(\Q/\Z)\times\N$, and let $I_X^+=I_X\cap\N_{>0}$.  Once the affine centre has vanished, $(0,k)\in T_X$ for every $k\in I_X^+$.  The left square in
+\begin{equation}\label{eq:master-proof-flow}
+\begin{tikzcd}
+\mathscr E_X^0 \arrow[r] \arrow[d,"{\pi_X}"']
+  & \mathscr E_X \arrow[r,"{\ell_X}"] \arrow[d,"{t_X}"]
+  & \mathcal C \arrow[d,"{\Omega}"]\\
+I_X^+ \arrow[r,"{k\mapsto(0,k)}"']
+  & T_X \arrow[r]
+  & (\Q/\Z)\times\N
+\end{tikzcd}
+\end{equation}
+is a pullback, and the right square is the conservation law.  Pullback stability makes $\pi_X$ surjective.  A mass bound $W(\ell_X(e))<2$ then makes every label over the lower left corner an exact solution: its reciprocal value is a positive integer below $2$.
+
+For
+\begin{equation}\label{eq:solution-object}
+\mathscr S=\{(k,S):k\in\N_{>0},\ S\in\mathcal C,\ \nu(S)=k,\ W(S)=1\},
+\qquad \pi_{\mathrm{sol}}(k,S)=k,
+\end{equation}
+this gives $I_X^+\subseteq\operatorname{im}(\pi_{\mathrm{sol}})$.  The remaining task is to construct these covers with a uniform mass bound and to show that the intervals $I_X^+$ eventually cover a final ray.
+
+\subsection*{Arithmetic and compatibility inputs}
+
+The residue filtration is
+\[
+E_X=H_{\operatorname{lcm}(1,\ldots,\lfloor X\rfloor)}
+\subseteq\Q/\Z,
+\qquad H_n=\{x:nx=0\}.
+\]
+Its nontrivial steps occur at prime powers $Q=p^e$, and each consecutive quotient has order $p$.  This reduces residue transfer to a succession of simple cyclic quotients, without choosing a simultaneous system of coordinates for the whole torsion group.
+
+A finite \emph{prefix} covers an affine $E_B$-fibre with bounded spread in component count.  Reciprocal-neutral two-versus-three component switches widen that spread to a prescribed interval of width $o(B/\log B)$, at arbitrarily small additional mass.  A sparse-interaction estimate ensures that this prefix leaves a fixed positive proportion of every later interval family available, uniformly in the placement of the neutral switches.
+
+At each later prime-power step, signed inverses produce $\gg Q/\log Q$ binary intervals with controlled quotient values, bounded incompatibility degree and summable role mass.  The Dias da Silva--Hamidoune restricted-sum theorem gives a residue--count rectangle when the quotient image is large; otherwise a heavy fibre gives the required response.  These statements hold uniformly after every sufficiently dense restriction of a row.  Prime steps create width $\gg q/\log q$, whereas the cumulative width loss from composite prime powers up to $Q$ is $o(Q/\log Q)$.  A first-failure argument therefore gives overlapping count intervals with unbounded upper endpoints.
+
+Only after a finite cutoff is fixed do we apply Haxell's independent-transversal theorem.  It provides one independent family retaining a fixed positive proportion of every active row.  Uniformity under dense restriction preserves the local responses, while independence supplies the compatibility factorization required by Theorem~\ref{thm:compatible-covering}.  Finally, the cofinality $\bigcup_XE_X=\Q/\Z$ kills the fixed affine centre, and \eqref{eq:master-proof-flow} completes the proof.
+
+Section~\ref{sec:states-filtration} develops the categorical transfer calculus.  Section~\ref{sec:auxiliary-inputs} records the four auxiliary mechanisms used to construct its inputs.  Sections~\ref{sec:signed-inverse}--\ref{sec:local-profile} establish the arithmetic families, the prefix and the local responses.  Sections~\ref{sec:scalar-finality}--\ref{sec:terminalization} prove count coverage, impose finite compatibility and take the final base change.  The appendices give the prime-supply estimate, a polynomial proof of the restricted-sum theorem and the exact finite initialization.
